@@ -39,14 +39,14 @@ The retrospective must be completed before the next sprint backlog is determined
 
 ## Sprint 1 (10/25 - 11/7)
 ### Sprint 1 Planning Meeting
-- **When**: TODO
-- **Where**: TODO
+- **When**: 10/25 at 2:45 pm (After Lab)
+- **Where**: Zachry
 - **Attendees**:
-  1. TODO
-  2. TODO
-  3. TODO
-  4. TODO
-  5. TODO
+  1. Krish Chhabra
+  2. Thomas Holt
+  3. Josh Scott
+  4. Donato Curvino
+  5. Eliseo Garza
 ### Sprint 1 Daily Scrum Meetings
 1. **Daily Scrum Meeting 1**
     - **When**: TODO
