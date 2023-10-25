@@ -49,59 +49,59 @@ The retrospective must be completed before the next sprint backlog is determined
   5. TODO
 ### Sprint 1 Daily Scrum Meetings
 1. **Daily Scrum Meeting 1**
-  - **When**: TODO
-  - **Where**: TODO
-  - **Attendees**:
-    1. TODO
-    2. TODO
-    3. TODO
-    4. TODO
-    5. TODO
+    - **When**: TODO
+    - **Where**: TODO
+    - **Attendees**:
+      1. TODO
+      2. TODO
+      3. TODO
+      4. TODO
+      5. TODO
 2. **Daily Scrum Meeting 2**
-  - **When**: TODO
-  - **Where**: TODO
-  - **Attendees**:
-    1. TODO
-    2. TODO
-    3. TODO
-    4. TODO
-    5. TODO
+    - **When**: TODO
+    - **Where**: TODO
+    - **Attendees**:
+      1. TODO
+      2. TODO
+      3. TODO
+      4. TODO
+      5. TODO
 3. **Daily Scrum Meeting 3**
-  - **When**: TODO
-  - **Where**: TODO
-  - **Attendees**:
-    1. TODO
-    2. TODO
-    3. TODO
-    4. TODO
-    5. TODO
+    - **When**: TODO
+    - **Where**: TODO
+    - **Attendees**:
+      1. TODO
+      2. TODO
+      3. TODO
+      4. TODO
+      5. TODO
 4. **Daily Scrum Meeting 4**
-  - **When**: TODO
-  - **Where**: TODO
-  - **Attendees**:
-    1. TODO
-    2. TODO
-    3. TODO
-    4. TODO
-    5. TODO
+    - **When**: TODO
+    - **Where**: TODO
+    - **Attendees**:
+      1. TODO
+      2. TODO
+      3. TODO
+      4. TODO
+      5. TODO
 5. **Daily Scrum Meeting 5**
-  - **When**: TODO
-  - **Where**: TODO
-  - **Attendees**:
-    1. TODO
-    2. TODO
-    3. TODO
-    4. TODO
-    5. TODO
+    - **When**: TODO
+    - **Where**: TODO
+    - **Attendees**:
+      1. TODO
+      2. TODO
+      3. TODO
+      4. TODO
+      5. TODO
 6. **Daily Scrum Meeting 6**
-  - **When**: TODO
-  - **Where**: TODO
-  - **Attendees**:
-    1. TODO
-    2. TODO
-    3. TODO
-    4. TODO
-    5. TODO
+    - **When**: TODO
+    - **Where**: TODO
+    - **Attendees**:
+      1. TODO
+      2. TODO
+      3. TODO
+      4. TODO
+      5. TODO
 ### Sprint 1 Retrospective Meeting
 - **When**: TODO
 - **Where**: TODO
@@ -124,59 +124,59 @@ The retrospective must be completed before the next sprint backlog is determined
   5. TODO
 ### Sprint 2 Daily Scrum Meetings
 1. **Daily Scrum Meeting 1**
-  - **When**: TODO
-  - **Where**: TODO
-  - **Attendees**:
-    1. TODO
-    2. TODO
-    3. TODO
-    4. TODO
-    5. TODO
+    - **When**: TODO
+    - **Where**: TODO
+    - **Attendees**:
+      1. TODO
+      2. TODO
+      3. TODO
+      4. TODO
+      5. TODO
 2. **Daily Scrum Meeting 2**
-  - **When**: TODO
-  - **Where**: TODO
-  - **Attendees**:
-    1. TODO
-    2. TODO
-    3. TODO
-    4. TODO
-    5. TODO
+    - **When**: TODO
+    - **Where**: TODO
+    - **Attendees**:
+      1. TODO
+      2. TODO
+      3. TODO
+      4. TODO
+      5. TODO
 3. **Daily Scrum Meeting 3**
-  - **When**: TODO
-  - **Where**: TODO
-  - **Attendees**:
-    1. TODO
-    2. TODO
-    3. TODO
-    4. TODO
-    5. TODO
+    - **When**: TODO
+    - **Where**: TODO
+    - **Attendees**:
+      1. TODO
+      2. TODO
+      3. TODO
+      4. TODO
+      5. TODO
 4. **Daily Scrum Meeting 4**
-  - **When**: TODO
-  - **Where**: TODO
-  - **Attendees**:
-    1. TODO
-    2. TODO
-    3. TODO
-    4. TODO
-    5. TODO
+    - **When**: TODO
+    - **Where**: TODO
+    - **Attendees**:
+      1. TODO
+      2. TODO
+      3. TODO
+      4. TODO
+      5. TODO
 5. **Daily Scrum Meeting 5**
-  - **When**: TODO
-  - **Where**: TODO
-  - **Attendees**:
-    1. TODO
-    2. TODO
-    3. TODO
-    4. TODO
-    5. TODO
+    - **When**: TODO
+    - **Where**: TODO
+    - **Attendees**:
+      1. TODO
+      2. TODO
+      3. TODO
+      4. TODO
+      5. TODO
 6. **Daily Scrum Meeting 6**
-  - **When**: TODO
-  - **Where**: TODO
-  - **Attendees**:
-    1. TODO
-    2. TODO
-    3. TODO
-    4. TODO
-    5. TODO
+    - **When**: TODO
+    - **Where**: TODO
+    - **Attendees**:
+      1. TODO
+      2. TODO
+      3. TODO
+      4. TODO
+      5. TODO
 ### Sprint 2 Retrospective Meeting
 - **When**: TODO
 - **Where**: TODO
@@ -199,59 +199,59 @@ The retrospective must be completed before the next sprint backlog is determined
   5. TODO
 ### Sprint 3 Daily Scrum Meetings
 1. **Daily Scrum Meeting 1**
-  - **When**: TODO
-  - **Where**: TODO
-  - **Attendees**:
-    1. TODO
-    2. TODO
-    3. TODO
-    4. TODO
-    5. TODO
+    - **When**: TODO
+    - **Where**: TODO
+    - **Attendees**:
+      1. TODO
+      2. TODO
+      3. TODO
+      4. TODO
+      5. TODO
 2. **Daily Scrum Meeting 2**
-  - **When**: TODO
-  - **Where**: TODO
-  - **Attendees**:
-    1. TODO
-    2. TODO
-    3. TODO
-    4. TODO
-    5. TODO
+    - **When**: TODO
+    - **Where**: TODO
+    - **Attendees**:
+      1. TODO
+      2. TODO
+      3. TODO
+      4. TODO
+      5. TODO
 3. **Daily Scrum Meeting 3**
-  - **When**: TODO
-  - **Where**: TODO
-  - **Attendees**:
-    1. TODO
-    2. TODO
-    3. TODO
-    4. TODO
-    5. TODO
+    - **When**: TODO
+    - **Where**: TODO
+    - **Attendees**:
+      1. TODO
+      2. TODO
+      3. TODO
+      4. TODO
+      5. TODO
 4. **Daily Scrum Meeting 4**
-  - **When**: TODO
-  - **Where**: TODO
-  - **Attendees**:
-    1. TODO
-    2. TODO
-    3. TODO
-    4. TODO
-    5. TODO
+    - **When**: TODO
+    - **Where**: TODO
+    - **Attendees**:
+      1. TODO
+      2. TODO
+      3. TODO
+      4. TODO
+      5. TODO
 5. **Daily Scrum Meeting 5**
-  - **When**: TODO
-  - **Where**: TODO
-  - **Attendees**:
-    1. TODO
-    2. TODO
-    3. TODO
-    4. TODO
-    5. TODO
+    - **When**: TODO
+    - **Where**: TODO
+    - **Attendees**:
+      1. TODO
+      2. TODO
+      3. TODO
+      4. TODO
+      5. TODO
 6. **Daily Scrum Meeting 6**
-  - **When**: TODO
-  - **Where**: TODO
-  - **Attendees**:
-    1. TODO
-    2. TODO
-    3. TODO
-    4. TODO
-    5. TODO
+    - **When**: TODO
+    - **Where**: TODO
+    - **Attendees**:
+      1. TODO
+      2. TODO
+      3. TODO
+      4. TODO
+      5. TODO
 ### Sprint 3 Retrospective Meeting
 - **When**: TODO
 - **Where**: TODO
