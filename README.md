@@ -49,8 +49,8 @@ The retrospective must be completed before the next sprint backlog is determined
   5. Eliseo Garza
 ### Sprint 1 Daily Scrum Meetings
 1. **Daily Scrum Meeting 1**
-    - **When**: TODO
-    - **Where**: TODO
+    - **When**: 10/27 at 10:05 am (After Class)
+    - **Where**: Zachry
     - **Attendees**:
       1. TODO
       2. TODO
@@ -58,8 +58,8 @@ The retrospective must be completed before the next sprint backlog is determined
       4. TODO
       5. TODO
 2. **Daily Scrum Meeting 2**
-    - **When**: TODO
-    - **Where**: TODO
+    - **When**: 10/30 at 2:45 pm (After Lab)
+    - **Where**: Zachry
     - **Attendees**:
       1. TODO
       2. TODO
@@ -67,8 +67,8 @@ The retrospective must be completed before the next sprint backlog is determined
       4. TODO
       5. TODO
 3. **Daily Scrum Meeting 3**
-    - **When**: TODO
-    - **Where**: TODO
+    - **When**: 11/1 at 2:45 pm (After Lab)
+    - **Where**: Zachry
     - **Attendees**:
       1. TODO
       2. TODO
@@ -76,8 +76,8 @@ The retrospective must be completed before the next sprint backlog is determined
       4. TODO
       5. TODO
 4. **Daily Scrum Meeting 4**
-    - **When**: TODO
-    - **Where**: TODO
+    - **When**: 11/2 at TBD
+    - **Where**: Discord
     - **Attendees**:
       1. TODO
       2. TODO
@@ -85,8 +85,8 @@ The retrospective must be completed before the next sprint backlog is determined
       4. TODO
       5. TODO
 5. **Daily Scrum Meeting 5**
-    - **When**: TODO
-    - **Where**: TODO
+    - **When**: 11/3 at 10:05 am (After Class)
+    - **Where**: Zachry
     - **Attendees**:
       1. TODO
       2. TODO
@@ -94,8 +94,8 @@ The retrospective must be completed before the next sprint backlog is determined
       4. TODO
       5. TODO
 6. **Daily Scrum Meeting 6**
-    - **When**: TODO
-    - **Where**: TODO
+    - **When**: 11/6 at 2:45 pm (After Lab)
+    - **Where**: Zachry
     - **Attendees**:
       1. TODO
       2. TODO
@@ -103,8 +103,8 @@ The retrospective must be completed before the next sprint backlog is determined
       4. TODO
       5. TODO
 ### Sprint 1 Retrospective Meeting
-- **When**: TODO
-- **Where**: TODO
+- **When**: 11/7 at 8:00 pm
+- **Where**: Discord
 - **Attendees**:
   1. TODO
   2. TODO
@@ -114,8 +114,8 @@ The retrospective must be completed before the next sprint backlog is determined
 
 ## Sprint 2 (11/8 - 11/21)
 ### Sprint 2 Planning Meeting
-- **When**: TODO
-- **Where**: TODO
+- **When**: 11/8 at 2:45 pm (After Lab)
+- **Where**: Zachry
 - **Attendees**:
   1. TODO
   2. TODO
