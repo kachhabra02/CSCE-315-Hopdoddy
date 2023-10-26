@@ -53,9 +53,31 @@ const addInventoryItem = (req, res) => {
     });
 };
 
+const removeInventoryItem = (req, res) => {
+    const {inventory_name} = req.body;
+
+     //check if inventory name exists
+     pool.query(queries.checkInventoryExists, [inventory_name], (error, results) => {
+        const noInventoryItem = !results.rows.length;
+        if(noInventoryItem){
+            res.send("Inventory Item already Exists");
+        }
+
+        //removeInventoryItem
+
+        pool.query(queries.removeInventoryItemQuery,[inventory_name], (error, results) => {
+            if(error){
+                throw error;
+            }
+            res.status(200).send("Inventory Item removed successfully!");
+        } );
+    });
+}
+
 module.exports = {
     getCategories,
     getSubCategories,
     getMenuItems,
     addInventoryItem,
+    removeInventoryItem,
 };

@@ -14,4 +14,5 @@ router.get('/:Category/:SubCategory', controller.getMenuItems);
 //Manager File from Project2
 router.post("/", controller.addInventoryItem);
 
+router.put("/", controller.removeInventoryItem);
 module.exports = router;
