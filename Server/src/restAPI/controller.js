@@ -1,7 +1,8 @@
 const pool = require('./db');
+const queries = require('./queries');
 
 const getCategories = (req, res) => {
-    pool.query("SELECT DISTINCT Category FROM Menu WHERE Is_Modification=FALSE AND Is_Available ORDER BY Category ASC", (error, results) => {
+    pool.query(queries.getCatQuery, (error, results) => {
         if(error){
             throw error;
         }
@@ -9,6 +10,16 @@ const getCategories = (req, res) => {
     })
 };
 
+const getSubCategories = (req, res) => {
+    const category = req.params.Category;
+    pool.query(queries.getSubCategoriesQuery,[category],(error, results) => {
+        if(error){
+            throw error;
+        }
+        res.status(200).json(results.rows);
+    })
+};
 module.exports = {
     getCategories,
+    getSubCategories,
 };
