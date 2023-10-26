@@ -15,4 +15,6 @@ router.get('/:Category/:SubCategory', controller.getMenuItems);
 router.post("/", controller.addInventoryItem);
 
 router.put("/", controller.removeInventoryItem);
+
+router.put("/manager/", controller.removeMenuItem);
 module.exports = router;

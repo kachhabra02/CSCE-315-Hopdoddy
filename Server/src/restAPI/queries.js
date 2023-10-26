@@ -9,6 +9,9 @@ const checkInventoryExists =  "Select invName FROM Inventory invName WHERE invNa
 const addInventoryItemQuery = "INSERT INTO Inventory (Inventory_Name, Price, Quantity, Unit) VALUES ( $1 , $2 , $3 , $4 )";
 const removeInventoryItemQuery = "UPDATE Inventory Set Is_Available = FALSE WHERE Inventory_Name = $1";
 
+const checkMenuItemExists = "Select menName FROM Menu menName WHERE menName.Item_Name = $1";
+const removeMenuItemQuery = "UPDATE Menu Set Is_Available = FALSE WHERE Item_Name = $1";
+
 
 //Exporting Queries
 module.exports = {
@@ -18,4 +21,6 @@ module.exports = {
     checkInventoryExists,
     addInventoryItemQuery,
     removeInventoryItemQuery,
+    checkMenuItemExists,
+    removeMenuItemQuery,
 };

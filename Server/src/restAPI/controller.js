@@ -60,7 +60,7 @@ const removeInventoryItem = (req, res) => {
      pool.query(queries.checkInventoryExists, [inventory_name], (error, results) => {
         const noInventoryItem = !results.rows.length;
         if(noInventoryItem){
-            res.send("Inventory Item already Exists");
+            res.send("Inventory Item does not Exist!");
         }
 
         //removeInventoryItem
@@ -72,7 +72,28 @@ const removeInventoryItem = (req, res) => {
             res.status(200).send("Inventory Item removed successfully!");
         } );
     });
-}
+};
+
+const removeMenuItem = (req, res) => {
+    const {item_name} = req.body;
+
+     //check if inventory name exists
+     pool.query(queries.checkMenuItemExists, [item_name], (error, results) => {
+        const noMenuItem = !results.rows.length;
+        if(noMenuItem){
+            res.send("Menu Item does not Exist!");
+        }
+
+        //removeInventoryItem
+
+        pool.query(queries.removeMenuItemQuery,[item_name], (error, results) => {
+            if(error){
+                throw error;
+            }
+            res.status(200).send("Menu Item removed successfully!");
+        } );
+    });
+};
 
 module.exports = {
     getCategories,
@@ -80,4 +101,5 @@ module.exports = {
     getMenuItems,
     addInventoryItem,
     removeInventoryItem,
+    removeMenuItem,
 };
