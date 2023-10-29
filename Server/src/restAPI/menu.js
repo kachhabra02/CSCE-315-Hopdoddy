@@ -119,6 +119,7 @@ router.get('/modifications', async (req, res) => {
 
 
 /***** /api/menu/view *****/
+// View entire menu
 router.get('/view', async (req, res) => {
     // TODO: Get necessary info from request
 
