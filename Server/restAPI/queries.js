@@ -150,14 +150,14 @@ const getPopularPairsQuery = "SELECT First_Item_ID, First_Item_Name, Second_Item
                              "COUNT(DISTINCT o1.Order_List_ID) AS Num_Orders FROM Order_List o1 " +
                              "INNER JOIN Order_List o2 ON o1.Transaction_ID = o2.Transaction_ID AND o1.Item_ID < o2.Item_ID " +
                              "WHERE (SELECT Transaction_Time FROM Transactions WHERE Transaction_ID = o1.Transaction_ID) " +
-                             "BETWEEN TIMESTAMP $1 AND TIMESTAMP $2 GROUP BY o1.Item_ID, o2.Item_ID ORDER BY Num_Orders DESC, " +
+                             "BETWEEN $1 AND $2 GROUP BY o1.Item_ID, o2.Item_ID ORDER BY Num_Orders DESC, " +
                              "o1.Item_ID ASC, o2.Item_ID ASC) AS Pairs LEFT JOIN Menu m1 ON First_Item_ID = m1.Item_ID) AS Named_Pairs " +
                              "LEFT JOIN Menu m2 ON Second_Item_ID = m2.Item_ID WHERE Is_Available_1 AND m2.Is_Available LIMIT $3";
 
 // Generate sales report
 const getSalesReportQuery = "SELECT Item_ID, Item_Name, Price, Is_Modification, Num_Sales FROM (Menu LEFT JOIN " +
                             "(SELECT Item_ID AS ID, COUNT(*) AS Num_Sales FROM (SELECT Item_ID FROM Order_List WHERE Transaction_ID IN " +
-                            "(SELECT Transaction_ID FROM Transactions WHERE Transaction_Time BETWEEN TIMESTAMP $1 AND TIMESTAMP $2)) " +
+                            "(SELECT Transaction_ID FROM Transactions WHERE Transaction_Time BETWEEN $1 AND $2)) " +
                             "AS Orders GROUP BY Item_ID) AS Sale_Counts ON Menu.Item_ID = Sale_Counts.ID) AS Menu_Counts " +
                             "WHERE Is_Available ORDER BY Item_ID ASC";
 
@@ -166,7 +166,7 @@ const getExcessReportQuery = "SELECT Inventory_ID, Inventory_Name, Quantity AS C
                              "(0.1 * (Quantity + COALESCE(Total_Usage, 0))) AS Target_Usage FROM (SELECT Inventory_ID AS Ing_ID, " +
                              "SUM(Ingredients_List.Quantity) AS Total_Usage FROM ((SELECT Item_ID FROM Order_List " +
                              "LEFT JOIN Transactions ON Order_List.Transaction_ID = Transactions.Transaction_ID " +
-                             "WHERE Transaction_Time >= TIMESTAMP $1) AS Items INNER JOIN Ingredients_List " +
+                             "WHERE Transaction_Time >= $1) AS Items INNER JOIN Ingredients_List " +
                              "ON Items.Item_ID = Ingredients_List.Item_ID) GROUP BY Inventory_ID) AS Usage " +
                              "RIGHT JOIN Inventory ON Ing_ID = Inventory_ID WHERE Is_Available AND " +
                              "COALESCE(Total_Usage, 0) < 0.1 * (Quantity + COALESCE(Total_Usage, 0)) ORDER BY Inventory_ID ASC";
@@ -185,7 +185,7 @@ const getRestockReportQuery = "SELECT Inventory_ID, Inventory_Name, Quantity AS 
 const getProductUsageQuery = "SELECT Inventory_ID, Inventory_Name, COALESCE(Total_Usage, 0) AS Total_Usage, Unit FROM (SELECT Inventory_ID AS " +
                              "Ing_ID, SUM(Ingredients_List.Quantity) AS Total_Usage FROM ((SELECT Item_ID FROM Order_List " +
                              "LEFT JOIN Transactions ON Order_List.Transaction_ID = Transactions.Transaction_ID WHERE " +
-                             "Transaction_Time BETWEEN TIMESTAMP $1 AND TIMESTAMP $2) AS Items " +
+                             "Transaction_Time BETWEEN $1 AND $2) AS Items " +
                              "INNER JOIN Ingredients_List ON Items.Item_ID = Ingredients_List.Item_ID) GROUP BY Inventory_ID) AS Usage " +
                              "RIGHT JOIN Inventory ON Ing_ID = Inventory_ID WHERE Is_Available ORDER BY Inventory_ID ASC";
 
