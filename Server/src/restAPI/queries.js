@@ -58,7 +58,7 @@ function addMenuItemQueries(numIngredients) {
             query_p2 += ", ";
         }
 
-        query_p2 += `($${(5 * i) + 1}, $${(5 * i) + 2}, $${(5 * i) + 3}, $${(5 * i) + 4}, $${(5 * i) + 5})`;
+        query_p2 += `($${(3 * i) + 1}, $${(3 * i) + 2}, $${(3 * i) + 3})`;
     }
 
     return [query_p1, query_p2];
