@@ -26,8 +26,8 @@ const deleteMenuItemQuery = "UPDATE Menu SET Is_Available = FALSE WHERE Item_ID 
 
 // Update menu item
 function updateMenuItemQuery(hasName, hasPrice, hasMod) {
-    const paramNum = 1;
-    const query = "UPDATE Menu SET ";
+    var paramNum = 1;
+    var query = "UPDATE Menu SET ";
     
     if (hasName) {
         query += `Item_Name = $${paramNum++}, `
@@ -50,10 +50,10 @@ function updateMenuItemQuery(hasName, hasPrice, hasMod) {
 
 // Add menu item
 function addMenuItemQueries(numIngredients) {
-    const query_p1 = "INSERT INTO Menu (Item_Name, Category, Sub_Category, Price, Is_Modification) " +
+    var query_p1 = "INSERT INTO Menu (Item_Name, Category, Sub_Category, Price, Is_Modification) " +
                      "VALUES ($1, $2, $3, $4, $5) RETURNING Item_ID";
     
-    const query_p2 = "INSERT INTO Ingredients_List (Item_ID, Inventory_ID, Quantity) VALUES ";
+    var query_p2 = "INSERT INTO Ingredients_List (Item_ID, Inventory_ID, Quantity) VALUES ";
     for (let i = 0; i < numIngredients; i++) {
         if (i != 0) {
             query_p2 += ", ";
@@ -77,8 +77,8 @@ const deleteInventoryItemQuery = "UPDATE Inventory SET Is_Available = FALSE WHER
 // Update inventory item
 // TODO
 function updateInventoryItemQuery(hasName, hasPrice, hasQuant, hasUnit) {
-    const paramNum = 1;
-    const query = "UPDATE Inventory SET ";
+    var paramNum = 1;
+    var query = "UPDATE Inventory SET ";
     
     if (hasName) {
         query += `Inventory_Name = $${paramNum++}`
@@ -119,9 +119,9 @@ const addInventoryItemQuery = "INSERT INTO Inventory (Inventory_Name, Price, Qua
 /****** TRANSACTIONS ******/
 // Place a transaction
 function placeTransactionQueries(numItemsOrdered) {
-    const query_p1 = "INSERT INTO Transactions (Employee_ID) VALUES ($1) RETURNING Transaction_ID";
+    var query_p1 = "INSERT INTO Transactions (Employee_ID) VALUES ($1) RETURNING Transaction_ID";
     
-    const query_p2 = "INSERT INTO OrderList (Transaction_ID, Item_ID) VALUES ";
+    var query_p2 = "INSERT INTO OrderList (Transaction_ID, Item_ID) VALUES ";
     for (let i = 0; i < numItemsOrdered; i++) {
         if (i != 0) {
             query_p2 += ", ";
@@ -138,7 +138,7 @@ const getOrderHistoryQuery = "SELECT Transactions.Transaction_ID AS Trans_ID, Tr
                              "ARRAY_AGG(Menu.Item_ID) AS Item_IDs, ARRAY_AGG(Item_Name) AS Item_Names FROM Order_List " +
                              "LEFT JOIN Transactions ON Order_List.Transaction_ID = Transactions.Transaction_ID " +
                              "LEFT JOIN Menu ON Order_List.item_id = Menu.Item_ID " +
-                             "WHERE Transaction_Time BETWEEN TIMESTAMP $1 AND TIMESTAMP $2 " +
+                             "WHERE Transaction_Time BETWEEN $1 AND $2 " +
                              "GROUP BY Transactions.Transaction_ID ORDER BY Transaction_Time DESC LIMIT $3";
 
 
