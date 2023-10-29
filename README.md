@@ -29,6 +29,9 @@ The 2020 version of the Scrum Guide dropped the classic “three questions” of
   1. select something from the Sprint Backlog that hasn't yet been started.
   2. ask the same questions about what needs to be done and who can do it.
 
+### User Study Report
+Requirements Locked
+
 ### Sprint Retrospective Meeting
 At the completion of each sprint, the team will review what happened during the sprint to determine what worked, what didn’t work, and how they can improve the process during the next sprint.  In the retrospective meeting, the team should discuss:
 1. what went right and wrong during the previous sprint
@@ -37,7 +40,7 @@ At the completion of each sprint, the team will review what happened during the 
 The retrospective must be completed before the next sprint backlog is determined.
 
 
-## Sprint 1 (10/25 - 11/7)
+## Sprint 1 (10/25 - 10/31)
 ### Sprint 1 Planning Meeting
 - **When**: 10/25 at 2:45 pm (After Lab)
 - **Where**: Zachry
@@ -52,11 +55,11 @@ The retrospective must be completed before the next sprint backlog is determined
     - **When**: 10/27 at 10:05 am (After Class)
     - **Where**: Zachry
     - **Attendees**:
-      1. TODO
-      2. TODO
-      3. TODO
-      4. TODO
-      5. TODO
+      1. Krish Chhabra
+      2. Thomas Holt
+      3. Josh Scott
+      4. Donato Curvino
+      5. Eliseo Garza
 2. **Daily Scrum Meeting 2**
     - **When**: 10/30 at 2:45 pm (After Lab)
     - **Where**: Zachry
@@ -67,7 +70,7 @@ The retrospective must be completed before the next sprint backlog is determined
       4. TODO
       5. TODO
 3. **Daily Scrum Meeting 3**
-    - **When**: 11/1 at 2:45 pm (After Lab)
+    - **When**: 10/31 at TBD
     - **Where**: Zachry
     - **Attendees**:
       1. TODO
@@ -75,36 +78,18 @@ The retrospective must be completed before the next sprint backlog is determined
       3. TODO
       4. TODO
       5. TODO
-4. **Daily Scrum Meeting 4**
-    - **When**: 11/2 at TBD
-    - **Where**: Discord
-    - **Attendees**:
-      1. TODO
-      2. TODO
-      3. TODO
-      4. TODO
-      5. TODO
-5. **Daily Scrum Meeting 5**
-    - **When**: 11/3 at 10:05 am (After Class)
-    - **Where**: Zachry
-    - **Attendees**:
-      1. TODO
-      2. TODO
-      3. TODO
-      4. TODO
-      5. TODO
-6. **Daily Scrum Meeting 6**
-    - **When**: 11/6 at 2:45 pm (After Lab)
-    - **Where**: Zachry
-    - **Attendees**:
-      1. TODO
-      2. TODO
-      3. TODO
-      4. TODO
-      5. TODO
+### Sprint 1 User Study
+- **When**: TODO
+- **Where**: TODO
+- **Attendees**:
+  1. TODO
+  2. TODO
+  3. TODO
+  4. TODO
+  5. TODO
 ### Sprint 1 Retrospective Meeting
-- **When**: 11/7 at 8:00 pm
-- **Where**: Discord
+- **When**: TODO
+- **Where**: TODO
 - **Attendees**:
   1. TODO
   2. TODO
@@ -112,10 +97,10 @@ The retrospective must be completed before the next sprint backlog is determined
   4. TODO
   5. TODO
 
-## Sprint 2 (11/8 - 11/21)
+## Sprint 2 (TBD - 11/14)
 ### Sprint 2 Planning Meeting
-- **When**: 11/8 at 2:45 pm (After Lab)
-- **Where**: Zachry
+- **When**: TODO
+- **Where**: TODO
 - **Attendees**:
   1. TODO
   2. TODO
@@ -150,33 +135,15 @@ The retrospective must be completed before the next sprint backlog is determined
       3. TODO
       4. TODO
       5. TODO
-4. **Daily Scrum Meeting 4**
-    - **When**: TODO
-    - **Where**: TODO
-    - **Attendees**:
-      1. TODO
-      2. TODO
-      3. TODO
-      4. TODO
-      5. TODO
-5. **Daily Scrum Meeting 5**
-    - **When**: TODO
-    - **Where**: TODO
-    - **Attendees**:
-      1. TODO
-      2. TODO
-      3. TODO
-      4. TODO
-      5. TODO
-6. **Daily Scrum Meeting 6**
-    - **When**: TODO
-    - **Where**: TODO
-    - **Attendees**:
-      1. TODO
-      2. TODO
-      3. TODO
-      4. TODO
-      5. TODO
+### Sprint 2 User Study
+- **When**: TODO
+- **Where**: TODO
+- **Attendees**:
+  1. TODO
+  2. TODO
+  3. TODO
+  4. TODO
+  5. TODO
 ### Sprint 2 Retrospective Meeting
 - **When**: TODO
 - **Where**: TODO
@@ -187,7 +154,7 @@ The retrospective must be completed before the next sprint backlog is determined
   4. TODO
   5. TODO
 
-## Sprint 3 (11/22 - 12/5)
+## Sprint 3 (TBD - 12/5)
 ### Sprint 3 Planning Meeting
 - **When**: TODO
 - **Where**: TODO
@@ -225,33 +192,15 @@ The retrospective must be completed before the next sprint backlog is determined
       3. TODO
       4. TODO
       5. TODO
-4. **Daily Scrum Meeting 4**
-    - **When**: TODO
-    - **Where**: TODO
-    - **Attendees**:
-      1. TODO
-      2. TODO
-      3. TODO
-      4. TODO
-      5. TODO
-5. **Daily Scrum Meeting 5**
-    - **When**: TODO
-    - **Where**: TODO
-    - **Attendees**:
-      1. TODO
-      2. TODO
-      3. TODO
-      4. TODO
-      5. TODO
-6. **Daily Scrum Meeting 6**
-    - **When**: TODO
-    - **Where**: TODO
-    - **Attendees**:
-      1. TODO
-      2. TODO
-      3. TODO
-      4. TODO
-      5. TODO
+### Sprint 3 User Study
+- **When**: TODO
+- **Where**: TODO
+- **Attendees**:
+  1. TODO
+  2. TODO
+  3. TODO
+  4. TODO
+  5. TODO
 ### Sprint 3 Retrospective Meeting
 - **When**: TODO
 - **Where**: TODO
