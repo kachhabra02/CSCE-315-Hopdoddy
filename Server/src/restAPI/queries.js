@@ -55,7 +55,7 @@ function addMenuItemQueries(numIngredients) {
     
     const query_p2 = "INSERT INTO Ingredients_List (Item_ID, Inventory_ID, Quantity) VALUES ";
     for (let i = 0; i < numIngredients; i++) {
-        if (i != numIngredients) {
+        if (i != 0) {
             query_p2 += ", ";
         }
 
@@ -118,10 +118,28 @@ const addInventoryItemQuery = "INSERT INTO Inventory (Inventory_Name, Price, Qua
 
 /****** TRANSACTIONS ******/
 // Place a transaction
-// TODO
+function placeTransactionQueries(numItemsOrdered) {
+    const query_p1 = "INSERT INTO Transactions (Employee_ID) VALUES ($1) RETURNING Transaction_ID";
+    
+    const query_p2 = "INSERT INTO OrderList (Transaction_ID, Item_ID) VALUES ";
+    for (let i = 0; i < numItemsOrdered; i++) {
+        if (i != 0) {
+            query_p2 += ", ";
+        }
+
+        query_p2 += `($${(2 * i) + 1}, $${(2 * i) + 2})`;
+    }
+
+    return [query_p1, query_p2];
+}
 
 // Get order history
-// TODO
+const getOrderHistoryQuery = "SELECT Transactions.Transaction_ID AS Trans_ID, Transaction_Time, Employee_ID, Total_Price, " +
+                             "ARRAY_AGG(Menu.Item_ID) AS Item_IDs, ARRAY_AGG(Item_Name) AS Item_Names FROM Order_List " +
+                             "LEFT JOIN Transactions ON Order_List.Transaction_ID = Transactions.Transaction_ID " +
+                             "LEFT JOIN Menu ON Order_List.item_id = Menu.Item_ID " +
+                             "WHERE Transaction_Time BETWEEN TIMESTAMP $1 AND TIMESTAMP $2 " +
+                             "GROUP BY Transactions.Transaction_ID ORDER BY Transaction_Time DESC LIMIT $3";
 
 
 /****** REPORTS ******/
@@ -155,12 +173,13 @@ module.exports = {
     deleteInventoryItemQuery,
     updateInventoryItemQuery,
     addInventoryItemQuery,
+    placeTransactionQueries,
+    getOrderHistoryQuery,
     // getPopularPairsQuery,
-    // getOrderHistoryQuery,
     // getSalesReportQuery,
-    // getRestockItemsQuery,
     // getExcessReportQuery,
-    // placeTransactionQuery,
+    // getRestockItemsQuery,
+    // getProductUsageQuery
 };
 
 
