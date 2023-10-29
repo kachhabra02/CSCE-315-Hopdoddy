@@ -5,6 +5,9 @@ const router = express.Router()
 // Retrieve connection pool
 const pool = require('./db');
 
+// Import SQL queries
+const queries = require('./queries');
+
 
 /***** /api/menu *****/
 // Add a menu item
