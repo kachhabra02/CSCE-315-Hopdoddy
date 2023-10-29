@@ -144,22 +144,53 @@ const getOrderHistoryQuery = "SELECT Transactions.Transaction_ID AS Trans_ID, Tr
 
 /****** REPORTS ******/
 // Generate "What Sells Together?" report
-// TODO
+const getPopularPairsQuery = "SELECT First_Item_ID, First_Item_Name, Second_Item_ID, m2.Item_Name AS Second_Item_Name, Num_Orders FROM " +
+                             "(SELECT First_Item_ID, m1.Item_Name AS First_Item_Name, m1.Is_Available AS Is_Available_1, Second_Item_ID, " +
+                             "Num_Orders FROM (SELECT o1.Item_ID AS First_Item_ID, o2.Item_ID AS Second_Item_ID, " +
+                             "COUNT(DISTINCT o1.Order_List_ID) AS Num_Orders FROM Order_List o1 " +
+                             "INNER JOIN Order_List o2 ON o1.Transaction_ID = o2.Transaction_ID AND o1.Item_ID < o2.Item_ID " +
+                             "WHERE (SELECT Transaction_Time FROM Transactions WHERE Transaction_ID = o1.Transaction_ID) " +
+                             "BETWEEN TIMESTAMP $1 AND TIMESTAMP $2 GROUP BY o1.Item_ID, o2.Item_ID ORDER BY Num_Orders DESC, " +
+                             "o1.Item_ID ASC, o2.Item_ID ASC) AS Pairs LEFT JOIN Menu m1 ON First_Item_ID = m1.Item_ID) AS Named_Pairs " +
+                             "LEFT JOIN Menu m2 ON Second_Item_ID = m2.Item_ID WHERE Is_Available_1 AND m2.Is_Available LIMIT $3";
 
 // Generate sales report
-// TODO
+const getSalesReportQuery = "SELECT Item_ID, Item_Name, Price, Is_Modification, Num_Sales FROM (Menu LEFT JOIN " +
+                            "(SELECT Item_ID AS ID, COUNT(*) AS Num_Sales FROM (SELECT Item_ID FROM Order_List WHERE Transaction_ID IN " +
+                            "(SELECT Transaction_ID FROM Transactions WHERE Transaction_Time BETWEEN TIMESTAMP $1 AND TIMESTAMP $2)) " +
+                            "AS Orders GROUP BY Item_ID) AS Sale_Counts ON Menu.Item_ID = Sale_Counts.ID) AS Menu_Counts " +
+                            "WHERE Is_Available ORDER BY Item_ID ASC";
 
 // Generate excess report
-// TODO
+const getExcessReportQuery = "SELECT Inventory_ID, Inventory_Name, Quantity AS Current_Quantity, Unit, COALESCE(Total_Usage, 0) AS Actual_Usage, " +
+                             "(0.1 * (Quantity + COALESCE(Total_Usage, 0))) AS Target_Usage FROM (SELECT Inventory_ID AS Ing_ID, " +
+                             "SUM(Ingredients_List.Quantity) AS Total_Usage FROM ((SELECT Item_ID FROM Order_List " +
+                             "LEFT JOIN Transactions ON Order_List.Transaction_ID = Transactions.Transaction_ID " +
+                             "WHERE Transaction_Time >= TIMESTAMP $1) AS Items INNER JOIN Ingredients_List " +
+                             "ON Items.Item_ID = Ingredients_List.Item_ID) GROUP BY Inventory_ID) AS Usage " +
+                             "RIGHT JOIN Inventory ON Ing_ID = Inventory_ID WHERE Is_Available AND " +
+                             "COALESCE(Total_Usage, 0) < 0.1 * (Quantity + COALESCE(Total_Usage, 0)) ORDER BY Inventory_ID ASC";
 
 // Generate restock report
-// TODO
+const getRestockReportQuery = "SELECT Inventory_ID, Inventory_Name, Quantity AS Current_Quantity, Avg_Weekly_Usage, " +
+                              "(Avg_Weekly_Usage - Quantity) AS Recommended_Reorder FROM (SELECT Ing_ID, AVG(Weekly_Usage) AS Avg_Weekly_Usage " +
+                              "FROM (SELECT Inventory_ID AS Ing_ID, SUM(Ingredients_List.Quantity) AS Weekly_Usage, DATE_TRUNC('WEEK', " +
+                              "Transaction_Time) AS Transaction_Week FROM ((SELECT Item_ID, Transaction_Time FROM Order_List " +
+                              "LEFT JOIN Transactions ON Order_List.Transaction_ID = Transactions.Transaction_ID) AS Items " +
+                              "INNER JOIN Ingredients_List ON Items.Item_ID = Ingredients_List.Item_ID) " +
+                              "GROUP BY Inventory_ID, Transaction_Week) AS Usage GROUP BY Ing_ID ORDER BY Ing_ID ASC) AS Avg_Usage " +
+                              "RIGHT JOIN Inventory ON Ing_ID = Inventory_ID WHERE Quantity < Avg_Weekly_Usage";
 
 // Generate product usage report
-// TODO
+const getProductUsageQuery = "SELECT Inventory_ID, Inventory_Name, COALESCE(Total_Usage, 0) AS Total_Usage, Unit FROM (SELECT Inventory_ID AS " +
+                             "Ing_ID, SUM(Ingredients_List.Quantity) AS Total_Usage FROM ((SELECT Item_ID FROM Order_List " +
+                             "LEFT JOIN Transactions ON Order_List.Transaction_ID = Transactions.Transaction_ID WHERE " +
+                             "Transaction_Time BETWEEN TIMESTAMP $1 AND TIMESTAMP $2) AS Items " +
+                             "INNER JOIN Ingredients_List ON Items.Item_ID = Ingredients_List.Item_ID) GROUP BY Inventory_ID) AS Usage " +
+                             "RIGHT JOIN Inventory ON Ing_ID = Inventory_ID WHERE Is_Available ORDER BY Inventory_ID ASC";
 
 
-// Exporting Queries
+// Export Queries
 module.exports = {
     getCatQuery,
     getSubCategoriesQuery,
@@ -175,32 +206,9 @@ module.exports = {
     addInventoryItemQuery,
     placeTransactionQueries,
     getOrderHistoryQuery,
-    // getPopularPairsQuery,
-    // getSalesReportQuery,
-    // getExcessReportQuery,
-    // getRestockItemsQuery,
-    // getProductUsageQuery
+    getPopularPairsQuery,
+    getSalesReportQuery,
+    getExcessReportQuery,
+    getRestockReportQuery,
+    getProductUsageQuery
 };
-
-
-// Manager Queries
-// const viewInventoryQuery = ; // TODO: ADD ME
-
-
-// const checkInventoryExists =  "SELECT invName FROM Inventory invName WHERE invName.Inventory_Name = $1";
-// const addInventoryItemQuery = "INSERT INTO Inventory (Inventory_Name, Price, Quantity, Unit) VALUES ( $1 , $2 , $3 , $4 )";
-// const updateInventoryItemQuery = ; // TODO: ADD ME
-// const removeInventoryItemQuery = "UPDATE Inventory Set Is_Available = FALSE WHERE Inventory_Name = $1";
-
-
-// Report Queries
-// const getPopularPairsQuery = ; // TODO: ADD ME
-// const getOrderHistoryQuery = ; // TODO: ADD ME
-// const getSalesReportQuery = ; // TODO: ADD ME
-// const getRestockItemsQuery = ; // TODO: ADD ME
-// const getExcessReportQuery = ; // TODO: ADD ME
-
-// Cashier Queries
-// const placeTransactionQuery = ; // TODO: ADD ME
-
-
