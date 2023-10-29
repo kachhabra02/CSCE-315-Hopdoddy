@@ -13,7 +13,7 @@ const inventory = require('./restAPI/inventory');
 const reports = require('./restAPI/reports');
 
 // Add other middleware to be used
-app.use(express.json());
+app.use(express.json()); // parses JSON payloads/body
 
 // Add routes to the app
 app.use("/api/transactions", transactions);
