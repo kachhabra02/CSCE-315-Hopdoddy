@@ -1,3 +1,7 @@
+/****************
+THIS FILE IS NO LONGER BEING USED
+*****************/
+
 const pool = require('./db');
 const queries = require('./queries');
 
