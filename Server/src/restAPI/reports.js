@@ -21,6 +21,7 @@ router.get('/popular-pairs', async (req, res) => {
     client.release();
 
     // TODO: Send response
+    res.send("Generate \"What Sells Together?\" report");
 });
 
 
@@ -36,6 +37,7 @@ router.get('/sales', async (req, res) => {
     client.release();
 
     // TODO: Send response
+    res.send("Generate sales report");
 });
 
 
@@ -51,6 +53,7 @@ router.get('/excess', async (req, res) => {
     client.release();
 
     // TODO: Send response
+    res.send("Generate excess report");
 });
 
 
@@ -66,6 +69,7 @@ router.get('/restock', async (req, res) => {
     client.release();
 
     // TODO: Send response
+    res.send("Generate restock report");
 });
 
 
@@ -81,6 +85,7 @@ router.get('/product-usage', async (req, res) => {
     client.release();
 
     // TODO: Send response
+    res.send("Generate product usage report");
 });
 
 

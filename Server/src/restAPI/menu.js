@@ -10,7 +10,7 @@ const queries = require('./queries');
 
 
 /***** /api/menu *****/
-// Add a menu item
+// Add menu item
 router.post('/', async (req, res) => {
     // TODO: Get necessary info from request
 
@@ -30,6 +30,7 @@ router.post('/', async (req, res) => {
       }
 
       // TODO: Send response
+      res.send("Add a menu item");
 });
 
 
@@ -45,6 +46,7 @@ router.put('/item/:id', async (req, res) => {
     client.release();
 
     // TODO: Send response
+    res.send("Update menu item");
 });
 
 // Delete menu item
@@ -58,6 +60,7 @@ router.delete('/item/:id', async (req, res) => {
     client.release();
 
     // TODO: Send response
+    res.send("Delete menu item");
 });
 
 
@@ -73,6 +76,7 @@ router.get('/categories', async (req, res) => {
     client.release();
 
     // TODO: Send response
+    res.send("Get categories");
 });
 
 
@@ -88,6 +92,7 @@ router.get('/sub-categories', async (req, res) => {
     client.release();
 
     // TODO: Send response
+    res.send("Get subcategories");
 });
 
 
@@ -103,6 +108,7 @@ router.get('/items', async (req, res) => {
     client.release();
 
     // TODO: Send response
+    res.send("Get menu items");
 });
 
 
@@ -118,6 +124,7 @@ router.get('/modifications', async (req, res) => {
     client.release();
 
     // TODO: Send response
+    res.send("Get modifications");
 });
 
 
@@ -133,6 +140,7 @@ router.get('/view', async (req, res) => {
     client.release();
 
     // TODO: Send response
+    res.send("View entire menu");
 });
 
 

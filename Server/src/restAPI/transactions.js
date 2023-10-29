@@ -30,6 +30,7 @@ router.post('/', async (req, res) => {
       }
 
       // TODO: Send response
+      res.send("Place a transaction");
 });
 
 // Get order history
@@ -43,6 +44,7 @@ router.get('/', async (req, res) => {
     client.release();
 
     // TODO: Send response
+    res.send("Get order history");
 });
 
 
