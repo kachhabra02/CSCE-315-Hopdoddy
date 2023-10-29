@@ -44,7 +44,8 @@ function updateMenuItemQuery(hasName, hasPrice, hasMod) {
         query += `, Is_Modification = $${paramNum++}`;
     }
 
-    query += ` WHERE Item_ID = $${paramNum}`
+    query += ` WHERE Item_ID = $${paramNum}`;
+    return query;
 }
 
 // Add menu item
@@ -66,14 +67,77 @@ function addMenuItemQueries(numIngredients) {
 
 
 /****** INVENTORY ******/
+// View inventory
+const viewInventoryQuery = "SELECT Inventory_ID, Inventory_Name, Price, Quantity, Unit FROM Inventory " +
+                           "WHERE Is_Available ORDER BY Inventory_ID ASC";
+
+// Delete inventory item
+const deleteInventoryItemQuery = "UPDATE Inventory SET Is_Available = FALSE WHERE Inventory_ID = $1";
+
+// Update inventory item
 // TODO
+function updateInventoryItemQuery(hasName, hasPrice, hasQuant, hasUnit) {
+    const paramNum = 1;
+    const query = "UPDATE Inventory SET ";
+    
+    if (hasName) {
+        query += `Inventory_Name = $${paramNum++}`
+    }
+
+    if (hasPrice) {
+        if (paramNum > 1) {
+            query += ", ";
+        }
+
+        query += `Price = $${paramNum++}`;
+    }
+
+    if (hasQuant) {
+        if (paramNum > 1) {
+            query += ", ";
+        }
+
+        query += `Quantity = $${paramNum++}`;
+    }
+
+    if (hasUnit) {
+        if (paramNum > 1) {
+            query += ", ";
+        }
+
+        query += `Unit = $${paramNum++}`;
+    }
+
+    query += ` WHERE Inventory_ID = $${paramNum}`;
+    return query;
+}
+
+// Add inventory item
+const addInventoryItemQuery = "INSERT INTO Inventory (Inventory_Name, Price, Quantity, Unit) VALUES ($1 , $2 , $3 , $4)";
 
 
 /****** TRANSACTIONS ******/
+// Place a transaction
+// TODO
+
+// Get order history
 // TODO
 
 
 /****** REPORTS ******/
+// Generate "What Sells Together?" report
+// TODO
+
+// Generate sales report
+// TODO
+
+// Generate excess report
+// TODO
+
+// Generate restock report
+// TODO
+
+// Generate product usage report
 // TODO
 
 
@@ -87,12 +151,10 @@ module.exports = {
     deleteMenuItemQuery,
     updateMenuItemQuery,
     addMenuItemQueries,
-    // viewInventoryQuery,
-    // checkInventoryExists,
-    // addInventoryItemQuery,
-    // updateInventoryItemQuery,
-    // deleteInventoryItemQuery,
-    // checkMenuItemExists,
+    viewInventoryQuery,
+    deleteInventoryItemQuery,
+    updateInventoryItemQuery,
+    addInventoryItemQuery,
     // getPopularPairsQuery,
     // getOrderHistoryQuery,
     // getSalesReportQuery,
