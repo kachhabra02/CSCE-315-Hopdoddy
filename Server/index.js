@@ -4,6 +4,7 @@ const app = express();
 
 // Configure port to listen on
 require('dotenv').config();
+const address = (process.env.ADDRESS || "http://localhost");
 const port = (process.env.PORT || 5000);
 
 // Import routers for functionality
@@ -28,5 +29,5 @@ app.get('/api', (req, res) => {
 
 // Begin listening on determined port
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}/`);
+  console.log(`Server running at ${address}:${port}/`);
 });
