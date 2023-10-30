@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Menu() {
+function MenuBoard() {
   return (
     <>
       <h1>Menu</h1>
@@ -9,4 +9,4 @@ function Menu() {
   )
 }
 
-export default Menu
+export default MenuBoard
