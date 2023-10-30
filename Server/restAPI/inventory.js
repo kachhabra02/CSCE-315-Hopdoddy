@@ -34,16 +34,50 @@ router.get('/', async (req, res) => {
 
 // Add inventory item
 router.post('/', async (req, res) => {
-    // TODO: Get necessary info from request
+    // Get necessary info from request
+    // inventoryItemName, inventoryPrice, inventoryQuantity, inventoryUnit
+
+    if (!req.body.inventoryItemName) {
+        res.status(400).send("Must provide inventory name (inventoryItemName)!");
+        return;
+    }
+
+    if (!req.body.inventoryPrice) {
+        res.status(400).send("Must provide inventory item price (inventoryPrice)!");
+        return;
+    }
+
+    if (!req.body.inventoryQuantity) {
+        res.status(400).send("Must provide a quantity for (inventoryQuantity)!");
+        return;
+    }
+
+    if (!req.body.inventoryUnit) {
+        res.status(400).send("Must provide a unit for (inventoryUnit)!");
+        return;
+    }
 
     const client = await pool.connect();
 
-    // TODO: Send query
+    // Build query
+    const queryObj = {
+        text: queries.addInventoryItemQuery,
+        values: [req.body.inventoryItemName, req.body.inventoryPrice, req.body.inventoryQuantity, req.body.inventoryUnit]
+    };
+    
+    // Send query
+    const result = await client.query(queryObj, (error, results) => {
+        if (error) {
+            res.status(500).send("Error connecting or sending query: " + error.message);
+            // res.status(400).send("Error adding Inventory Item: " + err.message);
+            return;
+        }
 
+        // Send response
+        res.status(201).send("Item added to Inventory.");
+    });
+    
     client.release();
-
-    // TODO: Send response
-    res.send("Add inventory item");
 });
 
 
