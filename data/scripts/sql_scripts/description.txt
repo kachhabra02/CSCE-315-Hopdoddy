@@ -1,0 +1,1 @@
+Contains SQL scripts for generating database (used in shell scripts)
