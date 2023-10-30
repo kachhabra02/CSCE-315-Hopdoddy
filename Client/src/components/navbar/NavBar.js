@@ -21,7 +21,7 @@ function NavBar() {
     }
 
     return (
-        <div id='navbar' style={{display : 'flex'}}>
+        <div id='navbar' style={{display : 'flex', height : '10vh'}}>
             <h3>
                 Hopdoddy!
             </h3>

@@ -1,5 +1,12 @@
+#landing {
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+}
+
 #landing-info {
     display: flex;
+    flex-grow: 1;
     justify-content: space-between;
     align-items: left;
     padding-left: 1%;
@@ -8,17 +15,16 @@
 
 #landing-info > #weather {
     align-items: left;
-    width: 40%;
+    flex-grow: 1;
 }
 
 #landing-info > #location {
     align-items: left;
-    width: 40%;
+    flex-grow: 1;
 }
 
 #landing-info > #order-now {
     display: flex;
     align-items: center;
-    height: 5em;
-    width: 20%;
+    flex-grow: 1;
 }
