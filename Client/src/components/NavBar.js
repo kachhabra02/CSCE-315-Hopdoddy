@@ -5,10 +5,10 @@ const MenuLink = () => <Link to='/menu'><button>Menu Link</button></Link>;
 const HomeLink = () => <Link to='/'><button className='landing-button'>Landing Link</button></Link>
 
 const locationLinksMap = {
+    default : [MenuLink, HomeLink],
     '/' : [MenuLink, HomeLink],
     '/menu' : [MenuLink, HomeLink],
-    '/login' : null,
-    undefined : ""
+    '/login' : null
 };
 
 function NavBar() {
@@ -24,11 +24,13 @@ function NavBar() {
                 Hopdoddy!
             </h3>
             <div id='navbar-buttons'>
-                {locationLinksMap[location.pathname].map((ButtonComponent, index) => (
-                    <React.Fragment key={index}>
-                        <ButtonComponent />
-                    </React.Fragment>
-                ))}
+                {(locationLinksMap[location.pathname] ?? locationLinksMap.default)
+                    .map((ButtonComponent, index) => (
+                        <React.Fragment key={index}>
+                            <ButtonComponent />
+                        </React.Fragment>
+                    )
+                )}
             </div>
         </div>
     )

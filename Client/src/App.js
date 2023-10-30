@@ -1,10 +1,10 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Landing from './Landing';
-import Menu from './Menu';
-import NavBar from './NavBar';
-import NotFound from './NotFound';
+import Landing from './components/Landing';
+import Menu from './components/Menu';
+import NavBar from './components/NavBar';
+import NotFound from './components/NotFound';
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/menu" element={<Menu />} />
-          <Route element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </div>
