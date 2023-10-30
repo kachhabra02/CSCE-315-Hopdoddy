@@ -17,6 +17,7 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/cashier" element={<Cashier />} />
         </Routes>
       </BrowserRouter>
     </div>

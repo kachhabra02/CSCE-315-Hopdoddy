@@ -8,7 +8,7 @@ function Cashier() {
     // will be replaced with categories from API call
     // const TSTcategories = ["Burgers", "Fries", "Drinks", "Salads"];
 
-    const [categories, setCategories] = useState([]);
+    const [categories, setCategories] = useState();
 
     useEffect(() => {
         fetch("/api/menu/categories").then(res => res.json()).then(
@@ -21,7 +21,7 @@ function Cashier() {
         <div className="Cashier">
             {/* <NavBar />  */}
             <h1>This is the Cashier page</h1>
-            <CategoryList categories={categories}/>
+            {(categories === undefined) ? <p>Loading...</p> : <CategoryList categories={categories}/>}          
             <SubcategoryList />
             <ItemList />
             <TransactionList />
