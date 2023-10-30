@@ -83,16 +83,28 @@ router.get('/sales', async (req, res) => {
 /***** /api/reports/excess *****/
 // Generate excess report
 router.get('/excess', async (req, res) => {
-    // TODO: Get necessary info from request
+    // Get necessary info from request
+    if (!req.query.startTime) {
+        res.status(400).send("Must provide start time (startTime)!");
+        return;
+    }
+
+    // Send query
+    const queryObj = {
+        text: queries.getExcessReportQuery,
+        values: [req.query.startTime]
+    };
 
     const client = await pool.connect();
+    const result = await client.query(queryObj, (error, results) => {
+        if(error) {
+            res.status(400).send("Error sending query: " + error.message);
+            return;
+        }
 
-    // TODO: Send query
-
+        res.status(200).json(results.rows);
+    });
     client.release();
-
-    // TODO: Send response
-    res.send("Generate excess report");
 });
 
 
