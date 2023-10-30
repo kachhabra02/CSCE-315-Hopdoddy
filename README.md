@@ -1,6 +1,7 @@
 # Hopdoddy Web Application
 Our team has set out to build a new website that encompasses the entirety of the College Station Location of Hopdoddy Burger Bar's operations. We will be addressing the needs of managers, cashiers, customers, and menu boards, with an emphasis on accessibility and ease-of-use.
-
+[Hopdoddy Website](https://project-3-905-02.vercel.app/)
+[Hopdoddy API](https://project-3-905-02-server.vercel.app/api)
 
 
 # Sprint Information
