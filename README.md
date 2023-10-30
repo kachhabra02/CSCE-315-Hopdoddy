@@ -1,6 +1,8 @@
 # Hopdoddy Web Application
-Our team has set out to build a new website that encompasses the entirety of the College Station Location of Hopdoddy Burger Bar's operations. We will be addressing the needs of managers, cashiers, customers, and menu boards, with an emphasis on accessibility and ease-of-use.
-
+Our team has set out to build a new website that encompasses the entirety of the College Station Location of Hopdoddy Burger Bar's operations. We will be addressing the needs of managers, cashiers, customers, and menu boards, with an emphasis on accessibility and ease-of-use. \
+\
+[**Hopdoddy Website**](https://project-3-905-02.vercel.app/) \
+[**Hopdoddy API**](https://project-3-905-02-server.vercel.app/api)
 
 
 # Sprint Information
@@ -70,8 +72,8 @@ The retrospective must be completed before the next sprint backlog is determined
       4. TODO
       5. TODO
 3. **Daily Scrum Meeting 3**
-    - **When**: 10/31 at TBD
-    - **Where**: Zachry
+    - **When**: 10/31 at 7:00 pm
+    - **Where**: Discord
     - **Attendees**:
       1. TODO
       2. TODO
@@ -79,8 +81,8 @@ The retrospective must be completed before the next sprint backlog is determined
       4. TODO
       5. TODO
 ### Sprint 1 User Study
-- **When**: TODO
-- **Where**: TODO
+- **When**: 11/1 at 9:30 am (During Class?)
+- **Where**: Zachry
 - **Attendees**:
   1. TODO
   2. TODO
@@ -88,8 +90,8 @@ The retrospective must be completed before the next sprint backlog is determined
   4. TODO
   5. TODO
 ### Sprint 1 Retrospective Meeting
-- **When**: TODO
-- **Where**: TODO
+- **When**: 11/2 at TBD
+- **Where**: TBD
 - **Attendees**:
   1. TODO
   2. TODO
@@ -99,8 +101,8 @@ The retrospective must be completed before the next sprint backlog is determined
 
 ## Sprint 2 (TBD - 11/14)
 ### Sprint 2 Planning Meeting
-- **When**: TODO
-- **Where**: TODO
+- **When**: 11/3 at TBD
+- **Where**: TBD
 - **Attendees**:
   1. TODO
   2. TODO

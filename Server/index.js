@@ -5,7 +5,7 @@ const app = express();
 // Configure port to listen on
 require('dotenv').config();
 const address = (process.env.ADDRESS || "http://localhost");
-const port = (process.env.PORT || 5000);
+const port = (process.env.PORT || 8080);
 
 // Import routers for functionality
 const transactions = require('./restAPI/transactions');
