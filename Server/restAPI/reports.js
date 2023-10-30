@@ -50,16 +50,33 @@ router.get('/popular-pairs', async (req, res) => {
 /***** /api/reports/sales *****/
 // Generate sales report
 router.get('/sales', async (req, res) => {
-    // TODO: Get necessary info from request
+    // Get necessary info from request
+    if (!req.query.startTime) {
+        res.status(400).send("Must provide start time (startTime)!");
+        return;
+    }
+
+    if (!req.query.endTime) {
+        res.status(400).send("Must provide end time (endTime)!");
+        return;
+    }
+
+    // Send query
+    const queryObj = {
+        text: queries.getSalesReportQuery,
+        values: [req.query.startTime, req.query.endTime]
+    };
 
     const client = await pool.connect();
+    const result = await client.query(queryObj, (error, results) => {
+        if(error) {
+            res.status(400).send("Error sending query: " + error.message);
+            return;
+        }
 
-    // TODO: Send query
-
+        res.status(200).json(results.rows);
+    });
     client.release();
-
-    // TODO: Send response
-    res.send("Generate sales report");
 });
 
 
