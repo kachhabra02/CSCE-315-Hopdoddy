@@ -133,16 +133,33 @@ router.get('/restock', async (req, res) => {
 /***** /api/reports/product-usage *****/
 // Generate product usage report
 router.get('/product-usage', async (req, res) => {
-    // TODO: Get necessary info from request
+    // Get necessary info from request
+    if (!req.query.startTime) {
+        res.status(400).send("Must provide start time (startTime)!");
+        return;
+    }
+
+    if (!req.query.endTime) {
+        res.status(400).send("Must provide end time (endTime)!");
+        return;
+    }
+
+    // Send query
+    const queryObj = {
+        text: queries.getProductUsageQuery,
+        values: [req.query.startTime, req.query.endTime]
+    };
 
     const client = await pool.connect();
+    const result = await client.query(queryObj, (error, results) => {
+        if(error) {
+            res.status(400).send("Error sending query: " + error.message);
+            return;
+        }
 
-    // TODO: Send query
-
+        res.status(200).json(results.rows);
+    });
     client.release();
-
-    // TODO: Send response
-    res.send("Generate product usage report");
 });
 
 
