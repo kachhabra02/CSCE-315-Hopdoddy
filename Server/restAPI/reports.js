@@ -111,16 +111,22 @@ router.get('/excess', async (req, res) => {
 /***** /api/reports/restock *****/
 // Generate restock report
 router.get('/restock', async (req, res) => {
-    // TODO: Get necessary info from request
+    // Send query
+    const queryObj = {
+        text: queries.getRestockReportQuery,
+        values: []
+    };
 
     const client = await pool.connect();
+    const result = await client.query(queryObj, (error, results) => {
+        if(error) {
+            res.status(400).send("Error sending query: " + error.message);
+            return;
+        }
 
-    // TODO: Send query
-
+        res.status(200).json(results.rows);
+    });
     client.release();
-
-    // TODO: Send response
-    res.send("Generate restock report");
 });
 
 
