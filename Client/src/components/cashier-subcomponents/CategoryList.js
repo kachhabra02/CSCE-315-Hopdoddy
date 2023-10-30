@@ -1,6 +1,7 @@
 import React from "react";
 
 function CategoryList(props) {
+    console.log(props.categories);
     const categoryButtons = props.categories.map((name) => <li><button>{name}</button></li>)
 
     return (

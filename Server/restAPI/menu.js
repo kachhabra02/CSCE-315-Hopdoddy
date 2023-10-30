@@ -76,7 +76,8 @@ router.get('/categories', async (req, res) => {
     client.release();
 
     // TODO: Send response
-    res.send("Get categories");
+    // res.send("Get categories");
+    res.json(["Burgers", "Fries", "Drinks", "Salads"]);
 });
 
 
