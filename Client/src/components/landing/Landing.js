@@ -7,10 +7,16 @@ function Landing() {
   return (
     <div id='landing'>
       <img src={hopdoddyPic} id='location-img' alt="Hopdoddy Location" />
-      <div className='flex-container'>
-        <button>432</button>
-        <button>2132</button>
-        <button>233</button>
+      <div id='landing-info'>
+        <div id='weather'>
+          This div will contain weather info
+        </div>
+        <div id='location'>
+          This div will contain address info
+        </div>
+        <div id='order-now'>
+          <button>Order Now</button>
+        </div>
       </div>
     </div>
   )
