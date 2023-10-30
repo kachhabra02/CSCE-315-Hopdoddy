@@ -84,16 +84,57 @@ router.post('/', async (req, res) => {
 /***** /api/inventory/:id *****/
 // Update inventory item
 router.put('/:id', async (req, res) => {
-    // TODO: Get necessary info from request
+    // Get necessary info from request
+
+    const itemID = req.params.id;
+
+    var givenVals = []
+
+    if (!itemID) {
+        res.status(400).send("Must provide an inventoryID in paramaters!");
+        return;
+    }
+
+    if (req.body.inventoryItemName) {
+        givenVals.push(req.body.inventoryItemName);
+    }
+
+    if (req.body.inventoryPrice) {
+        givenVals.push(req.body.inventoryPrice);
+    }
+
+    if (req.body.inventoryQuantity) {
+        givenVals.push(req.body.inventoryQuantity);
+    }
+
+    if (req.body.inventoryUnit) {
+        givenVals.push(req.body.inventoryUnit);
+    }
+
+    givenVals.push(itemID);
 
     const client = await pool.connect();
 
-    // TODO: Send query
+    // Build query
+
+    const queryObj = {
+        text: queries.updateInventoryItemQuery(req.body.inventoryItemName, req.body.inventoryPrice, req.body.inventoryQuantity, req.body.inventoryUnit, itemID),
+        values: givenVals // Passing supplied arguments directly
+    };
+
+
+    // Send query
+    const result = await client.query(queryObj, (error, results) => {
+        if (error) {
+            res.status(500).send("Error connecting or sending query: " + error.message);
+            return;
+        }
+
+        // Send response
+        res.status(200).send("Item updated successfully in Inventory.");
+    });
 
     client.release();
-
-    // TODO: Send response
-    res.send("Update inventory item");
 });
 
 // Delete inventory item
