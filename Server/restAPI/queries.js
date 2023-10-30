@@ -26,8 +26,8 @@ const deleteMenuItemQuery = "UPDATE Menu SET Is_Available = FALSE WHERE Item_ID 
 
 // Update menu item
 function updateMenuItemQuery(hasName, hasPrice, hasMod) {
-    const paramNum = 1;
-    const query = "UPDATE Menu SET ";
+    var paramNum = 1;
+    var query = "UPDATE Menu SET ";
     
     if (hasName) {
         query += `Item_Name = $${paramNum++}, `
@@ -50,10 +50,10 @@ function updateMenuItemQuery(hasName, hasPrice, hasMod) {
 
 // Add menu item
 function addMenuItemQueries(numIngredients) {
-    const query_p1 = "INSERT INTO Menu (Item_Name, Category, Sub_Category, Price, Is_Modification) " +
+    var query_p1 = "INSERT INTO Menu (Item_Name, Category, Sub_Category, Price, Is_Modification) " +
                      "VALUES ($1, $2, $3, $4, $5) RETURNING Item_ID";
     
-    const query_p2 = "INSERT INTO Ingredients_List (Item_ID, Inventory_ID, Quantity) VALUES ";
+    var query_p2 = "INSERT INTO Ingredients_List (Item_ID, Inventory_ID, Quantity) VALUES ";
     for (let i = 0; i < numIngredients; i++) {
         if (i != 0) {
             query_p2 += ", ";
@@ -77,8 +77,8 @@ const deleteInventoryItemQuery = "UPDATE Inventory SET Is_Available = FALSE WHER
 // Update inventory item
 // TODO
 function updateInventoryItemQuery(hasName, hasPrice, hasQuant, hasUnit) {
-    const paramNum = 1;
-    const query = "UPDATE Inventory SET ";
+    var paramNum = 1;
+    var query = "UPDATE Inventory SET ";
     
     if (hasName) {
         query += `Inventory_Name = $${paramNum++}`
@@ -119,9 +119,9 @@ const addInventoryItemQuery = "INSERT INTO Inventory (Inventory_Name, Price, Qua
 /****** TRANSACTIONS ******/
 // Place a transaction
 function placeTransactionQueries(numItemsOrdered) {
-    const query_p1 = "INSERT INTO Transactions (Employee_ID) VALUES ($1) RETURNING Transaction_ID";
+    var query_p1 = "INSERT INTO Transactions (Employee_ID) VALUES ($1) RETURNING Transaction_ID";
     
-    const query_p2 = "INSERT INTO OrderList (Transaction_ID, Item_ID) VALUES ";
+    var query_p2 = "INSERT INTO OrderList (Transaction_ID, Item_ID) VALUES ";
     for (let i = 0; i < numItemsOrdered; i++) {
         if (i != 0) {
             query_p2 += ", ";
@@ -138,7 +138,7 @@ const getOrderHistoryQuery = "SELECT Transactions.Transaction_ID AS Trans_ID, Tr
                              "ARRAY_AGG(Menu.Item_ID) AS Item_IDs, ARRAY_AGG(Item_Name) AS Item_Names FROM Order_List " +
                              "LEFT JOIN Transactions ON Order_List.Transaction_ID = Transactions.Transaction_ID " +
                              "LEFT JOIN Menu ON Order_List.item_id = Menu.Item_ID " +
-                             "WHERE Transaction_Time BETWEEN TIMESTAMP $1 AND TIMESTAMP $2 " +
+                             "WHERE Transaction_Time BETWEEN $1 AND $2 " +
                              "GROUP BY Transactions.Transaction_ID ORDER BY Transaction_Time DESC LIMIT $3";
 
 
@@ -150,14 +150,14 @@ const getPopularPairsQuery = "SELECT First_Item_ID, First_Item_Name, Second_Item
                              "COUNT(DISTINCT o1.Order_List_ID) AS Num_Orders FROM Order_List o1 " +
                              "INNER JOIN Order_List o2 ON o1.Transaction_ID = o2.Transaction_ID AND o1.Item_ID < o2.Item_ID " +
                              "WHERE (SELECT Transaction_Time FROM Transactions WHERE Transaction_ID = o1.Transaction_ID) " +
-                             "BETWEEN TIMESTAMP $1 AND TIMESTAMP $2 GROUP BY o1.Item_ID, o2.Item_ID ORDER BY Num_Orders DESC, " +
+                             "BETWEEN $1 AND $2 GROUP BY o1.Item_ID, o2.Item_ID ORDER BY Num_Orders DESC, " +
                              "o1.Item_ID ASC, o2.Item_ID ASC) AS Pairs LEFT JOIN Menu m1 ON First_Item_ID = m1.Item_ID) AS Named_Pairs " +
                              "LEFT JOIN Menu m2 ON Second_Item_ID = m2.Item_ID WHERE Is_Available_1 AND m2.Is_Available LIMIT $3";
 
 // Generate sales report
 const getSalesReportQuery = "SELECT Item_ID, Item_Name, Price, Is_Modification, Num_Sales FROM (Menu LEFT JOIN " +
                             "(SELECT Item_ID AS ID, COUNT(*) AS Num_Sales FROM (SELECT Item_ID FROM Order_List WHERE Transaction_ID IN " +
-                            "(SELECT Transaction_ID FROM Transactions WHERE Transaction_Time BETWEEN TIMESTAMP $1 AND TIMESTAMP $2)) " +
+                            "(SELECT Transaction_ID FROM Transactions WHERE Transaction_Time BETWEEN $1 AND $2)) " +
                             "AS Orders GROUP BY Item_ID) AS Sale_Counts ON Menu.Item_ID = Sale_Counts.ID) AS Menu_Counts " +
                             "WHERE Is_Available ORDER BY Item_ID ASC";
 
@@ -166,7 +166,7 @@ const getExcessReportQuery = "SELECT Inventory_ID, Inventory_Name, Quantity AS C
                              "(0.1 * (Quantity + COALESCE(Total_Usage, 0))) AS Target_Usage FROM (SELECT Inventory_ID AS Ing_ID, " +
                              "SUM(Ingredients_List.Quantity) AS Total_Usage FROM ((SELECT Item_ID FROM Order_List " +
                              "LEFT JOIN Transactions ON Order_List.Transaction_ID = Transactions.Transaction_ID " +
-                             "WHERE Transaction_Time >= TIMESTAMP $1) AS Items INNER JOIN Ingredients_List " +
+                             "WHERE Transaction_Time >= $1) AS Items INNER JOIN Ingredients_List " +
                              "ON Items.Item_ID = Ingredients_List.Item_ID) GROUP BY Inventory_ID) AS Usage " +
                              "RIGHT JOIN Inventory ON Ing_ID = Inventory_ID WHERE Is_Available AND " +
                              "COALESCE(Total_Usage, 0) < 0.1 * (Quantity + COALESCE(Total_Usage, 0)) ORDER BY Inventory_ID ASC";
@@ -185,7 +185,7 @@ const getRestockReportQuery = "SELECT Inventory_ID, Inventory_Name, Quantity AS 
 const getProductUsageQuery = "SELECT Inventory_ID, Inventory_Name, COALESCE(Total_Usage, 0) AS Total_Usage, Unit FROM (SELECT Inventory_ID AS " +
                              "Ing_ID, SUM(Ingredients_List.Quantity) AS Total_Usage FROM ((SELECT Item_ID FROM Order_List " +
                              "LEFT JOIN Transactions ON Order_List.Transaction_ID = Transactions.Transaction_ID WHERE " +
-                             "Transaction_Time BETWEEN TIMESTAMP $1 AND TIMESTAMP $2) AS Items " +
+                             "Transaction_Time BETWEEN $1 AND $2) AS Items " +
                              "INNER JOIN Ingredients_List ON Items.Item_ID = Ingredients_List.Item_ID) GROUP BY Inventory_ID) AS Usage " +
                              "RIGHT JOIN Inventory ON Ing_ID = Inventory_ID WHERE Is_Available ORDER BY Inventory_ID ASC";
 
