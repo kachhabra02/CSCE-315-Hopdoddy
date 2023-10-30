@@ -154,7 +154,7 @@ const getPopularPairsQuery = "SELECT First_Item_ID, First_Item_Name, Second_Item
                              "LEFT JOIN Menu m2 ON Second_Item_ID = m2.Item_ID WHERE Is_Available_1 AND m2.Is_Available LIMIT $3";
 
 // Generate sales report
-const getSalesReportQuery = "SELECT Item_ID, Item_Name, Price, Is_Modification, Num_Sales FROM (Menu LEFT JOIN " +
+const getSalesReportQuery = "SELECT Item_ID, Item_Name, Price, Is_Modification, COALESCE(Num_Sales, 0) AS Sales_Made FROM (Menu LEFT JOIN " +
                             "(SELECT Item_ID AS ID, COUNT(*) AS Num_Sales FROM (SELECT Item_ID FROM Order_List WHERE Transaction_ID IN " +
                             "(SELECT Transaction_ID FROM Transactions WHERE Transaction_Time BETWEEN $1 AND $2)) " +
                             "AS Orders GROUP BY Item_ID) AS Sale_Counts ON Menu.Item_ID = Sale_Counts.ID) AS Menu_Counts " +
