@@ -1,0 +1,12 @@
+#navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+#location-img {
+    width: 100%;
+    height: auto;
+}
