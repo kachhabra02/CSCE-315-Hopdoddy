@@ -72,11 +72,14 @@ router.get('/categories', async (req, res) => {
     const client = await pool.connect();
 
     // TODO: Send query
+    pool.query(queries.getCatQuery, (error, results) => {
+        if(error){
+            throw error;
+        }
+        res.status(200).json(results.rows);
+    })
 
     client.release();
-
-    // TODO: Send response
-    res.send("Get categories");
 });
 
 
@@ -88,11 +91,15 @@ router.get('/sub-categories', async (req, res) => {
     const client = await pool.connect();
 
     // TODO: Send query
+    const category = req.query.Category;
+    pool.query(queries.getSubCategoriesQuery,[category],(error, results) => {
+        if(error){
+            throw error;
+        }
+        res.status(200).json(results.rows);
+    })
 
     client.release();
-
-    // TODO: Send response
-    res.send("Get subcategories");
 });
 
 
@@ -104,11 +111,17 @@ router.get('/items', async (req, res) => {
     const client = await pool.connect();
 
     // TODO: Send query
+    const category = req.query.Category;
+    const subCategory = req.query.SubCategory;
+    pool.query(queries.getMenuItemsQuery,[category, subCategory],(error, results) => {
+        if(error){
+            throw error;
+        }
+        res.status(200).json(results.rows);
+    })
+
 
     client.release();
-
-    // TODO: Send response
-    res.send("Get menu items");
 });
 
 
@@ -120,11 +133,17 @@ router.get('/modifications', async (req, res) => {
     const client = await pool.connect();
 
     // TODO: Send query
+    const category = req.query.Category;
+    const subCategory = req.query.SubCategory;
+    const menuId = req.query.id;
+    pool.query(queries.getModificationsQuery,[category, subCategory, menuId],(error, results) => {
+        if(error){
+            throw error;
+        }
+        res.status(200).json(results.rows);
+    })
 
     client.release();
-
-    // TODO: Send response
-    res.send("Get modifications");
 });
 
 
@@ -136,11 +155,14 @@ router.get('/view', async (req, res) => {
     const client = await pool.connect();
 
     // TODO: Send query
+    pool.query(queries.viewMenuQuery,(error, results) => {
+        if(error){
+            throw error;
+        }
+        res.status(200).json(results.rows);
+    })
 
     client.release();
-
-    // TODO: Send response
-    res.send("View entire menu");
 });
 
 
