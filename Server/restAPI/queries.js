@@ -75,7 +75,6 @@ const viewInventoryQuery = "SELECT Inventory_ID, Inventory_Name, Price, Quantity
 const deleteInventoryItemQuery = "UPDATE Inventory SET Is_Available = FALSE WHERE Inventory_ID = $1";
 
 // Update inventory item
-// TODO
 function updateInventoryItemQuery(hasName, hasPrice, hasQuant, hasUnit) {
     var paramNum = 1;
     var query = "UPDATE Inventory SET ";
@@ -121,7 +120,7 @@ const addInventoryItemQuery = "INSERT INTO Inventory (Inventory_Name, Price, Qua
 function placeTransactionQueries(numItemsOrdered) {
     var query_p1 = "INSERT INTO Transactions (Employee_ID) VALUES ($1) RETURNING Transaction_ID";
     
-    var query_p2 = "INSERT INTO OrderList (Transaction_ID, Item_ID) VALUES ";
+    var query_p2 = "INSERT INTO Order_List (Transaction_ID, Item_ID) VALUES ";
     for (let i = 0; i < numItemsOrdered; i++) {
         if (i != 0) {
             query_p2 += ", ";
