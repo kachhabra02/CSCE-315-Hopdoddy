@@ -2,7 +2,10 @@ import React from 'react'
 
 function Menu() {
   return (
-    <div>Menu</div>
+    <>
+      <h1>Menu</h1>
+      <p>This page will be the menu</p>
+    </>
   )
 }
 
