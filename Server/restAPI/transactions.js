@@ -12,25 +12,54 @@ const queries = require('./queries');
 /***** /api/transactions *****/
 // Place a transaction
 router.post('/', async (req, res) => {
-    // TODO: Get necessary info from request
+    // Get necessary info from request
+    if (!req.body.employeeID) {
+        res.status(400).send("Must provide employee ID (employeeID)!");
+        return;
+    }
 
+    if (!req.body.menuIDs) {
+        res.status(400).send("Must provide menu item IDs (menuIDs)!");
+        return;
+    }
+
+    [query_p1, query_p2] = queries.placeTransactionQueries(req.body.menuIDs.length);
+
+    // Perform transaction
     const client = await pool.connect();
 
     try {
         await client.query('BEGIN');
-        
-        // TODO: Send queries
-        
-        await client.query('COMMIT');
-      } catch (err) {
-        await client.query('ROLLBACK');
-        throw err;
-      } finally {
-        client.release();
-      }
+    
+        // Send queries
+        const result_p1 = await client.query({
+            rowMode: 'array',
+            text: query_p1,
+            values: [req.body.employeeID]
+        });
 
-      // TODO: Send response
-      res.send("Place a transaction");
+        var vals = []
+        for (let i = 0; i < req.body.menuIDs.length; i++) {
+            vals.push(result_p1.rows[0][0]);
+            vals.push(req.body.menuIDs[i]);
+        }
+
+        console.log(vals);
+
+        const result_p2 = await client.query({
+            text: query_p2,
+            values: vals
+        });
+
+        res.status(200).send("Transaction Complete");
+    
+        await client.query('COMMIT');
+    } catch (err) {
+        res.status(400).send("Error sending query: " + err.message);
+        await client.query('ROLLBACK');
+    } finally {
+        client.release();
+    }
 });
 
 // Get order history

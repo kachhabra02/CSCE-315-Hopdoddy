@@ -6,7 +6,7 @@ from os import getcwd, chdir
 # Change working directory to be where files are stored
 # Assumes the script is being run from somewhere within the project-2-905_02 repository
 cwd = getcwd()
-new_wd = cwd[:cwd.rindex('project-2-905_02') + len('project-2-905_02')] # Trim to base directory of repository
+new_wd = cwd[:cwd.rindex('project-3-905_02') + len('project-3-905_02')] # Trim to base directory of repository
 if '\\' in cwd: # For Windows
     new_wd += '\\data\\files'
 else:
