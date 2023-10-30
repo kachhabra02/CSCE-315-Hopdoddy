@@ -11,16 +11,27 @@ const queries = require('./queries');
 /***** /api/inventory *****/
 // View inventory
 router.get('/', async (req, res) => {
-    // TODO: Get necessary info from request
-
+    // Send query
+    const queryObj = {
+        text: queries.viewInventoryQuery,
+        // values: [req.query.startTime, req.query.endTime, req.query.limit]
+    };
+    
     const client = await pool.connect();
-
+    
     // TODO: Send query
+    const result = await client.query(queryObj, (error, results) => {
+        if (error) {
+            res.status(500).send("Error connecting or sending query: " + error.message);
+            return;
+        }
+
+        // TODO: Send response
+        res.status(200).json(results.rows);
+        // res.send("View inventory");
+    });
 
     client.release();
-
-    // TODO: Send response
-    res.send("View inventory");
 });
 
 // Add inventory item
