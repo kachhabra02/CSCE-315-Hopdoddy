@@ -116,7 +116,6 @@ router.put('/:id', async (req, res) => {
     const client = await pool.connect();
 
     // Build query
-
     const queryObj = {
         text: queries.updateInventoryItemQuery(req.body.inventoryItemName, req.body.inventoryPrice, req.body.inventoryQuantity, req.body.inventoryUnit, itemID),
         values: givenVals // Passing supplied arguments directly
@@ -139,16 +138,38 @@ router.put('/:id', async (req, res) => {
 
 // Delete inventory item
 router.delete('/:id', async (req, res) => {
-    // TODO: Get necessary info from request
+    // Get necessary info from request
+
+    const itemID = req.params.id;
+    var vals = []
+
+    if (!itemID) {
+        res.status(400).send("Must provide an inventoryID in paramaters!");
+        return;
+    }
+    
+    vals.push(itemID);
 
     const client = await pool.connect();
 
-    // TODO: Send query
+    // Build query
+    const queryObj = {
+        text: queries.deleteInventoryItemQuery,
+        values: vals
+    };
 
+    // Send query
+    const result = await client.query(queryObj, (error, results) => {
+        if (error) {
+            res.status(500).send("Error connecting or sending query: " + error.message);
+            return;
+        }
+
+        // Send response
+        res.status(200).send("Item deleted successfully from Inventory.");
+    });
+    
     client.release();
-
-    // TODO: Send response
-    res.send("Delete inventory item");
 });
 
 
