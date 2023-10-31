@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
-import CategoryList from "./cashier-subcomponents/CategoryList.js"
-import SubcategoryList from "./cashier-subcomponents/SubcategoryList.js"
-import TransactionList from "./cashier-subcomponents/TransactionList.js"
-import ItemList from "./cashier-subcomponents/ItemList.js"
+import CategoryList from "./cashier-subcomponents/CategoryList.js";
+import SubcategoryList from "./cashier-subcomponents/SubcategoryList.js";
+import TransactionList from "./cashier-subcomponents/TransactionList.js";
+import ItemList from "./cashier-subcomponents/ItemList.js";
+import axios from "axios";
 
 function Cashier() {
     const [categories, setCategories] = useState();
@@ -11,30 +12,39 @@ function Cashier() {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-        fetch("/api/menu/categories").then(res => res.json()).then(
-            res => setCategories(res)
-        )
-        // .then(() => console.log(categories))
+        axios.get(`${process.env.REACT_APP_API_URL}/api/menu/categories`)
+            .then((res) => {
+                if (res.status < 300) {
+                    setCategories(res.data);
+                }
+            })
+            .catch( error => console.log(error) );
     }, []);
 
     function getSubcategories(categoryName) {
         return () => {
             setSubcategories(null);
             setCurrCategory(categoryName);
-            fetch("/api/menu/sub-categories?category=" + categoryName).then(res => res.json()).then(
-               res => setSubcategories(res) 
-            )
-            // .then(() => console.log(subcategories))
+            axios.get(`${process.env.REACT_APP_API_URL}/api/menu/sub-categories?category=${categoryName}`)
+                .then((res) => {
+                    if (res.status < 300) {
+                        setSubcategories(res.data);
+                    }
+                })
+                .catch( error => console.log(error) );
         };
     }
 
     function getItems(subcategoryName) {
         return () => {
             setItems(null);
-            fetch("/api/menu/items?category=" + currCategory + "&subcategory=" + subcategoryName).then(res => res.json()).then(
-                res => setItems(res)
-            )
-            // .then(() => console.log(items))
+            axios.get(`${process.env.REACT_APP_API_URL}/api/menu/items?category=${currCategory}&subcategory=${subcategoryName}`)
+                .then((res) => {
+                    if (res.status < 300) {
+                        setItems(res.data);
+                    }
+                })
+                .catch( error => console.log(error) );
         };
     }
 
