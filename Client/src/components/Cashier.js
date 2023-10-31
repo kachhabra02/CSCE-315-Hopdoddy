@@ -40,7 +40,7 @@ function Cashier() {
                     }
                     else {
                         console.log(res.data);
-                        setSubCategories([{category: "Error retrieving subcategories"}]);
+                        setSubcategories([{sub_category: "Error retrieving subcategories"}]);
                     }
                 })
                 .catch( error => console.log(error) );
@@ -57,7 +57,7 @@ function Cashier() {
                     }
                     else {
                         console.log(res.data);
-                        setItems([{category: "Error retrieving items"}]);
+                        setItems([{item_name: "Error retrieving items"}]);
                     }
                 })
                 .catch( error => console.log(error) );
