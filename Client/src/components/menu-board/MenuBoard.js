@@ -12,7 +12,7 @@ function MenuBoard() {
 
   if (!menu) {
     return (
-      <div className="MenuBoard">
+      <div id="menu-board">
         <h1>Menu</h1>
         <p>Loading</p>
       </div>
