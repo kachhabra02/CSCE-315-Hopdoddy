@@ -5,7 +5,8 @@ import TransactionList from "./cashier-subcomponents/TransactionList.js";
 import ItemList from "./cashier-subcomponents/ItemList.js";
 import axios from "axios";
 const API = axios.create({
-    baseURL: `${process.env.REACT_APP_API_URL}/api`
+    baseURL: `${process.env.REACT_APP_API_URL}/api`,
+    timeout: 10000 // 10 second timeout
 });
 
 function Cashier() {
@@ -25,7 +26,10 @@ function Cashier() {
                     setCategories([{category: "Error retrieving categories"}]);
                 }
             })
-            .catch( error => console.log(error) );
+            .catch((error) => {
+                console.log(error);
+                setCategories([{category: "Error retrieving categories"}]);
+            });
     }, []);
 
     function getSubcategories(categoryName) {
@@ -43,7 +47,10 @@ function Cashier() {
                         setSubcategories([{sub_category: "Error retrieving subcategories"}]);
                     }
                 })
-                .catch( error => console.log(error) );
+                .catch((error) => {
+                    console.log(error);
+                    setSubcategories([{sub_category: "Error retrieving subcategories"}]);
+                });
         };
     }
 
@@ -60,7 +67,10 @@ function Cashier() {
                         setItems([{item_name: "Error retrieving items"}]);
                     }
                 })
-                .catch( error => console.log(error) );
+                .catch((error) => {
+                    console.log(error);
+                    setItems([{item_name: "Error retrieving items"}]);
+                });
         };
     }
 
