@@ -14,6 +14,8 @@ const inventory = require('./restAPI/inventory');
 const reports = require('./restAPI/reports');
 
 // Add other middleware to be used
+const cors = require('cors');
+app.use(cors());
 app.use(express.json()); // parses JSON payloads/body
 
 // Add routes to the app
