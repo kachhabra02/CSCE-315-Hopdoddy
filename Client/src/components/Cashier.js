@@ -23,8 +23,9 @@ function Cashier() {
 
     function getSubcategories(categoryName) {
         return () => {
-            setSubcategories(null);
             setCurrCategory(categoryName);
+            setSubcategories(null);
+            setItems([]);
             axios.get(`${process.env.REACT_APP_API_URL}/api/menu/sub-categories?category=${categoryName}`)
                 .then((res) => {
                     if (res.status < 300) {
