@@ -37,23 +37,23 @@ router.post('/', async (req, res) => {
     // Get necessary info from request
     // inventoryItemName, inventoryPrice, inventoryQuantity, inventoryUnit
 
-    if (!req.body.inventoryItemName) {
-        res.status(400).send("Must provide inventory name (inventoryItemName)!");
+    if (!req.body.name) {
+        res.status(400).send("Must provide inventory name (name)!");
         return;
     }
 
-    if (!req.body.inventoryPrice) {
-        res.status(400).send("Must provide inventory item price (inventoryPrice)!");
+    if (!req.body.price) {
+        res.status(400).send("Must provide inventory item price (price)!");
         return;
     }
 
-    if (!req.body.inventoryQuantity) {
-        res.status(400).send("Must provide a quantity for (inventoryQuantity)!");
+    if (!req.body.quantity) {
+        res.status(400).send("Must provide a quantity for the item (quantity)!");
         return;
     }
 
-    if (!req.body.inventoryUnit) {
-        res.status(400).send("Must provide a unit for (inventoryUnit)!");
+    if (!req.body.unit) {
+        res.status(400).send("Must provide a unit for the item (unit)!");
         return;
     }
 
@@ -62,7 +62,7 @@ router.post('/', async (req, res) => {
     // Build query
     const queryObj = {
         text: queries.addInventoryItemQuery,
-        values: [req.body.inventoryItemName, req.body.inventoryPrice, req.body.inventoryQuantity, req.body.inventoryUnit]
+        values: [req.body.name, req.body.price, req.body.quantity, req.body.unit]
     };
     
     // Send query
@@ -85,30 +85,29 @@ router.post('/', async (req, res) => {
 // Update inventory item
 router.put('/:id', async (req, res) => {
     // Get necessary info from request
-
     const itemID = req.params.id;
-
-    var givenVals = []
 
     if (!itemID) {
         res.status(400).send("Must provide an inventoryID in paramaters!");
         return;
     }
+    
+    var givenVals = []
 
-    if (req.body.inventoryItemName) {
-        givenVals.push(req.body.inventoryItemName);
+    if (req.body.name) {
+        givenVals.push(req.body.name);
     }
 
-    if (req.body.inventoryPrice) {
-        givenVals.push(req.body.inventoryPrice);
+    if (req.body.price) {
+        givenVals.push(req.body.price);
     }
 
-    if (req.body.inventoryQuantity) {
-        givenVals.push(req.body.inventoryQuantity);
+    if (req.body.quantity) {
+        givenVals.push(req.body.quantity);
     }
 
-    if (req.body.inventoryUnit) {
-        givenVals.push(req.body.inventoryUnit);
+    if (req.body.unit) {
+        givenVals.push(req.body.unit);
     }
 
     givenVals.push(itemID);
@@ -117,7 +116,7 @@ router.put('/:id', async (req, res) => {
 
     // Build query
     const queryObj = {
-        text: queries.updateInventoryItemQuery(req.body.inventoryItemName, req.body.inventoryPrice, req.body.inventoryQuantity, req.body.inventoryUnit, itemID),
+        text: queries.updateInventoryItemQuery(req.body.name, req.body.price, req.body.quantity, req.body.unit, itemID),
         values: givenVals // Passing supplied arguments directly
     };
 
@@ -139,7 +138,6 @@ router.put('/:id', async (req, res) => {
 // Delete inventory item
 router.delete('/:id', async (req, res) => {
     // Get necessary info from request
-
     const itemID = req.params.id;
     var vals = []
 
