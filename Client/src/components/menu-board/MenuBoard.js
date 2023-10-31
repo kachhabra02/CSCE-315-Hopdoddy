@@ -20,7 +20,7 @@ function MenuBoard() {
   }
 
   return (
-    <div className="MenuBoard">
+    <div id="menu-board">
       <h1>Menu</h1>
       <div>
         {Object.keys(menu).map(category => (
