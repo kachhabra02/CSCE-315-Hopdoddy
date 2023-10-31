@@ -1,9 +1,9 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Landing from './components/Landing';
+import Landing from './components/landing/Landing';
 import Menu from './components/MenuBoard';
-import NavBar from './components/NavBar';
+import NavBar from './components/navbar/NavBar';
 import NotFound from './components/NotFound';
 
 import Cashier from "./components/Cashier.js"

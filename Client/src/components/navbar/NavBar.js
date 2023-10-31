@@ -1,3 +1,5 @@
+import './NavBar.css';
+
 import React from 'react'
 import {Link, useLocation} from 'react-router-dom'
 
@@ -20,7 +22,7 @@ function NavBar() {
     }
 
     return (
-        <div id='navbar'>
+        <div id='navbar' style={{display : 'flex', height : '10vh'}}>
             <h3>
                 Hopdoddy!
             </h3>

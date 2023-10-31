@@ -1,0 +1,30 @@
+#landing {
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+}
+
+#landing-info {
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+    align-items: left;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+#landing-info > #weather {
+    align-items: left;
+    flex-grow: 1;
+}
+
+#landing-info > #location {
+    align-items: left;
+    flex-grow: 1;
+}
+
+#landing-info > #order-now {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}

@@ -12,14 +12,13 @@ const queries = require('./queries');
 /***** /api/menu *****/
 // Add menu item
 router.post('/', async (req, res) => {
-    // TODO: Get necessary info from request
-
+    // Perform transaction
     const client = await pool.connect();
 
     try {
         await client.query('BEGIN');
         
-        // TODO: Send queries
+        // Get information for query
         const {item_name, category, sub_category, price, is_modification, numIngredients, ingredients} = req.body;
 
         [menuQuery, ingrQuery] =  queries.addMenuItemQueries(numIngredients);
@@ -27,24 +26,22 @@ router.post('/', async (req, res) => {
         const result = await client.query({
             text: menuQuery,
             values: [item_name, category, sub_category, price, is_modification]
-            
-        } );
+        });
+        
         let menId = result.rows.at(0).item_id;
-        console.log(menId);
-        for(let i = 0; i < numIngredients; i++){
+        
+        for(let i = 0; i < numIngredients; i++) {
             client.query({
                 text: ingrQuery,
                 values: [menId, ingredients[i].inventoryID, ingredients[i].quantity]
-            } );
+            });
         }
 
-
-        res.status(201).send("Menu Item added successfully!");
-        
+        res.status(200).send("Menu Item added successfully!");
         await client.query('COMMIT');
       } catch (err) {
+        res.status(400).send("Error sending query: " + err.message);
         await client.query('ROLLBACK');
-        throw err;
       } finally {
         client.release();
       }
@@ -54,40 +51,43 @@ router.post('/', async (req, res) => {
 /***** /api/menu/item/:id *****/
 // Update menu item
 router.put('/item/:id', async (req, res) => {
-    // TODO: Get necessary info from request
-
-    const client = await pool.connect();
+    // Get necessary info from request
     const ID = req.params.id;
     const {name, category, subcategory, price, isMod} = req.body;
 
-    let updateQuery = queries.updateMenuItemQuery(true, true, true);
-
-    const result = await client.query({
-        text: updateQuery,
+    // Send query
+    let updateQuery = {
+        text: queries.updateMenuItemQuery((name !== null), (price !== null), (isMod !== null)),
         values: [name, category, subcategory, price, isMod, ID]
-    } );
-    // TODO: Send query
-    res.status(200).send("Menu Item updated successfully!");
+    };
 
+    const client = await pool.connect();
+    const result = await client.query(updateQuery, (error, results) => {
+        if (error) {
+            res.status(400).send("Error sending query: " + error.message);
+            return;
+        }
+
+        res.status(200).send("Menu Item updated successfully!");
+    });
     client.release();
-
 });
 
 // Delete menu item
 router.delete('/item/:id', async (req, res) => {
-    // TODO: Get necessary info from request
-
-    const client = await pool.connect();
-
+    // Get necessary info from request
     const item_id = req.params.id;
-    // TODO: Send query
-    client.query(queries.deleteMenuItemQuery,[item_id], (error, results) => {
-        if(error){
-            throw error;
+    
+    // Send query
+    const client = await pool.connect();
+    client.query(queries.deleteMenuItemQuery, [item_id], (error, results) => {
+        if(error) {
+            res.status(400).send("Error sending query: " + error.message);
+            return;
         }
+        
         res.status(200).send("Menu Item removed successfully!");
-    } );
-
+    });
     client.release();
 });
 
@@ -95,18 +95,16 @@ router.delete('/item/:id', async (req, res) => {
 /***** /api/menu/categories *****/
 // Get categories
 router.get('/categories', async (req, res) => {
-    // TODO: Get necessary info from request
-
+    // Send query
     const client = await pool.connect();
-
-    // TODO: Send query
-    pool.query(queries.getCatQuery, (error, results) => {
-        if(error){
-            throw error;
+    client.query(queries.getCatQuery, (error, results) => {
+        if(error) {
+            res.status(400).send("Error sending query: " + error.message);
+            return;
         }
+        
         res.status(200).json(results.rows);
-    })
-
+    });
     client.release();
 });
 
@@ -114,19 +112,23 @@ router.get('/categories', async (req, res) => {
 /***** /api/menu/sub-categories *****/
 // Get subcategories
 router.get('/sub-categories', async (req, res) => {
-    // TODO: Get necessary info from request
+    // Get necessary info from request
+    if (!req.query.category) {
+        res.status(400).send("Must provide category!");
+        return;
+    }
+    const category = req.query.category;
 
+    // Send query
     const client = await pool.connect();
-
-    // TODO: Send query
-    const category = req.query.Category;
-    pool.query(queries.getSubCategoriesQuery,[category],(error, results) => {
-        if(error){
-            throw error;
+    client.query(queries.getSubCategoriesQuery, [category], (error, results) => {
+        if(error) {
+            res.status(400).send("Error sending query: " + error.message);
+            return;
         }
+        
         res.status(200).json(results.rows);
-    })
-
+    });
     client.release();
 });
 
@@ -134,21 +136,29 @@ router.get('/sub-categories', async (req, res) => {
 /***** /api/menu/items *****/
 // Get menu items
 router.get('/items', async (req, res) => {
-    // TODO: Get necessary info from request
+    // Get necessary info from request
+    if (!req.query.category) {
+        res.status(400).send("Must provide category!");
+        return;
+    }
+    const category = req.query.category;
 
+    if (!req.query.subcategory) {
+        res.status(400).send("Must provide subcategory!");
+        return;
+    }
+    const subCategory = req.query.subcategory;
+
+    // Send query
     const client = await pool.connect();
-
-    // TODO: Send query
-    const category = req.query.Category;
-    const subCategory = req.query.SubCategory;
-    pool.query(queries.getMenuItemsQuery,[category, subCategory],(error, results) => {
-        if(error){
-            throw error;
+    client.query(queries.getMenuItemsQuery, [category, subCategory], (error, results) => {
+        if(error) {
+            res.status(400).send("Error sending query: " + error.message);
+            return;
         }
+        
         res.status(200).json(results.rows);
-    })
-
-
+    });
     client.release();
 });
 
@@ -156,21 +166,35 @@ router.get('/items', async (req, res) => {
 /***** /api/menu/modifications *****/
 // Get modifications
 router.get('/modifications', async (req, res) => {
-    // TODO: Get necessary info from request
+    // Get necessary info from request
+    if (!req.query.category) {
+        res.status(400).send("Must provide category!");
+        return;
+    }
+    const category = req.query.category;
 
-    const client = await pool.connect();
+    if (!req.query.subcategory) {
+        res.status(400).send("Must provide subcategory!");
+        return;
+    }
+    const subCategory = req.query.subcategory;
 
-    // TODO: Send query
-    const category = req.query.Category;
-    const subCategory = req.query.SubCategory;
+    if (!req.query.id) {
+        res.status(400).send("Must provide item ID (id)!");
+        return;
+    }
     const menuId = req.query.id;
-    pool.query(queries.getModificationsQuery,[category, subCategory, menuId],(error, results) => {
-        if(error){
-            throw error;
-        }
-        res.status(200).json(results.rows);
-    })
 
+    // Send query    
+    const client = await pool.connect();
+    client.query(queries.getModificationsQuery, [category, subCategory, menuId], (error, results) => {
+        if(error){
+            res.status(400).send("Error sending query: " + error.message);
+            return;
+        }
+        
+        res.status(200).json(results.rows);
+    });
     client.release();
 });
 
@@ -178,18 +202,16 @@ router.get('/modifications', async (req, res) => {
 /***** /api/menu/view *****/
 // View entire menu
 router.get('/view', async (req, res) => {
-    // TODO: Get necessary info from request
-
-    const client = await pool.connect();
-
-    // TODO: Send query
-    pool.query(queries.viewMenuQuery,(error, results) => {
-        if(error){
-            throw error;
+    // Send query
+    const client = await pool.connect();    
+    client.query(queries.viewMenuQuery, (error, results) => {
+        if(error) {
+            res.status(400).send("Error sending query: " + error.message);
+            return;
         }
+        
         res.status(200).json(results.rows);
-    })
-
+    });
     client.release();
 });
 
