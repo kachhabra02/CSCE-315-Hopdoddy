@@ -54,20 +54,15 @@ const getMenu = (callback) => {
         const menu = {};
         items.forEach(item => {
           const { category, sub_category } = item;
-          
           if (category && sub_category) {
-
             if (!menu[category]) {
               menu[category] = {};
             }
-            
             if (!menu[category][sub_category]) {
               menu[category][sub_category] = [];
             }
-
             menu[category][sub_category].push(item);
           }
-
         });
 
         console.log(menu);
