@@ -113,6 +113,10 @@ router.get('/categories', async (req, res) => {
 // Get subcategories
 router.get('/sub-categories', async (req, res) => {
     // Get necessary info from request
+    if (!req.query.category) {
+        res.status(400).send("Must provide category!");
+        return;
+    }
     const category = req.query.category;
 
     // Send query
@@ -133,7 +137,16 @@ router.get('/sub-categories', async (req, res) => {
 // Get menu items
 router.get('/items', async (req, res) => {
     // Get necessary info from request
+    if (!req.query.category) {
+        res.status(400).send("Must provide category!");
+        return;
+    }
     const category = req.query.category;
+
+    if (!req.query.subcategory) {
+        res.status(400).send("Must provide subcategory!");
+        return;
+    }
     const subCategory = req.query.subcategory;
 
     // Send query
@@ -154,8 +167,22 @@ router.get('/items', async (req, res) => {
 // Get modifications
 router.get('/modifications', async (req, res) => {
     // Get necessary info from request
+    if (!req.query.category) {
+        res.status(400).send("Must provide category!");
+        return;
+    }
     const category = req.query.category;
+
+    if (!req.query.subcategory) {
+        res.status(400).send("Must provide subcategory!");
+        return;
+    }
     const subCategory = req.query.subcategory;
+
+    if (!req.query.id) {
+        res.status(400).send("Must provide item ID (id)!");
+        return;
+    }
     const menuId = req.query.id;
 
     // Send query    
