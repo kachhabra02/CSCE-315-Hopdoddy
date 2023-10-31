@@ -1,8 +1,8 @@
 import React from "react";
 
-function CategoryList(props) {
-    console.log(props.categories);
-    const categoryButtons = props.categories.map((name) => <li><button>{name}</button></li>)
+function CategoryList({categories, clickHandler}) {
+    // console.log(props.categories);
+    const categoryButtons = categories.map((item) => <li><button onClick={clickHandler(item.category)}>{item.category}</button></li>);
 
     return (
         <div className="CategoryList">
