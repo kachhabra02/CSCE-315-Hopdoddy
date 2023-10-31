@@ -21,7 +21,7 @@ function Cashier() {
         return () => {
             setSubcategories(null);
             setCurrCategory(categoryName);
-            fetch("/api/menu/sub-categories?Category=" + categoryName).then(res => res.json()).then(
+            fetch("/api/menu/sub-categories?category=" + categoryName).then(res => res.json()).then(
                res => setSubcategories(res) 
             )
             // .then(() => console.log(subcategories))
@@ -31,7 +31,7 @@ function Cashier() {
     function getItems(subcategoryName) {
         return () => {
             setItems(null);
-            fetch("/api/menu/items?Category=" + currCategory + "&SubCategory=" + subcategoryName).then(res => res.json()).then(
+            fetch("/api/menu/items?category=" + currCategory + "&subcategory=" + subcategoryName).then(res => res.json()).then(
                 res => setItems(res)
             )
             // .then(() => console.log(items))
