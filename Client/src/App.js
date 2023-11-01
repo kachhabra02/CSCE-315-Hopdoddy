@@ -2,7 +2,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Landing from './components/landing/Landing';
-import Menu from './components/MenuBoard';
+import Menu from './components/menu-board/MenuBoard';
 import NavBar from './components/navbar/NavBar';
 import NotFound from './components/NotFound';
 
