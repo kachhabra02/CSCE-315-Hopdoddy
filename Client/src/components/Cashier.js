@@ -4,12 +4,12 @@ import SubcategoryList from "./cashier-subcomponents/SubcategoryList.js";
 import TransactionList from "./cashier-subcomponents/TransactionList.js";
 import ItemList from "./cashier-subcomponents/ItemList.js";
 import axios from "axios";
+import "./cashier-subcomponents/Cashier.css";
+
 const API = axios.create({
     baseURL: `${process.env.REACT_APP_API_URL}/api`,
     timeout: 10000 // 10 second timeout
 });
-
-import "./cashier-subcomponents/Cashier.css";
 
 function Cashier() {
     const [categories, setCategories] = useState();
