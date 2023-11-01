@@ -10,6 +10,7 @@ function Cashier() {
     const [subcategories, setSubcategories] = useState([]);
     const [currCategory, setCurrCategory] = useState();
     const [items, setItems] = useState([]);
+    const [orders, setOrders] = useState([]);
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/api/menu/categories`)
@@ -49,14 +50,19 @@ function Cashier() {
         };
     }
 
+    // function addOrder({item_id, item_name, price}) {
+    function addOrder(item) {
+        return () => setOrders(orders.concat([item]));
+    }
+
     return (
         <div className="Cashier">
             {/* <NavBar />  */}
             <h1>This is the Cashier page</h1>
             {(categories === undefined) ? <p>Loading...</p> : <CategoryList categories={categories} clickHandler={getSubcategories}/>}       
             {(subcategories === null) ? <p>Loading...</p> : <SubcategoryList subcategories={subcategories} clickHandler={getItems}/>}
-            {(items === null) ? <p>Loading...</p> : <ItemList items={items} />}
-            <TransactionList />
+            {(items === null) ? <p>Loading...</p> : <ItemList items={items} clickHandler={addOrder}/>}
+            <TransactionList orders={orders}/>
         </div>
     );
 }
