@@ -69,6 +69,10 @@ function Cashier() {
             {(subcategories === null) ? <p>Loading...</p> : <SubcategoryList subcategories={subcategories} clickHandler={getItems}/>}
             {(items === null) ? <p>Loading...</p> : <ItemList items={items} clickHandler={addOrder}/>}
             <TransactionList orders={orders} remover={removeOrder}/>
+            <div>
+                <button>SUBMIT</button>
+                <button onClick={() => setOrders([])}>CANCEL</button>
+            </div>
         </div>
     );
 }

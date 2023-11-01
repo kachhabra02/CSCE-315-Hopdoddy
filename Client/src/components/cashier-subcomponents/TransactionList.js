@@ -17,7 +17,9 @@ function TransactionList({orders, remover}) {
     return (
         <div className="TransactionList">
             <h2>This is the TransactionList</h2>
-            {orderList}
+            <ol>
+                {orderList}
+            </ol>
         </div>
     );
 }
