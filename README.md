@@ -66,20 +66,20 @@ The retrospective must be completed before the next sprint backlog is determined
     - **When**: 10/30 at 2:45 pm (After Lab)
     - **Where**: Zachry
     - **Attendees**:
-      1. TODO
-      2. TODO
-      3. TODO
-      4. TODO
-      5. TODO
+      1. Krish Chhabra
+      2. Thomas Holt
+      3. Josh Scott
+      4. Donato Curvino
+      5. Eliseo Garza
 3. **Daily Scrum Meeting 3**
     - **When**: 10/31 at 7:00 pm
     - **Where**: Discord
     - **Attendees**:
-      1. TODO
-      2. TODO
-      3. TODO
-      4. TODO
-      5. TODO
+      1. Krish Chhabra
+      2. Thomas Holt
+      3. Josh Scott
+      4. Donato Curvino
+      5. Eliseo Garza
 ### Sprint 1 User Study
 - **When**: 11/1 at 9:30 am (During Class?)
 - **Where**: Zachry

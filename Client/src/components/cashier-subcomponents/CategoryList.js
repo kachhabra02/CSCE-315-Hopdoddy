@@ -1,8 +1,11 @@
 import React from "react";
 
 function CategoryList({categories, clickHandler}) {
-    // console.log(props.categories);
-    const categoryButtons = categories.map((item) => <li><button onClick={clickHandler(item.category)}>{item.category}</button></li>);
+    var categoryButtons = categories.map((item) => <li><button onClick={clickHandler(item.category)}>{item.category}</button></li>);
+    
+    if (categories.length > 0 && categories[0].category === "Error retrieving categories") {
+        categoryButtons = [<li>{categories[0].category}</li>]
+    }
 
     return (
         <div className="CategoryList">
