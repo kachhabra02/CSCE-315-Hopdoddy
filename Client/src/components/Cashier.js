@@ -61,6 +61,21 @@ function Cashier() {
         return () => setOrders(orders.toSpliced(index, 1));
     }
 
+    function placeTransaction() {
+        axios.post(`${process.env.REACT_APP_API_URL}/api/transactions`, {
+            // TODO: change employeeID to an actual ID obtained from logging in
+            employeeID: 2,
+            menuIDs: orders.map((item) => item.item_id)
+        })
+            .then((res) => {
+                if (res.status === 200) {
+                    setOrders([]);
+                    console.log(res);
+                }
+            })
+            .catch(error => console.log(error));
+    }
+
     return (
         <div className="Cashier">
             {/* <NavBar />  */}
@@ -70,7 +85,7 @@ function Cashier() {
             {(items === null) ? <p>Loading...</p> : <ItemList items={items} clickHandler={addOrder}/>}
             <TransactionList orders={orders} remover={removeOrder}/>
             <div>
-                <button>SUBMIT</button>
+                <button onClick={placeTransaction}>SUBMIT</button>
                 <button onClick={() => setOrders([])}>CANCEL</button>
             </div>
         </div>
