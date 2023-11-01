@@ -1,7 +1,7 @@
 import React from "react";
 
-function ItemList({items}) {
-    var itemButtons = items.map((item) => <li><button>{item.item_name}</button></li>);
+function ItemList({items, clickHandler}) {
+    var itemButtons = items.map((item) => <li><button onClick={clickHandler(item)}>{item.item_name}</button></li>);
 
     if (items.length > 0 && items[0].item_name === "Error retrieving items") {
         itemButtons = [<li>{items[0].item_name}</li>]
