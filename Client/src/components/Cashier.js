@@ -17,7 +17,6 @@ function Cashier() {
     const [currCategory, setCurrCategory] = useState();
     const [items, setItems] = useState([]);
     const [orders, setOrders] = useState([]);
-    const [currOrder, setCurrOrder] = useState(0);
 
     useEffect(() => {
         API.get(`/menu/categories`)
