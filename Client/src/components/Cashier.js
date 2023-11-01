@@ -5,12 +5,15 @@ import TransactionList from "./cashier-subcomponents/TransactionList.js";
 import ItemList from "./cashier-subcomponents/ItemList.js";
 import axios from "axios";
 
+import "./cashier-subcomponents/Cashier.css";
+
 function Cashier() {
     const [categories, setCategories] = useState();
     const [subcategories, setSubcategories] = useState([]);
     const [currCategory, setCurrCategory] = useState();
     const [items, setItems] = useState([]);
     const [orders, setOrders] = useState([]);
+    const [currOrder, setCurrOrder] = useState(0);
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/api/menu/categories`)
@@ -50,9 +53,12 @@ function Cashier() {
         };
     }
 
-    // function addOrder({item_id, item_name, price}) {
     function addOrder(item) {
         return () => setOrders(orders.concat([item]));
+    }
+
+    function removeOrder(index) {
+        return () => setOrders(orders.toSpliced(index, 1));
     }
 
     return (
@@ -62,7 +68,7 @@ function Cashier() {
             {(categories === undefined) ? <p>Loading...</p> : <CategoryList categories={categories} clickHandler={getSubcategories}/>}       
             {(subcategories === null) ? <p>Loading...</p> : <SubcategoryList subcategories={subcategories} clickHandler={getItems}/>}
             {(items === null) ? <p>Loading...</p> : <ItemList items={items} clickHandler={addOrder}/>}
-            <TransactionList orders={orders}/>
+            <TransactionList orders={orders} remover={removeOrder}/>
         </div>
     );
 }

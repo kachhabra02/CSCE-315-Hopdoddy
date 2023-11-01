@@ -8,10 +8,6 @@ function CategoryList({categories, clickHandler}) {
         <div className="CategoryList">
             <h2>This is the CategoryList</h2>
             <ul>
-                {/* list items in here */}
-                {/* <li>Test Burgers</li>
-                <li>Test Fries</li>
-                <li>Test Drinks</li> */}
                 {categoryButtons}
             </ul>
         </div>
