@@ -9,16 +9,12 @@ const makeGuard = (authenticate) => function Guard({ children }) {
   const hasPermission = authenticate(credentials);
 
   useEffect(() => {
-    if (!hasPermission) {
-      navigate('/') ;
-    }
+    if (!hasPermission) navigate('/');
   }, [hasPermission, navigate]);
 
-  if (!hasPermission) {
-    return (
-      <h1>Credentials not valid, rerouting...</h1>
-    );
-  }
+  if (!hasPermission) return (
+    <h1>Credentials not valid, rerouting...</h1>
+  );
 
   return children;
 }
