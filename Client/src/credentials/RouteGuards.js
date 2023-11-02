@@ -9,12 +9,14 @@ const makeGuard = (authenticate) => function Guard({ children }) {
   const hasPermission = authenticate(user);
 
   useEffect(() => {
-    if (!hasPermission) navigate('/');
+    if (!hasPermission) {
+      navigate('/');  // TODO: More complicated action than a redirect will be needed here. Probably.
+    } 
   }, [hasPermission, navigate]);
 
-  if (!hasPermission) return (
-    <h1>Credentials not valid, rerouting...</h1>
-  );
+  if (!hasPermission) {
+    return null;
+  }
 
   return children;
 }
