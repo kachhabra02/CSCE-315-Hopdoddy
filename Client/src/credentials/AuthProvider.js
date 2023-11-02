@@ -4,11 +4,11 @@ const AuthContext = createContext();
 
 const defaultUser = {
   name: "Anonymous",
-  isManager: false,
-  isCashier: false
+  isManager: true, // TODO: Update this object when login is possible.
+  isCashier: true
 };
 
-export const useCredentials = () => {
+export const useAuth = () => {
   return useContext(AuthContext);
 };
 

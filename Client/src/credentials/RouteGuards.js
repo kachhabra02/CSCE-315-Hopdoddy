@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom';
-import { useCredentials } from './AuthProvider';
+import { useAuth } from './AuthProvider';
 import { useEffect } from 'react';
 
 const makeGuard = (authenticate) => function Guard({ children }) {
   
   const navigate = useNavigate();
-  const credentials = useCredentials();
-  const hasPermission = authenticate(credentials);
+  const { user } = useAuth();
+  const hasPermission = authenticate(user);
 
   useEffect(() => {
     if (!hasPermission) navigate('/');
@@ -19,5 +19,5 @@ const makeGuard = (authenticate) => function Guard({ children }) {
   return children;
 }
 
-export const CashierGuard = makeGuard((cred) => cred.isCashier || cred.isManager);
-export const ManagerGuard = makeGuard((cred) => cred.isManager);
+export const CashierGuard = makeGuard((user) => user.isCashier || user.isManager);
+export const ManagerGuard = makeGuard((user) => user.isManager);
