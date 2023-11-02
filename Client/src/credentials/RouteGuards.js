@@ -2,30 +2,19 @@ import { useNavigate } from 'react-router-dom';
 import { useCredentials } from './AuthProvider';
 import { useEffect } from 'react';
 
-export const ManagerGuard = ({ children }) => {
-  <Guard authenticate={(cred) => cred.isManager}>
-    { children }
-  </Guard>
-};
-
-export const CashierGuard = ({ children }) => {
-  <Guard authenticate={(cred) => cred.isCashier || cred.isManager}>
-    { children }
-  </Guard>
-};
-
-function Guard({ children, authenticate }) {
+const makeGuard = (authenticate) => function Guard({ children }) {
   
   const navigate = useNavigate();
   const credentials = useCredentials();
-  const isAuthenticated = authenticate(credentials);
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate('/login')
-    }
-  });
+  const hasPermission = authenticate(credentials);
 
-  if (!isAuthenticated) {
+  useEffect(() => {
+    if (!hasPermission) {
+      navigate('/') ;
+    }
+  }, [hasPermission, navigate]);
+
+  if (!hasPermission) {
     return (
       <h1>Credentials not valid, rerouting...</h1>
     );
@@ -33,3 +22,6 @@ function Guard({ children, authenticate }) {
 
   return children;
 }
+
+export const CashierGuard = makeGuard((cred) => cred.isCashier || cred.isManager);
+export const ManagerGuard = makeGuard((cred) => cred.isManager);
