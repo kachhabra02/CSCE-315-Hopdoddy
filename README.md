@@ -81,19 +81,19 @@ The retrospective must be completed before the next sprint backlog is determined
       4. Donato Curvino
       5. Eliseo Garza
 ### Sprint 1 Retrospective Meeting
-- **When**: 11/2 at TBD
-- **Where**: TBD
+- **When**: 11/2 at 11:30 PM
+- **Where**: Discord
 - **Attendees**:
-  1. TODO
-  2. TODO
-  3. TODO
-  4. TODO
-  5. TODO
+  1. Krish Chhabra
+  2. Thomas Holt
+  3. Josh Scott
+  4. Donato Curvino
+  5. Eliseo Garza
 
 ## Sprint 2 (TBD - 11/14)
 ### Sprint 2 Planning Meeting
-- **When**: 11/3 at TBD
-- **Where**: TBD
+- **When**: 11/6 at 10:05 AM (After Class)
+- **Where**: Zachry
 - **Attendees**:
   1. TODO
   2. TODO
