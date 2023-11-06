@@ -1,10 +1,11 @@
 import './NavBar.css';
+import { BsFillHouseFill } from "react-icons/bs";
 
 import React from 'react'
 import {Link, useLocation} from 'react-router-dom'
 
 const MenuLink = () => <Link to='/menu'><button>Menu Link</button></Link>;
-const HomeLink = () => <Link to='/'><button className='landing-button'>Landing Link</button></Link>
+const HomeLink = () => <Link to='/'><button className='landing-button'>Landing Link<BsFillHouseFill/></button></Link>
 const CashierLink = () => <Link to='/cashier'><button>Cashier Link</button></Link>;
 
 const locationLinksMap = {
