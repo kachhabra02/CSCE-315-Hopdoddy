@@ -80,15 +80,6 @@ The retrospective must be completed before the next sprint backlog is determined
       3. Josh Scott
       4. Donato Curvino
       5. Eliseo Garza
-### Sprint 1 User Study
-- **When**: 11/1 at 9:30 am (During Class?)
-- **Where**: Zachry
-- **Attendees**:
-  1. TODO
-  2. TODO
-  3. TODO
-  4. TODO
-  5. TODO
 ### Sprint 1 Retrospective Meeting
 - **When**: 11/2 at TBD
 - **Where**: TBD
@@ -137,15 +128,6 @@ The retrospective must be completed before the next sprint backlog is determined
       3. TODO
       4. TODO
       5. TODO
-### Sprint 2 User Study
-- **When**: TODO
-- **Where**: TODO
-- **Attendees**:
-  1. TODO
-  2. TODO
-  3. TODO
-  4. TODO
-  5. TODO
 ### Sprint 2 Retrospective Meeting
 - **When**: TODO
 - **Where**: TODO
@@ -194,15 +176,6 @@ The retrospective must be completed before the next sprint backlog is determined
       3. TODO
       4. TODO
       5. TODO
-### Sprint 3 User Study
-- **When**: TODO
-- **Where**: TODO
-- **Attendees**:
-  1. TODO
-  2. TODO
-  3. TODO
-  4. TODO
-  5. TODO
 ### Sprint 3 Retrospective Meeting
 - **When**: TODO
 - **Where**: TODO
