@@ -1,9 +1,12 @@
 import React, {useEffect, useState} from "react";
+import axios from "axios";
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+
 import CategoryList from "./cashier-subcomponents/CategoryList.js";
 import SubcategoryList from "./cashier-subcomponents/SubcategoryList.js";
 import TransactionList from "./cashier-subcomponents/TransactionList.js";
 import ItemList from "./cashier-subcomponents/ItemList.js";
-import axios from "axios";
 import "./cashier-subcomponents/Cashier.css";
 
 const API = axios.create({
@@ -18,6 +21,7 @@ function Cashier() {
     const [currSubcategory, setCurrSubcategory] = useState();
     const [items, setItems] = useState([]);
     const [orders, setOrders] = useState([]);
+    const [alertStatus, setAlertStatus] = useState({open: false, status: "error"});
 
     useEffect(() => {
         API.get(`/menu/categories`)
@@ -100,7 +104,11 @@ function Cashier() {
                     console.log(res);
                 }
             })
-            .catch(error => console.log(error));
+            .then(() => setAlertStatus({open: true, status: "success"}))
+            .catch(error => {
+                console.log(error);
+                setAlertStatus({open: true, status: "error"})
+            });
     }
 
     return (
@@ -113,8 +121,30 @@ function Cashier() {
             <TransactionList orders={orders} remover={removeOrder}/>
             <div>
                 <button onClick={placeTransaction}>SUBMIT</button>
-                <button onClick={() => setOrders([])}>CANCEL</button>
+                <button 
+                  onClick={() => {
+                    setOrders([]); 
+                    setAlertStatus({open: true, status: "canceled"});
+                  }}
+                >
+                    CANCEL
+                </button>
             </div>
+            <Snackbar 
+              open={alertStatus.open} 
+              onClose={() => setAlertStatus({open: false, status: alertStatus.status})}
+              autoHideDuration={5000}
+              anchorOrigin={{vertical: "bottom", horizontal: "center"}}
+            //   sx={{width: "500%"}}
+            >
+                {(alertStatus.status === "success") 
+                    ? <Alert severity="success">Transaction Submitted Sucsessfully!</Alert>
+                    : (alertStatus.status === "canceled")
+                        ? <Alert severity="info">Transaction canceled</Alert>
+                        : <Alert severity="error">Error submitting transaction</Alert>
+                }
+                
+            </Snackbar>
         </div>
     );
 }

@@ -10,6 +10,12 @@ function CategoryList({categories, clickHandler, selected}) {
           variant={(selected === item.category) ? "contained": "outlined"} 
           disableElevation 
           onClick={clickHandler(item.category)}
+        //   sx={{bgcolor: "#500000", 
+        //        color: "green",
+        //        "&:hover": {
+        //             bgcolor: "yellow"
+        //        }
+        //     }}
         >
             {item.category}
         </Button>)
