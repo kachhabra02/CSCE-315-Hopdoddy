@@ -6,7 +6,8 @@ import Menu from './components/menu-board/MenuBoard';
 import NavBar from './components/navbar/NavBar';
 import NotFound from './components/NotFound';
 
-import Cashier from "./components/Cashier.js"
+import Cashier from "./components/Cashier.js";
+import Manager from "./components/Manager.js"
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/menu" element={<Menu />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/cashier" element={<Cashier />} />
+          <Route path="/manager" element={<Manager />} />
         </Routes>
       </BrowserRouter>
     </div>
