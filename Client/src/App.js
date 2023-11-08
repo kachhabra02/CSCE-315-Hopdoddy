@@ -8,18 +8,37 @@ import NotFound from './components/NotFound';
 
 import Cashier from "./components/Cashier.js"
 
+import AppBar from '@mui/material/AppBar';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { green, grey } from '@mui/material/colors';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: grey[900],
+    },
+    secondary: {
+      main: green[500],
+    },
+  },
+});
+
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <NavBar />
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/menu" element={<Menu />} />
-          <Route path="*" element={<NotFound />} />
-          <Route path="/cashier" element={<Cashier />} />
-        </Routes>
-      </BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <AppBar position = 'static'>
+            <NavBar />
+          </AppBar>
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/menu" element={<Menu />} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="/cashier" element={<Cashier />} />
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
     </div>
   );
 }

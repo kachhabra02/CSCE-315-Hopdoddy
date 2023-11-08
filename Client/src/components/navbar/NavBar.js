@@ -1,11 +1,16 @@
+import Button from '@mui/material/Button';
+import { Toolbar } from '@mui/material';
+import Typography from '@mui/material/Typography';
+
 import './NavBar.css';
 
 import React from 'react'
 import {Link, useLocation} from 'react-router-dom'
 
-const MenuLink = () => <Link to='/menu'><button>Menu Link</button></Link>;
-const HomeLink = () => <Link to='/'><button className='landing-button'>Landing Link</button></Link>
-const CashierLink = () => <Link to='/cashier'><button>Cashier Link</button></Link>;
+
+const MenuLink = () => <Link to='/menu'><Button color="inherit">Menu Link</Button></Link>;
+const HomeLink = () => <Link to='/'><Button color="inherit">Landing Link</Button></Link>
+const CashierLink = () => <Link to='/cashier'><Button color="inherit">Cashier Link</Button></Link>;
 
 const locationLinksMap = {
     default : [MenuLink, HomeLink, CashierLink],
@@ -22,20 +27,20 @@ function NavBar() {
     }
 
     return (
-        <div id='navbar' style={{display : 'flex', height : '10vh'}}>
-            <h3>
-                Hopdoddy!
-            </h3>
+        <Toolbar id = 'navbar'>
+            <Typography variant="h6" component="div" sx={{ textAlign: 'left', flexGrow: 1 }}>
+                Hopdoddy
+            </Typography>
             <div id='navbar-buttons'>
                 {(locationLinksMap[location.pathname] ?? locationLinksMap.default)
-                    .map((ButtonComponent, index) => (
+                    .map((ButtonLink, index) => (
                         <React.Fragment key={index}>
-                            <ButtonComponent />
+                            <ButtonLink />
                         </React.Fragment>
                     )
                 )}
             </div>
-        </div>
+        </Toolbar>
     )
 }
 
