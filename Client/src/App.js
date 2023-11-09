@@ -1,4 +1,3 @@
-import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Landing from './components/landing/Landing';
@@ -10,17 +9,19 @@ import Cashier from "./components/Cashier.js"
 
 import AppBar from '@mui/material/AppBar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { green, grey } from '@mui/material/colors';
+import ManagerHome from './components/manager-home/ManagerHome.js';
+import { CssBaseline } from '@mui/material';
 
 const theme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: 'light',
   },
 });
 
 function App() {
   return (
     <ThemeProvider className="App" theme={theme}>
+      <CssBaseline />
       <BrowserRouter>
         <AppBar position = 'static'>
           <NavBar />
@@ -30,6 +31,7 @@ function App() {
           <Route path="/menu" element={<Menu />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/cashier" element={<Cashier />} />
+          <Route path='/manager-home' element={<ManagerHome />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
