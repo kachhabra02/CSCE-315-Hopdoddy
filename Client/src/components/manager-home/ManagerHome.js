@@ -24,7 +24,7 @@ function ManagerHome() {
         Welcome, Manager
     </Typography>
     <Stack spacing={2}>
-        <div style={{alignItems: 'center'}}>{makeButton('/','View/Manage Inventory')}{makeButton('/','View/Manage Menu Items')}</div>
+        <div>{makeButton('/','View/Manage Inventory')}{makeButton('/','View/Manage Menu Items')}</div>
         <div>{makeButton('/','View Order History')}{makeButton('/','Generate Reports')}</div>
         <div>{makeButton('/','Analyze Trends')}</div>
     </Stack>
