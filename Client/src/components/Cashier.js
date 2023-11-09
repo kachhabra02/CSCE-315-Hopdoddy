@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import CategoryList from "./cashier-subcomponents/CategoryList.js";
 import SubcategoryList from "./cashier-subcomponents/SubcategoryList.js";
@@ -115,9 +116,21 @@ function Cashier() {
         <div className="Cashier">
             {/* <NavBar />  */}
             <h1>This is the Cashier page</h1>
-            {(categories === undefined) ? <p>Loading...</p> : <CategoryList categories={categories} clickHandler={getSubcategories} selected={currCategory}/>}       
-            {(subcategories === null) ? <p>Loading...</p> : <SubcategoryList subcategories={subcategories} clickHandler={getItems} selected={currSubcategory}/>}
-            {(items === null) ? <p>Loading...</p> : <ItemList items={items} clickHandler={addOrder}/>}
+            {(categories === undefined) 
+                // ? <p>Loading...</p> 
+                ? <CircularProgress/>
+                : <CategoryList categories={categories} clickHandler={getSubcategories} selected={currCategory}/>
+            }       
+            {(subcategories === null) 
+                // ? <p>Loading...</p> 
+                ? <CircularProgress/> 
+                : <SubcategoryList subcategories={subcategories} clickHandler={getItems} selected={currSubcategory}/>
+            }
+            {(items === null) 
+                // ? <p>Loading...</p> 
+                ? <CircularProgress/> 
+                : <ItemList items={items} clickHandler={addOrder}/>
+            }
             <TransactionList orders={orders} remover={removeOrder}/>
             <div>
                 <button onClick={placeTransaction}>SUBMIT</button>
@@ -138,10 +151,10 @@ function Cashier() {
             //   sx={{width: "500%"}}
             >
                 {(alertStatus.status === "success") 
-                    ? <Alert severity="success">Transaction Submitted Sucsessfully!</Alert>
+                    ? <Alert severity="success" sx={{width: "90vw"}}>Transaction Submitted Sucsessfully!</Alert>
                     : (alertStatus.status === "canceled")
-                        ? <Alert severity="info">Transaction canceled</Alert>
-                        : <Alert severity="error">Error submitting transaction</Alert>
+                        ? <Alert severity="info" sx={{width: "90vw"}}>Transaction canceled</Alert>
+                        : <Alert severity="error" sx={{width: "90vw"}}>Error submitting transaction</Alert>
                 }
                 
             </Snackbar>
