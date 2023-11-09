@@ -14,32 +14,25 @@ import { green, grey } from '@mui/material/colors';
 
 const theme = createTheme({
   palette: {
-    primary: {
-      main: grey[900],
-    },
-    secondary: {
-      main: green[500],
-    },
+    mode: 'dark',
   },
 });
 
 function App() {
   return (
-    <div className="App">
-      <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <AppBar position = 'static'>
-            <NavBar />
-          </AppBar>
-          <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/menu" element={<Menu />} />
-            <Route path="*" element={<NotFound />} />
-            <Route path="/cashier" element={<Cashier />} />
-          </Routes>
-        </BrowserRouter>
-      </ThemeProvider>
-    </div>
+    <ThemeProvider className="App" theme={theme}>
+      <BrowserRouter>
+        <AppBar position = 'static'>
+          <NavBar />
+        </AppBar>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/menu" element={<Menu />} />
+          <Route path="*" element={<NotFound />} />
+          <Route path="/cashier" element={<Cashier />} />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

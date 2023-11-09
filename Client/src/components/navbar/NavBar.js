@@ -7,10 +7,11 @@ import './NavBar.css';
 import React from 'react'
 import {Link, useLocation} from 'react-router-dom'
 
+const makeButton = (path, label) => () => <Button color='inherit' component={Link} to={path}>{label}</Button>;
 
-const MenuLink = () => <Link to='/menu'><Button color="inherit">Menu Link</Button></Link>;
-const HomeLink = () => <Link to='/'><Button color="inherit">Landing Link</Button></Link>
-const CashierLink = () => <Link to='/cashier'><Button color="inherit">Cashier Link</Button></Link>;
+const MenuLink = makeButton('/menu', 'Menu');
+const HomeLink = makeButton('/', 'Home');
+const CashierLink = makeButton('/cashier', 'Cashier');
 
 const locationLinksMap = {
     default : [MenuLink, HomeLink, CashierLink],
