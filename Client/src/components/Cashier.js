@@ -112,6 +112,13 @@ function Cashier() {
             });
     }
 
+    const closeAlert = (event, reason) => {
+        if (reason === "clickaway") {
+            return;
+        }   
+        setAlertStatus({open: false, status: alertStatus.status});
+    }
+
     return (
         <div className="Cashier">
             {/* <NavBar />  */}
@@ -151,10 +158,10 @@ function Cashier() {
             //   sx={{width: "500%"}}
             >
                 {(alertStatus.status === "success") 
-                    ? <Alert severity="success" sx={{width: "90vw"}}>Transaction Submitted Sucsessfully!</Alert>
+                    ? <Alert severity="success" sx={{width: "90vw"}} onClose={closeAlert}>Transaction Submitted Sucsessfully!</Alert>
                     : (alertStatus.status === "canceled")
-                        ? <Alert severity="info" sx={{width: "90vw"}}>Transaction canceled</Alert>
-                        : <Alert severity="error" sx={{width: "90vw"}}>Error submitting transaction</Alert>
+                        ? <Alert severity="info" sx={{width: "90vw"}} onClose={closeAlert}>Transaction canceled</Alert>
+                        : <Alert severity="error" sx={{width: "90vw"}} onClose={closeAlert}>Error submitting transaction</Alert>
                 }
                 
             </Snackbar>
