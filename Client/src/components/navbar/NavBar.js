@@ -16,7 +16,7 @@ const ManagerLink = makeButton('/manager', 'Manager');
 
 const locationLinksMap = {
     default : [HomeLink, MenuLink, CashierLink, ManagerLink],
-    '/' : [HomeLink, MenuLink, CashierLink, ManagerLink],
+    '/' : [MenuLink, CashierLink, ManagerLink],
     '/menu' : [HomeLink, CashierLink, ManagerLink],
     '/manager' : [HomeLink, MenuLink, CashierLink],
     '/login' : null
