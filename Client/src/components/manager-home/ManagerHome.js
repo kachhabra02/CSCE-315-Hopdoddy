@@ -12,22 +12,21 @@ const makeButton = (path, label) =>
 
 function ManagerHome() {
   return (
-    <Box
-        sx={{
-            display: 'flex',       // Enable flex container
-            flexDirection: 'column', // Stack children vertically
-            justifyContent: 'center', // Center children along the vertical axis
-            alignItems: 'center',    // Center children along the horizontal axis
-            height: '80vh',         // Set the height of the container (e.g., full viewport height)
-        }}>
-    <Typography variant="h3">
-        Welcome, Manager
-    </Typography>
-    <Stack spacing={2}>
-        <div>{makeButton('/','View/Manage Inventory')}{makeButton('/','View/Manage Menu Items')}</div>
-        <div>{makeButton('/','View Order History')}{makeButton('/','Generate Reports')}</div>
-        <div>{makeButton('/','Analyze Trends')}</div>
-    </Stack>
+    <Box sx={{
+        display: 'flex',       // Enable flex container
+        flexDirection: 'column', // Stack children vertically
+        justifyContent: 'center', // Center children along the vertical axis
+        alignItems: 'center',    // Center children along the horizontal axis
+        height: '80vh',         // Set the height of the container (e.g., full viewport height)
+    }}>
+        <Typography variant="h3">
+            Welcome, Manager
+        </Typography>
+        <Stack spacing={2}>
+            <div>{makeButton('/','View/Manage Inventory')}{makeButton('/','View/Manage Menu Items')}</div>
+            <div>{makeButton('/','View Order History')}{makeButton('/','Generate Reports')}</div>
+            <div>{makeButton('/','Analyze Trends')}</div>
+        </Stack>
     </Box>
   )
 }
