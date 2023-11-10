@@ -9,7 +9,7 @@ import Cashier from "./components/Cashier.js"
 
 import AppBar from '@mui/material/AppBar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import ManagerHome from './components/manager-home/ManagerHome.js';
+import ManagerHome from './components/manager/ManagerHome.js';
 import { CssBaseline } from '@mui/material';
 
 const theme = createTheme({
