@@ -14,7 +14,7 @@ import { CssBaseline } from '@mui/material';
 
 const theme = createTheme({
   palette: {
-    mode: 'light',
+    mode: 'dark',
   },
 });
 
@@ -31,7 +31,7 @@ function App() {
           <Route path="/menu" element={<Menu />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/cashier" element={<Cashier />} />
-          <Route path='/manager-home' element={<ManagerHome />} />
+          <Route path='/manager' element={<ManagerHome />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

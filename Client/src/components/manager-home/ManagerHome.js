@@ -8,7 +8,7 @@ import {Link} from 'react-router-dom'
 import { ThemeProvider, useTheme } from '@emotion/react';
 
 const makeButton = (path, label) => 
-    <Button component={Link} to={path}>{label}</Button>;
+    <Button variant='contained' component={Link} to={path}>{label}</Button>;
 
 function ManagerHome() {
   return (
@@ -23,9 +23,17 @@ function ManagerHome() {
             Welcome, Manager
         </Typography>
         <Stack spacing={2}>
-            <div>{makeButton('/','View/Manage Inventory')}{makeButton('/','View/Manage Menu Items')}</div>
-            <div>{makeButton('/','View Order History')}{makeButton('/','Generate Reports')}</div>
-            <div>{makeButton('/','Analyze Trends')}</div>
+            <Stack direction="row" spacing={2}>
+                {makeButton('/manager/inventory','View/Manage Inventory')}
+                {makeButton('/manager/menu','View/Manage Menu Items')}
+            </Stack>
+            <Stack direction="row" spacing={2}>
+                {makeButton('/manager/history','View Order History')}
+                {makeButton('/manager/reports','Generate Reports')}
+            </Stack>
+            <Stack direction="row" spacing={2}>
+                {makeButton('/manager/trends','Analyze Trends')}
+            </Stack>
         </Stack>
     </Box>
   )
