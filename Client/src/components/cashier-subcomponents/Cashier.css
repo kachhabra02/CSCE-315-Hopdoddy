@@ -1,3 +1,10 @@
 .Cashier {
     color: black;
 }
+
+.selectionPanel {
+    float: right;
+    width: 60vw;
+    max-width: 60vw;
+    overflow-x: scroll;
+}

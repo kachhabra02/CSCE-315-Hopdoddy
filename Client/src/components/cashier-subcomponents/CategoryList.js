@@ -1,5 +1,6 @@
 import React from "react";
 import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 // import Button from '@mui/material/Button';
 // import ButtonGroup from '@mui/material/ButtonGroup';
 
@@ -33,9 +34,9 @@ function CategoryList({categories, clickHandler, selected}) {
         //     </ul>
         // </div>
 
-        <div exclusive className="CategoryList">
+        <Stack direction="row" spacing={1} justifyContent="center">
             {categoryButtons}
-        </div>
+        </Stack>
     );
 }
 

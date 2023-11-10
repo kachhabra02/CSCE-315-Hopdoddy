@@ -1,5 +1,6 @@
 import React from "react";
 import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 
 function SubcatetgoryList({subcategories, clickHandler, selected}) {
     // var subcategoryButtons = subcategories.map((item) => <li><button onClick={clickHandler(item.sub_category)}>{item.sub_category}</button></li>);
@@ -8,6 +9,9 @@ function SubcatetgoryList({subcategories, clickHandler, selected}) {
           variant={(selected === item.sub_category) ? "contained": "outlined"} 
           disableElevation 
           onClick={clickHandler(item.sub_category)}
+          sx={{
+            overflow: "hidden"
+          }}
         >
             {item.sub_category}
         </Button>)
@@ -20,9 +24,9 @@ function SubcatetgoryList({subcategories, clickHandler, selected}) {
     return (
         <div className="SubcategoryList">
             <h2>This is the SubcategoryList</h2>
-            <ul>
+            <Stack direction="row" spacing={1} justifyContent="center">
                 {subcategoryButtons}
-            </ul>
+            </Stack>
         </div>
     );
 }

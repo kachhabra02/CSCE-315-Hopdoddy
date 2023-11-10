@@ -123,21 +123,23 @@ function Cashier() {
         <div className="Cashier">
             {/* <NavBar />  */}
             <h1>This is the Cashier page</h1>
-            {(categories === undefined) 
-                // ? <p>Loading...</p> 
-                ? <CircularProgress/>
-                : <CategoryList categories={categories} clickHandler={getSubcategories} selected={currCategory}/>
-            }       
-            {(subcategories === null) 
-                // ? <p>Loading...</p> 
-                ? <CircularProgress/> 
-                : <SubcategoryList subcategories={subcategories} clickHandler={getItems} selected={currSubcategory}/>
-            }
-            {(items === null) 
-                // ? <p>Loading...</p> 
-                ? <CircularProgress/> 
-                : <ItemList items={items} clickHandler={addOrder}/>
-            }
+            <div className="selectionPanel">
+                {(categories === undefined) 
+                    // ? <p>Loading...</p> 
+                    ? <CircularProgress/>
+                    : <CategoryList categories={categories} clickHandler={getSubcategories} selected={currCategory}/>
+                }       
+                {(subcategories === null) 
+                    // ? <p>Loading...</p> 
+                    ? <CircularProgress/> 
+                    : <SubcategoryList subcategories={subcategories} clickHandler={getItems} selected={currSubcategory}/>
+                }
+                {(items === null) 
+                    // ? <p>Loading...</p> 
+                    ? <CircularProgress/> 
+                    : <ItemList items={items} clickHandler={addOrder}/>
+                }
+            </div>
             <TransactionList orders={orders} remover={removeOrder}/>
             <div>
                 <button onClick={placeTransaction}>SUBMIT</button>
