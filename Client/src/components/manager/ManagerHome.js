@@ -1,11 +1,9 @@
 import { Typography } from '@mui/material';
 import React from 'react'
 import Stack from '@mui/material/Stack';
-import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import {Link} from 'react-router-dom'
-import { ThemeProvider, useTheme } from '@emotion/react';
 
 const makeButton = (path, label) => 
     <Button variant='contained' component={Link} to={path}>{label}</Button>;
@@ -13,11 +11,11 @@ const makeButton = (path, label) =>
 function ManagerHome() {
   return (
     <Box sx={{
-        display: 'flex',       // Enable flex container
-        flexDirection: 'column', // Stack children vertically
+        display: 'flex',          // Enable flex container
+        flexDirection: 'column',  // Stack children vertically
         justifyContent: 'center', // Center children along the vertical axis
-        alignItems: 'center',    // Center children along the horizontal axis
-        height: '80vh',         // Set the height of the container (e.g., full viewport height)
+        alignItems: 'center',     // Center children along the horizontal axis
+        height: '80vh',           // Set the height of the container (e.g., full viewport height)
     }}>
         <Typography variant="h3">
             Welcome, Manager
