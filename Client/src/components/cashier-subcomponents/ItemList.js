@@ -1,5 +1,5 @@
 import React from "react";
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
 import ItemButton from "./ItemButton";
@@ -11,12 +11,6 @@ function ItemList({items, clickHandler}) {
         //   variant="outlined" 
         //   disableElevation 
         //   onClick={clickHandler(item)}
-        //   sx={{
-        //     // whiteSpace: "nowrap",
-        //     // overflow: "hidden",
-        //     // "text-overflow": "clip",
-        //     maxHeight: "3.3em"
-        //   }}
         // >
         //     {/* <span style={{overflow: "hidden", whiteSpace: "nowrap", "text-overflow": "ellipsis"}}>{item.item_name}</span> */}
         //     {item.item_name}

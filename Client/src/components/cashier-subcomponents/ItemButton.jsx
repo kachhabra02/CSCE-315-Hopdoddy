@@ -1,7 +1,7 @@
 import React, {useLayoutEffect, useRef, useState} from "react";
 import Button from '@mui/material/Button';
 
-function ItemButton({width = 150, height = 35, onClick, children}) {
+function ItemButton({width = 150, height = 35, selected = false, onClick, children}) {
     const ref = useRef(null);
     const [customStyle, setCustomStyle] = useState({
         minHeight: height,
@@ -21,13 +21,13 @@ function ItemButton({width = 150, height = 35, onClick, children}) {
 
     return (
         <Button
-          variant="outlined" 
+          variant={selected ? "contained" : "outlined"} 
           disableElevation 
           onClick={onClick}
           sx={customStyle}
           ref={ref}
         >
-            <span >{children}</span>
+            {children}
         </Button>
     );
 }
