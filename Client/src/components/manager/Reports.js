@@ -1,15 +1,16 @@
-import { Button, Card, CardActions, CardContent, Container, Stack, TextField } from '@mui/material'
-import Typography from '@mui/material/Typography';
+import { Button, Card, CardActions, CardContent, Container, Stack, TextField, Typography } from '@mui/material';
 
 import React, { useState } from 'react';
 
 function Reports() {
     return (
         <Container>
-            <Typography>
+            <Typography variant='h3'>
                 Report Generation
             </Typography>
-            <Stack direction={'column'} spacing={2}>
+            <Stack direction='row' spacing={2}>
+                <ExcessReport />
+                <ExcessReport />
                 <ExcessReport />
             </Stack>
         </Container>
@@ -29,12 +30,12 @@ function ExcessReport() {
     return (
         <Card>
             <CardContent>
-            <TextField
-                label="Start Time"
-                variant="outlined"
-                value={startTime}
-                onChange={handleStartTimeChange}
-            />
+                <TextField
+                    label="Start Time"
+                    variant="outlined"
+                    value={startTime}
+                    onChange={handleStartTimeChange}
+                />
             </CardContent>
             <CardActions>
                 <Button onClick={handleButtonClick}>Generate</Button>
@@ -51,4 +52,4 @@ function ExcessReport() {
 //         </CardActions>
 //     </Card>
 
-export default Reports
+export default Reports;
