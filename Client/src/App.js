@@ -17,7 +17,7 @@ import Trends from './components/manager/Trends.js';
 import History from './components/manager/History.js';
 import MenuManagment from './components/manager/MenuManagment.js';
 import Inventory from './components/manager/Inventory.js';
-import Reports from './components/manager/Reports.js';
+import Reports from './components/manager/reports/Reports.js';
 
 const theme = createTheme({
   palette: {

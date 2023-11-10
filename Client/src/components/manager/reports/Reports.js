@@ -29,6 +29,12 @@ function Reports() {
     )
 }
 
+const reportTitle = (title) => (
+    <Typography variant='h6' paddingBottom={3}>
+        {title}
+    </Typography>
+);
+
 function SalesReportInput() {
     const [startTime, setStartTime] = useState(new Date());
     const [endTime, setEndTime] = useState(new Date());
@@ -48,18 +54,21 @@ function SalesReportInput() {
     return (
         <Card>
             <CardContent>
-                <DateTimePicker
-                    label="Start Time"
-                    value={startTime}
-                    onChange={handleStartTimeChange}
-                    textField={(params) => <TextField {...params} />}
-                />
-                <DateTimePicker
-                    label="End Time"
-                    value={endTime}
-                    onChange={handleEndTimeChange}
-                    textField={(params) => <TextField {...params} />}
-                />
+                {reportTitle('Sales Report')}
+                <Stack spacing={4}>
+                    <DateTimePicker
+                        label="Start Time"
+                        value={startTime}
+                        onChange={handleStartTimeChange}
+                        textField={(params) => <TextField {...params} />}
+                    />
+                    <DateTimePicker
+                        label="End Time"
+                        value={endTime}
+                        onChange={handleEndTimeChange}
+                        textField={(params) => <TextField {...params} />}
+                    />
+                </Stack>
             </CardContent>
             <CardActions>
                 <Button onClick={handleButtonClick}>Generate</Button>
@@ -82,6 +91,7 @@ function ExcessReportInput() {
     return (
         <Card>
             <CardContent>
+                {reportTitle('Excess Report')}
                 <DateTimePicker
                     label="Start Time"
                     value={startTime}
