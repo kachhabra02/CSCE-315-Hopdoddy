@@ -7,7 +7,7 @@ import NotFound from './components/NotFound';
 import Cashier from "./components/Cashier.js";
 
 import { AuthProvider } from "./credentials/AuthProvider.js";
-import { CashierGuard } from "./credentials/RouteGuards.js";
+import { CashierGuard as CGuard, ManagerGuard as MGuard } from "./credentials/RouteGuards.js";
 
 import AppBar from '@mui/material/AppBar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -41,13 +41,13 @@ function App() {
             {route('/', Landing)}
             {route('/menu', Menu)}
             {route('*', NotFound)}
-            {route('/cashier', Cashier, CashierGuard)}
-            {route('/manager', ManagerHome)}
-            {route('/manager/reports', Reports)}
-            {route('/manager/trends', Trends)}
-            {route('/manager/history', History)}
-            {route('/manager/menu', MenuManagment)}
-            {route('/manager/inventory', Inventory)}
+            {route('/cashier', Cashier, CGuard)}
+            {route('/manager', ManagerHome, MGuard)}
+            {route('/manager/reports', Reports, MGuard)}
+            {route('/manager/trends', Trends, MGuard)}
+            {route('/manager/history', History, MGuard)}
+            {route('/manager/menu', MenuManagment, MGuard)}
+            {route('/manager/inventory', Inventory, MGuard)}
           </Routes>
         </BrowserRouter>
       </AuthProvider>
