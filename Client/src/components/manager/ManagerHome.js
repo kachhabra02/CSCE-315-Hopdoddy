@@ -17,7 +17,7 @@ function ManagerHome() {
         alignItems: 'center',     // Center children along the horizontal axis
         height: '80vh',           // Set the height of the container (e.g., full viewport height)
     }}>
-        <Typography variant="h3">
+        <Typography variant="h3" padding={3}>
             Welcome, Manager
         </Typography>
         <Stack spacing={2}>
