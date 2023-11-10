@@ -25,9 +25,12 @@ const theme = createTheme({
   },
 });
 
+const route = (path, Element, Guard=({children})=><>{children}</>) =>
+  <Route path={path} element={<Guard> <Element /> </Guard>} />
+
 function App() {
   return (
-    <ThemeProvider className='App' theme={theme}>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
       <AuthProvider>
         <BrowserRouter>
@@ -35,16 +38,16 @@ function App() {
             <NavBar />
           </AppBar>
           <Routes>
-            <Route path='/' element={<Landing />} />
-            <Route path='/menu' element={<Menu />} />
-            <Route path='*' element={<NotFound />} />
-            <Route path='/cashier' element={<Cashier component={CashierGuard}/>} />
-            <Route path='/manager' element={<ManagerHome />} />
-            <Route path='/manager/reports' element={<Reports />} />
-            <Route path='/manager/trends' element={<Trends />} />
-            <Route path='/manager/history' element={<History />} />
-            <Route path='/manager/menu' element={<MenuManagment />} />
-            <Route path='/manager/inventory' element={<Inventory />} />
+            {route('/', Landing)}
+            {route('/menu', Menu)}
+            {route('*', NotFound)}
+            {route('/cashier', Cashier, CashierGuard)}
+            {route('/manager', ManagerHome)}
+            {route('/manager/reports', Reports)}
+            {route('/manager/trends', Trends)}
+            {route('/manager/history', History)}
+            {route('/manager/menu', MenuManagment)}
+            {route('/manager/inventory', Inventory)}
           </Routes>
         </BrowserRouter>
       </AuthProvider>
