@@ -5,17 +5,29 @@ import Landing from './components/landing/Landing';
 import Menu from './components/menu-board/MenuBoard';
 import NavBar from './components/navbar/NavBar';
 import NotFound from './components/NotFound';
-import Cashier from "./components/Cashier.js"
+import Cashier from "./components/Cashier.js";
 
-import { AuthProvider } from "./credentials/AuthProvider.js"
-import { CashierGuard } from "./credentials/RouteGuards.js"
+import { AuthProvider } from "./credentials/AuthProvider.js";
+import { CashierGuard } from "./credentials/RouteGuards.js";
+
+import AppBar from '@mui/material/AppBar';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { green, grey } from '@mui/material/colors';
+
+const theme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
 function App() {
   return (
-    <div className="App">
+    <ThemeProvider className="App" theme={theme}>
       <AuthProvider>
         <BrowserRouter>
-          <NavBar />
+          <AppBar position = 'static'>
+            <NavBar />
+          </AppBar>
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/menu" element={<Menu />} />
@@ -24,8 +36,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </AuthProvider>
-    </div>
-  );
+    </ThemeProvider>);
 }
 
 export default App;
