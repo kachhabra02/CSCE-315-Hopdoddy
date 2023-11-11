@@ -8,13 +8,13 @@ import { assignReportProperties } from './Reports';
 function Sales() {
   const { startTime, endTime } = useParams();
 
-return (
-  <Box>
-    {Sales.title}<br/>
-    {startTime}<br/>
-    {endTime}
-  </Box>
-)
+  return (
+    <Box>
+      {Sales.title}<br/>
+      {startTime}<br/>
+      {endTime}
+    </Box>
+  )
 }
 
 assignReportProperties(
