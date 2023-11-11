@@ -4,16 +4,16 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 import React, { useState } from 'react';
-import { useNavigate, Route } from 'react-router-dom';
-import Excess from './Excess';
-import Sales from './Sales';
-import Restock from './Restock';
-import WhatSellsTogether from './WhatSellsTogether';
-import History from './History';
-import Usage from './Usage';
+import { useNavigate, Route, useParams } from 'react-router-dom';
 import { ManagerGuard } from '../../../credentials/RouteGuards';
 
+var pathIdToInputMap = {};
+
 function Reports() {
+    const { reportPathID } = useParams();
+
+    const ReportInput = pathIdToInputMap[reportPathID] ?? (() => <>NotFound</>)
+
     return (
         <Box sx={{
             display: 'flex',          // Enable flex container
@@ -22,23 +22,8 @@ function Reports() {
             alignItems: 'center',     // Center children along the horizontal axis
             height: '80vh',           // Set the height of the container (e.g., full viewport height)
         }}>
-            <Typography variant='h3' padding={3}>
-                Report Generation
-            </Typography>
-            
             <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <Stack spacing={2}>
-                    <Stack direction='row' spacing={2}>
-                        <SalesReportInput />
-                        <ExcessReportInput />
-                        <RestockReportInput />
-                    </Stack>
-                    <Stack direction='row' spacing={2}>
-                        <WSTReportInput />
-                        <HistoryReportInput />
-                        <UsageReportInput />
-                    </Stack>
-                </Stack>
+                <ReportInput />
             </LocalizationProvider>
         </Box>
     )
@@ -98,14 +83,7 @@ function ReportInput() {
     );
 }
 
-const ExcessReportInput = makeReportInput(Excess);
-const SalesReportInput = makeReportInput(Sales);
-const RestockReportInput = makeReportInput(Restock);
-const WSTReportInput = makeReportInput(WhatSellsTogether);
-const HistoryReportInput = makeReportInput(History);
-const UsageReportInput = makeReportInput(Usage);
-
-export function assignReportProperties(Report, title, pathID, needsStart, needsEnd) {
+function assignReportProperties(Report, title, pathID, needsStart, needsEnd) {
     Report.title = title;
     Report.needsStart = needsStart;
     Report.needsEnd = needsEnd;
@@ -118,11 +96,13 @@ export function assignReportProperties(Report, title, pathID, needsStart, needsE
     if (Report.needsEnd) {
         Report.routePath += '/:endTime'
     }
+    pathIdToInputMap[pathID] = makeReportInput(Report);
 }
 
 const routeReport = (Report) => (
     <Route path={Report.routePath} element={<ManagerGuard> <Report /> </ManagerGuard>} />
 );
 
-export { routeReport, Sales, Excess, Restock, WhatSellsTogether, History, Usage };
+
+export { assignReportProperties, routeReport };
 export default Reports;

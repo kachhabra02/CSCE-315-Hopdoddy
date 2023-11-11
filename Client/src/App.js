@@ -15,7 +15,14 @@ import ManagerHome from './components/manager/ManagerHome.js';
 import { CssBaseline } from '@mui/material';
 import MenuManagment from './components/manager/MenuManagment.js';
 import Inventory from './components/manager/Inventory.js';
-import Reports, { routeReport, Sales, Excess, Restock, WhatSellsTogether, History, Usage } from './components/manager/reports/Reports.js';
+import Reports, { routeReport } from './components/manager/reports/Reports.js';
+import Restock from './components/manager/Restock.js';
+
+import Sales from './components/manager/reports/Sales.js';
+import Excess from './components/manager/reports/Excess.js';
+import WhatSellsTogether from './components/manager/reports/WhatSellsTogether.js';
+import History from './components/manager/reports/History.js';
+import Usage from './components/manager/reports/Usage.js';
 
 const theme = createTheme({
   palette: {
@@ -42,12 +49,12 @@ function App() {
             {route('*', NotFound)}
             {route('/cashier', Cashier, CGuard)}
             {route('/manager', ManagerHome, MGuard)}
-            {route('/manager/reports', Reports, MGuard)}
+            {route('/manager/:reportPathID', Reports, MGuard)}
             {route('/manager/menu', MenuManagment, MGuard)}
+            {route('/manager/restock', Restock, MGuard)}
             {route('/manager/inventory', Inventory, MGuard)}
             {routeReport(Sales)}
             {routeReport(Excess)}
-            {routeReport(Restock)}
             {routeReport(WhatSellsTogether)}
             {routeReport(History)}
             {routeReport(Usage)}
