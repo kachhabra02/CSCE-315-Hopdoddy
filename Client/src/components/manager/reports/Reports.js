@@ -4,6 +4,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Reports() {
     return (
@@ -37,7 +38,8 @@ function Reports() {
 
 const makeReportInput = (title, needsStart, needsEnd, destination) =>
 function ReportInput() {
-    const [startTime, setStartTime] = useState(new Date());
+    const navigate = useNavigate();
+    const [startTime, setStartTime] = useState(new Date(1920,0,1));
     const [endTime, setEndTime] = useState(new Date());
 
     const handleStartTimeChange = (newValue) => {
@@ -48,9 +50,17 @@ function ReportInput() {
         setEndTime(newValue);
     };
 
-    const handleGenerate = () => {
-        console.log('Button clicked with on report with title ' + title);
-    };
+    const handleGenerate = (
+        needsStart && needsEnd ? () => {
+            navigate(destination + `/${startTime}/${endTime}`);
+        } : needsStart ? () => {
+            navigate(destination + `/${startTime}`);
+        } : needsEnd ? () => {
+            navigate(destination + `/${endTime}`);
+        } : () => {
+            navigate(destination);
+        }
+    );
 
     return (
         <Card sx={{ minWidth: 345 }}>
