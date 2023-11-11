@@ -6,22 +6,22 @@ import { Box } from '@mui/material';
 import { assignReportProperties } from './Reports';
 
 function Usage() {
-    const { startTime, endTime } = useParams();
+  const { startTime, endTime } = useParams();
   
-    return (
-      <Box>
-        {Usage.title}<br/>
-        {startTime}<br/>
-        {endTime}
-      </Box>
-    )
+  return (
+    <Box>
+      {Usage.title}<br/>
+      {startTime}<br/>
+      {endTime}
+    </Box>
+  )
 }
 
 assignReportProperties(
-    Usage,
-    'Product Usage',
-    'usage',
-    true, true
+  Usage,
+  'Product Usage',
+  'usage',
+  true, true
 );
 
 export default Usage
