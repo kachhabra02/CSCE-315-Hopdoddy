@@ -6,6 +6,7 @@ import Menu from './components/menu-board/MenuBoard';
 import NavBar from './components/navbar/NavBar';
 import NotFound from './components/NotFound';
 import Cashier from "./components/Cashier.js";
+import Customer from './components/Customer.js';
 
 import { AuthProvider } from "./credentials/AuthProvider.js";
 import { CashierGuard } from "./credentials/RouteGuards.js";
@@ -16,7 +17,7 @@ import { green, grey } from '@mui/material/colors';
 
 const theme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: 'light',
   },
 });
 
