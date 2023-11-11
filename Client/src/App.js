@@ -2,26 +2,41 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Landing from './components/landing/Landing';
-import Menu from './components/MenuBoard';
+import Menu from './components/menu-board/MenuBoard';
 import NavBar from './components/navbar/NavBar';
 import NotFound from './components/NotFound';
+import Cashier from "./components/Cashier.js";
 
-import Cashier from "./components/Cashier.js"
+import { AuthProvider } from "./credentials/AuthProvider.js";
+import { CashierGuard } from "./credentials/RouteGuards.js";
+
+import AppBar from '@mui/material/AppBar';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { green, grey } from '@mui/material/colors';
+
+const theme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <NavBar />
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/menu" element={<Menu />} />
-          <Route path="*" element={<NotFound />} />
-          <Route path="/cashier" element={<Cashier />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
-  );
+    <ThemeProvider className="App" theme={theme}>
+      <AuthProvider>
+        <BrowserRouter>
+          <AppBar position = 'static'>
+            <NavBar />
+          </AppBar>
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/menu" element={<Menu />} />
+            <Route path="/cashier" element={<CashierGuard><Cashier /></CashierGuard>} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
+    </ThemeProvider>);
 }
 
 export default App;

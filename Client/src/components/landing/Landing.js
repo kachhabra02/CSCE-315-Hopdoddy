@@ -1,3 +1,4 @@
+import { Box, Container } from '@mui/material';
 import './Landing.css';
 import hopdoddyPic from './hopdoddy.jpg';
 
@@ -5,7 +6,7 @@ import React from 'react'
 
 function Landing() {
   return (
-    <div id='landing'>
+    <Box id='landing' sx={{bgcolor: 'background.default' }}>
       <img src={hopdoddyPic} id='location-img' alt="Hopdoddy Location" />
       <div id='landing-info'>
         <div id='weather'>
@@ -18,7 +19,7 @@ function Landing() {
           <button>Order Now</button>
         </div>
       </div>
-    </div>
+    </Box>
   )
 }
 
