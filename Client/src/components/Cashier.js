@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from "react";
+// import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import axios from "axios";
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
@@ -9,81 +10,18 @@ import SubcategoryList from "./cashier-subcomponents/SubcategoryList.js";
 import TransactionList from "./cashier-subcomponents/TransactionList.js";
 import ItemList from "./cashier-subcomponents/ItemList.js";
 import "./cashier-subcomponents/Cashier.css";
+import useAPI from "./useAPI.js";
 
-const API = axios.create({
-    baseURL: `${process.env.REACT_APP_API_URL}/api`,
-    timeout: 10000 // 10 second timeout
-});
+// const API = axios.create({
+//     baseURL: `${process.env.REACT_APP_API_URL}/api`,
+//     timeout: 10000 // 10 second timeout
+// });
 
 function Cashier() {
-    const [categories, setCategories] = useState();
-    const [subcategories, setSubcategories] = useState([]);
-    const [currCategory, setCurrCategory] = useState();
-    const [currSubcategory, setCurrSubcategory] = useState();
-    const [items, setItems] = useState([]);
     const [orders, setOrders] = useState([]);
     const [alertStatus, setAlertStatus] = useState({open: false, status: "error"});
 
-    useEffect(() => {
-        API.get(`/menu/categories`)
-            .then((res) => {
-                if (res.status < 300) {
-                    setCategories(res.data);
-                }
-                else {
-                    console.log(res.data);
-                    setCategories([{category: "Error retrieving categories"}]);
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-                setCategories([{category: "Error retrieving categories"}]);
-            });
-    }, []);
-
-    function getSubcategories(categoryName) {
-        return () => {
-            setCurrCategory(categoryName);
-            setCurrSubcategory(null)
-            setSubcategories(null);
-            setItems([]);
-            API.get(`/menu/sub-categories?category=${categoryName}`)
-                .then((res) => {
-                    if (res.status < 300) {
-                        setSubcategories(res.data);
-                    }
-                    else {
-                        console.log(res.data);
-                        setSubcategories([{sub_category: "Error retrieving subcategories"}]);
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                    setSubcategories([{sub_category: "Error retrieving subcategories"}]);
-                });
-        };
-    }
-
-    function getItems(subcategoryName) {
-        return () => {
-            setCurrSubcategory(subcategoryName);
-            setItems(null);
-            API.get(`/menu/items?category=${currCategory}&subcategory=${subcategoryName}`)
-                .then((res) => {
-                    if (res.status < 300) {
-                        setItems(res.data);
-                    }
-                    else {
-                        console.log(res.data);
-                        setItems([{item_name: "Error retrieving items"}]);
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                    setItems([{item_name: "Error retrieving items"}]);
-                });
-        };
-    }
+    const [{categories, subcategories, items, currCategory, currSubcategory}, {getItems, getSubcategories}] = useAPI();
 
     function addOrder(item) {
         return () => setOrders(orders.concat([item]));
