@@ -1,4 +1,5 @@
 import React from "react";
+import {BsFillTrash3Fill} from "react-icons/bs";
 
 function TransactionList({orders, remover}) {
     const priceFormat = new Intl.NumberFormat("en-US", {
@@ -10,7 +11,7 @@ function TransactionList({orders, remover}) {
         <div>
             <span>{item.item_name}</span>
             <span>{priceFormat.format(parseFloat(item.price))}</span>
-            <button onClick={remover(i)}>Remove</button>
+            <button onClick={remover(i)}><BsFillTrash3Fill/></button>
         </div>
     ));
 
