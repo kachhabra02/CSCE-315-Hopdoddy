@@ -4,7 +4,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 import React, { useState } from 'react';
-import { useNavigate, Route, useParams } from 'react-router-dom';
+import { useNavigate, Route, useParams, Link } from 'react-router-dom';
 import { ManagerGuard } from '../../../credentials/RouteGuards';
 
 var pathIdToInputMap = {};
@@ -77,7 +77,21 @@ function ReportInput() {
                 </Stack>
             </CardContent>
             <CardActions>
-                <Button variant='outlined' color='success' onClick={handleGenerate}>Generate</Button>
+                <Box sx={{ textAlign: 'left', flexGrow: 1 }}>    
+                    <Button 
+                        variant='outlined' 
+                        color='success' 
+                        onClick={handleGenerate}
+                        children='Generate'
+                    />
+                </Box>
+                <Button 
+                    variant='outlined' 
+                    color='error' 
+                    component={Link} 
+                    to='/manager'
+                    children='Cancel'
+                />
             </CardActions>
         </Card>
     );
