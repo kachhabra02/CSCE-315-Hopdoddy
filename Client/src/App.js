@@ -25,8 +25,9 @@ const theme = createTheme({
   },
 });
 
-const route = (path, Element, Guard=({children})=><>{children}</>) =>
+const route = (path, Element, Guard=({children})=><>{children}</>) => (
   <Route path={path} element={<Guard> <Element /> </Guard>} />
+);
 
 function App() {
   return (

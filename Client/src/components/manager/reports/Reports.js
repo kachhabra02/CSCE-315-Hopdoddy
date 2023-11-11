@@ -19,23 +19,24 @@ function Reports() {
             </Typography>
             
             <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <Stack direction='row' spacing={2}>
-                    <SalesReportInput />
-                    <ExcessReportInput />
-                    <ExcessReportInput />
+                <Stack spacing={2}>
+                    <Stack direction='row' spacing={2}>
+                        <SalesReportInput />
+                        <ExcessReportInput />
+                        <WSTReportInput />
+                    </Stack>
+                    <Stack direction='row' spacing={2}>
+                        <HistoryReportInput />
+                        <UsageReportInput />
+                    </Stack>
                 </Stack>
             </LocalizationProvider>
         </Box>
     )
 }
 
-const reportTitle = (title) => (
-    <Typography variant='h6' paddingBottom={3}>
-        {title}
-    </Typography>
-);
-
-function SalesReportInput() {
+const makeReportInput = (title, needsStart, needsEnd, destination) =>
+function ReportInput() {
     const [startTime, setStartTime] = useState(new Date());
     const [endTime, setEndTime] = useState(new Date());
 
@@ -47,63 +48,42 @@ function SalesReportInput() {
         setEndTime(newValue);
     };
 
-    const handleButtonClick = () => {
-        console.log('Button clicked with date time picker value:', startTime);
+    const handleGenerate = () => {
+        console.log('Button clicked with on report with title ' + title);
     };
 
     return (
-        <Card>
+        <Card sx={{ minWidth: 345 }}>
             <CardContent>
-                {reportTitle('Sales Report')}
+                <Typography variant='h6' paddingBottom={3}>
+                    {title}
+                </Typography>
                 <Stack spacing={4}>
-                    <DateTimePicker
+                    {needsStart && <DateTimePicker
                         label="Start Time"
                         value={startTime}
                         onChange={handleStartTimeChange}
                         textField={(params) => <TextField {...params} />}
-                    />
-                    <DateTimePicker
+                    />}
+                    {needsEnd && <DateTimePicker
                         label="End Time"
                         value={endTime}
                         onChange={handleEndTimeChange}
                         textField={(params) => <TextField {...params} />}
-                    />
+                    />}
                 </Stack>
             </CardContent>
             <CardActions>
-                <Button onClick={handleButtonClick}>Generate</Button>
+                <Button variant='contained' onClick={handleGenerate}>Generate</Button>
             </CardActions>
         </Card>
     );
 }
 
-function ExcessReportInput() {
-    const [startTime, setStartTime] = useState(new Date());
-
-    const handleStartTimeChange = (newValue) => {
-        setStartTime(newValue);
-    };
-
-    const handleButtonClick = () => {
-        console.log('Button clicked with date time picker value:', startTime);
-    };
-
-    return (
-        <Card>
-            <CardContent>
-                {reportTitle('Excess Report')}
-                <DateTimePicker
-                    label="Start Time"
-                    value={startTime}
-                    onChange={handleStartTimeChange}
-                    textField={(params) => <TextField {...params} />}
-                />
-            </CardContent>
-            <CardActions>
-                <Button onClick={handleButtonClick}>Generate</Button>
-            </CardActions>
-        </Card>
-    );
-}
+const ExcessReportInput = makeReportInput('Excess Report', true, false, '/manager/excess');
+const SalesReportInput = makeReportInput('Sales Report', true, true, '/manager/sales');
+const WSTReportInput = makeReportInput('What Sells Together', false, false, '/manager/what-sells-together');
+const HistoryReportInput = makeReportInput('Order History', true, true, '/manager/history');
+const UsageReportInput = makeReportInput('Product Usage Report', true, true, '/manager/history');
 
 export default Reports;
