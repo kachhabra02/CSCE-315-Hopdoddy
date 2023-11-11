@@ -6,5 +6,10 @@
     float: right;
     width: 60vw;
     max-width: 60vw;
-    overflow-x: scroll;
+    /* overflow-x: scroll; */
+    /* background-color: lightgray; */
+}
+
+.TransactionList {
+    width: 40vw;
 }

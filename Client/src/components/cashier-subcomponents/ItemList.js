@@ -1,6 +1,7 @@
 import React from "react";
 // import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import Grid from '@mui/material/Grid';
 
 import ItemButton from "./ItemButton";
 
@@ -15,10 +16,11 @@ function ItemList({items, clickHandler}) {
         //     {/* <span style={{overflow: "hidden", whiteSpace: "nowrap", "text-overflow": "ellipsis"}}>{item.item_name}</span> */}
         //     {item.item_name}
         // </Button>
-
-        <ItemButton onClick={clickHandler(item)}>
-            {item.item_name}
-        </ItemButton>
+        <Grid item>
+            <ItemButton onClick={clickHandler(item)}>
+                {item.item_name}
+            </ItemButton>
+        </Grid>
     );
 
     if (items.length > 0 && items[0].item_name === "Error retrieving items") {
@@ -28,9 +30,12 @@ function ItemList({items, clickHandler}) {
     return (
         <div className="ItemList">
             <h2>This is the ItemList</h2>
-            <Stack direction="row" spacing={1} justifyContent="center">
+            {/* <Stack direction="row" spacing={1} justifyContent="center">
                 {itemButtons}
-            </Stack>
+            </Stack> */}
+            <Grid container spacing={1}>
+                {itemButtons}
+            </Grid>
         </div>
     );
 }
