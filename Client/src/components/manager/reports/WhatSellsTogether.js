@@ -1,10 +1,20 @@
 import React from 'react'
+import { useParams } from 'react-router-dom';
+
+import { Box } from '@mui/material';
+
 import { assignReportProperties } from './Reports';
 
 function WhatSellsTogether() {
-  return (
-    <div>{WhatSellsTogether.title}</div>
-  )
+    const { startTime, endTime } = useParams();
+  
+    return (
+      <Box>
+        {WhatSellsTogether.title}<br/>
+        {startTime}<br/>
+        {endTime}
+      </Box>
+    )
 }
 
 assignReportProperties(

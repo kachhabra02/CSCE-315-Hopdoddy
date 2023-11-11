@@ -1,9 +1,15 @@
 import React from 'react'
+import { useParams } from 'react-router-dom';
+
+import { Box } from '@mui/material';
+
 import { assignReportProperties } from './Reports';
 
 function Restock() {
   return (
-    <div>{Restock.title}</div>
+    <Box>
+      {Restock.title}
+    </Box>
   )
 }
 
