@@ -32,6 +32,7 @@ function App() {
             <Route path="/" element={<Landing />} />
             <Route path="/menu" element={<Menu />} />
             <Route path="/cashier" element={<CashierGuard><Cashier /></CashierGuard>} />
+            <Route path="/customer" element={<Customer />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

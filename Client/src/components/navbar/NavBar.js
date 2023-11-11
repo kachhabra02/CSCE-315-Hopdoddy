@@ -12,11 +12,12 @@ const makeButton = (path, label) => () => <Button color='inherit' component={Lin
 const MenuLink = makeButton('/menu', 'Menu');
 const HomeLink = makeButton('/', 'Home');
 const CashierLink = makeButton('/cashier', 'Cashier');
+const CustomerLink = makeButton('/customer', 'Customer');
 
 const locationLinksMap = {
-    default : [MenuLink, HomeLink, CashierLink],
-    '/' : [MenuLink, HomeLink, CashierLink],
-    '/menu' : [MenuLink, HomeLink, CashierLink],
+    default : [MenuLink, HomeLink, CashierLink, CustomerLink],
+    '/' : [MenuLink, HomeLink, CashierLink, CustomerLink],
+    '/menu' : [MenuLink, HomeLink, CashierLink, CustomerLink],
     '/login' : null
 };
 
