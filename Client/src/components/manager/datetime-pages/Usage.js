@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { Box } from '@mui/material';
 
-import { assignReportProperties } from './Reports';
+import { registerDateTimePage } from './PageInput';
 
 function Usage() {
   const { startTime, endTime } = useParams();
@@ -17,7 +17,7 @@ function Usage() {
   )
 }
 
-assignReportProperties(
+registerDateTimePage(
   Usage,
   'Product Usage',
   'usage',

@@ -9,10 +9,10 @@ import { ManagerGuard } from '../../../credentials/RouteGuards';
 
 var pathIdToInputMap = {};
 
-function Reports() {
-    const { reportPathID } = useParams();
+function PageInput() {
+    const { inputPathID } = useParams();
 
-    const ReportInput = pathIdToInputMap[reportPathID] ?? (() => <>NotFound</>)
+    const PageInputCard = pathIdToInputMap[inputPathID] ?? (() => <>NotFound</>)
 
     return (
         <Box sx={{
@@ -23,14 +23,14 @@ function Reports() {
             height: '80vh',           // Set the height of the container (e.g., full viewport height)
         }}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <ReportInput />
+                <PageInputCard />
             </LocalizationProvider>
         </Box>
     )
 }
 
-const makeReportInput = ({ title, needsStart, needsEnd, pathRoot }) =>
-function ReportInput() {
+const makePageInputCard = ({ title, needsStart, needsEnd, pathRoot }) =>
+function PageInputCard() {
     const navigate = useNavigate();
     const [startTime, setStartTime] = useState(new Date(1920,0,1));
     const [endTime, setEndTime] = useState(new Date());
@@ -110,13 +110,13 @@ function assignReportProperties(Report, title, pathID, needsStart, needsEnd) {
     if (Report.needsEnd) {
         Report.routePath += '/:endTime'
     }
-    pathIdToInputMap[pathID] = makeReportInput(Report);
+    pathIdToInputMap[pathID] = makePageInputCard(Report);
 }
 
-const routeReport = (Report) => (
+const routePageInput = (Report) => (
     <Route path={Report.routePath} element={<ManagerGuard> <Report /> </ManagerGuard>} />
 );
 
 
-export { assignReportProperties, routeReport };
-export default Reports;
+export { assignReportProperties as registerDateTimePage, routePageInput };
+export default PageInput;

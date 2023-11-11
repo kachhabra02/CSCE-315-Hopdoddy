@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { Box } from '@mui/material';
 
-import { assignReportProperties } from './Reports';
+import { registerDateTimePage } from './PageInput';
 
 function Excess() {
   const { startTime } = useParams();
@@ -16,7 +16,7 @@ function Excess() {
   )
 }
 
-assignReportProperties(
+registerDateTimePage(
   Excess,
   'Excess Report',
   'excess',

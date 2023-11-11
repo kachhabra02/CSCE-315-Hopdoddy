@@ -3,25 +3,25 @@ import { useParams } from 'react-router-dom';
 
 import { Box } from '@mui/material';
 
-import { assignReportProperties } from './Reports';
+import { registerDateTimePage } from './PageInput';
 
-function WhatSellsTogether() {
+function Sales() {
   const { startTime, endTime } = useParams();
-  
+
   return (
     <Box>
-      {WhatSellsTogether.title}<br/>
+      {Sales.title}<br/>
       {startTime}<br/>
       {endTime}
     </Box>
   )
 }
 
-assignReportProperties(
-  WhatSellsTogether,
-  'What Sells Together',
-  'what-sells-together',
+registerDateTimePage(
+  Sales,
+  'Sales Report',
+  'sales',
   true, true
 );
 
-export default WhatSellsTogether
+export default Sales
