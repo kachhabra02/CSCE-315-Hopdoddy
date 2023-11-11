@@ -19,6 +19,7 @@ const locationLinksMap = {
     '/' : [MenuLink, CashierLink, ManagerLink],
     '/menu' : [HomeLink, CashierLink, ManagerLink],
     '/manager' : [HomeLink, MenuLink, CashierLink],
+    '/cashier' : [HomeLink, MenuLink, ManagerLink],
     '/login' : null
 };
 

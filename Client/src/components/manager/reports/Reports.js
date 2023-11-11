@@ -77,7 +77,7 @@ function ReportInput() {
                 </Stack>
             </CardContent>
             <CardActions>
-                <Button variant='contained' onClick={handleGenerate}>Generate</Button>
+                <Button variant='outlined' color='success' onClick={handleGenerate}>Generate</Button>
             </CardActions>
         </Card>
     );
