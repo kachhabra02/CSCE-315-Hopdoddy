@@ -4,7 +4,14 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Route } from 'react-router-dom';
+import Excess from './Excess';
+import Sales from './Sales';
+import Restock from './Restock';
+import WhatSellsTogether from './WhatSellsTogether';
+import History from './History';
+import Usage from './Usage';
+import { ManagerGuard } from '../../../credentials/RouteGuards';
 
 function Reports() {
     return (
@@ -24,9 +31,10 @@ function Reports() {
                     <Stack direction='row' spacing={2}>
                         <SalesReportInput />
                         <ExcessReportInput />
-                        <WSTReportInput />
+                        <RestockReportInput />
                     </Stack>
                     <Stack direction='row' spacing={2}>
+                        <WSTReportInput />
                         <HistoryReportInput />
                         <UsageReportInput />
                     </Stack>
@@ -36,7 +44,7 @@ function Reports() {
     )
 }
 
-const makeReportInput = (title, needsStart, needsEnd, destination) =>
+const makeReportInput = ({ title, needsStart, needsEnd, pathRoot }) =>
 function ReportInput() {
     const navigate = useNavigate();
     const [startTime, setStartTime] = useState(new Date(1920,0,1));
@@ -52,13 +60,13 @@ function ReportInput() {
 
     const handleGenerate = (
         needsStart && needsEnd ? () => {
-            navigate(destination + `/${startTime}/${endTime}`);
+            navigate(pathRoot + `/${startTime}/${endTime}`);
         } : needsStart ? () => {
-            navigate(destination + `/${startTime}`);
+            navigate(pathRoot + `/${startTime}`);
         } : needsEnd ? () => {
-            navigate(destination + `/${endTime}`);
+            navigate(pathRoot + `/${endTime}`);
         } : () => {
-            navigate(destination);
+            navigate(pathRoot);
         }
     );
 
@@ -90,10 +98,31 @@ function ReportInput() {
     );
 }
 
-const ExcessReportInput = makeReportInput('Excess Report', true, false, '/manager/excess');
-const SalesReportInput = makeReportInput('Sales Report', true, true, '/manager/sales');
-const WSTReportInput = makeReportInput('What Sells Together', false, false, '/manager/what-sells-together');
-const HistoryReportInput = makeReportInput('Order History', true, true, '/manager/history');
-const UsageReportInput = makeReportInput('Product Usage Report', true, true, '/manager/history');
+const ExcessReportInput = makeReportInput(Excess);
+const SalesReportInput = makeReportInput(Sales);
+const RestockReportInput = makeReportInput(Restock);
+const WSTReportInput = makeReportInput(WhatSellsTogether);
+const HistoryReportInput = makeReportInput(History);
+const UsageReportInput = makeReportInput(Usage);
 
+export function assignReportProperties(Report, title, pathID, needsStart, needsEnd) {
+    Report.title = title;
+    Report.needsStart = needsStart;
+    Report.needsEnd = needsEnd;
+    Report.pathID = pathID;
+    Report.pathRoot = `/manager/${pathID}`;
+    Report.routePath = Report.pathRoot;
+    if (Report.needsStart) {
+        Report.routePath += '/:startTime'
+    }
+    if (Report.needsEnd) {
+        Report.routePath += '/:endTime'
+    }
+}
+
+const routeReport = (Report) => (
+    <Route path={Report.routePath} element={<ManagerGuard> <Report /> </ManagerGuard>} />
+);
+
+export { routeReport, Sales, Excess, Restock, WhatSellsTogether, History, Usage };
 export default Reports;

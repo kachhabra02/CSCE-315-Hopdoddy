@@ -13,11 +13,9 @@ import AppBar from '@mui/material/AppBar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ManagerHome from './components/manager/ManagerHome.js';
 import { CssBaseline } from '@mui/material';
-import Trends from './components/manager/Trends.js';
-import History from './components/manager/History.js';
 import MenuManagment from './components/manager/MenuManagment.js';
 import Inventory from './components/manager/Inventory.js';
-import Reports from './components/manager/reports/Reports.js';
+import Reports, { routeReport, Sales, Excess, Restock, WhatSellsTogether, History, Usage } from './components/manager/reports/Reports.js';
 
 const theme = createTheme({
   palette: {
@@ -45,10 +43,14 @@ function App() {
             {route('/cashier', Cashier, CGuard)}
             {route('/manager', ManagerHome, MGuard)}
             {route('/manager/reports', Reports, MGuard)}
-            {route('/manager/trends', Trends, MGuard)}
-            {route('/manager/history', History, MGuard)}
             {route('/manager/menu', MenuManagment, MGuard)}
             {route('/manager/inventory', Inventory, MGuard)}
+            {routeReport(Sales)}
+            {routeReport(Excess)}
+            {routeReport(Restock)}
+            {routeReport(WhatSellsTogether)}
+            {routeReport(History)}
+            {routeReport(Usage)}
           </Routes>
         </BrowserRouter>
       </AuthProvider>
