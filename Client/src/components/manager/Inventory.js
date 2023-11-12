@@ -13,17 +13,8 @@ const columns = [
     renderCell: (params) => {
       const onClick = (e) => {
         e.stopPropagation(); // don't select this row after clicking
-
-        const thisRow = {
-          id: params.id,
-          inventory_name: params.inventory_name,
-          price: params.price,
-          quantity: params.quantity,
-          unit: params.unit,
-        };
-
-        // Handle the action
-        alert(JSON.stringify(thisRow, null, 4));
+        console.log(params);
+        alert(JSON.stringify(params.row, null, 4));
       };
 
       return <Button onClick={onClick}>Click</Button>;
