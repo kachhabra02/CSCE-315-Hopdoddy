@@ -10,14 +10,7 @@ import useAPI from "../useAPI";
 function CategoryAccordions({categories}) {
     return categories.map((item) => (
         <Accordion>
-            <AccordionSummary 
-              expandIcon={<MdExpandMore/>}
-            //   onChange={(event, expanded) => {
-            //     if (expanded) {
-                    
-            //     }
-            //   }}
-            >
+            <AccordionSummary expandIcon={<MdExpandMore/>}>
                 {item.category}
             </AccordionSummary>
             <AccordionDetails>
@@ -38,22 +31,7 @@ function SubcategoryAccordions({category}) {
     return (
         subcategories == null
             ? <CircularProgress/>
-            : subcategories.map((item) => (
-                <Accordion 
-                //   onChange={(event, expanded) => {
-                //     if (expanded) {
-                //         getSubcategories(category);
-                //     }
-                //   }}
-                >
-                    <AccordionSummary expandIcon={<MdExpandMore/>}>
-                        {item.sub_category}
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <ItemAccordions category={category} subcategory={item.sub_category}/>
-                    </AccordionDetails>
-                </Accordion>
-            ))
+            : subcategories.map(item => (<ItemAccordions category={category} subcategory={item.sub_category}/>))
     )
 }
 
@@ -61,17 +39,6 @@ function ItemAccordions({category, subcategory}) {
     const [{items}, {getItemsBySubcategory}] = useAPI();
 
     // useEffect(getItemsBySubcategory(subcategory, category), []);
-
-    // console.log(items)
-    // return (
-    //     items === null
-    //         ? <CircularProgress/>
-    //         : items.map(item => (
-    //             <div>
-    //                 {item.item_name}
-    //             </div>
-    //         ))
-    // )
 
     const itemLoader = (event, expanded) => {
         if (expanded) {
@@ -81,7 +48,7 @@ function ItemAccordions({category, subcategory}) {
 
     return (
         <Accordion onChange={itemLoader}>
-            <AccordionSummary>
+            <AccordionSummary expandIcon={<MdExpandMore/>}>
                 {subcategory}
             </AccordionSummary>
             <AccordionDetails>
