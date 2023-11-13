@@ -86,7 +86,25 @@ const useAPI = () => {
         },
         {
             getSubcategories: getSubcategories,
-            getItems: getItems
+            getItems: getItems,
+            getItemsBySubcategory: (subcategoryName, category) => {
+                // setCurrCategory(category);
+                setItems(null);
+                API.get(`/menu/items?category=${category}&subcategory=${subcategoryName}`)
+                    .then((res) => {
+                        if (res.status < 300) {
+                            setItems(res.data);
+                        }
+                        else {
+                            console.log(res.data);
+                            setItems([{item_name: "Error retrieving items"}]);
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        setItems([{item_name: "Error retrieving items"}]);
+                    });
+            }
         }
     ]
 }
