@@ -2,6 +2,7 @@ import React from 'react';
 import {useState} from 'react';
 
 import { Box } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 import MUIDataTable from "mui-datatables";
 
 import axios from 'axios';
@@ -45,7 +46,7 @@ function Restock() {
     <Box>
       <br/><br/><br/>
 
-      {data === undefined ? 'Loading...' :
+      {data === undefined ? <CircularProgress /> :
         <MUIDataTable
            title={title}
            data={data}

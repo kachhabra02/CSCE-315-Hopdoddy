@@ -3,6 +3,7 @@ import {useState} from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Box } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 import MUIDataTable from "mui-datatables";
 
 import { registerDateTimePage } from './PageInput';
@@ -51,7 +52,7 @@ function Usage() {
       {'End Time: ' + endTime}
       <br/><br/><br/>
 
-      {data === undefined ? 'Loading...' :
+      {data === undefined ? <CircularProgress /> :
         <MUIDataTable
           title={title}
           data={data}
