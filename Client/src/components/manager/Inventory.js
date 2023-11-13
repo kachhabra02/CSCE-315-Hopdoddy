@@ -13,14 +13,14 @@ const columns = [
     width: 130,
     sortable: false,
     renderCell: (params) => {
-      const handleDelete = (ae) => {
-        ae.stopPropagation(); // don't select this row after clicking
+      const handleDelete = (e) => {
+        e.stopPropagation(); // don't select this row after clicking
         console.log(params);
         alert(JSON.stringify(params.row, null, 4));
       };
 
-      const handleSave = (ae) => {
-        ae.stopPropagation(); // don't select this row after clicking
+      const handleSave = (e) => {
+        e.stopPropagation(); // don't select this row after clicking
         console.log(params);
         alert(JSON.stringify(params.row, null, 4));
       };
@@ -46,7 +46,7 @@ const columns = [
   {
     field: 'inventory_name',
     headerName: 'Name',
-    width: 150,
+    width: 230,
     editable: true,
   },
   {
