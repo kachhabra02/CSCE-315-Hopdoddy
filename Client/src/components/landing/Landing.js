@@ -1,5 +1,5 @@
 import { Box, CardMedia } from '@mui/material';
-import { Card, CardHeader, CardContent, Typography} from '@mui/material';
+import { Card, CardHeader, CardContent, Typography, Button} from '@mui/material';
 import './Landing.css';
 import hopdoddyPic from './hopdoddy.jpg';
 
@@ -33,7 +33,22 @@ function WeatherCard(weatherData) {
         <Typography variant="body1">Humidity: {weatherData.main.humidity}%</Typography>
         <Typography variant="body1">Wind Speed: {weatherData.wind.speed} mph</Typography>
         <Typography variant="body1">Condition: {condition}</Typography>
-        {/* <Typography variant="body1">Chance of Precipitation: {weatherData.main.precipitation}%</Typography> */}
+      </CardContent>
+    </Card>
+  );
+}
+
+// Used to create a card displaying Hopdoddy's address
+function addressCard() {
+  const street = "144 Century Ct Suite 103";
+  const cityStateZip = "College Station, TX 77840";
+
+  return (
+    <Card sx={{ minWidth: 275 }}>
+      <CardHeader title="Location Information" />
+      <CardContent>
+        <Typography variant="h6">{street}</Typography>
+        <Typography variant="body1">{cityStateZip}</Typography>
       </CardContent>
     </Card>
   );
@@ -46,7 +61,7 @@ function Landing() {
     getWeather(setWeatherResult); // Making the API call
   }, []); // Empty dependency array for the initial render
 
-  // FIXME: Display weather data
+  // Simple if statement to wait until weather data is rendered
   const weatherDisplay = weatherResult.main ? (
     WeatherCard(weatherResult)
   ) : (
@@ -61,10 +76,11 @@ function Landing() {
           {weatherDisplay}
         </div>
         <div id='location'>
-          This div will contain address info
+          {addressCard()}
         </div>
+        {/* Adjusted button style, using MUI button now */}
         <div id='order-now'>
-          <button>Order Now</button>
+          <Button>Order Now</Button>
         </div>
       </div>
     </Box>
