@@ -1,11 +1,13 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, {useEffect} from "react";
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import { MdExpandMore } from "react-icons/md";
 import CircularProgress from '@mui/material/CircularProgress';
+import Stack from "@mui/material/Stack";
 
 import useAPI from "../useAPI";
+import ItemCard from "./ItemCard";
 
 function CategoryAccordions({categories}) {
     return categories.map((item) => (
@@ -54,9 +56,9 @@ function ItemAccordions({category, subcategory}) {
             <AccordionDetails>
                 {items === null
                     ? <CircularProgress/>
-                    : items.map(item => (
-                        <div>{item.item_name}</div>
-                    ))
+                    : <Stack direction="row">
+                        {items.map(item => <ItemCard name={item.item_name}/>)}
+                      </Stack>
                 }
             </AccordionDetails>
         </Accordion>
