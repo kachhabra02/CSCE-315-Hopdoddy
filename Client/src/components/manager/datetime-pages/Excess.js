@@ -20,8 +20,9 @@ const title = 'Excess Inventory Report';
 const columns = ['Inventory ID', 'Name', 'Current Quantity', 'Unit', 'Actual Usage', 'Target Usage'];
 
 const options = {
-  filterType: 'textField',
-  selectableRows: 'none'
+  filterType: 'multiselect',
+  selectableRows: 'none',
+  downloadOptions: { filename: 'excessReport.csv', serparator: ',' }
 };
 
 

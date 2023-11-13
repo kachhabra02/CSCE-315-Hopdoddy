@@ -17,8 +17,9 @@ const title = 'Inventory Restock Report';
 const columns = ['Inventory ID', 'Name', 'Current Quantity', 'Average Weekly Usage', 'Recommended Reorder'];
 
 const options = {
-  filterType: 'textField',
-  selectableRows: 'none'
+  filterType: 'multiselect',
+  selectableRows: 'none',
+  downloadOptions: { filename: 'restockReport.csv', serparator: ',' }
 };
 
 
