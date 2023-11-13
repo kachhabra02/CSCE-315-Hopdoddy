@@ -60,7 +60,7 @@ function Sales() {
         />
       }
     </Box>
-  )
+  );
 }
 
 registerDateTimePage(

@@ -60,7 +60,7 @@ function Excess() {
         />
       }
     </Box>
-  )
+  );
 }
 
 registerDateTimePage(
