@@ -30,7 +30,7 @@ function Restock() {
        if (res.status < 300) {
          console.log('Success');
          setData(res.data.map((item) => [item.inventory_id, item.inventory_name, item.current_quantity,
-                                         item.avg_weekly_usage, item.recommended_reorder]));
+                                         parseFloat(item.avg_weekly_usage).toFixed(2), parseFloat(item.recommended_reorder).toFixed(2)]));
        }
        else {
          console.log(res.data);
