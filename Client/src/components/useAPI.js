@@ -55,11 +55,12 @@ const useAPI = () => {
         };
     }
 
-    function getItems(subcategoryName) {
+    function getItems(subcategoryName, categoryName = null) {
         return () => {
             setCurrSubcategory(subcategoryName);
+            
             setItems(null);
-            API.get(`/menu/items?category=${currCategory}&subcategory=${subcategoryName}`)
+            API.get(`/menu/items?category=${(categoryName === null) ? currCategory : categoryName}&subcategory=${subcategoryName}`)
                 .then((res) => {
                     if (res.status < 300) {
                         setItems(res.data);
@@ -87,24 +88,6 @@ const useAPI = () => {
         {
             getSubcategories: getSubcategories,
             getItems: getItems,
-            getItemsBySubcategory: (subcategoryName, category) => {
-                // setCurrCategory(category);
-                setItems(null);
-                API.get(`/menu/items?category=${category}&subcategory=${subcategoryName}`)
-                    .then((res) => {
-                        if (res.status < 300) {
-                            setItems(res.data);
-                        }
-                        else {
-                            console.log(res.data);
-                            setItems([{item_name: "Error retrieving items"}]);
-                        }
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                        setItems([{item_name: "Error retrieving items"}]);
-                    });
-            }
         }
     ]
 }

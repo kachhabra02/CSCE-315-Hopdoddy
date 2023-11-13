@@ -14,7 +14,7 @@ function CategoryAccordions({categories}) {
                 {item.category}
             </AccordionSummary>
             <AccordionDetails>
-                <SubcategoryAccordions category={item.category}/>
+                <SubcategoryAccordions category={item.category}/>    
             </AccordionDetails>
         </Accordion>
     ));
@@ -36,13 +36,13 @@ function SubcategoryAccordions({category}) {
 }
 
 function ItemAccordions({category, subcategory}) {
-    const [{items}, {getItemsBySubcategory}] = useAPI();
+    const [{items}, {getItems}] = useAPI();
 
     // useEffect(getItemsBySubcategory(subcategory, category), []);
 
     const itemLoader = (event, expanded) => {
         if (expanded) {
-            getItemsBySubcategory(subcategory, category)
+            getItems(subcategory, category)()
         }
     }
 
