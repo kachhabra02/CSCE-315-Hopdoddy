@@ -1,12 +1,12 @@
 import React from 'react';
-import MUIDataTable from "mui-datatables";
+import {useState} from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Box } from '@mui/material';
+import MUIDataTable from "mui-datatables";
 
 import { registerDateTimePage } from './PageInput';
 
-import {useState} from 'react';
 import axios from 'axios';
 
 const API = axios.create({
