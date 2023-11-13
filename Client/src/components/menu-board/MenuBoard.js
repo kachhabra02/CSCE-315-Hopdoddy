@@ -19,6 +19,12 @@ function MenuBoard() {
     );
   }
 
+  // Implementing this handler to create a default image for our menu board (inside public/images/)
+  const imageNotFound = (e) => {
+    e.target.onerror = null; // Prevents looping?
+    e.target.src = "/images/default.jpg";
+  };
+
   return (
     <div id="menu-board">
       <h1>Menu</h1>
@@ -31,7 +37,16 @@ function MenuBoard() {
                 <h3>{sub_category}</h3>
                 <ul>
                   {menu[category][sub_category].map((item, index) => (
-                    <li key={index}>{item.item_name}</li>
+                    // <li key={index}>{item.item_name}</li>
+                    <li key={index}>
+                      <img 
+                        // Name like Goodnight/Good Cause -> goodnight-good_cause.jpg
+                        src={`/images/${item.item_name.replace(/\s+/g, '_').replace(/\//g, '-').toLowerCase()}.jpg`}
+                        alt={item.item_name}
+                        onError={imageNotFound}
+                      />
+                      {item.item_name}
+                    </li>
                   ))}
                 </ul>
               </div>
