@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -62,15 +62,37 @@ function ItemAccordions({category, subcategory}) {
 
     // useEffect(getItemsBySubcategory(subcategory, category), []);
 
-    console.log(items)
+    // console.log(items)
+    // return (
+    //     items === null
+    //         ? <CircularProgress/>
+    //         : items.map(item => (
+    //             <div>
+    //                 {item.item_name}
+    //             </div>
+    //         ))
+    // )
+
+    const itemLoader = (event, expanded) => {
+        if (expanded) {
+            getItemsBySubcategory(subcategory, category)
+        }
+    }
+
     return (
-        items == null
-            ? <CircularProgress/>
-            : items.map(item => (
-                <div>
-                    {item.item_name}
-                </div>
-            ))
+        <Accordion onChange={itemLoader}>
+            <AccordionSummary>
+                {subcategory}
+            </AccordionSummary>
+            <AccordionDetails>
+                {items === null
+                    ? <CircularProgress/>
+                    : items.map(item => (
+                        <div>{item.item_name}</div>
+                    ))
+                }
+            </AccordionDetails>
+        </Accordion>
     )
 }
 
