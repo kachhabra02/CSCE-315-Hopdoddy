@@ -27,7 +27,7 @@ const options = {
 
 function Excess() {
   const { startTime } = useParams();
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(undefined);
 
   API.get(`/reports/excess?startTime=${(new Date(startTime)).toISOString()}`)
      .then((res) => {
@@ -49,12 +49,15 @@ function Excess() {
       <br/><br/>
       {'Start Time: ' + startTime}
       <br/><br/><br/>
-      <MUIDataTable
-            title={title}
-            data={data}
-            columns={columns}
-            options={options}
+
+      {data === undefined ? 'Loading...' :
+        <MUIDataTable
+          title={title}
+          data={data}
+          columns={columns}
+          options={options}
         />
+      }
     </Box>
   )
 }
