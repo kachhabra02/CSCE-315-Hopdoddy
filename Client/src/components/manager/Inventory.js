@@ -1,23 +1,46 @@
-import { Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Paper, Box, Typography, Button } from '@mui/material';
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { Paper, Box, Typography, Button, ButtonGroup } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
+import { BsFillTrash3Fill, BsSave2Fill } from 'react-icons/bs';
 
 import React, { useEffect, useState } from 'react';
-import axios from "axios";
+import axios from 'axios';
 
 const columns = [
-  { field: 'id', headerName: 'ID', width: 60 },
+  { field: 'id', headerName: 'ID', width: 70 },
   {
     field: 'actions',
     headerName: 'Actions',
+    width: 130,
     sortable: false,
     renderCell: (params) => {
-      const onClick = (e) => {
-        e.stopPropagation(); // don't select this row after clicking
+      const handleDelete = (ae) => {
+        ae.stopPropagation(); // don't select this row after clicking
         console.log(params);
         alert(JSON.stringify(params.row, null, 4));
       };
 
-      return <Button onClick={onClick}>Click</Button>;
+      const handleSave = (ae) => {
+        ae.stopPropagation(); // don't select this row after clicking
+        console.log(params);
+        alert(JSON.stringify(params.row, null, 4));
+      };
+
+      return (
+        <ButtonGroup 
+          aria-label='outline button group'
+        >
+          <Button 
+            color='error'
+            onClick={handleDelete}
+          > <BsFillTrash3Fill /> 
+          </Button>
+          <Button 
+            color='warning'
+            onClick={handleSave}
+          > <BsSave2Fill />
+          </Button>
+        </ButtonGroup>
+      );
     },
   },
   {
