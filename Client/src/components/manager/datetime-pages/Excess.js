@@ -20,7 +20,8 @@ const title = 'Excess Inventory Report';
 const columns = ['Inventory ID', 'Name', 'Current Quantity', 'Unit', 'Actual Usage', 'Target Usage'];
 
 const options = {
-  filterType: 'checkbox'
+  filterType: 'textField',
+  selectableRows: 'none'
 };
 
 
@@ -45,8 +46,9 @@ function Excess() {
 
   return (
     <Box>
-      {Excess.title}<br/>
-      {'Start Time: ' + startTime}<br/>
+      <br/><br/>
+      {'Start Time: ' + startTime}
+      <br/><br/><br/>
       <MUIDataTable
             title={title}
             data={data}
