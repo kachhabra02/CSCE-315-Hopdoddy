@@ -34,8 +34,13 @@ function ShoppingCart({open, onClose, onUpdate}) {
     function removeOrder(index) {
         return () => {
             const newCart = cart.toSpliced(index, 1);
-            localStorage.setItem("cart", JSON.stringify(newCart));
-            setCart(newCart);
+            if (newCart.length === 0) {
+                localStorage.removeItem("cart");
+                setCart(null);
+            } else {
+                localStorage.setItem("cart", JSON.stringify(newCart));
+                setCart(newCart);
+            }
         };
     }
 
