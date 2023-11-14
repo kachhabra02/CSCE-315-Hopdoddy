@@ -26,6 +26,11 @@ const priceFormat = new Intl.NumberFormat("en-US", {
 function ShoppingCart({open, onClose, onUpdate}) {
     const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")));
 
+    const removeAll = () => {
+        localStorage.removeItem("cart");
+        setCart(null);
+    }
+
     function removeOrder(index) {
         return () => {
             const newCart = cart.toSpliced(index, 1);
@@ -86,6 +91,7 @@ function ShoppingCart({open, onClose, onUpdate}) {
                 } </List>
             </DialogContent>
             <DialogActions>
+                {cart && <Button variant="text" onClick={removeAll} color="error">Remove All</Button>}
                 <Button variant="text" onClick={placeTransaction}>Submit</Button>
             </DialogActions>
         </Dialog>
