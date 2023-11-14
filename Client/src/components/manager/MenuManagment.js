@@ -62,9 +62,10 @@ const columns = [
 
 const options = {
   filterType: 'multiselect',
-  selectableRows: 'multiselect',
+  selectableRows: 'multiple',
   downloadOptions: { filename: 'menu.csv', serparator: ',' },
-  draggableColumns: { enabled: true }
+  draggableColumns: { enabled: true },
+  resizableColumns: true
 };
 
 

@@ -60,7 +60,8 @@ const options = {
   filterType: 'multiselect',
   selectableRows: 'none',
   downloadOptions: { filename: 'popularPairsReport.csv', serparator: ',' },
-  draggableColumns: { enabled: true }
+  draggableColumns: { enabled: true },
+  resizableColumns: true
 };
 
 

@@ -60,7 +60,8 @@ const options = {
   filterType: 'multiselect',
   selectableRows: 'none',
   downloadOptions: { filename: 'orderHistoryReport.csv', serparator: ',' },
-  draggableColumns: { enabled: true }
+  draggableColumns: { enabled: true },
+  resizableColumns: true
 };
 
 

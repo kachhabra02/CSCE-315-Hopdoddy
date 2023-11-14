@@ -67,7 +67,8 @@ const options = {
   filterType: 'multiselect',
   selectableRows: 'none',
   downloadOptions: { filename: 'excessReport.csv', serparator: ',' },
-  draggableColumns: { enabled: true }
+  draggableColumns: { enabled: true },
+  resizableColumns: true
 };
 
 

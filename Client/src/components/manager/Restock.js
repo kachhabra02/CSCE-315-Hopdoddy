@@ -57,7 +57,8 @@ const options = {
   filterType: 'multiselect',
   selectableRows: 'none',
   downloadOptions: { filename: 'restockReport.csv', serparator: ',' },
-  draggableColumns: { enabled: true }
+  draggableColumns: { enabled: true },
+  resizableColumns: true
 };
 
 
