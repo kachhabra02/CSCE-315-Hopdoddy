@@ -138,7 +138,7 @@ const getOrderHistoryQuery = "SELECT Transactions.Transaction_ID AS Trans_ID, Tr
                              "LEFT JOIN Transactions ON Order_List.Transaction_ID = Transactions.Transaction_ID " +
                              "LEFT JOIN Menu ON Order_List.item_id = Menu.Item_ID " +
                              "WHERE Transaction_Time BETWEEN $1 AND $2 " +
-                             "GROUP BY Transactions.Transaction_ID ORDER BY Transaction_Time DESC LIMIT 5000";
+                             "GROUP BY Transactions.Transaction_ID ORDER BY Transaction_Time DESC LIMIT 100000";
 
 
 /****** REPORTS ******/
