@@ -8,9 +8,9 @@ import DialogActions from '@mui/material/DialogActions';
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-// import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
-// import Avatar from '@mui/material/Avatar';
+import Avatar from '@mui/material/Avatar';
 
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
@@ -83,6 +83,15 @@ function ShoppingCart({open, onClose, onUpdate}) {
                           )}
                         >
                             {/* TODO: add icon (Avatar) ?? */}
+                            <ListItemAvatar>
+                                <Avatar 
+                                  // Name like Goodnight/Good Cause -> goodnight-good_cause.jpg
+                                  src={`/images/${item.item_name.replace(/\s+/g, '_').replace(/\//g, '-').toLowerCase()}.jpg`}
+                                  alt={item.item_name}
+                                  // falls back on children if src cannot be found
+                                  children={<Avatar src="/images/default.jpg"/>}
+                                />
+                            </ListItemAvatar>
                             <ListItemText primary={item.item_name} secondary={priceFormat.format(parseFloat(item.price))}/>
                         </ListItem>
                     )) || (
