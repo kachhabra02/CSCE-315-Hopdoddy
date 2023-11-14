@@ -18,7 +18,36 @@ const API = axios.create({
 
 const title = 'Product/Inventory Usage Report';
 
-const columns = ['Inventory ID', 'Name', 'Total Usage', 'Unit'];
+const columns = [
+    {
+      name: 'Inventory ID',
+      options: {
+        filter: false,
+        sort: true
+      }
+    },
+    {
+      name: 'Name',
+      options: {
+        filter: true,
+        sort: true
+      }
+    },
+    {
+      name: 'Total Usage',
+      options: {
+        filter: false,
+        sort: true
+      }
+    },
+    {
+      name: 'Unit',
+      options: {
+        filter: true,
+        sort: true
+      }
+    }
+];
 
 const options = {
   filterType: 'multiselect',

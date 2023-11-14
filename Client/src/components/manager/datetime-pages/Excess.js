@@ -18,7 +18,50 @@ const API = axios.create({
 
 const title = 'Excess Inventory Report';
 
-const columns = ['Inventory ID', 'Name', 'Current Quantity', 'Unit', 'Actual Usage', 'Target Usage'];
+const columns = [
+    {
+      name: 'Inventory ID',
+      options: {
+        filter: false,
+        sort: true
+      }
+    },
+    {
+      name: 'Name',
+      options: {
+        filter: true,
+        sort: true
+      }
+    },
+    {
+      name: 'Current Quantity',
+      options: {
+        filter: false,
+        sort: true
+      }
+    },
+    {
+      name: 'Unit',
+      options: {
+        filter: true,
+        sort: true
+      }
+    },
+    {
+      name: 'Actual Usage',
+      options: {
+        filter: false,
+        sort: true
+      }
+    },
+    {
+      name: 'Target Usage',
+      options: {
+        filter: false,
+        sort: true
+      }
+    }
+];
 
 const options = {
   filterType: 'multiselect',

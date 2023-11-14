@@ -12,13 +12,49 @@ import axios from 'axios';
 
 const API = axios.create({
   baseURL: `${process.env.REACT_APP_API_URL}/api`,
-  timeout: 10000 // 10 second timeout
+  timeout: 30000 // 10 second timeout
 });
 
 
 const title = 'Order/Transaction History Report';
 
-const columns = ['Transaction ID', 'Time', 'Cashier ID', 'Total Price', 'Item\'s Ordered'];
+const columns = [
+    {
+      name: 'Transaction ID',
+      options: {
+        filter: false,
+        sort: true
+      }
+    },
+    {
+      name: 'Time',
+      options: {
+        filter: false,
+        sort: true
+      }
+    },
+    {
+      name: 'Cashier ID',
+      options: {
+        filter: true,
+        sort: true
+      }
+    },
+    {
+      name: 'Total Price',
+      options: {
+        filter: false,
+        sort: true
+      }
+    },
+    {
+      name: 'Item\'s Ordered',
+      options: {
+        filter: false,
+        sort: true
+      }
+    }
+];
 
 const options = {
   filterType: 'multiselect',

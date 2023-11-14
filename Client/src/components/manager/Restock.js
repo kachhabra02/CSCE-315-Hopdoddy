@@ -15,7 +15,43 @@ const API = axios.create({
 
 const title = 'Inventory Restock Report';
 
-const columns = ['Inventory ID', 'Name', 'Current Quantity', 'Average Weekly Usage', 'Recommended Reorder'];
+const columns = [
+    {
+      name: 'Inventory ID',
+      options: {
+        filter: false,
+        sort: true
+      }
+    },
+    {
+      name: 'Name',
+      options: {
+        filter: true,
+        sort: true
+      }
+    },
+    {
+      name: 'Current Quantity',
+      options: {
+        filter: false,
+        sort: true
+      }
+    },
+    {
+      name: 'Average Weekly Usage',
+      options: {
+        filter: false,
+        sort: true
+      }
+    },
+    {
+      name: 'Recommended Reorder',
+      options: {
+        filter: false,
+        sort: true
+      }
+    }
+];
 
 const options = {
   filterType: 'multiselect',

@@ -18,7 +18,43 @@ const API = axios.create({
 
 const title = 'Sales Report';
 
-const columns = ['Item ID', 'Name', 'Price', 'Is Modification?', 'Sales Made'];
+const columns = [
+    {
+      name: 'Item ID',
+      options: {
+        filter: false,
+        sort: true
+      }
+    },
+    {
+      name: 'Name',
+      options: {
+        filter: true,
+        sort: true
+      }
+    },
+    {
+      name: 'Price',
+      options: {
+        filter: false,
+        sort: true
+      }
+    },
+    {
+      name: 'Is Modification?',
+      options: {
+        filter: true,
+        sort: true
+      }
+    },
+    {
+      name: 'Sales Made',
+      options: {
+        filter: false,
+        sort: true
+      }
+    }
+];
 
 const options = {
   filterType: 'multiselect',
