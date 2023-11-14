@@ -69,7 +69,6 @@ function MenuManagment() {
 
 
   function loadMenu() {
-    setMenu(undefined);
     API.get(`/menu/view`)
      .then((res) => {
        if (res.status < 300) {
