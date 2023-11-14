@@ -1,6 +1,6 @@
-import { Paper, Box, Typography, Button, ButtonGroup } from '@mui/material';
+import { Paper, Box, Typography, Button } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-import { BsFillTrash3Fill, BsSave2Fill } from 'react-icons/bs';
+import { BsFillTrash3Fill } from 'react-icons/bs';
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -19,27 +19,12 @@ const columns = [
         alert(JSON.stringify(params.row, null, 4));
       };
 
-      const handleSave = (e) => {
-        e.stopPropagation(); // don't select this row after clicking
-        console.log(params);
-        alert(JSON.stringify(params.row, null, 4));
-      };
-
       return (
-        <ButtonGroup 
-          aria-label='outline button group'
-        >
-          <Button 
-            color='error'
-            onClick={handleDelete}
-          > <BsFillTrash3Fill /> 
-          </Button>
-          <Button 
-            color='warning'
-            onClick={handleSave}
-          > <BsSave2Fill />
-          </Button>
-        </ButtonGroup>
+        <Button 
+          color='error'
+          onClick={handleDelete}
+        > <BsFillTrash3Fill /> 
+        </Button>
       );
     },
   },
@@ -67,6 +52,7 @@ const columns = [
     headerName: 'Unit',
     description: 'This column has a value getter and is not sortable.',
     sortable: false,
+    editable: true,
     width: 100,
   },
 ];
@@ -90,6 +76,13 @@ function Inventory() {
       </Typography>
       <Paper sx={{ height: '70vh', width: '90%' }}>
         <DataGrid
+          processRowUpdate = {(newRow) => {
+            const updatedRow = { ...newRow, isNew: false };
+            setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+            // setSnackbar({ children: tableName + ' successfully saved', severity: 'success' });
+            // axios.put(`http://localhost:8000/mvhr/`, newRow)
+            return updatedRow;
+          }}
           rows={rows}
           columns={columns}
           checkboxSelection
@@ -100,24 +93,23 @@ function Inventory() {
   );
 }
 
-function replaceIDKeys (objects) {
+function addIDKeys (objects) {
   return objects.map(obj => {
     if (obj.hasOwnProperty('inventory_id')) {
       return {
         ...obj,
         id: obj.inventory_id,
-        inventory_id: undefined
       };
     }
     return obj;
-  }).map(({ inventory_id, ...rest }) => rest);
+  });
 }
 
 function getMenu (callback) {
   axios.get(`${process.env.REACT_APP_API_URL}/api/inventory`)
     .then((res) => {
       if (res.status < 300) {
-        callback(replaceIDKeys(res.data));
+        callback(addIDKeys(res.data));
       }
     })
     .catch( error => console.log(error) );
