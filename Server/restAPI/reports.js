@@ -23,15 +23,10 @@ router.get('/popular-pairs', async (req, res) => {
         return;
     }
 
-    if (!req.query.limit) {
-        res.status(400).send("Must provide limit!");
-        return;
-    }
-
     // Send query
     const queryObj = {
         text: queries.getPopularPairsQuery,
-        values: [req.query.startTime, req.query.endTime, req.query.limit]
+        values: [req.query.startTime, req.query.endTime]
     };
 
     const client = await pool.connect();

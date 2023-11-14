@@ -15,14 +15,17 @@ const makeButton = (path, label) => () => <Button color='inherit' component={Lin
 const MenuLink = makeButton('/menu', 'Menu');
 const HomeLink = makeButton('/', 'Home');
 const CashierLink = makeButton('/cashier', 'Cashier');
+const ManagerLink = makeButton('/manager', 'Manager');
 const CustomerLink = makeButton('/customer', 'Customer');
 
 const locationLinksMap = {
-    default : [MenuLink, HomeLink, CashierLink, CustomerLink],
-    '/' : [MenuLink, HomeLink, CashierLink, CustomerLink],
-    '/menu' : [MenuLink, HomeLink, CashierLink, CustomerLink],
-    '/login' : null,
-    '/customer' : [MenuLink, HomeLink, CashierLink, CustomerLink]
+    default : [HomeLink, MenuLink, CashierLink, ManagerLink, CustomerLink],
+    '/' : [MenuLink, CashierLink, ManagerLink, CustomerLink],
+    '/menu' : [HomeLink, CashierLink, ManagerLink, CustomerLink],
+    '/manager' : [HomeLink, MenuLink, CashierLink, CustomerLink],
+    '/cashier' : [HomeLink, MenuLink, ManagerLink, CustomerLink],
+    '/customer' : [MenuLink, HomeLink, CashierLink],
+    '/login' : null
 };
 
 function NavBar({onUpdate}) {

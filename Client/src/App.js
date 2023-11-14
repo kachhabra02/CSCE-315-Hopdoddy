@@ -1,4 +1,3 @@
-import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Landing from './components/landing/Landing';
@@ -9,11 +8,23 @@ import Cashier from "./components/Cashier.js";
 import Customer from './components/Customer.js';
 
 import { AuthProvider } from "./credentials/AuthProvider.js";
-import { CashierGuard } from "./credentials/RouteGuards.js";
+import { CashierGuard as CGuard, ManagerGuard as MGuard } from "./credentials/RouteGuards.js";
 
 import AppBar from '@mui/material/AppBar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { green, grey } from '@mui/material/colors';
+import ManagerHome from './components/manager/ManagerHome.js';
+import { CssBaseline } from '@mui/material';
+import MenuManagment from './components/manager/MenuManagment.js';
+import Inventory from './components/manager/Inventory.js';
+import PageInput, { routePageInput } from './components/manager/datetime-pages/PageInput.js';
+import Restock from './components/manager/Restock.js';
+
+import Sales from './components/manager/datetime-pages/Sales.js';
+import Excess from './components/manager/datetime-pages/Excess.js';
+import WhatSellsTogether from './components/manager/datetime-pages/WhatSellsTogether.js';
+import History from './components/manager/datetime-pages/History.js';
+import Usage from './components/manager/datetime-pages/Usage.js';
+
 import { useState } from 'react';
 
 const theme = createTheme({
@@ -22,26 +33,46 @@ const theme = createTheme({
   },
 });
 
+const route = (path, Element, Guard=({children})=><>{children}</>) => (
+  <Route path={path} element={<Guard> <Element /> </Guard>} />
+);
+
 function App() {
   const [, setCart] = useState();
 
   return (
-    <ThemeProvider className="App" theme={theme}>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
       <AuthProvider>
         <BrowserRouter>
           <AppBar position = 'static'>
             <NavBar onUpdate={setCart}/>
           </AppBar>
           <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/menu" element={<Menu />} />
-            <Route path="/cashier" element={<CashierGuard><Cashier /></CashierGuard>} />
+            {route('/', Landing)}
+            {route('/menu', Menu)}
+            {route('*', NotFound)}
+            {route('/cashier', Cashier, CGuard)}
             <Route path="/customer" element={<Customer onUpdate={setCart}/>} />
-            <Route path="*" element={<NotFound />} />
+            {/* Weird redering if I use route() for Customer */}
+            {/* suggest turning route() into RoutedElement({path, guard, children}) */}
+            {/* To use it, do: <RoutedElement path={} guard={}>{children}</RoutedElement> */}
+            {/* {route('/customer', () => <Customer onUpdate={setCart}/>)} */}
+            {route('/manager', ManagerHome, MGuard)}
+            {route('/manager/:inputPathID', PageInput, MGuard)}
+            {route('/manager/menu', MenuManagment, MGuard)}
+            {route('/manager/restock', Restock, MGuard)}
+            {route('/manager/inventory', Inventory, MGuard)}
+            {routePageInput(Sales)}
+            {routePageInput(Excess)}
+            {routePageInput(WhatSellsTogether)}
+            {routePageInput(History)}
+            {routePageInput(Usage)}
           </Routes>
         </BrowserRouter>
       </AuthProvider>
-    </ThemeProvider>);
+    </ThemeProvider>
+  );
 }
 
 export default App;
