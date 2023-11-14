@@ -102,6 +102,7 @@ function MenuManagment() {
              text: `Successfully Deleted Item '${item_info[1]}'`
            }
          );
+         console.log(alerts);
        }
        else {
          console.log(`Failed to delete item ${item_info[1]}`);
@@ -111,6 +112,7 @@ function MenuManagment() {
              text: `Failed to Delete Item '${item_info[1]}'`
            }
          );
+         console.log(alerts);
        }
      })
      .catch((error) => {
@@ -121,6 +123,7 @@ function MenuManagment() {
            text: `Failed to Delete Item '${item_info[1]}'`
          }
        );
+       console.log(alerts);
      });
   }
 
@@ -147,6 +150,7 @@ function MenuManagment() {
   return (
     <Box>
       <br/><br/>
+      {`Alerts: ${alerts}`}
       <Stack sx={{width: '70%'}} spacing={1}>
         {
           alerts.map((item, index) => 
