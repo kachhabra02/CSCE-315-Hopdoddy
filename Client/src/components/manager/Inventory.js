@@ -3,7 +3,7 @@
 // import { BsFillTrash3Fill } from 'react-icons/bs';
 // import AddIcon from '@mui/icons-material/Add';
 
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { 
   Paper, 
   Box, 
@@ -135,10 +135,6 @@ import axios from 'axios';
 //   );
 // }
 
-
-
-const roles = ['Market', 'Finance', 'Development'];
-
 const initialRows = [];
 
 function EditToolbar(props) {
@@ -166,6 +162,18 @@ function Inventory() {
   const [rows, setRows] = React.useState(initialRows);
   const [rowModesModel, setRowModesModel] = React.useState({});
 
+  useEffect(() => {
+    apiGetMenu(data => setRows(data));
+  }, []);
+
+  const getRow = (id) => {
+    const hits = rows.filter(row => row.id === id);
+    if (hits.length <= 0) {
+      return {}
+    }
+    return hits[0];
+  }
+
   const handleRowEditStop = (params, event) => {
     if (params.reason === GridRowEditStopReasons.rowFocusOut) {
       event.defaultMuiPrevented = true;
@@ -178,6 +186,8 @@ function Inventory() {
 
   const handleSaveClick = (id) => () => {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+    console.log(getRow(id));
+    apiUpdateInvItem(getRow(id));
   };
 
   const handleDeleteClick = (id) => () => {
@@ -207,31 +217,6 @@ function Inventory() {
   };
 
   const columns = [
-    // { field: 'name', headerName: 'Name', width: 180, editable: true },
-    // {
-    //   field: 'age',
-    //   headerName: 'Age',
-    //   type: 'number',
-    //   width: 80,
-    //   align: 'left',
-    //   headerAlign: 'left',
-    //   editable: true,
-    // },
-    // {
-    //   field: 'joinDate',
-    //   headerName: 'Join date',
-    //   type: 'date',
-    //   width: 180,
-    //   editable: true,
-    // },
-    // {
-    //   field: 'role',
-    //   headerName: 'Department',
-    //   width: 220,
-    //   editable: true,
-    //   type: 'singleSelect',
-    //   valueOptions: ['Market', 'Finance', 'Development'],
-    // },
     { field: 'id', headerName: 'ID', width: 70 },
     {
       field: 'inventory_name',
