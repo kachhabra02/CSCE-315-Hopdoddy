@@ -15,7 +15,7 @@ function ItemCard({item, onUpdate}) {
     }
 
     return (
-      <Card>
+      <Card sx={{minWidth: 200}}>
         <CardMedia sx={{height: 200}}>
             <img 
               // Name like Goodnight/Good Cause -> goodnight-good_cause.jpg
@@ -25,7 +25,7 @@ function ItemCard({item, onUpdate}) {
                 e.target.onerror = null; // Prevents looping?
                 e.target.src = "/images/default.jpg";
               }}
-            height={200}
+              height={200}
             />
         </CardMedia>
         <CardContent>

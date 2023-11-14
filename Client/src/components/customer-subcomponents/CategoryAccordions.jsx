@@ -56,7 +56,7 @@ function ItemAccordions({category, subcategory, onUpdate}) {
             <AccordionDetails>
                 {items === null
                     ? <CircularProgress/>
-                    : <Stack direction="row">
+                    : <Stack direction="row" spacing={2} sx={{overflow: "auto"}}>
                         {items.map(item => <ItemCard item={item} onUpdate={onUpdate}/>)}
                       </Stack>
                 }
