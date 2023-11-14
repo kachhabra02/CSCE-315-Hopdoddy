@@ -1,9 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
 
-import { Box } from '@mui/material';
-import CircularProgress from '@mui/material/CircularProgress';
+import { Box, CircularProgress, Alert, Stack } from '@mui/material';
 import MUIDataTable from "mui-datatables";
+// import Stack from '@mui/material/Stack';
 
 import axios from 'axios';
 
@@ -60,17 +60,10 @@ const columns = [
     }
 ];
 
-const options = {
-  filterType: 'multiselect',
-  selectableRows: 'multiple',
-  downloadOptions: { filename: 'menu.csv', serparator: ',' },
-  draggableColumns: { enabled: true },
-  resizableColumns: true
-};
-
 
 function MenuManagment() {
   const [menu, setMenu] = useState(undefined);
+  const [alerts, setAlerts] = useState([]);
 
 
   function loadMenu() {
@@ -91,8 +84,32 @@ function MenuManagment() {
      });
   }
 
-  function deleteItem(item_id) {
-    API.delete(`/menu/item/${item_id}`)
+  function removeAlert(index) {
+    alerts.splice(index, 1);
+    setAlerts([...alerts]);
+  }
+
+  function deleteItem(item_info) {
+    if (item_info[0] > 10) {
+      console.log(`Deleted item ${item_info[1]}`);
+      alerts.unshift(
+        {
+          severity: 'success',
+          text: `Successfully Deleted Item '${item_info[1]}'`
+        }
+      );
+    }
+    else {
+      console.log(`Failed to delete item ${item_info[1]}`);
+      alerts.unshift(
+        {
+          severity: 'error',
+          text: `Failed to Delete Item '${item_info[1]}'`
+        }
+      );
+    }
+    /*
+    API.delete(`/menu/item/${item_info[0]}`)
      .then((res) => {
        if (res.status < 300) {
          console.log('Success');
@@ -100,12 +117,29 @@ function MenuManagment() {
        }
        else {
          console.log(res.data);
+         loadMenu();
        }
      })
      .catch((error) => {
        console.log(error);
      });
+     */
   }
+
+
+  const options = {
+    filterType: 'multiselect',
+    selectableRows: 'multiple',
+    downloadOptions: { filename: 'menu.csv', serparator: ',' },
+    draggableColumns: { enabled: true },
+    resizableColumns: true,
+    onRowsDelete: (rowsDeleted) => {
+        const item_info = rowsDeleted.data.map((item) => menu[item.dataIndex])
+        item_info.map((item) => deleteItem(item));
+        loadMenu();
+        setAlerts([...alerts]);
+    }
+  };
     
   
   if (menu === undefined) {
@@ -114,7 +148,19 @@ function MenuManagment() {
   
   return (
     <Box>
-      <br/><br/><br/>
+      <br/><br/>
+
+      <Stack sx={{width: '70%'}} spacing={1}>
+        {
+          alerts.map((item, index) => 
+              <Alert severity={item.severity} onClose={() => removeAlert(index)} key={`alert-${index}`}>
+                {item.text}
+              </Alert>
+          )
+        }
+      </Stack>
+      
+      <br/>
 
       {menu === undefined ? <CircularProgress /> :
         <MUIDataTable
