@@ -137,10 +137,11 @@ function MenuManagment() {
         const new_alerts = [...alerts];
 
         const item_info = rowsDeleted.data.map((item) => menu[item.dataIndex]);
-        item_info.map((item) => deleteItem(item, new_alerts))
-
-        setAlerts(new_alerts);
-        setMenu(undefined);
+        Promise.all(item_info.map(async (item) => deleteItem(item, new_alerts)))
+          .then(() => {
+            setAlerts(new_alerts);
+            setMenu(undefined);
+          });
     }
   };
     
