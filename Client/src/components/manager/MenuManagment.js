@@ -79,10 +79,12 @@ function MenuManagment() {
        }
        else {
          console.log(res.data);
+         setMenu(['Error Retrieving Report! Please try again... (may need to use a smaller time window)']);
        }
      })
      .catch((error) => {
        console.log(error);
+       setMenu(['Error Retrieving Report! Please try again... (may need to use a smaller time window)']);
      });
   }
 
@@ -91,39 +93,36 @@ function MenuManagment() {
     setAlerts([...alerts]);
   }
 
-  function deleteItem(item_info) {
+  async function deleteItem(item_info, new_alerts) {
     API.delete(`/menu/item/${item_info[0]}`)
      .then((res) => {
        if (res.status < 300) {
          console.log(`Deleted item ${item_info[1]}`);
-         alerts.unshift(
+         new_alerts.unshift(
            {
              severity: 'success',
              text: `Successfully Deleted Item '${item_info[1]}'`
            }
          );
-         console.log(alerts);
        }
        else {
          console.log(`Failed to delete item ${item_info[1]}`);
-         alerts.unshift(
+         new_alerts.unshift(
            {
              severity: 'error',
              text: `Failed to Delete Item '${item_info[1]}'`
            }
          );
-         console.log(alerts);
        }
      })
      .catch((error) => {
        console.log(error);
-       alerts.unshift(
+       new_alerts.unshift(
          {
            severity: 'error',
            text: `Failed to Delete Item '${item_info[1]}'`
          }
        );
-       console.log(alerts);
      });
   }
 
@@ -135,9 +134,12 @@ function MenuManagment() {
     draggableColumns: { enabled: true },
     resizableColumns: true,
     onRowsDelete: (rowsDeleted) => {
+        const new_alerts = [...alerts];
+
         const item_info = rowsDeleted.data.map((item) => menu[item.dataIndex]);
-        item_info.map((item) => deleteItem(item));
-        // setAlerts([...alerts]);
+        item_info.map((item) => deleteItem(item, new_alerts))
+
+        setAlerts(new_alerts);
         setMenu(undefined);
     }
   };
@@ -149,8 +151,7 @@ function MenuManagment() {
   
   return (
     <Box>
-      <br/><br/>
-      {`Alerts: ${alerts}`}
+      <br/>
       <Stack sx={{width: '70%'}} spacing={1}>
         {
           alerts.map((item, index) => 
