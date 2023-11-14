@@ -80,7 +80,7 @@ function Inventory() {
             const updatedRow = { ...newRow, isNew: false };
             setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
             // setSnackbar({ children: tableName + ' successfully saved', severity: 'success' });
-            // axios.put(`http://localhost:8000/mvhr/`, newRow)
+            updateInvItem(newRow)
             return updatedRow;
           }}
           rows={rows}
@@ -107,10 +107,21 @@ function addIDKeys (objects) {
 
 function getMenu (callback) {
   axios.get(`${process.env.REACT_APP_API_URL}/api/inventory`)
-    .then((res) => {
+    .then(res => {
       if (res.status < 300) {
         callback(addIDKeys(res.data));
       }
+    })
+    .catch( error => console.log(error) );
+}
+
+function updateInvItem ({ id, ...row }, callback) {
+  axios.put(`${process.env.REACT_APP_API_URL}/api/inventory/${id}`, {
+    name: row.inventory_name,
+    ...row,
+  })
+    .then(res => {
+      callback(res.status);
     })
     .catch( error => console.log(error) );
 }
