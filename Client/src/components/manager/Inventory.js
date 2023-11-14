@@ -1,9 +1,31 @@
-import { Paper, Box, Typography } from '@mui/material';
-import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
+import { Paper, Box, Typography, Button } from '@mui/material';
+import { DataGrid, GridActionsCellItem, GridToolbarContainer, GridRowModes } from '@mui/x-data-grid';
 import { BsFillTrash3Fill } from 'react-icons/bs';
+import AddIcon from '@mui/icons-material/Add';
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+
+function EditToolbar(props) {
+  const { setRows, setRowModesModel } = props;
+
+  const handleClick = () => {
+    const id = 5000;
+    setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
+    setRowModesModel((oldModel) => ({
+      ...oldModel,
+      [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
+    }));
+  };
+
+  return (
+    <GridToolbarContainer>
+      <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
+        Add record
+      </Button>
+    </GridToolbarContainer>
+  );
+}
 
 function Inventory() {
   const [rows, setRows] = useState([]);
@@ -113,6 +135,17 @@ function apiGetMenu (callback) {
       if (res.status < 300) {
         callback(addIDKeys(res.data));
       }
+    })
+    .catch( error => console.log(error) );
+}
+
+function apiAddInvItem (row, callback) {
+  axios.post(`${process.env.REACT_APP_API_URL}/api/inventory`, {
+    name: row.inventory_name,
+    ...row,
+  })
+    .then(res => {
+      callback(res.status);
     })
     .catch( error => console.log(error) );
 }
