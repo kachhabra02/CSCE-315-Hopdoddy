@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState} from 'react';
+import { useState } from 'react';
 
 import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -56,7 +56,9 @@ const columns = [
 const options = {
   filterType: 'multiselect',
   selectableRows: 'none',
-  downloadOptions: { filename: 'restockReport.csv', serparator: ',' }
+  downloadOptions: { filename: 'restockReport.csv', serparator: ',' },
+  draggableColumns: { enabled: true },
+  resizableColumns: true
 };
 
 

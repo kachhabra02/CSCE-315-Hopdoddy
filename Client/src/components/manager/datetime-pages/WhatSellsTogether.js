@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState} from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Box } from '@mui/material';
@@ -59,7 +59,9 @@ const columns = [
 const options = {
   filterType: 'multiselect',
   selectableRows: 'none',
-  downloadOptions: { filename: 'popularPairsReport.csv', serparator: ',' }
+  downloadOptions: { filename: 'popularPairsReport.csv', serparator: ',' },
+  draggableColumns: { enabled: true },
+  resizableColumns: true
 };
 
 
