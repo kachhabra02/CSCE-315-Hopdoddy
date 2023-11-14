@@ -1,68 +1,71 @@
-import { Paper, Box, Typography, Button } from '@mui/material';
-import { DataGrid } from '@mui/x-data-grid';
+import { Paper, Box, Typography } from '@mui/material';
+import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
 import { BsFillTrash3Fill } from 'react-icons/bs';
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  {
-    field: 'actions',
-    headerName: 'Actions',
-    width: 130,
-    sortable: false,
-    renderCell: (params) => {
-      const handleDelete = (e) => {
-        e.stopPropagation(); // don't select this row after clicking
-        console.log(params);
-        alert(JSON.stringify(params.row, null, 4));
-      };
-
-      return (
-        <Button 
-          color='error'
-          onClick={handleDelete}
-        > <BsFillTrash3Fill /> 
-        </Button>
-      );
-    },
-  },
-  {
-    field: 'inventory_name',
-    headerName: 'Name',
-    width: 230,
-    editable: true,
-  },
-  {
-    field: 'price',
-    headerName: 'Price',
-    width: 150,
-    editable: true,
-  },
-  {
-    field: 'quantity',
-    headerName: 'Quantity',
-    type: 'number',
-    width: 110,
-    editable: true,
-  },
-  {
-    field: 'unit',
-    headerName: 'Unit',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    editable: true,
-    width: 100,
-  },
-];
-
 function Inventory() {
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
-    getMenu(data => setRows(data));
+    apiGetMenu(data => setRows(data));
   }, []);
+
+  const columns = [
+    { field: 'id', headerName: 'ID', width: 70 },
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      width: 130,
+      sortable: false,
+      renderCell: (params) => {
+        const handleDelete = (e) => {
+          e.stopPropagation(); // don't select this row after clicking
+          console.log(params);
+          apiDeleteInvItem(params.row, () => {
+            setRows(rows.filter((row) => row.id !== params.id));
+          });
+        };
+  
+        return (
+          <GridActionsCellItem 
+            icon={<BsFillTrash3Fill />}
+            label='delete'
+            color='error'
+            onClick={handleDelete}
+          />
+        );
+      },
+    },
+    {
+      field: 'inventory_name',
+      headerName: 'Name',
+      width: 230,
+      editable: true,
+    },
+    {
+      field: 'price',
+      headerName: 'Price',
+      width: 150,
+      editable: true,
+    },
+    {
+      field: 'quantity',
+      headerName: 'Quantity',
+      type: 'number',
+      width: 110,
+      editable: true,
+    },
+    {
+      field: 'unit',
+      headerName: 'Unit',
+      description: 'This column has a value getter and is not sortable.',
+      sortable: false,
+      editable: true,
+      width: 100,
+    },
+  ];
 
   return (
     <Box sx={{
@@ -80,7 +83,7 @@ function Inventory() {
             const updatedRow = { ...newRow, isNew: false };
             setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
             // setSnackbar({ children: tableName + ' successfully saved', severity: 'success' });
-            updateInvItem(newRow)
+            apiUpdateInvItem(newRow)
             return updatedRow;
           }}
           rows={rows}
@@ -105,7 +108,7 @@ function addIDKeys (objects) {
   });
 }
 
-function getMenu (callback) {
+function apiGetMenu (callback) {
   axios.get(`${process.env.REACT_APP_API_URL}/api/inventory`)
     .then(res => {
       if (res.status < 300) {
@@ -115,11 +118,19 @@ function getMenu (callback) {
     .catch( error => console.log(error) );
 }
 
-function updateInvItem ({ id, ...row }, callback) {
+function apiUpdateInvItem ({ id, ...row }, callback) {
   axios.put(`${process.env.REACT_APP_API_URL}/api/inventory/${id}`, {
     name: row.inventory_name,
     ...row,
   })
+    .then(res => {
+      callback(res.status);
+    })
+    .catch( error => console.log(error) );
+}
+
+function apiDeleteInvItem ({ id }, callback) {
+  axios.delete(`${process.env.REACT_APP_API_URL}/api/inventory/${id}`)
     .then(res => {
       callback(res.status);
     })
