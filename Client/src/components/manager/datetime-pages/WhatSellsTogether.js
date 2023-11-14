@@ -20,37 +20,37 @@ const title = 'Popular Pairs Report';
 
 const columns = [
     {
-      name: 'Transaction ID',
+      name: 'First Item ID',
       options: {
         filter: false,
         sort: true
       }
     },
     {
-      name: 'Time',
-      options: {
-        filter: false,
-        sort: true
-      }
-    },
-    {
-      name: 'Cashier ID',
+      name: 'First Item Name',
       options: {
         filter: true,
         sort: true
       }
     },
     {
-      name: 'Total Price',
+      name: 'Second Item ID',
       options: {
         filter: false,
         sort: true
       }
     },
     {
-      name: 'Item\'s Ordered',
+      name: 'Second Item Name',
       options: {
-        filter: false,
+        filter: true,
+        sort: true
+      }
+    },
+    {
+      name: 'Number of Orders',
+      options: {
+        filter: true,
         sort: true
       }
     }
@@ -71,8 +71,8 @@ function WhatSellsTogether() {
     .then((res) => {
       if (res.status < 300) {
         console.log('Success');
-        setData(res.data.map((item) => [item.trans_id, (new Date(item.transaction_time)).toLocaleString(navigator.language),
-                                        item.employee_id, item.total_price, item.item_names.join(', ')]));
+        setData(res.data.map((item) => [item.first_item_id, item.first_item_name, item.second_item_id,
+                                        item.second_item_name, item.num_orders]));
       }
       else {
         console.log(res.data);
