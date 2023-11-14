@@ -1,9 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
 
-import { Box, CircularProgress, Alert, Stack } from '@mui/material';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 import MUIDataTable from "mui-datatables";
-// import Stack from '@mui/material/Stack';
 
 import axios from 'axios';
 
