@@ -14,6 +14,7 @@ import { CashierGuard } from "./credentials/RouteGuards.js";
 import AppBar from '@mui/material/AppBar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { green, grey } from '@mui/material/colors';
+import { useState } from 'react';
 
 const theme = createTheme({
   palette: {
@@ -22,6 +23,8 @@ const theme = createTheme({
 });
 
 function App() {
+  const [, setCart] = useState();
+
   return (
     <ThemeProvider className="App" theme={theme}>
       <AuthProvider>
@@ -33,7 +36,7 @@ function App() {
             <Route path="/" element={<Landing />} />
             <Route path="/menu" element={<Menu />} />
             <Route path="/cashier" element={<CashierGuard><Cashier /></CashierGuard>} />
-            <Route path="/customer" element={<Customer />} />
+            <Route path="/customer" element={<Customer onUpdate={setCart}/>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

@@ -4,13 +4,13 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from "@mui/material/Button";
 
-function ItemCard({item, updater}) {
+function ItemCard({item, onUpdate}) {
     function addToCart() {
         const orders = JSON.parse(localStorage.getItem("cart"));
         // const orders = localStorage.getItem("cart");
         // console.log(orders);
         const newOrders = orders ? orders.concat([item]) : [item];
-        updater(newOrders);
+        onUpdate({});
         localStorage.setItem("cart", JSON.stringify(newOrders));
     }
 

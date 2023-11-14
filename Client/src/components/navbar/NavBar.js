@@ -8,6 +8,8 @@ import { BsFillHouseFill } from "react-icons/bs";
 import React from 'react'
 import {Link, useLocation} from 'react-router-dom'
 
+import CartButton from '../customer-subcomponents/CartButton';
+
 const makeButton = (path, label) => () => <Button color='inherit' component={Link} to={path}>{label}</Button>;
 
 const MenuLink = makeButton('/menu', 'Menu');
@@ -19,7 +21,8 @@ const locationLinksMap = {
     default : [MenuLink, HomeLink, CashierLink, CustomerLink],
     '/' : [MenuLink, HomeLink, CashierLink, CustomerLink],
     '/menu' : [MenuLink, HomeLink, CashierLink, CustomerLink],
-    '/login' : null
+    '/login' : null,
+    '/customer' : [CartButton, MenuLink, HomeLink, CashierLink, CustomerLink]
 };
 
 function NavBar() {

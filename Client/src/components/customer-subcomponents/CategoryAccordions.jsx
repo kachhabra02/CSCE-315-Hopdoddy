@@ -9,20 +9,20 @@ import Stack from "@mui/material/Stack";
 import useAPI from "../useAPI";
 import ItemCard from "./ItemCard";
 
-function CategoryAccordions({categories, updater}) {
+function CategoryAccordions({categories, onUpdate}) {
     return categories.map((item) => (
         <Accordion>
             <AccordionSummary expandIcon={<MdExpandMore/>}>
                 {item.category}
             </AccordionSummary>
             <AccordionDetails>
-                <SubcategoryAccordions category={item.category} updater={updater}/>    
+                <SubcategoryAccordions category={item.category} onUpdate={onUpdate}/>    
             </AccordionDetails>
         </Accordion>
     ));
 }
 
-function SubcategoryAccordions({category, updater}) {
+function SubcategoryAccordions({category, onUpdate}) {
     const [{subcategories}, {getSubcategories}] = useAPI();
 
     useEffect(() => {
@@ -33,11 +33,11 @@ function SubcategoryAccordions({category, updater}) {
     return (
         subcategories == null
             ? <CircularProgress/>
-            : subcategories.map(item => (<ItemAccordions category={category} subcategory={item.sub_category} updater={updater}/>))
+            : subcategories.map(item => (<ItemAccordions category={category} subcategory={item.sub_category} onUpdate={onUpdate}/>))
     )
 }
 
-function ItemAccordions({category, subcategory, updater}) {
+function ItemAccordions({category, subcategory, onUpdate}) {
     const [{items}, {getItems}] = useAPI();
 
     // useEffect(getItemsBySubcategory(subcategory, category), []);
@@ -57,7 +57,7 @@ function ItemAccordions({category, subcategory, updater}) {
                 {items === null
                     ? <CircularProgress/>
                     : <Stack direction="row">
-                        {items.map(item => <ItemCard item={item} updater={updater}/>)}
+                        {items.map(item => <ItemCard item={item} onUpdate={onUpdate}/>)}
                       </Stack>
                 }
             </AccordionDetails>
