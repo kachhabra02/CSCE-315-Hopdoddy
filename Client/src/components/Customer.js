@@ -1,10 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { MdExpandMore } from "react-icons/md";
+import { MdOutlineShoppingCart } from "react-icons/md";
+import Badge from '@mui/material/Badge';
+import SvgIcon from '@mui/material/SvgIcon';
 
 import useAPI from "./useAPI";
 import CategoryAccordions from "./customer-subcomponents/CategoryAccordions";
@@ -23,11 +21,19 @@ function Customer() {
     //     </Accordion>
     // ));
 
+    const orders = JSON.parse(localStorage.getItem("cart"));
+    const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")));
+
     return (
         <div className="Customer">
+            <Badge badgeContent={cart?.length} color="secondary">
+                <SvgIcon sx={{fontSize: 25}}>
+                    <MdOutlineShoppingCart  />
+                </SvgIcon>
+            </Badge>
             {(categories === undefined) 
                 ? <div>Loading...</div>
-                : <CategoryAccordions categories={categories}/>
+                : <CategoryAccordions categories={categories} updater={setCart}/>
             }
         </div>
     );

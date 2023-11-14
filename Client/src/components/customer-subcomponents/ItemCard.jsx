@@ -4,14 +4,23 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from "@mui/material/Button";
 
-function ItemCard({name}) {
+function ItemCard({item, updater}) {
+    function addToCart() {
+        const orders = JSON.parse(localStorage.getItem("cart"));
+        // const orders = localStorage.getItem("cart");
+        // console.log(orders);
+        const newOrders = orders ? orders.concat([item]) : [item];
+        updater(newOrders);
+        localStorage.setItem("cart", JSON.stringify(newOrders));
+    }
+
     return (
       <Card>
         <CardMedia sx={{height: 200}}>
             <img 
               // Name like Goodnight/Good Cause -> goodnight-good_cause.jpg
-              src={`/images/${name.replace(/\s+/g, '_').replace(/\//g, '-').toLowerCase()}.jpg`}
-              alt={name}
+              src={`/images/${item.item_name.replace(/\s+/g, '_').replace(/\//g, '-').toLowerCase()}.jpg`}
+              alt={item.item_name}
               onError={(e) => {
                 e.target.onerror = null; // Prevents looping?
                 e.target.src = "/images/default.jpg";
@@ -20,8 +29,8 @@ function ItemCard({name}) {
             />
         </CardMedia>
         <CardContent>
-            <Button variant="text">
-                {name}
+            <Button variant="text" onClick={addToCart}>
+                {item.item_name}
             </Button>
         </CardContent>
       </Card>  
