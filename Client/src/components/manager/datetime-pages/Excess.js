@@ -92,7 +92,7 @@ function Excess() {
   return (
     <Box>
       <br/><br/>
-      {'Start Time: ' + startTime}
+      {'Start Time: ' + (new Date(startTime)).toLocaleString(navigator.language)}
       <br/><br/><br/>
 
       {data === undefined ? <CircularProgress /> :

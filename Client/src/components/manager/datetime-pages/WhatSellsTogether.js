@@ -12,7 +12,7 @@ import axios from 'axios';
 
 const API = axios.create({
   baseURL: `${process.env.REACT_APP_API_URL}/api`,
-  timeout: 30000 // 10 second timeout
+  timeout: 30000 // 30 second timeout
 });
 
 
@@ -85,8 +85,8 @@ function WhatSellsTogether() {
   return (
     <Box>
       <br/><br/>
-      {'Start Time: ' + startTime}<br/>
-      {'End Time: ' + endTime}
+      {'Start Time: ' + (new Date(startTime)).toLocaleString(navigator.language)}<br/>
+      {'End Time: ' + (new Date(endTime)).toLocaleString(navigator.language)}
       <br/><br/><br/>
   
       {data === undefined ? <CircularProgress /> :

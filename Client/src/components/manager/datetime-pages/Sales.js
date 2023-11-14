@@ -84,8 +84,8 @@ function Sales() {
   return (
     <Box>
       <br/><br/>
-      {'Start Time: ' + startTime}<br/>
-      {'End Time: ' + endTime}
+      {'Start Time: ' + (new Date(startTime)).toLocaleString(navigator.language)}<br/>
+      {'End Time: ' + (new Date(endTime)).toLocaleString(navigator.language)}
       <br/><br/><br/>
 
       {data === undefined ? <CircularProgress /> :
