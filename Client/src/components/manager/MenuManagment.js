@@ -90,40 +90,36 @@ function MenuManagment() {
   }
 
   function deleteItem(item_info) {
-    if (item_info[0] > 10) {
-      console.log(`Deleted item ${item_info[1]}`);
-      alerts.unshift(
-        {
-          severity: 'success',
-          text: `Successfully Deleted Item '${item_info[1]}'`
-        }
-      );
-    }
-    else {
-      console.log(`Failed to delete item ${item_info[1]}`);
-      alerts.unshift(
-        {
-          severity: 'error',
-          text: `Failed to Delete Item '${item_info[1]}'`
-        }
-      );
-    }
-    /*
     API.delete(`/menu/item/${item_info[0]}`)
      .then((res) => {
        if (res.status < 300) {
-         console.log('Success');
-         console.log(res.data);
+         console.log(`Deleted item ${item_info[1]}`);
+         alerts.unshift(
+           {
+             severity: 'success',
+             text: `Successfully Deleted Item '${item_info[1]}'`
+           }
+         );
        }
        else {
-         console.log(res.data);
-         loadMenu();
+         console.log(`Failed to delete item ${item_info[1]}`);
+         alerts.unshift(
+           {
+             severity: 'error',
+             text: `Failed to Delete Item '${item_info[1]}'`
+           }
+         );
        }
      })
      .catch((error) => {
        console.log(error);
+       alerts.unshift(
+         {
+           severity: 'error',
+           text: `Failed to Delete Item '${item_info[1]}'`
+         }
+       );
      });
-     */
   }
 
 
@@ -134,10 +130,10 @@ function MenuManagment() {
     draggableColumns: { enabled: true },
     resizableColumns: true,
     onRowsDelete: (rowsDeleted) => {
-        const item_info = rowsDeleted.data.map((item) => menu[item.dataIndex])
+        const item_info = rowsDeleted.data.map((item) => menu[item.dataIndex]);
         item_info.map((item) => deleteItem(item));
-        loadMenu();
-        setAlerts([...alerts]);
+        // setAlerts([...alerts]);
+        setMenu(undefined);
     }
   };
     
@@ -149,7 +145,6 @@ function MenuManagment() {
   return (
     <Box>
       <br/><br/>
-
       <Stack sx={{width: '70%'}} spacing={1}>
         {
           alerts.map((item, index) => 
