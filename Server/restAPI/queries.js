@@ -138,7 +138,7 @@ const getOrderHistoryQuery = "SELECT Transactions.Transaction_ID AS Trans_ID, Tr
                              "LEFT JOIN Transactions ON Order_List.Transaction_ID = Transactions.Transaction_ID " +
                              "LEFT JOIN Menu ON Order_List.item_id = Menu.Item_ID " +
                              "WHERE Transaction_Time BETWEEN $1 AND $2 " +
-                             "GROUP BY Transactions.Transaction_ID ORDER BY Transaction_Time DESC LIMIT $3";
+                             "GROUP BY Transactions.Transaction_ID ORDER BY Transaction_Time DESC LIMIT 100000";
 
 
 /****** REPORTS ******/
@@ -151,7 +151,7 @@ const getPopularPairsQuery = "SELECT First_Item_ID, First_Item_Name, Second_Item
                              "WHERE (SELECT Transaction_Time FROM Transactions WHERE Transaction_ID = o1.Transaction_ID) " +
                              "BETWEEN $1 AND $2 GROUP BY o1.Item_ID, o2.Item_ID ORDER BY Num_Orders DESC, " +
                              "o1.Item_ID ASC, o2.Item_ID ASC) AS Pairs LEFT JOIN Menu m1 ON First_Item_ID = m1.Item_ID) AS Named_Pairs " +
-                             "LEFT JOIN Menu m2 ON Second_Item_ID = m2.Item_ID WHERE Is_Available_1 AND m2.Is_Available LIMIT $3";
+                             "LEFT JOIN Menu m2 ON Second_Item_ID = m2.Item_ID WHERE Is_Available_1 AND m2.Is_Available LIMIT 5000";
 
 // Generate sales report
 const getSalesReportQuery = "SELECT Item_ID, Item_Name, Price, Is_Modification, COALESCE(Num_Sales, 0) AS Sales_Made FROM (Menu LEFT JOIN " +
