@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 
 import ShoppingCart from "./ShoppingCart";
 
-function CartButton() {
+function CartButton({onUpdate}) {
     const cart = JSON.parse(localStorage.getItem("cart"));
     const [isOpen, setIsOpen] = useState(false);
 
@@ -18,7 +18,7 @@ function CartButton() {
                     <MdOutlineShoppingCart/>
                 </Badge>
             </IconButton>
-            <ShoppingCart open={isOpen} onClose={() => setIsOpen(false)}/>
+            <ShoppingCart open={isOpen} onClose={() => setIsOpen(false)} onUpdate={onUpdate} />
         </>
     );
 }

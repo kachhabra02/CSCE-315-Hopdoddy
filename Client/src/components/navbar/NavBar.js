@@ -22,10 +22,10 @@ const locationLinksMap = {
     '/' : [MenuLink, HomeLink, CashierLink, CustomerLink],
     '/menu' : [MenuLink, HomeLink, CashierLink, CustomerLink],
     '/login' : null,
-    '/customer' : [CartButton, MenuLink, HomeLink, CashierLink, CustomerLink]
+    '/customer' : [MenuLink, HomeLink, CashierLink, CustomerLink]
 };
 
-function NavBar() {
+function NavBar({onUpdate}) {
     const location = useLocation();
 
     if (locationLinksMap[location.pathname] === null) {
@@ -38,7 +38,10 @@ function NavBar() {
                 Hopdoddy
             </Typography>
             <div id='navbar-buttons'>
-                {(locationLinksMap[location.pathname] ?? locationLinksMap.default)
+                {(location.pathname === '/customer' 
+                    ? [() => <CartButton onUpdate={onUpdate}/>].concat(locationLinksMap[location.pathname]) 
+                    : (locationLinksMap[location.pathname] ?? locationLinksMap.default)
+                 )
                     .map((ButtonLink, index) => (
                         <React.Fragment key={index}>
                             <ButtonLink />

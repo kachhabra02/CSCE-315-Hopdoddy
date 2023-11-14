@@ -30,7 +30,7 @@ function App() {
       <AuthProvider>
         <BrowserRouter>
           <AppBar position = 'static'>
-            <NavBar />
+            <NavBar onUpdate={setCart}/>
           </AppBar>
           <Routes>
             <Route path="/" element={<Landing />} />
