@@ -16,10 +16,14 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import {MdClose, MdOutlineShoppingCart} from "react-icons/md";
 import {BsFillTrash3Fill} from "react-icons/bs";
-import { Icon } from "@mui/material";
+
+const priceFormat = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+});
 
 function ShoppingCart({open, onClose, onUpdate}) {
-    // maybe change to state variable
     const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")));
 
     function removeOrder(index) {
@@ -73,7 +77,7 @@ function ShoppingCart({open, onClose, onUpdate}) {
                             </IconButton>
                           )}
                         >
-                            <ListItemText primary={item.item_name}/>
+                            <ListItemText primary={item.item_name} secondary={priceFormat.format(parseFloat(item.price))}/>
                         </ListItem>
                     )) || (
                         <ListItem>Cart is empty</ListItem>
