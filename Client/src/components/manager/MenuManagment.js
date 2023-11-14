@@ -63,19 +63,23 @@ const columns = [
 const options = {
   filterType: 'multiselect',
   selectableRows: 'multiselect',
-  downloadOptions: { filename: 'menu.csv', serparator: ',' }
+  downloadOptions: { filename: 'menu.csv', serparator: ',' },
+  draggableColumns: { enabled: true }
 };
 
 
 function MenuManagment() {
   const [menu, setMenu] = useState(undefined);
-    
-  API.get(`/menu/view`)
+
+
+  function loadMenu() {
+    API.get(`/menu/view`)
      .then((res) => {
        if (res.status < 300) {
          console.log('Success');
+         console.log(res.data);
          setMenu(res.data.map((item) => [item.item_id, item.item_name, item.category, item.sub_category,
-                                         item.price, item.is_modification]));
+                                         item.price, item.is_modification.toString()]));
        }
        else {
          console.log(res.data);
@@ -84,11 +88,17 @@ function MenuManagment() {
      .catch((error) => {
        console.log(error);
      });
- 
+  }
+    
+  
+  if (menu === undefined) {
+    loadMenu();
+  }
+  
   return (
     <Box>
       <br/><br/><br/>
-      
+
       {menu === undefined ? <CircularProgress /> :
         <MUIDataTable
           title={title}

@@ -59,7 +59,8 @@ const columns = [
 const options = {
   filterType: 'multiselect',
   selectableRows: 'none',
-  downloadOptions: { filename: 'salesReport.csv', serparator: ',' }
+  downloadOptions: { filename: 'salesReport.csv', serparator: ',' },
+  draggableColumns: { enabled: true }
 };
 
 
