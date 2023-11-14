@@ -77,6 +77,7 @@ function ShoppingCart({open, onClose, onUpdate}) {
                             </IconButton>
                           )}
                         >
+                            {/* TODO: add icon (Avatar) ?? */}
                             <ListItemText primary={item.item_name} secondary={priceFormat.format(parseFloat(item.price))}/>
                         </ListItem>
                     )) || (
