@@ -90,6 +90,22 @@ function MenuManagment() {
        console.log(error);
      });
   }
+
+  function deleteItem(item_id) {
+    API.delete(`/menu/item/${item_id}`)
+     .then((res) => {
+       if (res.status < 300) {
+         console.log('Success');
+         console.log(res.data);
+       }
+       else {
+         console.log(res.data);
+       }
+     })
+     .catch((error) => {
+       console.log(error);
+     });
+  }
     
   
   if (menu === undefined) {
