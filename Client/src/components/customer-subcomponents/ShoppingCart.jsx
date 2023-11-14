@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import axios from "axios";
 
 import Dialog from "@mui/material/Dialog"
@@ -19,7 +19,16 @@ import {BsFillTrash3Fill} from "react-icons/bs";
 import { Icon } from "@mui/material";
 
 function ShoppingCart({open, onClose, onUpdate}) {
-    const cart = JSON.parse(localStorage.getItem("cart"));
+    // maybe change to state variable
+    const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")));
+
+    function removeOrder(index) {
+        return () => {
+            const newCart = cart.toSpliced(index, 1);
+            localStorage.setItem("cart", JSON.stringify(newCart));
+            setCart(newCart);
+        };
+    }
 
     function placeTransaction() {
         axios.post(`${process.env.REACT_APP_API_URL}/api/transactions`, {
@@ -56,10 +65,10 @@ function ShoppingCart({open, onClose, onUpdate}) {
             </DialogTitle>
             <DialogContent dividers>
                 <List> {
-                    cart?.map((item) => (
+                    cart?.map((item, i) => (
                         <ListItem 
                           secondaryAction={(
-                            <IconButton edge="end" size="small">
+                            <IconButton edge="end" size="small" onClick={removeOrder(i)}>
                                 <BsFillTrash3Fill/>
                             </IconButton>
                           )}
