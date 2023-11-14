@@ -15,30 +15,6 @@ function Inventory() {
   const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
     {
-      field: 'actions',
-      headerName: 'Actions',
-      width: 130,
-      sortable: false,
-      renderCell: (params) => {
-        const handleDelete = (e) => {
-          e.stopPropagation(); // don't select this row after clicking
-          console.log(params);
-          apiDeleteInvItem(params.row, () => {
-            setRows(rows.filter((row) => row.id !== params.id));
-          });
-        };
-  
-        return (
-          <GridActionsCellItem 
-            icon={<BsFillTrash3Fill />}
-            label='delete'
-            color='error'
-            onClick={handleDelete}
-          />
-        );
-      },
-    },
-    {
       field: 'inventory_name',
       headerName: 'Name',
       width: 230,
@@ -65,6 +41,30 @@ function Inventory() {
       editable: true,
       width: 100,
     },
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      width: 130,
+      sortable: false,
+      renderCell: (params) => {
+        const handleDelete = (e) => {
+          e.stopPropagation(); // don't select this row after clicking
+          console.log(params);
+          apiDeleteInvItem(params.row, () => {
+            setRows(rows.filter((row) => row.id !== params.id));
+          });
+        };
+  
+        return (
+          <GridActionsCellItem 
+            icon={<BsFillTrash3Fill />}
+            label='delete'
+            color='error'
+            onClick={handleDelete}
+          />
+        );
+      },
+    },
   ];
 
   return (
@@ -88,7 +88,6 @@ function Inventory() {
           }}
           rows={rows}
           columns={columns}
-          checkboxSelection
           disableRowSelectionOnClick
         />
       </Paper>
