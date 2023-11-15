@@ -1,4 +1,4 @@
-import { Box, CardMedia } from '@mui/material';
+import { Box } from '@mui/material';
 import { Card, CardHeader, CardContent, Typography, Button} from '@mui/material';
 import './Landing.css';
 import hopdoddyPic from './hopdoddy.jpg';
@@ -39,12 +39,12 @@ function WeatherCard(weatherData) {
 }
 
 // Used to create a card displaying Hopdoddy's address
-function addressCard() {
+function AddressCard({ padding }) {
   const street = "144 Century Ct Suite 103";
   const cityStateZip = "College Station, TX 77840";
 
   return (
-    <Card sx={{ minWidth: 275 }}>
+    <Card sx={{ minWidth: 275}}>
       <CardHeader title="Location Information" />
       <CardContent>
         <Typography variant="h6">{street}</Typography>
@@ -69,21 +69,20 @@ function Landing() {
   );
 
   return (
-    <Box id='landing' sx={{bgcolor: 'background.default' }}>
-      <img src={hopdoddyPic} id='location-img' alt="Hopdoddy Location" />
-      <div id='landing-info'>
-        <div id='weather'>
+    <Box id='landing'>
+      <img src={hopdoddyPic} alt="Hopdoddy Location" />
+      <Box id='landing-info'>
+        <Box id='weather' sx={{ padding: 3 }}>
           {weatherDisplay}
-        </div>
-        <div id='location'>
-          {addressCard()}
-        </div>
-        {/* Adjusted button style, using MUI button now */}
-        <div id='order-now'>
+        </Box>
+        <Box id='location' sx={{ padding: 3 }}>
+          <AddressCard />
+        </Box>
+        <Box id='order-now'>
           {/* <Button>Order Now</Button> */}
           <Button component={Link} to="/customer">Order Now</Button>
-        </div>
-      </div>
+        </Box>
+      </Box>
     </Box>
   )
 }

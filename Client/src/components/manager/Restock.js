@@ -74,10 +74,12 @@ function Restock() {
        }
        else {
          console.log(res.data);
+         setData(['Error Retrieving Report! Please try again... (may need to use a smaller time window)']);
        }
      })
      .catch((error) => {
        console.log(error);
+       setData(['Error Retrieving Report! Please try again... (may need to use a smaller time window)']);
      });
 
   return (
