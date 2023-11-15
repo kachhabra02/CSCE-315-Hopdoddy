@@ -3,8 +3,8 @@ import { Card, CardHeader, CardContent, Typography, Button} from '@mui/material'
 import './Landing.css';
 import hopdoddyPic from './hopdoddy.jpg';
 
-import React, { useEffect, useState } from 'react'
-
+import React, { useEffect, useState } from 'react';
+import {Link} from 'react-router-dom';
 
 
 function getWeather(setWeatherResult) {
@@ -80,7 +80,8 @@ function Landing() {
         </div>
         {/* Adjusted button style, using MUI button now */}
         <div id='order-now'>
-          <Button>Order Now</Button>
+          {/* <Button>Order Now</Button> */}
+          <Button component={Link} to="/customer">Order Now</Button>
         </div>
       </div>
     </Box>

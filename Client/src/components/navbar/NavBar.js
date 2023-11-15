@@ -56,4 +56,4 @@ function NavBar({onUpdate}) {
     )
 }
 
-export default NavBar
+export default NavBar;
