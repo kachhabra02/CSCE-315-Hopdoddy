@@ -161,6 +161,7 @@ function EditToolbar(props) {
 function Inventory() {
   const [rows, setRows] = React.useState(initialRows);
   const [rowModesModel, setRowModesModel] = React.useState({});
+  const [saveQueue, setSaveQueue] = React.useState([]);
 
   useEffect(() => {
     apiGetMenu(data => setRows(data));
@@ -186,12 +187,21 @@ function Inventory() {
 
   const handleSaveClick = (id) => () => {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
-    console.log(getRow(id));
-    apiUpdateInvItem(getRow(id));
+    const { isNew } = getRow(id);
+    if (isNew) {
+      saveQueue.push(apiAddInvItem(id));
+      setSaveQueue(saveQueue);
+    }
+    else {
+      saveQueue.push(apiUpdateInvItem(id));
+      setSaveQueue(saveQueue);
+    }
   };
 
   const handleDeleteClick = (id) => () => {
-    setRows(rows.filter((row) => row.id !== id));
+    setRows(rows.filter((row) => {
+      return row.id !== id;
+    }));
   };
 
   const handleCancelClick = (id) => () => {
@@ -208,7 +218,23 @@ function Inventory() {
 
   const processRowUpdate = (newRow) => {
     const updatedRow = { ...newRow, isNew: false };
-    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+    setRows(rows.map((currRow) => {
+      const isTarget = currRow.id === updatedRow.id
+
+      if (isTarget) {
+        for (let i = 0; i < saveQueue.length; i++) {
+          const apiCallObj = saveQueue[i];
+          if (apiCallObj.id === updatedRow.id) {
+            saveQueue.splice(i, 1);
+            apiCallObj.go(newRow, () => {
+              console.log("Done saving");
+            });
+          }
+        }
+        return updatedRow;
+      }
+      return currRow;
+    }));
     return updatedRow;
   };
 
@@ -336,7 +362,7 @@ function addIDKeys (objects) {
   });
 }
 
-function apiGetMenu (callback) {
+const apiGetMenu = (callback) => {
   axios.get(`${process.env.REACT_APP_API_URL}/api/inventory`)
     .then(res => {
       if (res.status < 300) {
@@ -346,29 +372,41 @@ function apiGetMenu (callback) {
     .catch( error => console.log(error) );
 }
 
-function apiAddInvItem (row, callback) {
-  axios.post(`${process.env.REACT_APP_API_URL}/api/inventory`, {
-    name: row.inventory_name,
-    ...row,
-  })
-    .then(res => {
-      callback(res.status);
-    })
-    .catch( error => console.log(error) );
+const apiAddInvItem = (id) => {
+  return {
+    id,
+    go: (row, callback) => {
+      axios.post(`${process.env.REACT_APP_API_URL}/api/inventory`, {
+        name: row.inventory_name,
+        ...row,
+        })
+        .then(res => {
+          callback(res.status);
+        })
+        .catch( error => console.log(error) );
+    },
+  }
 }
 
-function apiUpdateInvItem ({ id, ...row }, callback) {
-  axios.put(`${process.env.REACT_APP_API_URL}/api/inventory/${id}`, {
-    name: row.inventory_name,
-    ...row,
-  })
-    .then(res => {
-      callback(res.status);
-    })
-    .catch( error => console.log(error) );
+const apiUpdateInvItem = (id) => {
+  console.log("Preparing inventory update...")
+  return {
+    id,
+    go: (row, callback) => {
+      console.log("Writting", row)
+      axios.put(`${process.env.REACT_APP_API_URL}/api/inventory/${id}`, {
+        name: row.inventory_name,
+        ...row,
+      })
+        .then(res => {
+          callback(res.status);
+        })
+        .catch( error => console.log(error) );
+    }
+  }
 }
 
-function apiDeleteInvItem ({ id }, callback) {
+const apiDeleteInvItem = (id, callback) => {
   axios.delete(`${process.env.REACT_APP_API_URL}/api/inventory/${id}`)
     .then(res => {
       callback(res.status);
