@@ -1,9 +1,9 @@
 import Button from '@mui/material/Button';
 import { Toolbar } from '@mui/material';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
 import './NavBar.css';
-import { BsFillHouseFill } from "react-icons/bs";
 
 import React from 'react'
 import {Link, useLocation} from 'react-router-dom'
@@ -52,6 +52,9 @@ function NavBar({onUpdate}) {
                     )
                 )}
             </div>
+            <Box sx={{ mx: 2 }}>
+                <div id="google_translate_element"></div>
+            </Box>
         </Toolbar>
     )
 }
