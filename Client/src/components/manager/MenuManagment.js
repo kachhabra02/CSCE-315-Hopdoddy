@@ -133,16 +133,15 @@ function MenuManagment() {
     downloadOptions: { filename: 'menu.csv', serparator: ',' },
     draggableColumns: { enabled: true },
     resizableColumns: true,
-    onRowsDelete: (rowsDeleted) => {
+    onRowsDelete: async (rowsDeleted) => {
         const new_alerts = [...alerts];
 
         const item_info = rowsDeleted.data.map((item) => menu[item.dataIndex]);
-        Promise.all(item_info.map(async (item) => deleteItem(item, new_alerts)))
-          .then(() => {
-            console.log(new_alerts);
-            setAlerts(new_alerts);
-            loadMenu();
-          });
+        await Promise.all(item_info.map(async (item) => deleteItem(item, new_alerts)));
+
+        console.log([...new_alerts]);
+        setAlerts(new_alerts);
+        loadMenu();
     }
   };
     
@@ -154,7 +153,7 @@ function MenuManagment() {
   return (
     <Box>
       <br/>
-      <Stack sx={{width: '70%'}} spacing={1}>
+      <Stack spacing={1}>
         {
           alerts.map((item, index) => 
               <Alert severity={item.severity} onClose={() => removeAlert(index)} key={`alert-${index}`}>
@@ -177,5 +176,6 @@ function MenuManagment() {
     </Box>
   );
 }
+// sx={{width: '70%'}}
 
 export default MenuManagment
