@@ -5,6 +5,7 @@ import Dialog from "@mui/material/Dialog"
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
+import Divider from '@mui/material/Divider';
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -78,16 +79,37 @@ function ShoppingCart({open, onClose, onUpdate}) {
         setAlertStatus({open: false, status: alertStatus.status});
     }
 
+    const total = (() => {
+        let currTotal = 0;
+        // console.log(cart)
+        for (const item in cart) {
+            // console.log(cart[item].price)
+            currTotal += parseFloat(cart[item].price);
+        }
+        // console.log(currTotal)
+        return currTotal;
+    });
+
     return (
       <>
         <Dialog
           open={open}
           onClose={onClose}
         >
-            <DialogTitle>
+            <DialogTitle sx={{"min-width": 250}}>
                 {/* <MdOutlineShoppingCart/> */}
                 Shopping Cart
-                <IconButton onClick={onClose} edge="end">
+                {/* <Divider orientation="vertical" variant="middle" flexItem/> */}
+                {/* {cart && `Total: ${priceFormat.format(parseFloat(total))}`} */}
+                <IconButton 
+                  onClick={onClose} 
+                //   edge="end"
+                  sx={{
+                    position: 'absolute',
+                    right: 8,
+                    top: 8,
+                  }}
+                >
                     <MdClose/>
                 </IconButton>
             </DialogTitle>
@@ -119,6 +141,7 @@ function ShoppingCart({open, onClose, onUpdate}) {
                 } </List>
             </DialogContent>
             <DialogActions>
+                {cart && `Total: ${priceFormat.format(parseFloat(total()))}`}
                 {cart && <Button variant="text" onClick={removeAll} color="error">Remove All</Button>}
                 <Button variant="text" onClick={placeTransaction}>Submit</Button>
             </DialogActions>
