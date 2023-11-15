@@ -94,7 +94,7 @@ function MenuManagment() {
   }
 
   async function deleteItem(item_info, new_alerts) {
-    API.delete(`/menu/item/${item_info[0]}`)
+    await API.delete(`/menu/item/${item_info[0]}`)
      .then((res) => {
        if (res.status < 300) {
          console.log(`Deleted item ${item_info[1]}`);
