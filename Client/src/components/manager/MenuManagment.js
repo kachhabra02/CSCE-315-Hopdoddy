@@ -1,9 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
 
-import { Box, CircularProgress, Alert, Stack } from '@mui/material';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 import MUIDataTable from "mui-datatables";
-// import Stack from '@mui/material/Stack';
 
 import axios from 'axios';
 
@@ -77,10 +79,12 @@ function MenuManagment() {
        }
        else {
          console.log(res.data);
+         setMenu(['Error Retrieving Report! Please try again... (may need to use a smaller time window)']);
        }
      })
      .catch((error) => {
        console.log(error);
+       setMenu(['Error Retrieving Report! Please try again... (may need to use a smaller time window)']);
      });
   }
 
@@ -89,12 +93,12 @@ function MenuManagment() {
     setAlerts([...alerts]);
   }
 
-  function deleteItem(item_info) {
-    API.delete(`/menu/item/${item_info[0]}`)
+  async function deleteItem(item_info, new_alerts) {
+    await API.delete(`/menu/item/${item_info[0]}`)
      .then((res) => {
        if (res.status < 300) {
          console.log(`Deleted item ${item_info[1]}`);
-         alerts.unshift(
+         new_alerts.unshift(
            {
              severity: 'success',
              text: `Successfully Deleted Item '${item_info[1]}'`
@@ -103,7 +107,7 @@ function MenuManagment() {
        }
        else {
          console.log(`Failed to delete item ${item_info[1]}`);
-         alerts.unshift(
+         new_alerts.unshift(
            {
              severity: 'error',
              text: `Failed to Delete Item '${item_info[1]}'`
@@ -113,7 +117,7 @@ function MenuManagment() {
      })
      .catch((error) => {
        console.log(error);
-       alerts.unshift(
+       new_alerts.unshift(
          {
            severity: 'error',
            text: `Failed to Delete Item '${item_info[1]}'`
@@ -129,11 +133,15 @@ function MenuManagment() {
     downloadOptions: { filename: 'menu.csv', serparator: ',' },
     draggableColumns: { enabled: true },
     resizableColumns: true,
-    onRowsDelete: (rowsDeleted) => {
+    onRowsDelete: async (rowsDeleted) => {
+        const new_alerts = [...alerts];
+
         const item_info = rowsDeleted.data.map((item) => menu[item.dataIndex]);
-        item_info.map((item) => deleteItem(item));
-        // setAlerts([...alerts]);
-        setMenu(undefined);
+        await Promise.all(item_info.map(async (item) => deleteItem(item, new_alerts)));
+
+        console.log([...new_alerts]);
+        setAlerts(new_alerts);
+        loadMenu();
     }
   };
     
@@ -144,8 +152,8 @@ function MenuManagment() {
   
   return (
     <Box>
-      <br/><br/>
-      <Stack sx={{width: '70%'}} spacing={1}>
+      <br/>
+      <Stack spacing={1}>
         {
           alerts.map((item, index) => 
               <Alert severity={item.severity} onClose={() => removeAlert(index)} key={`alert-${index}`}>
@@ -168,5 +176,6 @@ function MenuManagment() {
     </Box>
   );
 }
+// sx={{width: '70%'}}
 
 export default MenuManagment
