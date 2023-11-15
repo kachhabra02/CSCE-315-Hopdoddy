@@ -4,7 +4,6 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 import './NavBar.css';
-import { BsFillHouseFill } from "react-icons/bs";
 
 import React from 'react'
 import {Link, useLocation} from 'react-router-dom'
