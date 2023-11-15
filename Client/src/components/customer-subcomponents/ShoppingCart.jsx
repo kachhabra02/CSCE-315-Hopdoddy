@@ -17,6 +17,9 @@ import IconButton from '@mui/material/IconButton';
 import {MdClose, MdOutlineShoppingCart} from "react-icons/md";
 import {BsFillTrash3Fill} from "react-icons/bs";
 
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+
 const priceFormat = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
@@ -25,10 +28,12 @@ const priceFormat = new Intl.NumberFormat("en-US", {
 
 function ShoppingCart({open, onClose, onUpdate}) {
     const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")));
+    const [alertStatus, setAlertStatus] = useState({open: false, status: "error"});
 
     const removeAll = () => {
         localStorage.removeItem("cart");
         setCart(null);
+        setAlertStatus({open: true, status: "canceled"});
     }
 
     function removeOrder(index) {
@@ -54,18 +59,27 @@ function ShoppingCart({open, onClose, onUpdate}) {
                 if (res.status === 200) {
                     // setOrders([]);
                     localStorage.removeItem("cart")
-                    onUpdate({})
+                    setAlertStatus({open: true, status: "success"})
+                    setCart(null)
+                    // onUpdate({})
                     console.log(res);
                 }
             })
-            // .then(() => setAlertStatus({open: true, status: "success"}))
             .catch(error => {
                 console.log(error);
-                // setAlertStatus({open: true, status: "error"})
+                setAlertStatus({open: true, status: "error"})
             });
     }
 
+    const closeAlert = (event, reason) => {
+        if (reason === "clickaway") {
+            return;
+        }   
+        setAlertStatus({open: false, status: alertStatus.status});
+    }
+
     return (
+      <>
         <Dialog
           open={open}
           onClose={onClose}
@@ -109,6 +123,21 @@ function ShoppingCart({open, onClose, onUpdate}) {
                 <Button variant="text" onClick={placeTransaction}>Submit</Button>
             </DialogActions>
         </Dialog>
+        <Snackbar 
+          open={alertStatus.open} 
+          onClose={() => setAlertStatus({open: false, status: alertStatus.status})}
+          autoHideDuration={5000}
+          anchorOrigin={{vertical: "bottom", horizontal: "center"}}
+        //   sx={{width: "500%"}}
+        >
+            {(alertStatus.status === "success") 
+                ? <Alert severity="success" sx={{width: "90vw"}} onClose={closeAlert}>Transaction Submitted Sucsessfully!</Alert>
+                : (alertStatus.status === "canceled")
+                    ? <Alert severity="info" sx={{width: "90vw"}} onClose={closeAlert}>Transaction canceled</Alert>
+                    : <Alert severity="error" sx={{width: "90vw"}} onClose={closeAlert}>Error submitting transaction</Alert>
+            }
+        </Snackbar>
+      </>
     );
 }
 
