@@ -138,11 +138,14 @@ import axios from 'axios';
 const initialRows = [];
 
 function EditToolbar(props) {
-  const { setRows, setRowModesModel } = props;
+  const { rows, setRows, setRowModesModel } = props;
 
   const handleClick = () => {
-    const id = 5000;
-    setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
+    let id = -1;
+    rows.forEach(row => {
+      id = Math.max(id, row.id) + 1;
+    });
+    setRows((oldRows) => [...oldRows, { id, inventory_name: '', price: 0, quantity: 0, unit: '', isNew: true }]);
     setRowModesModel((oldModel) => ({
       ...oldModel,
       [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
@@ -200,7 +203,12 @@ function Inventory() {
 
   const handleDeleteClick = (id) => () => {
     setRows(rows.filter((row) => {
-      return row.id !== id;
+      const isOther = row.id !== id;
+      if (!isOther) {
+        console.log("Deleting", id, row)
+        apiDeleteInvItem(id)
+      }
+      return isOther;
     }));
   };
 
@@ -253,6 +261,7 @@ function Inventory() {
     {
       field: 'price',
       headerName: 'Price',
+      type: 'number',
       width: 150,
       editable: true,
     },
@@ -342,7 +351,7 @@ function Inventory() {
             toolbar: EditToolbar,
           }}
           slotProps={{
-            toolbar: { setRows, setRowModesModel },
+            toolbar: { rows, setRows, setRowModesModel },
           }}
         />
       </Paper>
@@ -376,10 +385,14 @@ const apiAddInvItem = (id) => {
   return {
     id,
     go: (row, callback) => {
-      axios.post(`${process.env.REACT_APP_API_URL}/api/inventory`, {
-        name: row.inventory_name,
+      console.log({
         ...row,
-        })
+        name: row.inventory_name,
+      });
+      axios.post(`${process.env.REACT_APP_API_URL}/api/inventory`, {
+        ...row,
+        name: row.inventory_name,
+      })
         .then(res => {
           callback(res.status);
         })
