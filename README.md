@@ -105,38 +105,38 @@ The retrospective must be completed before the next sprint backlog is determined
     - **When**: 11/8 at 2:45 pm (After Lab)
     - **Where**: Zachry
     - **Attendees**:
-      1. TODO
-      2. TODO
-      3. TODO
-      4. TODO
-      5. TODO
+      1. Krish Chhabra
+      2. Thomas Holt
+      3. Josh Scott
+      4. Donato Curvino
+      5. Eliseo Garza
 2. **Daily Scrum Meeting 2**
     - **When**: 11/10 at 10:05 AM (After Class)
     - **Where**: Zachry
     - **Attendees**:
-      1. TODO
-      2. TODO
-      3. TODO
-      4. TODO
-      5. TODO
+      1. Krish Chhabra
+      2. Thomas Holt
+      3. Josh Scott
+      4. Donato Curvino
+      5. Eliseo Garza
 3. **Daily Scrum Meeting 3**
     - **When**: 11/13 at 2:45 pm (After Lab)
     - **Where**: Zachry
     - **Attendees**:
-      1. TODO
-      2. TODO
-      3. TODO
-      4. TODO
-      5. TODO
+      1. Krish Chhabra
+      2. Thomas Holt
+      3. Josh Scott
+      4. Donato Curvino
+      5. Eliseo Garza
 ### Sprint 2 Retrospective Meeting
 - **When**: 11/15 at 2:45 pm (After Lab)
 - **Where**: Zachry
 - **Attendees**:
-  1. TODO
-  2. TODO
-  3. TODO
-  4. TODO
-  5. TODO
+  1. Krish Chhabra
+  2. Thomas Holt
+  3. Josh Scott
+  4. Donato Curvino
+  5. Eliseo Garza
 
 ## Sprint 3 (TBD - 12/5)
 ### Sprint 3 Planning Meeting
