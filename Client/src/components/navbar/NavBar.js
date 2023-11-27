@@ -18,6 +18,7 @@ const CashierLink = makeButton('/cashier', 'Cashier');
 const ManagerLink = makeButton('/manager', 'Manager');
 const CustomerLink = makeButton('/customer', 'Customer');
 
+
 const locationLinksMap = {
     default : [HomeLink, MenuLink, CashierLink, ManagerLink, CustomerLink],
     '/' : [MenuLink, CashierLink, ManagerLink, CustomerLink],

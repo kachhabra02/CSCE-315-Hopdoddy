@@ -1,28 +1,17 @@
-import React, {useState} from "react";
-
-import { MdOutlineShoppingCart } from "react-icons/md";
-import Badge from '@mui/material/Badge';
-// import SvgIcon from '@mui/material/SvgIcon';
-import IconButton from '@mui/material/IconButton';
-
-import CartButton from "./customer-subcomponents/CartButton";
+import React from "react";
 
 import useAPI from "./useAPI";
 import CategoryAccordions from "./customer-subcomponents/CategoryAccordions";
 
 function Customer({onUpdate}) {
-    const [{categories, subcategories, items, currCategory, currSubcategory}, {getItems, getSubcategories}] = useAPI();
+    const [{categories}] = useAPI();
 
     // const orders = JSON.parse(localStorage.getItem("cart"));
     // const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")));
 
     return (
         <div className="Customer">
-            {/* <IconButton size="large">
-                <Badge badgeContent={cart?.length} color="success">
-                    <MdOutlineShoppingCart/>
-                </Badge>
-            </IconButton> */}
+            {/* TODO: Snackbar Alert for adding item to cart */}
             {/* <CartButton/> */}
             {(categories === undefined) 
                 ? <div>Loading...</div>
