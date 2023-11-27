@@ -66,25 +66,27 @@ function Cashier() {
       </Typography>
       <Grid container spacing={2}>
         <Grid item xs={5}>
-          <TransactionList orders={orders} remover={removeOrder}/>
-          <Box>
-            <Button 
-              variant="contained" 
-              color="primary"
-              onClick={placeTransaction}
-            >
-              SUBMIT
-            </Button>
-            <Button 
-              variant="contained"
-              color="secondary"
-              onClick={() => {
-                setOrders([]); 
-                setAlertStatus({open: true, status: "canceled"});
-              }}
-            >
-              CANCEL
-            </Button>
+          <Box style={{border: '1px solid primary'}}>
+            <TransactionList orders={orders} remover={removeOrder}/>
+            <Box>
+              <Button 
+                variant="contained" 
+                color="primary"
+                onClick={placeTransaction}
+              >
+                SUBMIT
+              </Button>
+              <Button 
+                variant="contained"
+                color="secondary"
+                onClick={() => {
+                  setOrders([]); 
+                  setAlertStatus({open: true, status: "canceled"});
+                }}
+              >
+                CANCEL
+              </Button>
+            </Box>
           </Box>
         </Grid>
         <Grid item xs={7}>
