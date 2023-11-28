@@ -11,13 +11,24 @@ import TransactionList from "./cashier-subcomponents/TransactionList.js";
 import ItemList from "./cashier-subcomponents/ItemList.js";
 import "./cashier-subcomponents/Cashier.css";
 import useAPI from "./useAPI.js";
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Button, Grid, styled } from "@mui/material";
 import { Typography } from "@mui/material";
 
 // const API = axios.create({
 //   baseURL: `${process.env.REACT_APP_API_URL}/api`,
 //   timeout: 10000 // 10 second timeout
 // });
+
+const FullHeightContainer = styled('div')({
+  height: '80vh',
+  width: '100%',
+  padding: 20, // adjust as needed
+  boxSizing: 'border-box',
+});
+
+const FullHeightGrid = styled(Grid)({
+  height: '100%',
+});
 
 function Cashier() {
   const [orders, setOrders] = useState([]);
@@ -60,33 +71,36 @@ function Cashier() {
   }
 
   return (
-    <Box>
+    <FullHeightContainer>
       <Typography variant="h3">
         Cashier Page
       </Typography>
-      <Grid container spacing={2}>
-        <Grid item xs={5}>
-          <Box style={{border: '1px solid primary'}}>
-            <TransactionList orders={orders} remover={removeOrder}/>
-            <Box>
-              <Button 
-                variant="contained" 
-                color="primary"
-                onClick={placeTransaction}
-              >
-                SUBMIT
-              </Button>
-              <Button 
-                variant="contained"
-                color="secondary"
-                onClick={() => {
-                  setOrders([]); 
-                  setAlertStatus({open: true, status: "canceled"});
-                }}
-              >
-                CANCEL
-              </Button>
-            </Box>
+      <FullHeightGrid container>
+        <Grid item xs={5} sx={{ border: 1, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+          <Box sx={{ flexGrow: 1 }}>
+            <TransactionList 
+              orders={orders} 
+              remover={removeOrder}
+            />
+          </Box>
+          <Box>
+            <Button 
+              variant="contained" 
+              color="primary"
+              onClick={placeTransaction}
+            >
+              SUBMIT
+            </Button>
+            <Button 
+              variant="contained"
+              color="secondary"
+              onClick={() => {
+                setOrders([]); 
+                setAlertStatus({open: true, status: "canceled"});
+              }}
+            >
+              CANCEL
+            </Button>
           </Box>
         </Grid>
         <Grid item xs={7}>
@@ -106,7 +120,7 @@ function Cashier() {
             : <ItemList items={items} clickHandler={addOrder}/>
           }
         </Grid>
-      </Grid>
+      </FullHeightGrid>
       
       <Snackbar 
         open={alertStatus.open} 
@@ -123,7 +137,7 @@ function Cashier() {
         }
         
       </Snackbar>
-    </Box>
+    </FullHeightContainer>
   );
 }
 
