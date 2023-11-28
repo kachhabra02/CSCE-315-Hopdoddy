@@ -16,13 +16,13 @@ function CategoryAccordions({categories, onUpdate}) {
                 {item.category}
             </AccordionSummary>
             <AccordionDetails>
-                <SubcategoryAccordions category={item.category} onUpdate={onUpdate}/>    
+                <SubcategoryAccordions category={item.category} onUpdate={onUpdate} defaultExpanded={i === 0}/>    
             </AccordionDetails>
         </Accordion>
     ));
 }
 
-function SubcategoryAccordions({category, onUpdate}) {
+function SubcategoryAccordions({category, onUpdate, defaultExpanded}) {
     const [{subcategories}, {getSubcategories}] = useAPI();
 
     useEffect(() => {
@@ -33,7 +33,14 @@ function SubcategoryAccordions({category, onUpdate}) {
     return (
         subcategories == null
             ? <CircularProgress/>
-            : subcategories.map((item, i) => (<ItemAccordions category={category} subcategory={item.sub_category} onUpdate={onUpdate} defaultExpanded={i === 0}/>))
+            : subcategories.map((item, i) => (
+                <ItemAccordions 
+                  category={category} 
+                  subcategory={item.sub_category} 
+                  onUpdate={onUpdate} 
+                  defaultExpanded={defaultExpanded && i === 0}
+                />
+              ))
     )
 }
 
