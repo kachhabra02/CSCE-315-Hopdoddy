@@ -10,7 +10,10 @@ function Customer({onUpdate}) {
     // const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")));
 
     return (
-        <div className="Customer">
+        <div 
+          className="Customer" 
+          style={{width: "95%", margin: "auto", "padding-top": 10}}
+        >
             {/* TODO: Snackbar Alert for adding item to cart */}
             {/* <CartButton/> */}
             {(categories === undefined) 

@@ -25,9 +25,7 @@ function CategoryAccordions({categories, onUpdate}) {
 function SubcategoryAccordions({category, onUpdate, defaultExpanded}) {
     const [{subcategories}, {getSubcategories}] = useAPI();
 
-    useEffect(() => {
-        getSubcategories(category)();
-    }, [])
+    useEffect(getSubcategories(category), [])
     
     // console.log(subcategories)
     return (
