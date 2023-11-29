@@ -13,6 +13,9 @@ import "./cashier-subcomponents/Cashier.css";
 import useAPI from "./useAPI.js";
 import { Box, Button, Grid, Stack, styled } from "@mui/material";
 import { Typography } from "@mui/material";
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 
 // const API = axios.create({
 //   baseURL: `${process.env.REACT_APP_API_URL}/api`,
@@ -35,6 +38,12 @@ function Cashier() {
   const [alertStatus, setAlertStatus] = useState({open: false, status: "error"});
 
   const [{categories, subcategories, items, currCategory, currSubcategory}, {getItems, getSubcategories}] = useAPI();
+  
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   function addOrder(item) {
     return () => setOrders(orders.concat([item]));
@@ -71,74 +80,117 @@ function Cashier() {
   }
 
   return (
-    <FullHeightContainer>
-      <Typography variant="h3">
-        Cashier Page
-      </Typography>
-      <FullHeightGrid container sx={{ border: 1 }}>
-        <Grid item xs={5} sx={{ borderRight: 1, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-          <Box sx={{height: '87%'}}>
-            <TransactionList 
-              orders={orders} 
-              remover={removeOrder}
-            />
-          </Box>
-          <Stack direction={'row'} spacing={2} sx={{flexGrow: 1, borderTop: 1, padding: 2}}>
-            <Button 
-              variant="contained" 
-              color="primary"
-              onClick={placeTransaction}
-            >
-              SUBMIT
-            </Button>
-            <Button 
-              variant="contained"
-              color="secondary"
-              onClick={() => {
-                setOrders([]); 
-                setAlertStatus({open: true, status: "canceled"});
-              }}
-            >
-              CANCEL
-            </Button>
-          </Stack>
-        </Grid>
-        <Grid item xs={7}>
-          {(categories === undefined) 
-            // ? <p>Loading...</p> 
-            ? <CircularProgress/>
-            : <CategoryList categories={categories} clickHandler={getSubcategories} selected={currCategory}/>
-          }
-          {(subcategories === null) 
-            // ? <p>Loading...</p> 
-            ? <Box sx={{borderTop: 1}}><CircularProgress/></Box>
-            : <Box sx={{borderTop: 1}}><SubcategoryList subcategories={subcategories} clickHandler={getItems} selected={currSubcategory}/></Box>
-          }
-          {(items === null) 
-            // ? <p>Loading...</p> 
-            ? <Box sx={{borderTop: 1}}><CircularProgress/></Box>
-            : <Box sx={{borderTop: 1}}><ItemList items={items} clickHandler={addOrder}/></Box>
-          }
-        </Grid>
-      </FullHeightGrid>
-      
-      <Snackbar 
-        open={alertStatus.open} 
-        onClose={() => setAlertStatus({open: false, status: alertStatus.status})}
-        autoHideDuration={5000}
-        anchorOrigin={{vertical: "bottom", horizontal: "center"}}
-      //   sx={{width: "500%"}}
-      >
-        {(alertStatus.status === "success") 
-          ? <Alert severity="success" sx={{width: "90vw"}} onClose={closeAlert}>Transaction Submitted Sucsessfully!</Alert>
-          : (alertStatus.status === "canceled")
-            ? <Alert severity="info" sx={{width: "90vw"}} onClose={closeAlert}>Transaction canceled</Alert>
-            : <Alert severity="error" sx={{width: "90vw"}} onClose={closeAlert}>Error submitting transaction</Alert>
-        }
-        
-      </Snackbar>
-    </FullHeightContainer>
+    <>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+          <Tab label="Cashier Ordering" {...a11yProps(0)} />
+          <Tab label="Order Tracking" {...a11yProps(0)} />
+        </Tabs>
+      </Box>
+      <CustomTabPanel value={value} index={0}>
+        <FullHeightContainer>
+          <FullHeightGrid container sx={{ border: 1 }}>
+            <Grid item xs={5} sx={{ borderRight: 1, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+              <Box sx={{height: '87%'}}>
+                <TransactionList 
+                  orders={orders} 
+                  remover={removeOrder}
+                />
+              </Box>
+              <Stack direction={'row'} spacing={2} sx={{flexGrow: 1, borderTop: 1, padding: 2}}>
+                <Button 
+                  variant="contained" 
+                  color="primary"
+                  onClick={placeTransaction}
+                >
+                  SUBMIT
+                </Button>
+                <Button 
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => {
+                    setOrders([]); 
+                    setAlertStatus({open: true, status: "canceled"});
+                  }}
+                >
+                  CANCEL
+                </Button>
+              </Stack>
+            </Grid>
+            <Grid item xs={7}>
+              {(categories === undefined) 
+                // ? <p>Loading...</p> 
+                ? <CircularProgress/>
+                : <CategoryList categories={categories} clickHandler={getSubcategories} selected={currCategory}/>
+              }
+              {(subcategories === null) 
+                // ? <p>Loading...</p> 
+                ? <Box sx={{borderTop: 1}}><CircularProgress/></Box>
+                : <Box sx={{borderTop: 1}}><SubcategoryList subcategories={subcategories} clickHandler={getItems} selected={currSubcategory}/></Box>
+              }
+              {(items === null) 
+                // ? <p>Loading...</p> 
+                ? <Box sx={{borderTop: 1}}><CircularProgress/></Box>
+                : <Box sx={{borderTop: 1}}><ItemList items={items} clickHandler={addOrder}/></Box>
+              }
+            </Grid>
+          </FullHeightGrid>
+          
+          <Snackbar 
+            open={alertStatus.open} 
+            onClose={() => setAlertStatus({open: false, status: alertStatus.status})}
+            autoHideDuration={5000}
+            anchorOrigin={{vertical: "bottom", horizontal: "center"}}
+          //   sx={{width: "500%"}}
+          >
+            {(alertStatus.status === "success") 
+              ? <Alert severity="success" sx={{width: "90vw"}} onClose={closeAlert}>Transaction Submitted Sucsessfully!</Alert>
+              : (alertStatus.status === "canceled")
+                ? <Alert severity="info" sx={{width: "90vw"}} onClose={closeAlert}>Transaction canceled</Alert>
+                : <Alert severity="error" sx={{width: "90vw"}} onClose={closeAlert}>Error submitting transaction</Alert>
+            }
+            
+          </Snackbar>
+        </FullHeightContainer>
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={1}>
+        Transaction Tracking
+      </CustomTabPanel>
+    </>
   );
+}
+
+function CustomTabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+CustomTabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
 }
 
 export default Cashier;
