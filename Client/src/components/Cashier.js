@@ -119,29 +119,24 @@ function Cashier() {
             </Grid>
             <Grid item xs={7}>
               {(categories === undefined) 
-                // ? <p>Loading...</p> 
                 ? <CircularProgress/>
                 : <CategoryList categories={categories} clickHandler={getSubcategories} selected={currCategory}/>
               }
               {(subcategories === null) 
-                // ? <p>Loading...</p> 
                 ? <Box sx={{borderTop: 1}}><CircularProgress/></Box>
                 : <Box sx={{borderTop: 1}}><SubcategoryList subcategories={subcategories} clickHandler={getItems} selected={currSubcategory}/></Box>
               }
               {(items === null) 
-                // ? <p>Loading...</p> 
                 ? <Box sx={{borderTop: 1}}><CircularProgress/></Box>
                 : <Box sx={{borderTop: 1}}><ItemList items={items} clickHandler={addOrder}/></Box>
               }
             </Grid>
           </FullHeightGrid>
-          
           <Snackbar 
             open={alertStatus.open} 
             onClose={() => setAlertStatus({open: false, status: alertStatus.status})}
             autoHideDuration={5000}
             anchorOrigin={{vertical: "bottom", horizontal: "center"}}
-          //   sx={{width: "500%"}}
           >
             {(alertStatus.status === "success") 
               ? <Alert severity="success" sx={{width: "90vw"}} onClose={closeAlert}>Transaction Submitted Sucsessfully!</Alert>
@@ -149,7 +144,6 @@ function Cashier() {
                 ? <Alert severity="info" sx={{width: "90vw"}} onClose={closeAlert}>Transaction canceled</Alert>
                 : <Alert severity="error" sx={{width: "90vw"}} onClose={closeAlert}>Error submitting transaction</Alert>
             }
-            
           </Snackbar>
         </FullHeightContainer>
       </CustomTabPanel>
