@@ -28,11 +28,10 @@ function TransactionList({ orders, remover }) {
     <TableContainer 
       component={Box} 
       sx={{
-        overflowY: 'auto',
         maxHeight: '100%'
       }}
     >
-      <Table aria-label="transaction list">
+      <Table stickyHeader aria-label="transaction list">
       <TableHead>
         <TableRow>
         <StyledTableCell>Item Name</StyledTableCell>
