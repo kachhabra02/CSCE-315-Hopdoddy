@@ -8,7 +8,8 @@ function ItemButton({width = 200, height = 100, selected = false, onClick, child
         maxHeight: height, 
         minWidth: width, 
         maxWidth: width,
-        overflow: "clip"
+        overflow: "clip",
+        'font-size': 30
     });
     
     useLayoutEffect(() => {
