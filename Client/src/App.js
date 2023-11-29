@@ -26,7 +26,7 @@ import Usage from './components/manager/datetime-pages/Usage.js';
 
 const theme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: 'light',
   },
 });
 

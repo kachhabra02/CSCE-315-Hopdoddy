@@ -11,7 +11,7 @@ import TransactionList from "./cashier-subcomponents/TransactionList.js";
 import ItemList from "./cashier-subcomponents/ItemList.js";
 import "./cashier-subcomponents/Cashier.css";
 import useAPI from "./useAPI.js";
-import { Box, Button, Grid, styled } from "@mui/material";
+import { Box, Button, Grid, Stack, styled } from "@mui/material";
 import { Typography } from "@mui/material";
 
 // const API = axios.create({
@@ -75,15 +75,15 @@ function Cashier() {
       <Typography variant="h3">
         Cashier Page
       </Typography>
-      <FullHeightGrid container>
-        <Grid item xs={5} sx={{ border: 1, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+      <FullHeightGrid container sx={{ border: 1 }}>
+        <Grid item xs={5} sx={{ borderRight: 1, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
           <Box sx={{ flexGrow: 1 }}>
             <TransactionList 
               orders={orders} 
               remover={removeOrder}
             />
           </Box>
-          <Box>
+          <Stack direction={'row'} spacing={2} sx={{borderTop: 1, padding: 2}}>
             <Button 
               variant="contained" 
               color="primary"
@@ -93,7 +93,7 @@ function Cashier() {
             </Button>
             <Button 
               variant="contained"
-              color="secondary"
+              color="error"
               onClick={() => {
                 setOrders([]); 
                 setAlertStatus({open: true, status: "canceled"});
@@ -101,7 +101,7 @@ function Cashier() {
             >
               CANCEL
             </Button>
-          </Box>
+          </Stack>
         </Grid>
         <Grid item xs={7}>
           {(categories === undefined) 
