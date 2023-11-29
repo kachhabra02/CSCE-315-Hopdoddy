@@ -1,4 +1,3 @@
-// import React, {useEffect, useState} from "react";
 import React, {useState} from "react";
 import axios from "axios";
 import Snackbar from '@mui/material/Snackbar';
@@ -25,7 +24,7 @@ import Tab from '@mui/material/Tab';
 const FullHeightContainer = styled('div')({
   height: '80vh',
   width: '100%',
-  padding: 20, // adjust as needed
+  padding: 0,
   boxSizing: 'border-box',
 });
 
