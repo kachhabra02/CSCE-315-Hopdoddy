@@ -77,13 +77,13 @@ function Cashier() {
       </Typography>
       <FullHeightGrid container sx={{ border: 1 }}>
         <Grid item xs={5} sx={{ borderRight: 1, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-          <Box sx={{ flexGrow: 1 }}>
+          <Box sx={{height: '87%'}}>
             <TransactionList 
               orders={orders} 
               remover={removeOrder}
             />
           </Box>
-          <Stack direction={'row'} spacing={2} sx={{borderTop: 1, padding: 2}}>
+          <Stack direction={'row'} spacing={2} sx={{flexGrow: 1, borderTop: 1, padding: 2}}>
             <Button 
               variant="contained" 
               color="primary"
@@ -108,7 +108,7 @@ function Cashier() {
             // ? <p>Loading...</p> 
             ? <CircularProgress/>
             : <CategoryList categories={categories} clickHandler={getSubcategories} selected={currCategory}/>
-          }     
+          }
           {(subcategories === null) 
             // ? <p>Loading...</p> 
             ? <Box sx={{borderTop: 1}}><CircularProgress/></Box>
