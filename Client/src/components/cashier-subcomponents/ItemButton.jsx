@@ -15,7 +15,11 @@ function ItemButton({width = 150, height = 35, selected = false, onClick, childr
         // test for overflow and update the font size after initial render
         const el = ref.current;
         if ((el.clientHeight < el.scrollHeight) || (el.clientWidth < el.scrollWidth)) {
-            setCustomStyle({...customStyle, "font-size": el.computedStyleMap().get("font-size").value * .9});
+            try {
+                setCustomStyle({...customStyle, "font-size": el.computedStyleMap().get("font-size").value * .9});
+            } catch (error) {
+                console.log(error)
+            }
         }
     }, [customStyle])
 

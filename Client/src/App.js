@@ -1,10 +1,12 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
 
 import Landing from './components/landing/Landing';
 import Menu from './components/menu-board/MenuBoard';
 import NavBar from './components/navbar/NavBar';
 import NotFound from './components/NotFound';
 import Cashier from "./components/Cashier.js";
+import Customer from './components/Customer.js';
 
 import { AuthProvider } from "./credentials/AuthProvider.js";
 import { CashierGuard as CGuard, ManagerGuard as MGuard } from "./credentials/RouteGuards.js";
@@ -24,6 +26,8 @@ import WhatSellsTogether from './components/manager/datetime-pages/WhatSellsToge
 import History from './components/manager/datetime-pages/History.js';
 import Usage from './components/manager/datetime-pages/Usage.js';
 
+import { useState } from 'react';
+
 const theme = createTheme({
   palette: {
     mode: 'light',
@@ -34,20 +38,55 @@ const route = (path, Element, Guard=({children})=><>{children}</>) => (
   <Route path={path} element={<Guard> <Element /> </Guard>} />
 );
 
+// Loads the script
+function loadGoogleTranslateScript() {
+  // Check if script is already present
+  const existingScript = document.getElementById('googleTranslateScript');
+  if (!existingScript) {
+    const script = document.createElement('script');
+    script.id = 'googleTranslateScript';
+    script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    document.body.appendChild(script);
+  }
+}
+
+// Initializes the google translate component
+function googleTranslateElementInit() {
+  new window.google.translate.TranslateElement({
+    pageLanguage: 'en',
+    layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay: false
+  }, 'google_translate_element');
+}
+
 function App() {
+  // Google Translate Implementation
+  useEffect(() => {
+    loadGoogleTranslateScript();
+    window.googleTranslateElementInit = googleTranslateElementInit;
+  }, []);
+  
+  const [, setCart] = useState();
+  
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <AuthProvider>
         <BrowserRouter>
-          <AppBar position='static'>
-            <NavBar />
+          <AppBar position = 'static'>
+            <NavBar onUpdate={setCart}/>
           </AppBar>
           <Routes>
             {route('/', Landing)}
             {route('/menu', Menu)}
             {route('*', NotFound)}
             {route('/cashier', Cashier, CGuard)}
+            <Route path="/customer" element={<Customer onUpdate={setCart}/>} />
+            {/* Weird redering if I use route() for Customer */}
+            {/* suggest turning route() into RoutedElement({path, guard, children}) */}
+            {/* To use it, do: <RoutedElement path={} guard={}>{children}</RoutedElement> */}
+            {/* {route('/customer', () => <Customer onUpdate={setCart}/>)} */}
             {route('/manager', ManagerHome, MGuard)}
             {route('/manager/:inputPathID', PageInput, MGuard)}
             {route('/manager/menu', MenuManagment, MGuard)}
