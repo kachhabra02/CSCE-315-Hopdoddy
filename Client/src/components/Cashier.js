@@ -93,7 +93,7 @@ function Cashier() {
             </Button>
             <Button 
               variant="contained"
-              color="error"
+              color="secondary"
               onClick={() => {
                 setOrders([]); 
                 setAlertStatus({open: true, status: "canceled"});
