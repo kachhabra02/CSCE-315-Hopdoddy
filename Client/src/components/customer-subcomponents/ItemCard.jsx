@@ -1,15 +1,20 @@
 import React from "react";
-import Card from '@mui/material/Card';
+// import Card from '@mui/material/Card';
 // import CardContent from '@mui/material/CardContent';
 // import CardMedia from '@mui/material/CardMedia';
 // import Button from "@mui/material/Button";
 import Tooltip from '@mui/material/Tooltip';
-import ButtonBase from "@mui/material/ButtonBase";
+// import ButtonBase from "@mui/material/ButtonBase";
 import IconButton from "@mui/material/IconButton";
-import { MdAddShoppingCart } from "react-icons/md";
-
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
+import { MdAddShoppingCart } from "react-icons/md";
+
+const priceFormat = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+});
 
 function ItemCard({item, onUpdate}) {
     function addToCart() {
@@ -62,7 +67,7 @@ function ItemCard({item, onUpdate}) {
                 />
                 <ImageListItemBar 
                   title={item.item_name} 
-                  subtitle={item.price}
+                  subtitle={priceFormat.format(parseFloat(item.price))}
                   actionIcon={
                     <IconButton 
                       onClick={addToCart} 
@@ -70,10 +75,9 @@ function ItemCard({item, onUpdate}) {
                       sx={{left: -7.5, 
                             color: "white",
                             // bgcolor: 'rgb(255, 255, 255)',
-                            // "&:hover": {
-                            //     bgcolor: "rgb(0, 0, 0)",
-                            //     color: "rgb(255, 255, 255)"
-                            // }
+                            "&:hover": {
+                                bgcolor: "rgba(0, 0, 0, 0.54)",
+                            }
                          }}
                     >
                         <MdAddShoppingCart/>

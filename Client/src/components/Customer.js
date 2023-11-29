@@ -24,7 +24,7 @@ function Customer({onUpdate}) {
                 : <SideCategoryList categories={categories} onUpdate={onUpdate} sx={{"width": 250, float: "left"}} itemGetter={getItems}/>
             }
             <ItemGrid items={items} onUpdate={onUpdate}
-              sx={{float: "left", width: "calc(100% - 250px)"}}
+              sx={{float: "left", width: "calc(100% - 250px)", margin: "auto"}}
             />
         </div>
     );
