@@ -50,7 +50,7 @@ function SideSubcategoryList({category, currSelected, index, setSelected, itemGe
         subcategories == null
             ? <CircularProgress/>
             : subcategories.map((item, i) => (
-                <List sx={{pl: 4}}>
+                <List sx={{pl: 4}} disablePadding>
                     <ListItemButton
                       selected={currSelected[0] === index && currSelected[1] === i}
                       onClick={() => {
