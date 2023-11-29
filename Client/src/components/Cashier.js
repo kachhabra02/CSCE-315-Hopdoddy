@@ -111,13 +111,13 @@ function Cashier() {
           }     
           {(subcategories === null) 
             // ? <p>Loading...</p> 
-            ? <CircularProgress/> 
-            : <SubcategoryList subcategories={subcategories} clickHandler={getItems} selected={currSubcategory}/>
+            ? <Box sx={{borderTop: 1}}><CircularProgress/></Box>
+            : <Box sx={{borderTop: 1}}><SubcategoryList subcategories={subcategories} clickHandler={getItems} selected={currSubcategory}/></Box>
           }
           {(items === null) 
             // ? <p>Loading...</p> 
-            ? <CircularProgress/> 
-            : <ItemList items={items} clickHandler={addOrder}/>
+            ? <Box sx={{borderTop: 1}}><CircularProgress/></Box>
+            : <Box sx={{borderTop: 1}}><ItemList items={items} clickHandler={addOrder}/></Box>
           }
         </Grid>
       </FullHeightGrid>

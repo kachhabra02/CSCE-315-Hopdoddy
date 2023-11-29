@@ -1,37 +1,35 @@
 import React from "react";
-// import Button from '@mui/material/Button';
-import ItemButton from "./ItemButton";
-import { Stack, Button } from "@mui/material";
-// import ButtonGroup from '@mui/material/ButtonGroup';
 
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 
 export const ScrollContainer = styled('div')({
   overflowX: 'auto',
   whiteSpace: 'nowrap',
-  padding: 20, // adjust as needed
+  padding: 2,
 });
 
 export const WrapContainer = styled('div')({
-  padding: 20, // adjust as needed
+  padding: 2,
 });
+
+const spacing = 1;
 
 export function DynamicButtonGrid({ children, shouldScroll }) {
   return (
-    <Paper>
+    <Box>
       {shouldScroll ? (
         <ScrollContainer>
           {React.Children.map(children, (child, index) => (
-            <div key={index} style={{ display: 'inline-block', marginRight: 8 }}>
+            <div key={index} style={{ display: 'inline-block', marginRight: spacing * 8 }}>
               {child}
             </div>
           ))}
         </ScrollContainer>
       ) : (
         <WrapContainer>
-          <Grid container spacing={2}>
+          <Grid container spacing={spacing}>
             {React.Children.map(children, (child, index) => (
               <Grid key={index} item>
                 {child}
@@ -40,6 +38,6 @@ export function DynamicButtonGrid({ children, shouldScroll }) {
           </Grid>
         </WrapContainer>
       )}
-    </Paper>
+    </Box>
   );
 }
