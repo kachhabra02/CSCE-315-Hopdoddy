@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -10,9 +10,9 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 import useAPI from "../useAPI";
 
-function SideCategoryList({ categories, sx }) {
+function SideCategoryList({ categories, itemGetter, sx }) {
     const [expanded, setExpanded] = useState([true]);
-    const [selected, setSelected] = useState([0, 0]);
+    const [selected, setSelected] = useState([0, -1]);
     // console.log(expanded)
 
     return (
@@ -29,7 +29,7 @@ function SideCategoryList({ categories, sx }) {
                     {expanded[i] ? <MdExpandLess/> : <MdExpandMore/>}
                 </ListItemButton>
                 <Collapse timeout="auto" in={expanded[i]}>
-                    <SideSubcategoryList category={item.category} currSelected={selected} index={i} setSelected={setSelected}/>
+                    <SideSubcategoryList category={item.category} currSelected={selected} index={i} setSelected={setSelected} itemGetter={itemGetter}/>
                 </Collapse>
               </>
             ))
@@ -37,9 +37,14 @@ function SideCategoryList({ categories, sx }) {
     );
 }
 
-function SideSubcategoryList({category, currSelected, index, setSelected}) {
+function SideSubcategoryList({category, currSelected, index, setSelected, itemGetter}) {
     const [{subcategories}, {getSubcategories}] = useAPI();
     useEffect(getSubcategories(category), []);
+
+    if (subcategories?.length > 0 && currSelected[1] === -1 && currSelected[0] === index) {
+        setSelected([0, 0]);
+        itemGetter(subcategories[0]?.sub_category, category)()
+    }
 
     return (
         subcategories == null
@@ -48,7 +53,10 @@ function SideSubcategoryList({category, currSelected, index, setSelected}) {
                 <List sx={{pl: 4}}>
                     <ListItemButton
                       selected={currSelected[0] === index && currSelected[1] === i}
-                      onClick={() => setSelected([index, i])}
+                      onClick={() => {
+                        setSelected([index, i]);
+                        itemGetter(item.sub_category, category)();
+                      }}
                     >
                         <ListItemText primary={item.sub_category}/>
                     </ListItemButton>

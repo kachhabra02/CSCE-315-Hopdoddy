@@ -1,11 +1,12 @@
 import React from "react";
 
 import useAPI from "./useAPI";
-import CategoryAccordions from "./customer-subcomponents/CategoryAccordions";
+// import CategoryAccordions from "./customer-subcomponents/CategoryAccordions";
 import SideCategoryList from "./customer-subcomponents/SideCategoryList";
+import ItemGrid from "./customer-subcomponents/ItemGrid";
 
 function Customer({onUpdate}) {
-    const [{categories}] = useAPI();
+    const [{categories, items}, {getItems}] = useAPI();
 
     // const orders = JSON.parse(localStorage.getItem("cart"));
     // const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")));
@@ -20,8 +21,11 @@ function Customer({onUpdate}) {
             {(categories === undefined) 
                 ? <div>Loading...</div>
                 // : <CategoryAccordions categories={categories} onUpdate={onUpdate} />
-                : <SideCategoryList categories={categories} onUpdate={onUpdate} sx={{"max-width": 250}}/>
+                : <SideCategoryList categories={categories} onUpdate={onUpdate} sx={{"width": 250, float: "left"}} itemGetter={getItems}/>
             }
+            <ItemGrid items={items} onUpdate={onUpdate}
+              sx={{float: "left", width: "calc(100% - 250px)"}}
+            />
         </div>
     );
 }
