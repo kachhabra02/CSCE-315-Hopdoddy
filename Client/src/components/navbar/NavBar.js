@@ -2,6 +2,7 @@ import Button from '@mui/material/Button';
 import { Toolbar } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
 
 import './NavBar.css';
 
@@ -38,19 +39,22 @@ function NavBar({onUpdate}) {
     const [isCustomized, tryCustomizing] = useState({});
     useLayoutEffect(() => {
         $("#google_translate_element img").eq(0).remove();
-        $("#google_translate_element div").eq(1).css("background-color", "rgba(0, 0, 0, 0");
-        $("#google_translate_element span").css("border-color", "rgba(0, 0, 0, 0)");
-		$("#google_translate_element div").eq(1).css("border-color", "rgba(0, 0, 0, 0)");
+        $("#google_translate_element div").eq(1).css("background-color", "transparent");
+        $("#google_translate_element span").css("border-color", "transparent");
+		$("#google_translate_element div").eq(1).css("border-color", "transparent");
 		$("#borderColor").val('');
         let el = $("#google_translate_element a").eq(0);
         if (el.length > 0) {
             // console.log(el)
-            el.css("max-width", "28px")
+            el.css("max-width", "50px")
+            el.css("max-height", "50px")
+            el.css("min-width", "50px")
+            el.css("min-height", "50px")
+            el.css("display", "block")
             el.html(`
-                <button class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeLarge css-1pz7awu-MuiButtonBase-root-MuiIconButton-root"
-                  style="background-color: rgb(25, 118, 210); color: white"
-                >
-                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                    <svg stroke="white" fill="white" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"
+                      style="width: 50px; height: 50px; padding: 12px;"
+                    >
                         <path d="M21 4H11l-1-3H3c-1.1 0-2 .9-2 2v15c0 1.1.9 2 2 2h8l1 3h9c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7 16c-2.76 0-5-2.24-5-5s2.24-5 5-5c1.35 
                             0 2.48.5 3.35 1.3L9.03 8.57c-.38-.36-1.04-.78-2.03-.78-1.74 0-3.15 1.44-3.15 3.21S5.26 14.21 7 14.21c2.01 0 2.84-1.44 2.92-2.41H7v-1.71h4.68c.07.31.12.61.12 
                             1.02C11.8 13.97 9.89 16 7 16zm6.17-5.42h3.7c-.43 1.25-1.11 2.43-2.05 3.47-.31-.35-.6-.72-.86-1.1l-.79-2.37zm8.33 9.92c0 .55-.45 1-1 1H14l2-2.5-1.04-3.1 3.1 
@@ -59,9 +63,11 @@ function NavBar({onUpdate}) {
                         <path fill="none" d="M0 0h24v24H0zm0 0h24v24H0z">
                         </path>
                     </svg>
-                </button>
                 `
             );
+            // el.hover(function(e) { 
+            //     $("#translate_button").css("background-color",e.type === "mouseenter" ? "rgba(0, 0, 0, 0.02)" : "transparent") 
+            //   });
         } else {
             // console.log("updating...")
             setTimeout(() => tryCustomizing({}), 500)
@@ -109,7 +115,9 @@ function NavBar({onUpdate}) {
                 )}
             </div>
             {/* <Box sx={{ mx: 2 }}> */}
-                <div id="google_translate_element" style={{bgcolor: "rgba(0, 0, 0, 0)", width: 58}} ref={gtref}></div>
+            <IconButton sx={{width: 50, height: 50, color: "white"}}>
+                <div id="google_translate_element" style={{bgcolor: "transparent",}} ref={gtref}></div>
+            </IconButton>
             {/* </Box> */}
         </Toolbar>
     )
