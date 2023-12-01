@@ -53,7 +53,7 @@ function ItemCard({item, onUpdate}) {
 
         <Tooltip arrow title="item.description goes here">
           {/* <ButtonBase onClick={addToCart}> */}
-            <ImageListItem sx={{width: 250}}>
+            <ImageListItem sx={{width: 400}}>
                 <img 
                     // Name like Goodnight/Good Cause -> goodnight-good_cause.jpg
                     src={`/images/${item.item_name.replace(/\s+/g, '_').replace(/\//g, '-').toLowerCase()}.jpg`}

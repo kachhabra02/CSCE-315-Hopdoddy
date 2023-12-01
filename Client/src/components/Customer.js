@@ -5,6 +5,9 @@ import useAPI from "./useAPI";
 import SideCategoryList from "./customer-subcomponents/SideCategoryList";
 import ItemGrid from "./customer-subcomponents/ItemGrid";
 
+import Fab from '@mui/material/Fab';
+import CartButton from "./customer-subcomponents/CartButton";
+
 function Customer({onUpdate}) {
     const [{categories, items}, {getItems}] = useAPI();
 
@@ -21,11 +24,21 @@ function Customer({onUpdate}) {
             {(categories === undefined) 
                 ? <div>Loading...</div>
                 // : <CategoryAccordions categories={categories} onUpdate={onUpdate} />
-                : <SideCategoryList categories={categories} onUpdate={onUpdate} sx={{"width": 250, float: "left"}} itemGetter={getItems}/>
+                : <SideCategoryList categories={categories} onUpdate={onUpdate} itemGetter={getItems} 
+                    sx={{"width": 250, 
+                        //  float: "left",
+                          position: "fixed"
+                    }}
+                  />
             }
-            <ItemGrid items={items} onUpdate={onUpdate}
-              sx={{float: "left", width: "calc(100% - 250px)", margin: "auto"}}
-            />
+            <div style={{paddingLeft: 250}}>
+                <ItemGrid items={items} onUpdate={onUpdate}
+                  sx={{float: "left", width: "calc(100vw - 250px)", margin: "auto"}}
+                />
+            </div>
+            <Fab color="primary" sx={{ position: 'fixed', bottom: 16, right: 16}}>
+                <CartButton onUpdate={onUpdate}/>
+            </Fab>
         </div>
     );
 }
