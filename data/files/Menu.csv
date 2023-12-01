@@ -50,16 +50,13 @@
 49,mini,,,3,TRUE,TRUE,FALSE,FALSE,FALSE,
 50,The Larry (lil'),Drinks,Margaritas,4.25,FALSE,TRUE,TRUE,TRUE,FALSE,"House Frozen Margarita topped with Grand Marnier."
 51,big,,,10,TRUE,TRUE,FALSE,FALSE,FALSE,
-52,Doble Fina,Drinks,Margaritas,10,FALSE,TRUE,TRUE,TRUE,FALSE,""
-53,House Frozen,Drinks,Margaritas,8,FALSE,TRUE,TRUE,TRUE,TRUE,""
+52,Doble Fina,Drinks,Margaritas,10,FALSE,TRUE,TRUE,TRUE,FALSE,"Monte Alban Silver Tequila, triple sec, fresh lime juice & agave shaken over ice, served with salted rim."
+53,House Frozen,Drinks,Margaritas,8,FALSE,TRUE,TRUE,TRUE,TRUE,"Gold tequila & triple sec with fresh citrus juices served frozen with salted rim."
 54,Schooner,,,10,TRUE,TRUE,FALSE,FALSE,FALSE,
-55,Strawberry,Drinks,Margaritas,9.25,FALSE,TRUE,TRUE,TRUE,FALSE,""
-56,Skinny Dip,Drinks,Margaritas,11.5,FALSE,TRUE,TRUE,TRUE,FALSE,""
-57,Regerative Bonterra Organic Chardonnay,Drinks,Wine,14,FALSE,TRUE,TRUE,TRUE,FALSE,""
-58,Regerative Organic Cabernet Suavignon,Drinks,Wine,15,FALSE,TRUE,TRUE,TRUE,FALSE,""
-59,Texas Sling,Drinks,Boozy Drinks,10,FALSE,TRUE,TRUE,TRUE,TRUE,""
-60,Paloma,Drinks,Boozy Drinks,9.25,FALSE,TRUE,TRUE,TRUE,FALSE,""
-61,Old Fashioned,Drinks,Boozy Drinks,10,FALSE,TRUE,TRUE,TRUE,FALSE,""
-62,Kickin' Mule,Drinks,Boozy Drinks,9,FALSE,TRUE,TRUE,TRUE,FALSE,""
-63,Jameson Irish Whiskey,Drinks,Boozy Drinks,2,TRUE,TRUE,FALSE,FALSE,FALSE,
-64,Sliders,Happy Hour,Happy Hour,10,FALSE,TRUE,TRUE,TRUE,FALSE,""
+55,Strawberry,Drinks,Margaritas,9.25,FALSE,TRUE,TRUE,TRUE,FALSE,"Altos Plata Tequila, Cointreau Orange Liqueur, strawberry, fresh lime juice & agave shaken over ice."
+56,Skinny Dip,Drinks,Margaritas,11.5,FALSE,TRUE,TRUE,TRUE,FALSE,"7oz mini beer dunked into a goblet of House Frozen Margarita served with salted rim."
+57,Texas Sling,Drinks,Boozy Drinks,10,FALSE,TRUE,TRUE,TRUE,TRUE,"Tito's Handmade Vodka, Cherry, Lime, Pineapple, Burnt Orange & Honey Spiced Liqueur."
+58,Paloma,Drinks,Boozy Drinks,9.25,FALSE,TRUE,TRUE,TRUE,FALSE,"Monte Alban Silver Tequila, Deep Eddy Ruby Red Grapefruit Vodka, agave, grapefruit & lime juices, served with salted rim."
+59,Old Fashioned,Drinks,Boozy Drinks,10,FALSE,TRUE,TRUE,TRUE,FALSE,"Brother's Bond Bourbon, angostura bitters, simple syrup, Demerara syrup, orange peel."
+60,Kickin' Mule,Drinks,Boozy Drinks,9,FALSE,TRUE,TRUE,TRUE,FALSE,"New Amsterdam Vodka, ginger & fresh lime juice."
+61,Jameson Irish Whiskey,Drinks,Boozy Drinks,2,TRUE,TRUE,FALSE,FALSE,FALSE,
