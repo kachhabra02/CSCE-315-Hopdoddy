@@ -19,7 +19,7 @@ employees = []
 
 # Open files to be generated and write headers
 trans_f = open('Transactions.csv', 'w', encoding='utf-8-sig')
-trans_f.write('Transaction_ID,Time,Employee_ID,Total_Price')
+trans_f.write('Transaction_ID,Time,Employee_ID,Total_Price,Order_Status')
 ol_f = open('Order_List.csv', 'w', encoding='utf-8-sig')
 ol_f.write('Order_List_ID,Item_ID,Transaction_ID')
 
@@ -88,7 +88,7 @@ def get_random_transaction(curr_time, is_peak_day, curr_emp):
     
 
     # Add transaction to list
-    trans_f.write('\n{:d},{},{:d},{:.2f}'.format(transaction_id, curr_time.strftime('%Y-%m-%d %H:%M:%S'), curr_emp, transaction_price))
+    trans_f.write('\n{:d},{},{:d},{:.2f},{}'.format(transaction_id, curr_time.strftime('%Y-%m-%d %H:%M:%S'), curr_emp, transaction_price, 'Fulfilled'))
 
     # Update tracking statistics and running indices
     total_price += transaction_price

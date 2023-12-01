@@ -16,6 +16,10 @@ CREATE TABLE Menu (
     Price DECIMAL NOT NULL,
     Is_Modification BOOLEAN NOT NULL,
     Is_Available BOOLEAN DEFAULT TRUE,
+    Display_Item BOOLEAN NOT NULL,
+    Display_Image BOOLEAN NOT NULL,
+    Display_Description BOOLEAN NOT NULL,
+    Item_Description TEXT DEFAULT NULL,
     PRIMARY KEY (Item_ID)
 );
 
@@ -23,9 +27,9 @@ CREATE TABLE Employees(
     Employee_ID SERIAL,
     First_Name VARCHAR(255) NOT NULL,
     Last_Name VARCHAR(255) NOT NULL,
-    Username VARCHAR(255) NOT NULL,
-    Employee_Password VARCHAR(255) NOT NULL,
+    Email VARCHAR(255) NOT NULL,
     Is_Manager BOOLEAN NOT NULL,
+    Is_Admin BOOLEAN NOT NULL,
     PRIMARY KEY (Employee_ID)
 );
 
@@ -34,6 +38,7 @@ CREATE TABLE Transactions(
     Transaction_Time TIMESTAMP NOT NULL DEFAULT NOW()::TIMESTAMP,
     Employee_ID INT NOT NULL,
     Total_Price DECIMAL NOT NULL DEFAULT 0.00,
+    Order_Status VARCHAR(255) NOT NULL DEFAULT "Pending",
     PRIMARY KEY (Transaction_ID),
     FOREIGN KEY (Employee_ID) REFERENCES Employees(Employee_ID)
 );
