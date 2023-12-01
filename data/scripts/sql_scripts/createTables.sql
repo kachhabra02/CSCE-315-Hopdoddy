@@ -38,7 +38,7 @@ CREATE TABLE Transactions(
     Transaction_Time TIMESTAMP NOT NULL DEFAULT NOW()::TIMESTAMP,
     Employee_ID INT NOT NULL,
     Total_Price DECIMAL NOT NULL DEFAULT 0.00,
-    Order_Status VARCHAR(255) NOT NULL DEFAULT "Pending",
+    Order_Status VARCHAR(255) NOT NULL DEFAULT 'Pending',
     PRIMARY KEY (Transaction_ID),
     FOREIGN KEY (Employee_ID) REFERENCES Employees(Employee_ID)
 );
