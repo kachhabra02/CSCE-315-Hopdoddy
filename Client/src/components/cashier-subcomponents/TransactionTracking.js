@@ -64,20 +64,6 @@ const options = {
   resizableColumns: true
 };
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  pt: 2,
-  px: 4,
-  pb: 3,
-};
-
 function TransactionTracking() {
   const [data, setData] = useState(undefined);
   const [datetimeOpen, setDatetimeOpen] = React.useState(false);
@@ -86,21 +72,30 @@ function TransactionTracking() {
   const [endTime, setEndTime] = useState(new Date());
   
   useEffect(() => {
-    getOrders(setData)
+    getOrders(startTime, endTime, setData);
   }, []);
 
   const handleClose = () => {
     setDatetimeOpen(false);
   };
 
-  const handleGenerate = () => {
-    getOrders(startTime, endTime, setData);
+  const handleGenerate = (newStart, newEnd) => {
+    console.log("Broken AF");
+    setDatetimeOpen(false);
+    setStartTime(newStart);
+    setEndTime(newEnd);
+    getOrders(newStart, newEnd, setData);
   };
 
   return (
     <Box>
-      <Button onClick={() => setDatetimeOpen(true)}>fdsa</Button>
-      {data === undefined ? <CircularProgress /> :
+      <Box sx={{ paddingBottom: 2 }}>
+        <Button 
+          onClick={() => setDatetimeOpen(true)}
+          children="Choose Time Frame"
+        />
+      </Box>
+      {data === undefined ? <><br /><CircularProgress /></> :
         <MUIDataTable
           title={title}
           data={data}
@@ -122,7 +117,7 @@ function TransactionTracking() {
             height: '80vh',           // Set the height of the container (e.g., full viewport height)
         }}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <PageInputCard title="Card Bro!" onGenerate={handleGenerate} handleClose={handleClose} />
+            <PageInputCard title="Card Bro!" onGenerate={handleGenerate} onClose={handleClose} />
           </LocalizationProvider>
         </Box>
       </Modal>
@@ -130,8 +125,8 @@ function TransactionTracking() {
   );
 }
 
-function getOrders(callback) {
-  API.get(`/transactions?startTime=${(new Date(2,3)).toISOString()}&endTime=${(new Date(2,3)).toISOString()}`)
+function getOrders(startTime, endTime, callback) {
+  API.get(`/transactions?startTime=${startTime.toISOString()}&endTime=${endTime.toISOString()}`)
     .then((res) => {
       if (res.status < 300) {
         console.log('Success');
@@ -153,7 +148,7 @@ function getOrders(callback) {
   );
 }
 
-function PageInputCard({ title, handleGenerate, handleClose }) {
+function PageInputCard({ title, onGenerate, onClose }) {
   const [startTime, setStartTime] = useState(new Date(1920,0,1));
   const [endTime, setEndTime] = useState(new Date());
 
@@ -191,14 +186,14 @@ function PageInputCard({ title, handleGenerate, handleClose }) {
             <Button 
               variant='outlined' 
               color='success' 
-              onClick={handleGenerate}
+              onClick={() => onGenerate(startTime, endTime)}
               children='Generate'
             />
           </Box>
           <Button 
             variant='outlined' 
             color='error' 
-            onClick={handleClose}
+            onClick={onClose}
             children='Cancel'
           />
       </CardActions>
