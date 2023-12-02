@@ -2,3 +2,16 @@
     text-align: start;
     padding-left: 3vw;
 }
+
+#menu-board ul {
+    list-style-type: none; /* Removes bullet points */
+    padding: 0;
+    display: flex; /* Flex box */
+    flex-wrap: wrap; /* Wrapping */
+    justify-content: center; /* Center items horizontally */
+    gap: 20px; /* Add space between items */
+}
+  
+#menu-board li {
+    display: flex;
+}
