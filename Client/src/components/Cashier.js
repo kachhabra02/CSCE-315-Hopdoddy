@@ -15,6 +15,7 @@ import { Typography } from "@mui/material";
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import TransactionTracking from "./cashier-subcomponents/TransactionTracking.js";
 
 // const API = axios.create({
 //   baseURL: `${process.env.REACT_APP_API_URL}/api`,
@@ -147,7 +148,7 @@ function Cashier() {
         </FullHeightContainer>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        Transaction Tracking
+        <TransactionTracking />
       </CustomTabPanel>
     </>
   );
