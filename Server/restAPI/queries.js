@@ -8,18 +8,18 @@ const getSubCategoriesQuery = "SELECT DISTINCT Sub_Category FROM Menu " +
                               "WHERE Category = $1 AND Is_Modification = FALSE AND Is_Available ORDER BY Sub_Category ASC";
 
 // Get menu items
-const getMenuItemsQuery = "Select Item_ID, Item_Name, Price FROM Menu " +
+const getMenuItemsQuery = "Select Item_ID, Item_Name, Price, Item_Description FROM Menu " +
                           "WHERE Category = $1 AND Sub_Category = $2 AND Is_Modification = FALSE AND Is_Available " +
                           "ORDER BY Item_ID ASC";
 
 // Get modifications
-const getModificationsQuery = "SELECT Item_ID, Item_Name, Price FROM Menu WHERE Is_Modification = TRUE AND Is_Available AND " +
+const getModificationsQuery = "SELECT Item_ID, Item_Name, Price, Item_Description FROM Menu WHERE Is_Modification = TRUE AND Is_Available AND " +
                               "(Category IS NULL OR (Category = $1 AND (Sub_Category IS NULL OR Sub_Category = $2))) AND " +
                               "Is_Valid_Modification($3, Item_ID) ORDER BY Item_ID ASC";
 
 // View menu
-const viewMenuQuery = "SELECT Item_ID, Item_Name, Category, Sub_Category, Price, Is_Modification FROM Menu " +
-                      "WHERE Is_Available ORDER BY Item_ID ASC";
+const viewMenuQuery = "SELECT Item_ID, Item_Name, Category, Sub_Category, Price, Is_Modification, Display_Item, Display_Image, " +
+                      "Display_Description, Item_Description FROM Menu WHERE Is_Available ORDER BY Item_ID ASC";
 
 // Delete menu item
 const deleteMenuItemQuery = "UPDATE Menu SET Is_Available = FALSE WHERE Item_ID = $1";
@@ -44,14 +44,19 @@ function updateMenuItemQuery(hasName, hasPrice, hasMod) {
         query += `, Is_Modification = $${paramNum++}`;
     }
 
+    query += `, Display_Item = $${paramNum++}`;
+    query += `, Display_Image = $${paramNum++}`;
+    query += `, Display_Description = $${paramNum++}`;
+    query += `, Item_Description = $${paramNum++}`;
+
     query += ` WHERE Item_ID = $${paramNum}`;
     return query;
 }
 
 // Add menu item
 function addMenuItemQueries(numIngredients) {
-    var query_p1 = "INSERT INTO Menu (Item_Name, Category, Sub_Category, Price, Is_Modification) " +
-                     "VALUES ($1, $2, $3, $4, $5) RETURNING Item_ID";
+    var query_p1 = "INSERT INTO Menu (Item_Name, Category, Sub_Category, Price, Is_Modification, Display_Item, Display_Image, "
+                   "Display_Description, Item_Description) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING Item_ID";
     
     var query_p2 = "INSERT INTO Ingredients_List (Item_ID, Inventory_ID, Quantity) VALUES ";
     for (let i = 0; i < numIngredients; i++) {
@@ -112,7 +117,7 @@ function updateInventoryItemQuery(hasName, hasPrice, hasQuant, hasUnit) {
 }
 
 // Add inventory item
-const addInventoryItemQuery = "INSERT INTO Inventory (Inventory_Name, Price, Quantity, Unit) VALUES ($1 , $2 , $3 , $4)";
+const addInventoryItemQuery = "INSERT INTO Inventory (Inventory_Name, Price, Quantity, Unit) VALUES ($1, $2, $3, $4)";
 
 
 /****** TRANSACTIONS ******/

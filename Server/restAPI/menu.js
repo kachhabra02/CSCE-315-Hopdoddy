@@ -19,23 +19,29 @@ router.post('/', async (req, res) => {
         await client.query('BEGIN');
         
         // Get information for query
-        const {item_name, category, sub_category, price, is_modification, numIngredients, ingredients} = req.body;
+        const {item_name, category, sub_category, price, is_modification, display_item, display_image, display_description,
+               item_description, ingredients} = req.body;
 
-        [menuQuery, ingrQuery] =  queries.addMenuItemQueries(numIngredients);
+        [menuQuery, ingrQuery] =  queries.addMenuItemQueries(ingredients.length);
 
         const result = await client.query({
             text: menuQuery,
-            values: [item_name, category, sub_category, price, is_modification]
+            values: [item_name, category, sub_category, price, is_modification, display_item, display_image, display_description, item_description]
         });
         
         let menId = result.rows.at(0).item_id;
+        let ing_vals = [];
         
-        for(let i = 0; i < numIngredients; i++) {
-            client.query({
-                text: ingrQuery,
-                values: [menId, ingredients[i].inventoryID, ingredients[i].quantity]
-            });
+        for(let i = 0; i < ingredients.length; i++) {
+            ing_vals.push(menId);
+            ing_vals.push(ingredients[i].inventoryID);
+            ing_vals.push(ingredients[i].quantity);
         }
+
+        client.query({
+            text: ingrQuery,
+            values: ing_vals
+        });
 
         res.status(200).send("Menu Item added successfully!");
         await client.query('COMMIT');
@@ -53,12 +59,12 @@ router.post('/', async (req, res) => {
 router.put('/item/:id', async (req, res) => {
     // Get necessary info from request
     const ID = req.params.id;
-    const {name, category, subcategory, price, isMod} = req.body;
+    const {item_name, category, sub_category, price, is_modification, display_item, display_image, display_description, item_description} = req.body;
 
     // Send query
     let updateQuery = {
-        text: queries.updateMenuItemQuery((name !== null), (price !== null), (isMod !== null)),
-        values: [name, category, subcategory, price, isMod, ID]
+        text: queries.updateMenuItemQuery((item_name !== null), (price !== null), (is_modification !== null)),
+        values: [item_name, category, sub_category, price, is_modification, display_item, display_image, display_description, item_description, ID]
     };
 
     const client = await pool.connect();
