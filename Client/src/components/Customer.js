@@ -26,6 +26,8 @@ function Customer({onUpdate}) {
                 // : <CategoryAccordions categories={categories} onUpdate={onUpdate} />
                 : <SideCategoryList categories={categories} onUpdate={onUpdate} itemGetter={getItems} 
                     sx={{"width": 250, 
+                         "max-height": "calc(100vh - 64px)",
+                         overflow: "auto",
                         //  float: "left",
                           position: "fixed"
                     }}
@@ -33,7 +35,7 @@ function Customer({onUpdate}) {
             }
             <div style={{paddingLeft: 250}}>
                 <ItemGrid items={items} onUpdate={onUpdate}
-                  sx={{float: "left", width: "calc(100vw - 250px)", margin: "auto"}}
+                  sx={{float: "left", width: "calc(100% - 250px)", margin: "auto"}}
                 />
             </div>
             <Fab color="primary" sx={{ position: 'fixed', bottom: 16, right: 16}}>
