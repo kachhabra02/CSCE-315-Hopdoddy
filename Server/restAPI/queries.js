@@ -194,6 +194,10 @@ const getProductUsageQuery = "SELECT Inventory_ID, Inventory_Name, COALESCE(Tota
                              "RIGHT JOIN Inventory ON Ing_ID = Inventory_ID WHERE Is_Available ORDER BY Inventory_ID ASC";
 
 
+/****** USERS ******/
+// TODO
+
+
 // Export Queries
 module.exports = {
     getCatQuery,
