@@ -8,8 +8,8 @@ import ItemButton from "./ItemButton";
 import { DynamicButtonGrid } from './cashierContainers'
 
 function ItemList({items, clickHandler}) {
-    var itemButtons = items.map((item) => 
-        <Grid item>
+    var itemButtons = items.map((item, index) => 
+        <Grid item key={index}>
             <ItemButton onClick={clickHandler(item)}>
                 {item.item_name}
             </ItemButton>

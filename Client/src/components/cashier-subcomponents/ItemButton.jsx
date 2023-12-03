@@ -17,7 +17,7 @@ function ItemButton({width = 200, height = 100, selected = false, onClick, child
         const el = ref.current;
         if ((el.clientHeight < el.scrollHeight) || (el.clientWidth < el.scrollWidth)) {
             try {
-                setCustomStyle({...customStyle, "font-size": el.computedStyleMap().get("font-size").value * .9});
+                setCustomStyle({...customStyle, fontSize: el.computedStyleMap().get("font-size").value * .9});
             } catch (error) {
                 console.log(error)
             }
