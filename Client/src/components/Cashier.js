@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
@@ -10,8 +10,7 @@ import TransactionList from "./cashier-subcomponents/TransactionList.js";
 import ItemList from "./cashier-subcomponents/ItemList.js";
 import "./cashier-subcomponents/Cashier.css";
 import useAPI from "./useAPI.js";
-import { Box, Button, Grid, Stack, styled } from "@mui/material";
-import { Typography } from "@mui/material";
+import { Box, Button, Grid, Stack, Typography, styled } from "@mui/material";
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -39,7 +38,7 @@ function Cashier() {
 
   const [{categories, subcategories, items, currCategory, currSubcategory}, {getItems, getSubcategories}] = useAPI();
   
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -97,25 +96,42 @@ function Cashier() {
                   remover={removeOrder}
                 />
               </Box>
-              <Stack direction={'row'} spacing={2} sx={{flexGrow: 1, borderTop: 1, padding: 2}}>
-                <Button 
-                  variant="contained" 
-                  color="primary"
-                  onClick={placeTransaction}
-                >
-                  SUBMIT
-                </Button>
-                <Button 
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => {
-                    setOrders([]); 
-                    setAlertStatus({open: true, status: "canceled"});
-                  }}
-                >
-                  CANCEL
-                </Button>
-              </Stack>
+              <Box sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, borderTop: 1, padding: 2}}>
+                <Stack direction={'row'} spacing={2} sx={{height: '100%'}}>
+                  <Button 
+                    variant="contained" 
+                    color="primary"
+                    onClick={placeTransaction}
+                  >
+                    SUBMIT
+                  </Button>
+                  <Button 
+                    variant="contained"
+                    color="secondary"
+                    onClick={() => {
+                      setOrders([]); 
+                      setAlertStatus({open: true, status: "canceled"});
+                    }}
+                  >
+                    CANCEL
+                  </Button>
+                  <Box sx={{flexGrow: 1}} />
+                  <Box sx={{paddingRight: 2}}>
+                    <Typography variant="h5">
+                      Total:
+                    </Typography>
+                    <Typography variant="h6">
+                      { (() => {
+                        let totalPrice = orders?.reduce((total, item) => {
+                          return total + Number(item.price);
+                        }, 0);
+                        let formatedPrice = Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(totalPrice);
+                        return formatedPrice;
+                      })() }
+                    </Typography>
+                  </Box>
+                </Stack>
+              </Box>
             </Grid>
             <Grid item xs={9}>
               {(categories === undefined) 
