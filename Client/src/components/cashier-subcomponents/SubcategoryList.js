@@ -1,19 +1,11 @@
 import React from "react";
-// import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import ItemButton from "./ItemButton";
 
-function SubcatetgoryList({subcategories, clickHandler, selected}) {
-    // var subcategoryButtons = subcategories.map((item) => <li><button onClick={clickHandler(item.sub_category)}>{item.sub_category}</button></li>);
-    var subcategoryButtons = subcategories.map((item) => (
-        // <Button 
-        //   variant={(selected === item.sub_category) ? "contained": "outlined"} 
-        //   disableElevation 
-        //   onClick={clickHandler(item.sub_category)}
-        // >
-        //     {item.sub_category}
-        // </Button>
+import { DynamicButtonGrid } from './cashierContainers'
 
+function SubcatetgoryList({subcategories, clickHandler, selected}) {
+    var subcategoryButtons = subcategories.map((item) => (
         <ItemButton
           selected={selected === item.sub_category}
           onClick={clickHandler(item.sub_category)}
@@ -27,12 +19,11 @@ function SubcatetgoryList({subcategories, clickHandler, selected}) {
     }
 
     return (
-        <div className="SubcategoryList">
-            <h2>This is the SubcategoryList</h2>
+        <DynamicButtonGrid shouldScroll={true}>
             <Stack direction="row" spacing={1} justifyContent="center">
                 {subcategoryButtons}
             </Stack>
-        </div>
+        </DynamicButtonGrid>
     );
 }
 
