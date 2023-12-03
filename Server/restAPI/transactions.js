@@ -13,10 +13,11 @@ const queries = require('./queries');
 // Place a transaction
 router.post('/', async (req, res) => {
     // Get necessary info from request
-    if (!req.body.employeeID) {
-        res.status(400).send("Must provide employee ID (employeeID)!");
-        return;
-    }
+    const emp_email = (req.body.email) ? req.body.email : "iamacustomer@kiosk.com";
+    // if (!req.body.email) {
+    //     res.status(400).send("Must provide employee email (email)!");
+    //     return;
+    // }
 
     if (!req.body.menuIDs) {
         res.status(400).send("Must provide menu item IDs (menuIDs)!");
@@ -35,7 +36,7 @@ router.post('/', async (req, res) => {
         const result_p1 = await client.query({
             rowMode: 'array',
             text: query_p1,
-            values: [req.body.employeeID]
+            values: [emp_email]
         });
 
         var vals = []
