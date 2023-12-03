@@ -13,6 +13,8 @@ function Customer({onUpdate}) {
 
     // const orders = JSON.parse(localStorage.getItem("cart"));
     // const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")));
+    // console.log(document.getElementById("testdiv")?.getBoundingClientRect().width)
+    // console.log(document.getElementById("grid")?.getBoundingClientRect().width)
 
     return (
         <div 
@@ -33,9 +35,9 @@ function Customer({onUpdate}) {
                     }}
                   />
             }
-            <div style={{paddingLeft: 250}}>
-                <ItemGrid items={items} onUpdate={onUpdate}
-                  sx={{float: "left", width: "calc(100% - 250px)", margin: "auto"}}
+            <div style={{paddingLeft: 250}} id="testdiv">
+                <ItemGrid items={items} onUpdate={onUpdate} id="grid"
+                  sx={{float: "left", width: "100%", margin: "auto"}}
                 />
             </div>
             <Fab color="primary" sx={{ position: 'fixed', bottom: 16, right: 16}}>

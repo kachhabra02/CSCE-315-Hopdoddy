@@ -16,7 +16,7 @@ const priceFormat = new Intl.NumberFormat("en-US", {
     minimumFractionDigits: 2,
 });
 
-function ItemCard({item, onUpdate}) {
+function ItemCard({item, onUpdate, width}) {
     function addToCart() {
         const orders = JSON.parse(localStorage.getItem("cart"));
         // const orders = localStorage.getItem("cart");
@@ -53,7 +53,7 @@ function ItemCard({item, onUpdate}) {
 
         <Tooltip arrow title="item.description goes here">
           {/* <ButtonBase onClick={addToCart}> */}
-            <ImageListItem sx={{width: 400}}>
+            <ImageListItem sx={{width: width}}>
                 <img 
                     // Name like Goodnight/Good Cause -> goodnight-good_cause.jpg
                     src={`/images/${item.item_name.replace(/\s+/g, '_').replace(/\//g, '-').toLowerCase()}.jpg`}
