@@ -18,6 +18,9 @@ const queries = require('./queries');
 
 
 /***** /api/users/:id *****/
+// Get specific user information
+// TODO
+
 // Update user information
 // TODO
 

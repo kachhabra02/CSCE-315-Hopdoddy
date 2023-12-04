@@ -1,7 +1,7 @@
-Employee_ID,First_Name,Last_Name,Email,Is_Manager,Is_Admin
-1,Krish,Chhabra,kachhabra02@tamu.edu,TRUE,TRUE
-2,Thomas,Holt,tmholt02@tamu.edu,FALSE,FALSE
-3,Eliseo,Garza,eliseogarza@tamu.edu,FALSE,FALSE
-4,Donato,Curvino,donato@tamu.edu,FALSE,FALSE
-5,Josh,Scott,jjscott1532@tamu.edu,FALSE,FALSE
-6,Customer,Kiosk,iamacustomer@kiosk.com,FALSE,FALSE
+Employee_ID,First_Name,Last_Name,Email,Is_Manager,Is_Admin,Is_Available
+1,Krish,Chhabra,kachhabra02@tamu.edu,TRUE,TRUE,TRUE
+2,Thomas,Holt,tmholt02@tamu.edu,FALSE,FALSE,TRUE
+3,Eliseo,Garza,eliseogarza@tamu.edu,FALSE,FALSE,TRUE
+4,Donato,Curvino,donato@tamu.edu,FALSE,FALSE,TRUE
+5,Josh,Scott,jjscott1532@tamu.edu,FALSE,FALSE,TRUE
+6,Customer,Kiosk,iamacustomer@kiosk.com,FALSE,FALSE,TRUE

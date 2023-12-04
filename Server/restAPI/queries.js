@@ -207,16 +207,20 @@ const getProductUsageQuery = "SELECT Inventory_ID, Inventory_Name, COALESCE(Tota
 
 /****** USERS ******/
 // Get information for all users
-// TODO
+const getAllUsersQuery = "SELECT Employee_ID, First_Name, Last_Name, Email, Is_Manager, Is_Admin WHERE Is_Available";
 
 // Add new user
-// TODO
+const addUserQuery = "INSERT INTO Employees (First_Name, Last_Name, Email, Is_Manager, Is_Admin) VALUES ($1, $2, $3, $4, $5)";
+
+// Get specific user information
+const getUserQuery = "SELECT First_Name, Last_Name, Email, Is_Manager, Is_Admin WHERE Employee_ID = $1 AND Is_Available";
 
 // Update user information
-// TODO
+const updateUserQuery = "UPDATE Employees SET First_Name = $1, Last_Name = $2, Email = $3, Is_Manager = $4, Is_Admin = $5 " +
+                        "WHERE Employee_ID = $6 AND Is_Available";
 
 // Delete user
-// TODO
+const deleteUserQuery = "UPDATE Employees SET Is_Available = FALSE WHERE Employee_ID = $1";
 
 
 // Export Queries
@@ -239,5 +243,10 @@ module.exports = {
     getSalesReportQuery,
     getExcessReportQuery,
     getRestockReportQuery,
-    getProductUsageQuery
+    getProductUsageQuery,
+    getAllUsersQuery,
+    addUserQuery,
+    getUserQuery,
+    updateUserQuery,
+    deleteUserQuery
 };
