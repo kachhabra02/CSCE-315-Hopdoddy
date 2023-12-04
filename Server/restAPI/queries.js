@@ -123,7 +123,7 @@ const addInventoryItemQuery = "INSERT INTO Inventory (Inventory_Name, Price, Qua
 /****** TRANSACTIONS ******/
 // Place a transaction
 function placeTransactionQueries(numItemsOrdered) {
-    var query_p1 = "INSERT INTO Transactions (Employee_ID) VALUES (SELECT Employee_ID FROM Employees WHERE Email = $1) RETURNING Transaction_ID";
+    var query_p1 = "INSERT INTO Transactions (Employee_ID) VALUES ((SELECT Employee_ID FROM Employees WHERE Email = $1)) RETURNING Transaction_ID";
     
     var query_p2 = "INSERT INTO Order_List (Transaction_ID, Item_ID) VALUES ";
     for (let i = 0; i < numItemsOrdered; i++) {
