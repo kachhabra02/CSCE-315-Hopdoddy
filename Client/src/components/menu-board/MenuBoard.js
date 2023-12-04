@@ -127,7 +127,7 @@ const getMenu = (callback) => {
             // display_item (t / f) , display_image (t / f) , display_description (t / f) , item_description (words)
             
             // Check here if the item should be displayed prior to pushing it...
-            if (display_item == true) {
+            if (display_item === true) {
               menu[category][sub_category].push(item);
             }
 
