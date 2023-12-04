@@ -5,7 +5,6 @@ import Dialog from "@mui/material/Dialog"
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
-import Divider from '@mui/material/Divider';
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -15,7 +14,7 @@ import Avatar from '@mui/material/Avatar';
 
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import {MdClose, MdOutlineShoppingCart} from "react-icons/md";
+import {MdClose} from "react-icons/md";
 import {BsFillTrash3Fill} from "react-icons/bs";
 
 import Snackbar from '@mui/material/Snackbar';
