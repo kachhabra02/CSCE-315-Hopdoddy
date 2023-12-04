@@ -1,6 +1,6 @@
 #menu-board {
     text-align: start;
-    padding-left: 3vw;
+    padding: 4vmin 4vmin 4vmin 4vmin;
 }
 
 #menu-board ul {
@@ -16,14 +16,9 @@
     display: flex;
 }
 
-#menu-board h1, #menu-board h2, #menu-board h3 {
+#menu-board h2, #menu-board h3 {
     text-align: center;
     margin-bottom: 20px; /* Adds some space below the titles */
-}
-
-#menu-board h1 {
-    font-size: 2.5em;
-    color: #333;
 }
 
 #menu-board h2 {
@@ -42,4 +37,14 @@
     border: 1px solid #ddd;
     border-radius: 5px;
     background-color: #f9f9f9;
+}
+
+.nameStyle {
+    font-size: 1.2em;
+    margin-top: 1vmin;
+    color: #15622f;
+}
+
+.description {
+    margin-bottom: 0px;
 }
