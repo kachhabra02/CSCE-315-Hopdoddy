@@ -51,7 +51,7 @@ function ItemCard({item, onUpdate, width}) {
         //   </ButtonBase>
         // </Tooltip> 
 
-        <Tooltip arrow title="item.description goes here">
+        <Tooltip arrow title={item.item_description}>
           {/* <ButtonBase onClick={addToCart}> */}
             <ImageListItem sx={{width: width}}>
                 <img 
