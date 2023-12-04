@@ -19,13 +19,20 @@ function MenuBoard() {
   const renderDescription = (item) => {
     // Print out item_description, if it's empty then put "Description not available"
     if (item.display_description) {
-      return <p>{item.item_description || "Description not available"}</p>;
+      return <p className="description">{item.item_description || "Description not available"}</p>;
     }
     
     // If we're not displaying description, say it isn't available
     else {
-      return <p>{"Description not available"}</p>;
+      return <p className="description"></p>;
     }
+  }
+
+  const renderPrice = (item) => {
+    const floatVal = parseFloat(item.price);
+    const cost = floatVal.toFixed(2);
+
+    return <strong><p>${cost}</p></strong>;
   }
 
   if (!menu) {
@@ -45,7 +52,6 @@ function MenuBoard() {
 
   return (
     <div id="menu-board">
-      <h1>Menu</h1>
       <div>
         {Object.keys(menu).map(category => (
           <div key={category} className="category-section">
@@ -76,14 +82,14 @@ function MenuBoard() {
                           />
                         </CardMedia>
                         <CardContent>
-                            {/* <Button variant="text" onClick={addToCart}> */}
                             <Box textAlign="center">
-                              <Button variant="text">
-                                {item.item_name}
-                              </Button>
+
+                              <p className="nameStyle">{item.item_name}</p>
+
+                              {renderPrice(item)} {/* Formats price */}
 
                               {renderDescription(item)} {/* Renders description, checking to see whether it should be displayed or not*/}
-                            
+
                             </Box>
                         </CardContent>
                       </Card>  
@@ -104,7 +110,7 @@ const getMenu = (callback) => {
     .then((res) => {
       if (res.status < 300) {
         const items = res.data
-        console.log(res.data);
+        // console.log(res.data);
 
         // Group by category and subcategory
         const menu = {};
@@ -128,7 +134,7 @@ const getMenu = (callback) => {
           }
         });
 
-        console.log(menu);
+        // console.log(menu);
         callback(menu);
       }
     })
