@@ -48,7 +48,7 @@ function ItemCard({item, onUpdate, width}) {
                         height={200}
                         width={200}
                     />
-                    <Stack direction="column" sx={{position: "absolute", bottom: 0}}>
+                    <Stack direction="column" sx={{position: "absolute", bottom: 0, width: "100%"}}>
                         <ImageListItemBar 
                           title={item.item_name} 
                           subtitle={priceFormat.format(parseFloat(item.price))}
