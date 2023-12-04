@@ -31,6 +31,15 @@ import { useState } from 'react';
 const theme = createTheme({
   palette: {
     mode: 'light',
+    primary: {
+      main: '#15622f',
+    },
+    secondary: {
+      main: '#c74141',
+    },
+    info: {
+      main: '#9021f3',
+    },
   },
 });
 
