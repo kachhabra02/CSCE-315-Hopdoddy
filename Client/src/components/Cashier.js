@@ -89,7 +89,7 @@ function Cashier() {
       <CustomTabPanel value={value} index={0}>
         <FullHeightContainer>
           <FullHeightGrid container sx={{ border: 1 }}>
-            <Grid item xs={5} sx={{ borderRight: 1, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+            <Grid item xs={5} sx={{ borderRight: 1, flexGrow: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
               <Box sx={{height: '87%'}}>
                 <TransactionList 
                   orders={orders} 
@@ -116,7 +116,7 @@ function Cashier() {
                 </Button>
               </Stack>
             </Grid>
-            <Grid item xs={7}>
+            <Grid item xs={7} sx={{ height: '100%' }}>
               {(categories === undefined) 
                 ? <CircularProgress/>
                 : <CategoryList categories={categories} clickHandler={getSubcategories} selected={currCategory}/>
