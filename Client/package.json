@@ -16,6 +16,7 @@
     "axios": "^1.6.0",
     "date-fns": "^2.30.0",
     "dotenv": "^16.3.1",
+    "jquery": "^3.7.1",
     "mui-datatables": "^4.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -50,6 +51,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@types/jquery": "^3.5.29",
     "prettier": "^3.0.3"
   }
 }
