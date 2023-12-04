@@ -5,6 +5,11 @@ import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
 import MUIDataTable from "mui-datatables";
 
 import axios from 'axios';
@@ -15,9 +20,92 @@ const API = axios.create({
 });
 
 
-const title = 'Menu Management';
+function MenuManagment() {
+  const [menu, setMenu] = useState(undefined);
+  const [alerts, setAlerts] = useState([]);
+  const [openEditDialog, setOpenEditDialog] = useState(false);
+  const [editMenuItem, setEditMenuItem] = useState(null);
 
-const columns = [
+
+  function loadMenu() {
+    API.get(`/menu/view`)
+     .then((res) => {
+       if (res.status < 300) {
+         console.log('Success');
+         console.log(res.data);
+         setMenu(res.data.map((item) => [item.item_id, item.item_name, item.category, item.sub_category,
+                                         item.price, item.is_modification.toString(), item.display_item.toString(),
+                                         item.display_image.toString(), item.display_description.toString(), item.item_description]));
+       }
+       else {
+         console.log(res.data);
+         setMenu(['Error Retrieving Report! Please try again... (may need to use a smaller time window)']);
+       }
+     })
+     .catch((error) => {
+       console.log(error);
+       setMenu(['Error Retrieving Report! Please try again... (may need to use a smaller time window)']);
+     });
+  }
+
+  function removeAlert(index) {
+    alerts.splice(index, 1);
+    setAlerts([...alerts]);
+  }
+
+  async function deleteItem(item_info, new_alerts) {
+    await API.delete(`/menu/item/${item_info[0]}`)
+     .then((res) => {
+       if (res.status < 300) {
+         console.log(`Deleted item ${item_info[1]}`);
+         new_alerts.unshift(
+           {
+             severity: 'success',
+             text: `Successfully Deleted Item '${item_info[1]}'`
+           }
+         );
+       }
+       else {
+         console.log(`Failed to delete item ${item_info[1]}`);
+         new_alerts.unshift(
+           {
+             severity: 'error',
+             text: `Failed to Delete Item '${item_info[1]}'`
+           }
+         );
+       }
+     })
+     .catch((error) => {
+       console.log(error);
+       new_alerts.unshift(
+         {
+           severity: 'error',
+           text: `Failed to Delete Item '${item_info[1]}'`
+         }
+       );
+     });
+  }
+
+
+   const handleEditClick = (menuItem) => {
+    setEditMenuItem(menuItem);
+    setOpenEditDialog(true);
+  };
+
+  const handleEditCloseDialog = (event, reason) => {
+    if (reason && (reason === "backdropClick" || reason === "escapeKeyDown")) {
+        return;
+    }
+
+    console.log(reason);
+    setOpenEditDialog(false);
+    setEditMenuItem(null);
+  };
+
+
+  const title = 'Menu Management';
+
+  const columns = [
     {
       name: 'Item ID',
       options: {
@@ -87,74 +175,20 @@ const columns = [
         filter: false,
         sort: false
       }
+    },
+    {
+      name: 'Edit Item',
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+            return (
+              <Button onClick={() => handleEditClick(menu[tableMeta.rowIndex])}>
+                Edit
+              </Button>
+            )
+        }
+      }
     }
-];
-
-
-function MenuManagment() {
-  const [menu, setMenu] = useState(undefined);
-  const [alerts, setAlerts] = useState([]);
-
-
-  function loadMenu() {
-    API.get(`/menu/view`)
-     .then((res) => {
-       if (res.status < 300) {
-         console.log('Success');
-         console.log(res.data);
-         setMenu(res.data.map((item) => [item.item_id, item.item_name, item.category, item.sub_category,
-                                         item.price, item.is_modification.toString(), item.display_item.toString(),
-                                         item.display_image.toString(), item.display_description.toString(), item.item_description]));
-       }
-       else {
-         console.log(res.data);
-         setMenu(['Error Retrieving Report! Please try again... (may need to use a smaller time window)']);
-       }
-     })
-     .catch((error) => {
-       console.log(error);
-       setMenu(['Error Retrieving Report! Please try again... (may need to use a smaller time window)']);
-     });
-  }
-
-  function removeAlert(index) {
-    alerts.splice(index, 1);
-    setAlerts([...alerts]);
-  }
-
-  async function deleteItem(item_info, new_alerts) {
-    await API.delete(`/menu/item/${item_info[0]}`)
-     .then((res) => {
-       if (res.status < 300) {
-         console.log(`Deleted item ${item_info[1]}`);
-         new_alerts.unshift(
-           {
-             severity: 'success',
-             text: `Successfully Deleted Item '${item_info[1]}'`
-           }
-         );
-       }
-       else {
-         console.log(`Failed to delete item ${item_info[1]}`);
-         new_alerts.unshift(
-           {
-             severity: 'error',
-             text: `Failed to Delete Item '${item_info[1]}'`
-           }
-         );
-       }
-     })
-     .catch((error) => {
-       console.log(error);
-       new_alerts.unshift(
-         {
-           severity: 'error',
-           text: `Failed to Delete Item '${item_info[1]}'`
-         }
-       );
-     });
-  }
-
+  ];
 
   const options = {
     filterType: 'multiselect',
@@ -202,9 +236,23 @@ function MenuManagment() {
           options={options}
         />
       }
+
+      {editMenuItem && (
+        <Dialog open={openEditDialog} onClose={handleEditCloseDialog}>
+          <DialogTitle>Edit Menu Item</DialogTitle>
+          <DialogContent>
+            <p>Form Content Here</p>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleEditCloseDialog(null, "Canceled")}>
+              Cancel
+            </Button>
+            <Button onClick={handleEditCloseDialog(null, "Submitted")}>Ok</Button>
+          </DialogActions>
+        </Dialog>
+      )}
     </Box>
   );
 }
-// sx={{width: '70%'}}
 
 export default MenuManagment
