@@ -96,6 +96,8 @@ function TransactionTracking() {
         <Button 
           onClick={() => setDatetimeOpen(true)}
           children="Choose Time Frame"
+          color="warning"
+          variant="contained"
         />
       </Box>
       {data === undefined ? <><br /><CircularProgress /></> :
