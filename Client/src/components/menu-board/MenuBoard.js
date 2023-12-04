@@ -13,18 +13,20 @@ import Button from "@mui/material/Button";
 function MenuBoard() {
 
   const [menu, setMenu] = useState(undefined);
-  const [activeItem, setActiveItem] = useState(null); // New state for tracking active item
 
   useEffect(() => getMenu(setMenu), []);
 
-  const displayDescription = (item) => {
-    // Toggle the active item: if it's already active, deactivate it; otherwise, activate it
-    if (activeItem && activeItem.item_name === item.item_name) {
-      setActiveItem(null);
-    } else {
-      setActiveItem(item);
+  const renderDescription = (item) => {
+    // Print out item_description, if it's empty then put "Description not available"
+    if (item.display_description) {
+      return <p>{item.item_description || "Description not available"}</p>;
     }
-  };
+    
+    // If we're not displaying description, say it isn't available
+    else {
+      return <p>{"Description not available"}</p>;
+    }
+  }
 
   if (!menu) {
     return (
@@ -46,27 +48,24 @@ function MenuBoard() {
       <h1>Menu</h1>
       <div>
         {Object.keys(menu).map(category => (
-          <div key={category}>
+          <div key={category} className="category-section">
             <h2>{category}</h2>
             {Object.keys(menu[category]).map(sub_category => (
-              <div key={sub_category}>
+              <div key={sub_category} className="sub-category-section">
                 <h3>{sub_category}</h3>
                 <ul>
                   {menu[category][sub_category].map((item, index) => (
-                    // <li key={index}>{item.item_name}</li>
                     <li key={index}>
-                      {/* 
-                      <img 
-                        // Name like Goodnight/Good Cause -> goodnight-good_cause.jpg
-                        src={`/images/${item.item_name.replace(/\s+/g, '_').replace(/\//g, '-').toLowerCase()}.jpg`}
-                        alt={item.item_name}
-                        onError={imageNotFound}
-                      />
-                      {item.item_name}
-
-                       */}
-
-                      <Card sx={{width: 300}}>
+                      <Card sx={
+                          { 
+                            width: 300, 
+                            boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)', 
+                            transition: '0.3s',
+                            '&:hover': {
+                              boxShadow: '0 8px 16px 0 rgba(0,0,0,0.2)',
+                            }
+                          }
+                        }>
                         <CardMedia sx={{height: 300}}>
                           <img 
                             // Name like Goodnight/Good Cause -> goodnight-good_cause.jpg
@@ -79,14 +78,12 @@ function MenuBoard() {
                         <CardContent>
                             {/* <Button variant="text" onClick={addToCart}> */}
                             <Box textAlign="center">
-                              <Button variant="text" onClick={() => displayDescription(item)}>
+                              <Button variant="text">
                                 {item.item_name}
-                                  {/* {item.item_name} */}
                               </Button>
-                              {activeItem && activeItem.item_name === item.item_name && item.display_description && (
-                              <p>{item.item_description}</p>
-                              )}
-                              
+
+                              {renderDescription(item)} {/* Renders description, checking to see whether it should be displayed or not*/}
+                            
                             </Box>
                         </CardContent>
                       </Card>  
