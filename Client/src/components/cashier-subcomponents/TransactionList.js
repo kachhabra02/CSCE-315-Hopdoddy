@@ -28,7 +28,7 @@ function TransactionList({ orders, remover }) {
     <TableContainer 
       component={Box} 
       sx={{
-        maxHeight: '100%'
+        height: '100%', overflow: 'scroll'
       }}
     >
       <Table stickyHeader aria-label="transaction list">

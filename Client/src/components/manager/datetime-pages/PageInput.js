@@ -33,7 +33,7 @@ function PageInput() {
 const makePageInputCard = ({ title, needsStart, needsEnd, pathRoot }) =>
 function PageInputCard() {
     const navigate = useNavigate();
-    const [startTime, setStartTime] = useState(new Date(1920,0,1));
+    const [startTime, setStartTime] = useState(new Date(new Date().toDateString()));
     const [endTime, setEndTime] = useState(new Date());
 
     const handleStartTimeChange = (newValue) => {

@@ -25,7 +25,7 @@ function ItemList({items, clickHandler}) {
     }
 
     return (
-        <DynamicButtonGrid shouldScroll={false}>
+        <DynamicButtonGrid shouldScroll={false} sx={{ height: '100%', overflow: 'scroll' }}>
             {itemButtons}
         </DynamicButtonGrid>
     );

@@ -33,7 +33,7 @@ function ManagerHome() {
                     {makeButton('excess', 'Excess Report')}
                 </Stack>
                 <Stack direction="row" spacing={2}>
-                    {makeButton('history', 'Order History')}
+                    {makeButton('history', 'View/Manage Order History')}
                     {makeButton('sales', 'Sales Report')}
                 </Stack>
                 <Stack direction="row" spacing={2}>
