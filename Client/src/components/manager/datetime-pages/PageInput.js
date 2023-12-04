@@ -2,11 +2,12 @@ import { Button, Card, CardActions, CardContent, Box, Stack, TextField, Typograp
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import StartIcon from '@mui/icons-material/Start';
 
 import React, { useState } from 'react';
 import { useNavigate, Route, useParams, Link } from 'react-router-dom';
 import { ManagerGuard } from '../../../credentials/RouteGuards';
-
 var pathIdToInputMap = {};
 
 function PageInput() {
@@ -79,18 +80,18 @@ function PageInputCard() {
             <CardActions>
                 <Box sx={{ textAlign: 'left', flexGrow: 1 }}>    
                     <Button 
-                        variant='outlined' 
+                        variant='contained' 
                         color='success' 
                         onClick={handleGenerate}
-                        children='Generate'
+                        children={<StartIcon />}
                     />
                 </Box>
                 <Button 
-                    variant='outlined' 
+                    variant='contained' 
                     color='error' 
                     component={Link} 
                     to='/manager'
-                    children='Cancel'
+                    children={<ExitToAppIcon />}
                 />
             </CardActions>
         </Card>

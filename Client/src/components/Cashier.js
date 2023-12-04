@@ -4,6 +4,9 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import CircularProgress from '@mui/material/CircularProgress';
 
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+
 import CategoryList from "./cashier-subcomponents/CategoryList.js";
 import SubcategoryList from "./cashier-subcomponents/SubcategoryList.js";
 import TransactionList from "./cashier-subcomponents/TransactionList.js";
@@ -103,7 +106,7 @@ function Cashier() {
                     color="primary"
                     onClick={placeTransaction}
                   >
-                    SUBMIT
+                    <CheckCircleIcon />
                   </Button>
                   <Button 
                     variant="contained"
@@ -113,7 +116,7 @@ function Cashier() {
                       setAlertStatus({open: true, status: "canceled"});
                     }}
                   >
-                    CANCEL
+                    <DeleteForeverIcon />
                   </Button>
                   <Box sx={{flexGrow: 1}} />
                   <Box sx={{paddingRight: 2}}>

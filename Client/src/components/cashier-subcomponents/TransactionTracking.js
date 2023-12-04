@@ -9,6 +9,9 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import StartIcon from '@mui/icons-material/Start';
+
 import axios from 'axios';
 
 const API = axios.create({
@@ -117,7 +120,7 @@ function TransactionTracking() {
             height: '80vh',           // Set the height of the container (e.g., full viewport height)
         }}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <PageInputCard title="Card Bro!" onGenerate={handleGenerate} onClose={handleClose} />
+            <PageInputCard title="Pick Time Frame" onGenerate={handleGenerate} onClose={handleClose} />
           </LocalizationProvider>
         </Box>
       </Modal>
@@ -184,17 +187,17 @@ function PageInputCard({ title, onGenerate, onClose }) {
       <CardActions>
           <Box sx={{ textAlign: 'left', flexGrow: 1 }}>    
             <Button 
-              variant='outlined' 
+              variant='contained' 
               color='success' 
               onClick={() => onGenerate(startTime, endTime)}
-              children='Generate'
+              children={<StartIcon />}
             />
           </Box>
           <Button 
-            variant='outlined' 
+            variant='contained' 
             color='error' 
             onClick={onClose}
-            children='Cancel'
+            children={<ExitToAppIcon />}
           />
       </CardActions>
     </Card>
