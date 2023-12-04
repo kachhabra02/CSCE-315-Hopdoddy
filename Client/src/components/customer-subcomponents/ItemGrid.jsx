@@ -6,12 +6,12 @@ import ItemCard from "./ItemCard";
 
 function ItemGrid({items, onUpdate, sx, id}) {
     const [spacing, setSpacing] = useState(0);
-    const [size, setSize] = useState([0, 0]);
+    // const [size, setSize] = useState([0, 0]);
 
     useLayoutEffect(() => {
         function updateSize() {
             const width = document.getElementById("ItemGrid").getBoundingClientRect().width - 16;
-            setSize([window.innerWidth, window.innerHeight]);
+            // setSize([window.innerWidth, window.innerHeight]);
             const whiteSpace = width % 416;
             const numCards = (width - whiteSpace) / 416;
             setSpacing(whiteSpace / numCards);
