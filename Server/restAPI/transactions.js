@@ -95,5 +95,18 @@ router.get('/', async (req, res) => {
 });
 
 
+/***** /api/transactions/deleteCanceled *****/
+// Delete all canceled orders from the DB
+// TODO
+
+
+/***** /api/transactions/:id *****/
+// Delete order from the DB
+// TODO
+
+// Update status of order
+// TODO
+
+
 // Export URI router
 module.exports = router

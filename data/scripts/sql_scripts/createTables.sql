@@ -28,8 +28,8 @@ CREATE TABLE Employees(
     First_Name VARCHAR(255) NOT NULL,
     Last_Name VARCHAR(255) NOT NULL,
     Email VARCHAR(255) NOT NULL,
-    Is_Manager BOOLEAN NOT NULL,
-    Is_Admin BOOLEAN NOT NULL,
+    Is_Manager BOOLEAN NOT NULL DEFAULT FALSE,
+    Is_Admin BOOLEAN NOT NULL DEFAULT FALSE,
     PRIMARY KEY (Employee_ID)
 );
 
