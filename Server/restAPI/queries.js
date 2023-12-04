@@ -147,7 +147,7 @@ const getOrderHistoryQuery = "SELECT Transactions.Transaction_ID AS Trans_ID, Tr
 
 // Delete all canceled orders from the DB
 function deleteCanceledQueries() {
-    var query_p1 = "DELETE FROM Ingredients_List WHERE Transaction_ID IN (SELECT Transaction_ID FROM Transactions WHERE Order_Status = 'Canceled')";
+    var query_p1 = "DELETE FROM Order_List WHERE Transaction_ID IN (SELECT Transaction_ID FROM Transactions WHERE Order_Status = 'Canceled')";
     var query_p2 = "DELETE FROM Transactions WHERE Order_Status = 'Canceled'";
 
     return [query_p1, query_p2];
@@ -155,7 +155,7 @@ function deleteCanceledQueries() {
 
 // Delete order from the DB
 function deleteOrderQueries() {
-    var query_p1 = "DELETE FROM Ingredients_List WHERE Transaction_ID = $1";
+    var query_p1 = "DELETE FROM Order_List WHERE Transaction_ID = $1";
     var query_p2 = "DELETE FROM Transactions WHERE Transaction_ID = $1";
 
     return [query_p1, query_p2];
