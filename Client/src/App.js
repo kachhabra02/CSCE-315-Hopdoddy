@@ -83,7 +83,7 @@ function App() {
       <CssBaseline />
       <AuthProvider>
         <BrowserRouter>
-          <AppBar position = 'static'>
+          <AppBar position = 'fixed'>
             <NavBar onUpdate={setCart}/>
           </AppBar>
           <Routes>
