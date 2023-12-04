@@ -26,6 +26,7 @@ function MenuManagment() {
   const [alerts, setAlerts] = useState([]);
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const [editMenuItem, setEditMenuItem] = useState(null);
+  const [itemInfo, setItemInfo] = useState(null);
 
 
   function loadMenu() {
