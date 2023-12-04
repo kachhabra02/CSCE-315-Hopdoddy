@@ -146,13 +146,23 @@ const getOrderHistoryQuery = "SELECT Transactions.Transaction_ID AS Trans_ID, Tr
                              "GROUP BY Transactions.Transaction_ID ORDER BY Transaction_Time DESC LIMIT 100000";
 
 // Delete all canceled orders from the DB
-// TODO
+function deleteCanceledQueries() {
+    var query_p1 = "DELETE FROM Ingredients_List WHERE Transaction_ID IN (SELECT Transaction_ID FROM Transactions WHERE Order_Status = 'Canceled')";
+    var query_p2 = "DELETE FROM Transactions WHERE Order_Status = 'Canceled'";
+
+    return [query_p1, query_p2];
+}
 
 // Delete order from the DB
-// TODO
+function deleteOrderQueries() {
+    var query_p1 = "DELETE FROM Ingredients_List WHERE Transaction_ID = $1";
+    var query_p2 = "DELETE FROM Transactions WHERE Transaction_ID = $1";
+
+    return [query_p1, query_p2];
+}
 
 // Update status of order
-// TODO
+const updateOrderStatusQuery = "UPDATE Transactions SET Order_Status = $1 WHERE Transaction_ID = $2";
 
 
 /****** REPORTS ******/
@@ -248,5 +258,8 @@ module.exports = {
     addUserQuery,
     getUserQuery,
     updateUserQuery,
-    deleteUserQuery
+    deleteUserQuery,
+    deleteCanceledQueries,
+    deleteOrderQueries,
+    updateOrderStatusQuery
 };
