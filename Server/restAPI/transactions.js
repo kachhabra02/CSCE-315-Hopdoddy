@@ -97,15 +97,101 @@ router.get('/', async (req, res) => {
 
 /***** /api/transactions/deleteCanceled *****/
 // Delete all canceled orders from the DB
-// TODO
+router.delete('/deleteCanceled', async (req, res) => {
+    [query_p1, query_p2] = queries.deleteCanceledQueries();
+
+    // Perform transaction
+    const client = await pool.connect();
+
+    try {
+        await client.query('BEGIN');
+    
+        // Send queries
+        const result_p1 = await client.query({
+            text: query_p1,
+            values: []
+        });
+
+        const result_p2 = await client.query({
+            text: query_p2,
+            values: []
+        });
+
+        res.status(200).send("Transaction Deleted");
+    
+        await client.query('COMMIT');
+    } catch (err) {
+        res.status(400).send("Error sending query: " + err.message);
+        await client.query('ROLLBACK');
+    } finally {
+        client.release();
+    }
+});
 
 
 /***** /api/transactions/:id *****/
 // Delete order from the DB
-// TODO
+router.delete('/:id', async (req, res) => {
+    // Get necessary info from request
+    const order_id = req.params.id;
+
+    [query_p1, query_p2] = queries.deleteOrderQueries();
+
+    // Perform transaction
+    const client = await pool.connect();
+
+    try {
+        await client.query('BEGIN');
+    
+        // Send queries
+        const result_p1 = await client.query({
+            text: query_p1,
+            values: [order_id]
+        });
+
+        const result_p2 = await client.query({
+            text: query_p2,
+            values: [order_id]
+        });
+
+        res.status(200).send("Transaction Deleted");
+    
+        await client.query('COMMIT');
+    } catch (err) {
+        res.status(400).send("Error sending query: " + err.message);
+        await client.query('ROLLBACK');
+    } finally {
+        client.release();
+    }
+});
 
 // Update status of order
-// TODO
+router.put('/:id', async (req, res) => {
+    // Get necessary info from request
+    const order_id = req.params.id;
+
+    if (!req.query.order_status) {
+        res.status(400).send("Must provide new order status (order_status)!");
+        return;
+    }
+
+    // Send query
+    const queryObj = {
+        text: queries.updateOrderStatusQuery,
+        values: [req.query.order_status, order_id]
+    };
+
+    const client = await pool.connect();
+    const result = await client.query(queryObj, (error, results) => {
+        if(error) {
+            res.status(400).send("Error sending query: " + error.message);
+            return;
+        }
+
+        res.status(200).json(results.rows);
+    });
+    client.release();
+});
 
 
 // Export URI router
