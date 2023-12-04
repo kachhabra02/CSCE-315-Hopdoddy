@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { 
   Paper, 
   Box, 
@@ -18,11 +18,12 @@ import {
   GridRowEditStopReasons,
 } from '@mui/x-data-grid';
 import axios from 'axios';
+import IconOnClickElement from '../cashier-subcomponents/IconOnClickElement';
 
 const initialRows = [];
 
 function EditToolbar(props) {
-  const { rows, setRows, setRowModesModel } = props;
+  const { rows, setRows, setRowModesModel, scrollToBottom } = props;
 
   const handleClick = () => {
     let id = -1;
@@ -34,13 +35,17 @@ function EditToolbar(props) {
       ...oldModel,
       [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
     }));
+    scrollToBottom();
   };
 
   return (
     <GridToolbarContainer>
-      <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-        Add record
-      </Button>
+      <Button
+        onClick={handleClick}
+        color="primary"
+        startIcon={<AddIcon />}
+        children={"Add record"}
+      />
     </GridToolbarContainer>
   );
 }
@@ -49,6 +54,40 @@ function Inventory() {
   const [rows, setRows] = React.useState(initialRows);
   const [rowModesModel, setRowModesModel] = React.useState({});
   const [saveQueue, setSaveQueue] = React.useState([]);
+  const [triggerScroll, setTriggerScroll] = React.useState(false);
+  const dataGridRef = useRef(null);
+  const timeoutRef = useRef();
+
+  const scrollToBottom = () => {
+    if (triggerScroll == false) {
+      setTriggerScroll(true);
+      return;
+    }
+    const gridElement = dataGridRef.current;
+    if (gridElement) {
+      const scrollableElement = gridElement.querySelector('.MuiDataGrid-virtualScroller');
+      if (scrollableElement) {
+        scrollableElement.scrollTo({
+          top: scrollableElement.scrollHeight
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (triggerScroll) {
+      timeoutRef.current = setTimeout(() => {
+        scrollToBottom();
+        setTriggerScroll(false);
+      }, 20); // ms
+    }
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, [triggerScroll]);
 
   useEffect(() => {
     apiGetMenu(data => setRows(data));
@@ -222,8 +261,9 @@ function Inventory() {
       <Typography padding={3} variant='h3'>
         Inventory Management
       </Typography>
-      <Paper sx={{ height: '70vh', width: '90%' }}>
+      <Paper sx={{ height: '80vh', width: '98%' }}>
         <DataGrid
+          ref={dataGridRef}
           rows={rows}
           columns={columns}
           editMode="row"
@@ -235,7 +275,7 @@ function Inventory() {
             toolbar: EditToolbar,
           }}
           slotProps={{
-            toolbar: { rows, setRows, setRowModesModel },
+            toolbar: { rows, setRows, setRowModesModel, scrollToBottom },
           }}
         />
       </Paper>

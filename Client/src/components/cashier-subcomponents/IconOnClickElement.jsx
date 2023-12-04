@@ -18,7 +18,7 @@ const IconOnClickElement = ({ Element, children, icon, duration, onClick, ...but
 
       timeoutRef.current = setTimeout(() => {
         setIconVisible(false);
-      }, duration); // Icon visibility duration
+      }, duration);
     }
 
     if (buttonProps.onClick) {
@@ -46,6 +46,7 @@ const IconOnClickElement = ({ Element, children, icon, duration, onClick, ...but
   return (
     <div ref={elementRef}>
       <Element {...buttonProps} onClick={() => {
+
         onClick();
         handleClick();
       }}>
