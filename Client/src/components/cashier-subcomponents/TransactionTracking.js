@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 
-import { Box, Modal, Button, Card, CardContent, Stack, TextField, CardActions, Typography, ButtonGroup } from '@mui/material';
+import { Box, Modal, Button, Card, CardContent, Stack, TextField, CardActions, Typography, ButtonGroup, Chip } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import MUIDataTable from "mui-datatables";
 
@@ -15,6 +15,8 @@ import StartIcon from '@mui/icons-material/Start';
 import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import CancelIcon from '@mui/icons-material/Cancel';
 import PendingActionsIcon from '@mui/icons-material/PendingActions';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 import axios from 'axios';
 
@@ -57,7 +59,7 @@ function TransactionTracking() {
 
   const columns = [
     {
-      name: 'Transaction ID',
+      name: 'Transaction',
       options: {
         filter: false,
         sort: true
@@ -71,7 +73,7 @@ function TransactionTracking() {
       }
     },
     {
-      name: 'Cashier ID',
+      name: 'Cashier',
       options: {
         filter: true,
         sort: true
@@ -92,23 +94,40 @@ function TransactionTracking() {
       }
     },
     {
-      name: 'Order Status',
+      name: 'Status',
       options: {
         filter: false,
-        sort: true
+        sort: true,
+        customBodyRender: status => {
+          return <Chip
+            label={status} 
+            variant="contained" 
+            color={(() => {
+              if (status === "Fulfilled") return "success";
+              if (status === "Canceled") return "error";
+              if (status === "Pending") return "warning";
+            })()}
+          />
+        }
       }
     },
     {
       name: 'Actions',
       options: {
         filter: false,
-        sort: true,
+        sort: false,
         customBodyRender: actions => {
+          const color = (() => {
+            if (actions.fufill === false) return "success";
+            if (actions.cancel === false) return "error";
+            if (actions.pend === false) return "warning";
+          })()
+
           return (
             <ButtonGroup>
               {actions.fufill && <Button
-                variant="contained"
-                color="success"
+                variant="outlined"
+                color={color}
                 startIcon={<DoneOutlineIcon />}
                 children="Fulfill"
                 onClick={async () => {
@@ -117,8 +136,8 @@ function TransactionTracking() {
                 }}
               />}
               {actions.pend && <Button
-                variant="contained"
-                color="warning"
+                variant="outlined"
+                color={color}
                 startIcon={<PendingActionsIcon />}
                 children="Pending"
                 onClick={async () => {
@@ -127,8 +146,8 @@ function TransactionTracking() {
                 }}
               />}
               {actions.cancel && <Button
-                variant="contained"
-                color="error"
+                variant="outlined"
+                color={color}
                 startIcon={<CancelIcon />}
                 children="Cancel"
                 onClick={async () => {
@@ -145,14 +164,26 @@ function TransactionTracking() {
 
   return (
     <Box>
-      <Box sx={{ paddingBottom: 2 }}>
+      <Stack sx={{ paddingBottom: 2 }} direction={'row'} spacing={2}>
         <Button 
           onClick={() => setDatetimeOpen(true)}
           children="Choose Time Frame"
           color="warning"
           variant="contained"
+          startIcon={<AccessTimeIcon />}
         />
-      </Box>
+        <Button 
+          sx={{paddingLeft: 2}}
+          onClick={async () => {
+            await deleteAllCanceled();
+            getOrders(startTime, endTime, setData);
+          }}
+          startIcon={<DeleteForeverIcon />}
+          children="Delete Canceled Orders"
+          color="error"
+          variant="contained"
+        />
+      </Stack>
       {data === undefined ? <><br /><CircularProgress /></> :
         <MUIDataTable
           title={title}
