@@ -2,8 +2,10 @@ import React from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 import MUIDataTable from "mui-datatables";
 
 import { registerDateTimePage } from './PageInput';
@@ -12,7 +14,7 @@ import axios from 'axios';
 
 const API = axios.create({
   baseURL: `${process.env.REACT_APP_API_URL}/api`,
-  timeout: 60000 // 30 second timeout
+  timeout: 60000 // 60 second timeout
 });
 
 
@@ -75,8 +77,10 @@ const options = {
 function History() {
   const { startTime, endTime } = useParams();
   const [data, setData] = useState(undefined);
-  
-  API.get(`/transactions?startTime=${(new Date(startTime)).toISOString()}&endTime=${(new Date(endTime)).toISOString()}`)
+  const [alerts, setAlerts] = useState([]);
+
+  function loadHistory() {
+    API.get(`/transactions?startTime=${(new Date(startTime)).toISOString()}&endTime=${(new Date(endTime)).toISOString()}`)
      .then((res) => {
        if (res.status < 300) {
          console.log('Success');
@@ -92,6 +96,11 @@ function History() {
        console.log(error);
        setData(['Error Retrieving Report! Please try again... (may need to use a smaller time window)']);
      });
+  }
+  
+  if (data === undefined) {
+    loadHistory();
+  }
 
   return (
     <Box>
