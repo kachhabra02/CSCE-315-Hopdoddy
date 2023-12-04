@@ -10,9 +10,13 @@ import { DynamicButtonGrid } from './cashierContainers'
 function ItemList({items, clickHandler}) {
     var itemButtons = items.map((item, index) => 
         <Grid item key={index}>
-            <IconOnClickElement Element={ItemButton} onClick={clickHandler(item)} icon={<AddCircleIcon color="success" sx={{fontSize: '2em'}} />}>
-                {item.item_name}
-            </IconOnClickElement>
+            <IconOnClickElement 
+                Element={ItemButton} 
+                onClick={clickHandler(item)} 
+                duration={2000}
+                icon={<AddCircleIcon color="success" sx={{fontSize: '2em'}} />}
+                children={item.item_name}
+            />
         </Grid>
     );
 

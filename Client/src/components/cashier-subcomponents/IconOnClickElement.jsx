@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Box from '@mui/material/Box';
 
-const IconOnClickElement = ({ Element, children, icon, onClick, ...buttonProps }) => {
+const IconOnClickElement = ({ Element, children, icon, duration, onClick, ...buttonProps }) => {
   const [iconVisible, setIconVisible] = useState(false);
   const [iconPosition, setIconPosition] = useState({ top: 0, left: 0 });
   const elementRef = useRef(null);
@@ -16,12 +16,11 @@ const IconOnClickElement = ({ Element, children, icon, onClick, ...buttonProps }
       });
       setIconVisible(true);
 
-      setTimeout(() => {
+      timeoutRef.current = setTimeout(() => {
         setIconVisible(false);
-      }, 2000); // Icon visibility duration
+      }, duration); // Icon visibility duration
     }
 
-    // If there's any additional click handler passed in the props
     if (buttonProps.onClick) {
       buttonProps.onClick();
     }
@@ -35,6 +34,15 @@ const IconOnClickElement = ({ Element, children, icon, onClick, ...buttonProps }
     };
   }, []);
 
+  const iconStyle = {
+    position: 'absolute',
+    top: iconPosition.top,
+    left: iconPosition.right,
+    zIndex: 10000,
+    opacity: iconVisible ? 1 : 0, // Toggle opacity based on visibility
+    transition: 'opacity 0.5s ease-in-out', // Fade effect
+  };
+
   return (
     <div ref={elementRef}>
       <Element {...buttonProps} onClick={() => {
@@ -44,19 +52,9 @@ const IconOnClickElement = ({ Element, children, icon, onClick, ...buttonProps }
         {children}
       </Element>
 
-      {iconVisible && icon && (
-        <Box
-          aria-label="feedback"
-          style={{
-            position: 'absolute',
-            top: iconPosition.top,
-            left: iconPosition.right,
-            zIndex: 10000
-          }}
-        >
-          {icon}
-        </Box>
-      )}
+      <Box aria-label="feedback" style={iconStyle}>
+        {icon}
+      </Box>
     </div>
   );
 };
