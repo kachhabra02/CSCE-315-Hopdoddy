@@ -12,6 +12,7 @@ const transactions = require('./restAPI/transactions');
 const menu = require('./restAPI/menu');
 const inventory = require('./restAPI/inventory');
 const reports = require('./restAPI/reports');
+const users = require('./restAPI/users');
 
 // Add other middleware to be used
 const cors = require('cors');
@@ -23,6 +24,7 @@ app.use("/api/transactions", transactions);
 app.use("/api/menu", menu);
 app.use("/api/inventory", inventory);
 app.use("/api/reports", reports);
+app.use("/api/users", users);
 
 // Add base route to test setup
 app.get('/api', (req, res) => {

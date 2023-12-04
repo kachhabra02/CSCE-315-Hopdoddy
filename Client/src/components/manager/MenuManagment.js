@@ -57,7 +57,35 @@ const columns = [
       name: 'Is Modification?',
       options: {
         filter: true,
-        sort: true
+        sort: false
+      }
+    },
+    {
+      name: 'Display Item on Menu Board?',
+      options: {
+        filter: true,
+        sort: false
+      }
+    },
+    {
+      name: 'Display Image on Menu Board?',
+      options: {
+        filter: true,
+        sort: false
+      }
+    },
+    {
+      name: 'Display Description on Menu Board?',
+      options: {
+        filter: true,
+        sort: false
+      }
+    },
+    {
+      name: 'Item Description',
+      options: {
+        filter: false,
+        sort: false
       }
     }
 ];
@@ -75,7 +103,8 @@ function MenuManagment() {
          console.log('Success');
          console.log(res.data);
          setMenu(res.data.map((item) => [item.item_id, item.item_name, item.category, item.sub_category,
-                                         item.price, item.is_modification.toString()]));
+                                         item.price, item.is_modification.toString(), item.display_item.toString(),
+                                         item.display_image.toString(), item.display_description.toString(), item.item_description]));
        }
        else {
          console.log(res.data);
