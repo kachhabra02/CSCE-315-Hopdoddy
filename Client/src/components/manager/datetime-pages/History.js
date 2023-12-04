@@ -48,6 +48,13 @@ const columns = [
       }
     },
     {
+      name: 'Order Status',
+      options: {
+        filter: true,
+        sort: false
+      }
+    },
+    {
       name: 'Item\'s Ordered',
       options: {
         filter: false,
@@ -74,7 +81,7 @@ function History() {
        if (res.status < 300) {
          console.log('Success');
          setData(res.data.map((item) => [item.trans_id, (new Date(item.transaction_time)).toLocaleString(navigator.language),
-                                         item.employee_id, item.total_price, item.item_names.join(', ')]));
+                                         item.employee_id, item.total_price, item.order_status, item.item_names.join(', ')]));
        }
        else {
          console.log(res.data);
