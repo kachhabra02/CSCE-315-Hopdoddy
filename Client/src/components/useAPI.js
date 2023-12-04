@@ -14,6 +14,7 @@ const useAPI = () => {
     const [currCategory, setCurrCategory] = useState();
     const [currSubcategory, setCurrSubcategory] = useState();
     const [items, setItems] = useState([]);
+    const [modifications, setModifiactions] = useState();
 
     useEffect(() => {
         API.get(`/menu/categories`)
@@ -77,17 +78,39 @@ const useAPI = () => {
         };
     }
 
+    function getModifications(id, subcategoryName, categoryName) {
+        return () => {
+            setModifiactions(null)
+            API.get(`/menu/modifications?category=${categoryName}&subcategory=${subcategoryName}&id=${id}`)
+                .then((res) => {
+                    if (res.status < 300) {
+                        console.log(res.data)
+                        setModifiactions(res.data);
+                    } else {
+                        console.log(res.data);
+                        setModifiactions([{item_name: "Error retrieving items"}]);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                    setModifiactions([{item_name: "Error retrieving items"}]);
+                });
+        };
+    }
+
     return [
         {
             categories: categories,
             subcategories: subcategories,
             items: items,
             currCategory: currCategory,
-            currSubcategory: currSubcategory
+            currSubcategory: currSubcategory,
+            modifications: modifications
         },
         {
             getSubcategories: getSubcategories,
             getItems: getItems,
+            getModifications: getModifications
         }
     ]
 }

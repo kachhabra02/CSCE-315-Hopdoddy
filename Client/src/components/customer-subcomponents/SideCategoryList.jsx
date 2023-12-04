@@ -10,7 +10,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 import useAPI from "../useAPI";
 
-function SideCategoryList({ categories, itemGetter, sx }) {
+function SideCategoryList({ categories, itemGetter, sx, subcategorySelector }) {
     const [expanded, setExpanded] = useState([true]);
     const [selected, setSelected] = useState([0, -1]);
     // console.log(expanded)
@@ -29,7 +29,9 @@ function SideCategoryList({ categories, itemGetter, sx }) {
                     {expanded[i] ? <MdExpandLess/> : <MdExpandMore/>}
                 </ListItemButton>
                 <Collapse timeout="auto" in={expanded[i]}>
-                    <SideSubcategoryList category={item.category} currSelected={selected} index={i} setSelected={setSelected} itemGetter={itemGetter}/>
+                    <SideSubcategoryList category={item.category} currSelected={selected} index={i} 
+                      setSelected={setSelected} itemGetter={itemGetter} subcategorySelector={subcategorySelector}
+                    />
                 </Collapse>
               </>
             ))
@@ -37,13 +39,14 @@ function SideCategoryList({ categories, itemGetter, sx }) {
     );
 }
 
-function SideSubcategoryList({category, currSelected, index, setSelected, itemGetter}) {
+function SideSubcategoryList({category, currSelected, index, setSelected, itemGetter, subcategorySelector}) {
     const [{subcategories}, {getSubcategories}] = useAPI();
     useEffect(getSubcategories(category), []);
 
     if (subcategories?.length > 0 && currSelected[1] === -1 && currSelected[0] === index) {
         setSelected([0, 0]);
         itemGetter(subcategories[0]?.sub_category, category)()
+        subcategorySelector({category: category, subcategory: subcategories[0]?.sub_category})
     }
 
     return (
@@ -56,6 +59,7 @@ function SideSubcategoryList({category, currSelected, index, setSelected, itemGe
                       onClick={() => {
                         setSelected([index, i]);
                         itemGetter(item.sub_category, category)();
+                        subcategorySelector({category: category, subcategory: item.sub_category});
                       }}
                     >
                         <ListItemText primary={item.sub_category}/>

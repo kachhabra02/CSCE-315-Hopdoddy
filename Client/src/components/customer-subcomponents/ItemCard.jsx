@@ -18,7 +18,7 @@ const priceFormat = new Intl.NumberFormat("en-US", {
     minimumFractionDigits: 2,
 });
 
-function ItemCard({item, onUpdate, width}) {
+function ItemCard({item, onUpdate, width, modifier}) {
     const [open, setOpen] = useState(false);
 
     function addToCart() {
@@ -33,7 +33,8 @@ function ItemCard({item, onUpdate, width}) {
     return (
         <Tooltip title="Description" enterTouchDelay={0} onOpen={() => setOpen(true)} onClose={() => setOpen(false)}>
             <style>{".MuiTooltip-tooltip {visibility: hidden;}"}</style>
-            <ButtonBase onClick={addToCart} 
+            <ButtonBase 
+              onClick={modifier} 
               sx={{"text-align" : "left", "max-height": width, width: width}}
             >
                 <ImageListItem sx={{"min-width": width}}>
