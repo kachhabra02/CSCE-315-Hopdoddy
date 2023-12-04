@@ -56,6 +56,13 @@ const columns = [
         filter: false,
         sort: true
       }
+    },
+    {
+      name: 'Order Status',
+      options: {
+        filter: false,
+        sort: true
+      }
     }
 ];
 
@@ -75,7 +82,7 @@ function TransactionTracking() {
   const [endTime, setEndTime] = useState(new Date());
   
   useEffect(() => {
-    getOrders(startTime, endTime, setData);
+    getOrders(startTime, endTime, a => {setData(a); console.log(a)});
   }, [startTime, endTime]);
 
   const handleClose = () => {
@@ -133,11 +140,14 @@ function getOrders(startTime, endTime, callback) {
   API.get(`/transactions?startTime=${startTime.toISOString()}&endTime=${endTime.toISOString()}`)
     .then((res) => {
       if (res.status < 300) {
-        console.log('Success');
+        console.log(res.data);
         callback(res.data.map((item) => [
           item.trans_id, 
           (new Date(item.transaction_time)).toLocaleString(navigator.language),
-          item.employee_id, item.total_price, item.item_names.join(', ')
+          item.employee_id, 
+          item.total_price, 
+          item.item_names.join(', '),
+          item.order_status
         ]));
       }
       else {
