@@ -10,37 +10,42 @@ import useAPI from "../useAPI";
 import ItemCard from "./ItemCard";
 
 function CategoryAccordions({categories, onUpdate}) {
-    return categories.map((item) => (
-        <Accordion>
+    return categories.map((item, i) => (
+        <Accordion defaultExpanded={i === 0}>
             <AccordionSummary expandIcon={<MdExpandMore/>}>
                 {item.category}
             </AccordionSummary>
             <AccordionDetails>
-                <SubcategoryAccordions category={item.category} onUpdate={onUpdate}/>    
+                <SubcategoryAccordions category={item.category} onUpdate={onUpdate} defaultExpanded={i === 0}/>    
             </AccordionDetails>
         </Accordion>
     ));
 }
 
-function SubcategoryAccordions({category, onUpdate}) {
+function SubcategoryAccordions({category, onUpdate, defaultExpanded}) {
     const [{subcategories}, {getSubcategories}] = useAPI();
 
-    useEffect(() => {
-        getSubcategories(category)();
-    }, [])
+    useEffect(getSubcategories(category), [])
     
     // console.log(subcategories)
     return (
         subcategories == null
             ? <CircularProgress/>
-            : subcategories.map(item => (<ItemAccordions category={category} subcategory={item.sub_category} onUpdate={onUpdate}/>))
+            : subcategories.map((item, i) => (
+                <ItemAccordions 
+                  category={category} 
+                  subcategory={item.sub_category} 
+                  onUpdate={onUpdate} 
+                  defaultExpanded={defaultExpanded && i === 0}
+                />
+              ))
     )
 }
 
-function ItemAccordions({category, subcategory, onUpdate}) {
+function ItemAccordions({category, subcategory, onUpdate, defaultExpanded}) {
     const [{items}, {getItems}] = useAPI();
 
-    // useEffect(getItemsBySubcategory(subcategory, category), []);
+    useEffect(() => {defaultExpanded && itemLoader(null, true)}, []);
 
     const itemLoader = (event, expanded) => {
         if (expanded) {
@@ -49,7 +54,7 @@ function ItemAccordions({category, subcategory, onUpdate}) {
     }
 
     return (
-        <Accordion onChange={itemLoader}>
+        <Accordion onChange={itemLoader} defaultExpanded={defaultExpanded}>
             <AccordionSummary expandIcon={<MdExpandMore/>}>
                 {subcategory}
             </AccordionSummary>

@@ -52,8 +52,8 @@ function ShoppingCart({open, onClose, onUpdate}) {
 
     function placeTransaction() {
         axios.post(`${process.env.REACT_APP_API_URL}/api/transactions`, {
-            // TODO: change employeeID to an actual ID obtained from logging in
-            employeeID: 2,
+            // TODO: change email to an actual email obtained from logging in?
+            email: "iamacustomer@kiosk.com",
             menuIDs: cart?.map((item) => item.item_id)
         })
             .then((res) => {
