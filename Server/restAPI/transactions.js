@@ -117,7 +117,7 @@ router.delete('/deleteCanceled', async (req, res) => {
             values: []
         });
 
-        res.status(200).send("Transaction Deleted");
+        res.status(200).send(`${result_p2.rows.length} Transactions Deleted`);
     
         await client.query('COMMIT');
     } catch (err) {

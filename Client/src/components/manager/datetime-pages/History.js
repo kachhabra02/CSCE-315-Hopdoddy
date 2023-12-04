@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
@@ -128,6 +129,47 @@ function History() {
      });
   }
 
+  async function deleteCanceled() {
+    const new_alerts = [...alerts];
+
+    await API.delete(`/transactions/deleteCanceled`)
+     .then((res) => {
+       if (res.status < 300) {
+         console.log('Success');
+         console.log(res.data);
+         new_alerts.unshift(
+            {
+              severity: 'success',
+              text: `Successfully Deleted Canceled Orders (${res.data})`
+            }
+         );
+       }
+       else {
+         console.log(res.data);
+         new_alerts.unshift(
+            {
+              severity: 'error',
+              text: `Failed to Delete Canceled Orders`
+            }
+         );
+       }
+     })
+     .catch((error) => {
+       console.log(error);
+       new_alerts.unshift(
+        {
+          severity: 'error',
+          text: `Failed to Delete Canceled Orders`
+        }
+       );
+     });
+
+     console.log([...new_alerts]);
+     setAlerts(new_alerts);
+     loadHistory();
+  }
+
+
   const options = {
     filterType: 'multiselect',
     selectableRows: 'multiple',
@@ -155,7 +197,13 @@ function History() {
       <br/><br/>
       {'Start Time: ' + (new Date(startTime)).toLocaleString(navigator.language)}<br/>
       {'End Time: ' + (new Date(endTime)).toLocaleString(navigator.language)}
-      <br/><br/><br/>
+      <br/><br/>
+      
+      <Button sx={{ minWidth: '20em' }} variant='contained' onClick={() => deleteCanceled()}>
+        {'Delete All Canceled Orders'}
+      </Button>
+      
+      <br/><br/>
       
       <Stack spacing={1}>
         {
