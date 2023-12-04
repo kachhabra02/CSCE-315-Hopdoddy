@@ -6,6 +6,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import EditIcon from '@mui/icons-material/Edit';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -96,7 +97,6 @@ function MenuManagment() {
     if (reason && (reason === "backdropClick" || reason === "escapeKeyDown")) {
         return;
     }
-
     
     setOpenEditDialog(false);
     setEditMenuItem(null);
@@ -194,7 +194,7 @@ function MenuManagment() {
         customBodyRender: (value, tableMeta, updateValue) => {
             return (
               <Button onClick={() => handleEditClick(menu[tableMeta.rowIndex])}>
-                Edit
+                <EditIcon/>
               </Button>
             )
         }
@@ -251,7 +251,7 @@ function MenuManagment() {
 
       {editMenuItem && (
         <Dialog open={openEditDialog} onClose={handleEditCloseDialog}>
-          <DialogTitle>Edit Menu Item</DialogTitle>
+          <DialogTitle>{`Edit Menu Item "${editMenuItem[1]}"`}</DialogTitle>
           <DialogContent>
             <p>Form Content Here</p>
           </DialogContent>
