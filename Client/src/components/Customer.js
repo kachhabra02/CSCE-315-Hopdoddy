@@ -40,9 +40,9 @@ function Customer({onUpdate}) {
                   sx={{float: "left", width: "100%", margin: "auto"}}
                 />
             </div>
-            <Fab color="primary" sx={{ position: 'fixed', bottom: 16, right: 16}}>
+            {/* <Fab color="primary" sx={{ position: 'fixed', bottom: 16, right: 16}}>
                 <CartButton onUpdate={onUpdate}/>
-            </Fab>
+            </Fab> */}
         </div>
     );
 }
