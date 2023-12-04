@@ -59,7 +59,7 @@ function Inventory() {
   const timeoutRef = useRef();
 
   const scrollToBottom = () => {
-    if (triggerScroll == false) {
+    if (triggerScroll === false) {
       setTriggerScroll(true);
       return;
     }
