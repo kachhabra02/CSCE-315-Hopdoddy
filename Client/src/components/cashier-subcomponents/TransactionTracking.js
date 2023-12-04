@@ -76,7 +76,7 @@ function TransactionTracking() {
   
   useEffect(() => {
     getOrders(startTime, endTime, setData);
-  }, []);
+  }, [startTime, endTime]);
 
   const handleClose = () => {
     setDatetimeOpen(false);
@@ -87,7 +87,6 @@ function TransactionTracking() {
     setDatetimeOpen(false);
     setStartTime(newStart);
     setEndTime(newEnd);
-    getOrders(newStart, newEnd, setData);
   };
 
   return (
