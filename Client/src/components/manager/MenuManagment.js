@@ -37,7 +37,7 @@ function MenuManagment() {
          console.log(res.data);
          setMenu(res.data.map((item) => [item.item_id, item.item_name, item.category, item.sub_category,
                                          item.price, item.is_modification.toString(), item.display_item.toString(),
-                                         item.display_image.toString(), item.display_description.toString(), item.item_description]));
+                                         item.display_image.toString(), item.item_description]));
        }
        else {
          console.log(res.data);
@@ -168,13 +168,6 @@ function MenuManagment() {
     },
     {
       name: 'Display Image on Menu Board?',
-      options: {
-        filter: true,
-        sort: false
-      }
-    },
-    {
-      name: 'Display Description on Menu Board?',
       options: {
         filter: true,
         sort: false
