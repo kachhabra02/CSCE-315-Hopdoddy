@@ -97,10 +97,20 @@ function MenuManagment() {
         return;
     }
 
-    console.log(reason);
+    
     setOpenEditDialog(false);
     setEditMenuItem(null);
   };
+
+  const handleEditSubmit = () => {
+    console.log("Submitted");
+    handleEditCloseDialog();
+  }
+
+  const handleEditCancel = () => {
+    console.log("Canceled");
+    handleEditCloseDialog();
+  }
 
 
   const title = 'Menu Management';
@@ -179,6 +189,8 @@ function MenuManagment() {
     {
       name: 'Edit Item',
       options: {
+        filter: false,
+        sort: false,
         customBodyRender: (value, tableMeta, updateValue) => {
             return (
               <Button onClick={() => handleEditClick(menu[tableMeta.rowIndex])}>
@@ -244,10 +256,10 @@ function MenuManagment() {
             <p>Form Content Here</p>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleEditCloseDialog(null, "Canceled")}>
+            <Button onClick={handleEditCancel}>
               Cancel
             </Button>
-            <Button onClick={handleEditCloseDialog(null, "Submitted")}>Ok</Button>
+            <Button onClick={handleEditSubmit}>Ok</Button>
           </DialogActions>
         </Dialog>
       )}
