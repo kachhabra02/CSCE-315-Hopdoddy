@@ -39,8 +39,16 @@ function TransactionTracking() {
   const [data, setData] = useState(undefined);
   const [datetimeOpen, setDatetimeOpen] = React.useState(false);
 
-  const [startTime, setStartTime] = useState(new Date(1920,0,1));
-  const [endTime, setEndTime] = useState(new Date());
+  const [startTime, setStartTime] = useState((() => {
+    const startOfToday = new Date();
+    startOfToday.setHours(0, 0, 0, 0);
+    return startOfToday;
+  })());
+  const [endTime, setEndTime] = useState((() => {
+    const endOfToday = new Date();
+    endOfToday.setHours(23, 59, 59, 999);
+    return endOfToday;
+  })());
   
   useEffect(() => {
     getOrders(startTime, endTime, setData);
@@ -264,9 +272,17 @@ function getOrders(startTime, endTime, callback) {
   );
 }
 
-function PageInputCard({ title, onGenerate, onClose }) {
-  const [startTime, setStartTime] = useState(new Date(1920,0,1));
-  const [endTime, setEndTime] = useState(new Date());
+function PageInputCard({ title, onGenerate, onClose }) {  
+  const [startTime, setStartTime] = useState((() => {
+    const startOfToday = new Date();
+    startOfToday.setHours(0, 0, 0, 0);
+    return startOfToday;
+  })());
+  const [endTime, setEndTime] = useState((() => {
+    const endOfToday = new Date();
+    endOfToday.setHours(23, 59, 59, 999);
+    return endOfToday;
+  })());
 
   const handleStartTimeChange = (newValue) => {
     setStartTime(newValue);
