@@ -18,7 +18,6 @@ import {
   GridRowEditStopReasons,
 } from '@mui/x-data-grid';
 import axios from 'axios';
-import IconOnClickElement from '../cashier-subcomponents/IconOnClickElement';
 
 const initialRows = [];
 
