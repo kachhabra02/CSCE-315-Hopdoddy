@@ -290,7 +290,7 @@ function Admin() {
                     Element={Button}
                     variant='contained' 
                     title={ editMode === createMode ? 'Create User?' : 'Save Changes?' }
-                    body={ 'This will push changes to the backend.' + (hasEdited ? '' : ' (No Changes)') }
+                    body={ hasEdited ? 'This will push changes to the backend.' : 'But you have made no changes...' }
                     color='success' 
                     onClick={ editMode === createMode ? handleCreateSave : handleEditSave }
                     children={<SaveIcon />}
