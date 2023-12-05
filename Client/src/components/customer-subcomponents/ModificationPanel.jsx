@@ -31,7 +31,7 @@ function ModificationPanel({open, onClose, modifications, item, onUpdate}) {
         // const orders = localStorage.getItem("cart");
         // console.log(orders);
         const newOrders = (orders?.concat([item]) ?? [item]).concat(
-            modifications.map((item, i) => modsSelected[i] && item)
+            modifications.map((item, i) => modsSelected[i] && {...item, is_modification: true})
             .filter(item => item)
         );
         // console.log(newOrders)
@@ -42,7 +42,7 @@ function ModificationPanel({open, onClose, modifications, item, onUpdate}) {
     return (
         <Dialog open={open} onClose={onExit}>
             <DialogTitle sx={{"min-width": 250}}>
-                Modifications for {item.item_name}
+                Modifications for {item?.item_name}
             </DialogTitle>
             <DialogContent dividers>
                 <Grid container spacing={2} sx={{width: 464}}> { 

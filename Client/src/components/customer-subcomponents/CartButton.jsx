@@ -14,7 +14,7 @@ function CartButton({onUpdate}) {
     return (
         <>
             <IconButton size="large" color="inherit" onClick={() => setIsOpen(true)}>
-                <Badge badgeContent={cart?.length} color="error">
+                <Badge badgeContent={cart?.filter(item => !item?.is_modification).length} color="error">
                     <MdOutlineShoppingCart/>
                 </Badge>
             </IconButton>
