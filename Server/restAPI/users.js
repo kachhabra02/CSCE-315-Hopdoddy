@@ -12,11 +12,22 @@ const queries = require('./queries');
 /***** /api/users *****/
 // Get information for all users
 router.get('/', async (req, res) => {
+    // Get necessary info from request
+    const email = req.query.email;
+
     // Send query
-    const queryObj = {
-        text: queries.getAllUsersQuery,
-        values: []
-    };
+    const queryObj = 
+        (!email)
+        ?
+            {
+                text: queries.getAllUsersQuery,
+                values: []
+            }
+        :
+            {
+                text: queries.getUserFromEmailQuery,
+                values: [email]
+            };
 
     const client = await pool.connect();
     const result = await client.query(queryObj, (error, results) => {
