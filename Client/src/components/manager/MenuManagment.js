@@ -41,7 +41,7 @@ function MenuManagment() {
          console.log(res.data);
          setMenu(res.data.map((item) => [item.item_id, item.item_name, item.category, item.sub_category,
                                          parseFloat(item.price).toFixed(2), item.is_modification.toString(), item.display_item.toString(),
-                                         item.display_image.toString(), item.item_description]));
+                                         item.display_image.toString(), item.feature_item.toString(), item.item_description]));
        }
        else {
          console.log(res.data);
@@ -140,7 +140,8 @@ function MenuManagment() {
         menuItem[5],
         menuItem[6],
         menuItem[7],
-        menuItem[8]
+        menuItem[8],
+        menuItem[9]
     ]);
     loadSubCategories(menuItem[2]);
     setOpenEditDialog(true);
@@ -220,6 +221,13 @@ function MenuManagment() {
     },
     {
       name: 'Display Image on Menu Board?',
+      options: {
+        filter: true,
+        sort: false
+      }
+    },
+    {
+      name: 'Feature Item on Menu Board?',
       options: {
         filter: true,
         sort: false
