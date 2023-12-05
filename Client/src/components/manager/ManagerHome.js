@@ -10,7 +10,7 @@ const makeButton = (path, label) =>
     <Button sx={{ minWidth: '20em' }} variant='contained' component={Link} to={`/manager/${path}`}>{label}</Button>;
 
 function ManagerHome() {
-    const { user } = useAuth();
+    const { userObj } = useAuth();
 
     return (
         <Box sx={{
@@ -21,7 +21,7 @@ function ManagerHome() {
             height: '80vh',           // Set the height of the container (e.g., full viewport height)
         }}>
             <Typography variant="h3" padding={3}>
-                {`Welcome, ${user.name}`}
+                {`Welcome, ${userObj.name}`}
             </Typography>
             <Stack spacing={2}>
                 <Stack direction="row" spacing={2}>

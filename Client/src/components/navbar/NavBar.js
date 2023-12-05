@@ -2,7 +2,8 @@ import Button from '@mui/material/Button';
 import { Toolbar } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-
+import Login from '../../credentials/login/Login';
+import { useAuth } from '../../credentials/AuthProvider';
 import './NavBar.css';
 
 import React, { useLayoutEffect, useRef, useState } from 'react'
@@ -21,7 +22,7 @@ const ManagerLink = makeButton('/manager', 'Manager');
 const CustomerLink = makeButton('/customer', 'Customer');
 
 
-const locationLinksMap = {
+let locationLinksMap = {
     default : [HomeLink, MenuLink, CashierLink, ManagerLink, CustomerLink],
     '/' : [MenuLink, CashierLink, ManagerLink, CustomerLink],
     '/menu' : [HomeLink, CashierLink, ManagerLink, CustomerLink],
@@ -30,7 +31,30 @@ const locationLinksMap = {
     '/customer' : [MenuLink, HomeLink, CashierLink],
     '/login' : null
 };
-
+const managerLinksMap = {
+    default : [HomeLink, MenuLink, CashierLink, ManagerLink, CustomerLink],
+    '/' : [MenuLink, CashierLink, ManagerLink, CustomerLink],
+    '/menu' : [HomeLink, CashierLink, ManagerLink, CustomerLink],
+    '/manager' : [HomeLink, MenuLink, CashierLink, CustomerLink],
+    '/cashier' : [HomeLink, MenuLink, ManagerLink, CustomerLink],
+    '/customer' : [MenuLink, HomeLink, CashierLink],
+    '/login' : null
+};
+const cashierLinksMap = {
+    default : [HomeLink, MenuLink, CashierLink, CustomerLink],
+    '/' : [MenuLink, CashierLink, CustomerLink],
+    '/menu' : [HomeLink, CashierLink, CustomerLink],
+    '/cashier' : [HomeLink, MenuLink, CustomerLink],
+    '/customer' : [MenuLink, HomeLink, CashierLink],
+    '/login' : null
+};
+const defaultLinksMap = {
+    default : [HomeLink, MenuLink, CustomerLink],
+    '/' : [MenuLink, CustomerLink],
+    '/menu' : [HomeLink, CustomerLink],
+    '/customer' : [MenuLink, HomeLink],
+    '/login' : null
+};
 function NavBar({onUpdate}) {
     const location = useLocation();
     
@@ -69,6 +93,18 @@ function NavBar({onUpdate}) {
     }, [isCustomized])
 
     const gtref = useRef(null);
+    const {userObj, setuser} = useAuth();
+
+    if(userObj.isManager){
+        locationLinksMap = managerLinksMap;
+    }
+    else if(userObj.isCashier){
+        locationLinksMap = cashierLinksMap;
+    }   
+    else{
+        locationLinksMap = defaultLinksMap;
+    }
+    
 
     if (locationLinksMap[location.pathname] === null) {
         return <></>
@@ -94,6 +130,7 @@ function NavBar({onUpdate}) {
             <IconButton sx={{width: 50, height: 50, color: "white"}}>
                 <div id="google_translate_element" style={{bgcolor: "transparent",}} ref={gtref}></div>
             </IconButton>
+            <Login/>
         </Toolbar>
     )
 }
