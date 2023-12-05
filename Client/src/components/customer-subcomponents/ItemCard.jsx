@@ -34,7 +34,7 @@ function ItemCard({item, onUpdate, width, modifier}) {
         <Tooltip title="Description" enterTouchDelay={0} onOpen={() => setOpen(true)} onClose={() => setOpen(false)}>
             <style>{".MuiTooltip-tooltip {visibility: hidden;}"}</style>
             <ButtonBase 
-              onClick={modifier} 
+              onClick={modifier(item)} 
               sx={{"text-align" : "left", "max-height": width, width: width}}
             >
                 <ImageListItem sx={{"min-width": width}}>

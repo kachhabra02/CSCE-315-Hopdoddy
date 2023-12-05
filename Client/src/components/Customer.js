@@ -14,9 +14,11 @@ function Customer({onUpdate}) {
     const [selected, setSelected] = useState({category: null, subcategory: null});
     // const getModificationsByID = (id) => getModifications(id, selected?.subcategory, selected?.category);
     const [isModOpen, setIsModOpen] = useState(false);
-    const openModPanel = (id) => () => {
+    const [moddedItem, setModdedItem] = useState(null);
+    const openModPanel = (id) => (item) => () => {
         console.log(selected?.category, selected?.subcategory, id)
         getModifications(id, selected?.subcategory, selected?.category)();
+        setModdedItem(item);
         setIsModOpen(true);
     }
 
@@ -53,7 +55,7 @@ function Customer({onUpdate}) {
             {/* <Fab color="primary" sx={{ position: 'fixed', bottom: 16, right: 16}}>
                 <CartButton onUpdate={onUpdate}/>
             </Fab> */}
-            <ModificationPanel open={isModOpen} onClose={() => setIsModOpen(false)} modifications={modifications}/>
+            <ModificationPanel item={moddedItem} open={isModOpen} onClose={() => setIsModOpen(false)} modifications={modifications} onUpdate={onUpdate}/>
         </div>
     );
 }
