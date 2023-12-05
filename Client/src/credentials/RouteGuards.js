@@ -5,8 +5,8 @@ import { useEffect } from 'react';
 const makeGuard = (authenticate) => function Guard({ children }) {
   
   const navigate = useNavigate();
-  const { user } = useAuth();
-  const hasPermission = authenticate(user);
+  const { userObj } = useAuth();
+  const hasPermission = authenticate(userObj);
 
   useEffect(() => {
     if (!hasPermission) {
@@ -21,5 +21,5 @@ const makeGuard = (authenticate) => function Guard({ children }) {
   return children;
 }
 
-export const CashierGuard = makeGuard((user) => user.isCashier || user.isManager);
-export const ManagerGuard = makeGuard((user) => user.isManager);
+export const CashierGuard = makeGuard((userObj) => userObj.isCashier || userObj.isManager);
+export const ManagerGuard = makeGuard((userObj) => userObj.isManager);

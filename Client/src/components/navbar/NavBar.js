@@ -2,15 +2,18 @@ import Button from '@mui/material/Button';
 import { Toolbar } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-
+import Login from '../../credentials/login/Login';
+import { useAuth } from '../../credentials/AuthProvider';
 import './NavBar.css';
+import { useAuth0 } from '@auth0/auth0-react';
 
-import React, { useLayoutEffect, useRef, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import {Link, useLocation} from 'react-router-dom'
 
 import CartButton from '../customer-subcomponents/CartButton';
 
 import $ from "jquery";
+import usePermission from '../../credentials/login/usePermissions';
 
 const makeButton = (path, label) => () => <Button color='inherit' component={Link} to={path}>{label}</Button>;
 
@@ -21,7 +24,7 @@ const ManagerLink = makeButton('/manager', 'Manager');
 const CustomerLink = makeButton('/customer', 'Customer');
 
 
-const locationLinksMap = {
+let locationLinksMap = {
     default : [HomeLink, MenuLink, CashierLink, ManagerLink, CustomerLink],
     '/' : [MenuLink, CashierLink, ManagerLink, CustomerLink],
     '/menu' : [HomeLink, CashierLink, ManagerLink, CustomerLink],
@@ -30,10 +33,35 @@ const locationLinksMap = {
     '/customer' : [MenuLink, HomeLink, CashierLink],
     '/login' : null
 };
-
+const managerLinksMap = {
+    default : [HomeLink, MenuLink, CashierLink, ManagerLink, CustomerLink],
+    '/' : [MenuLink, CashierLink, ManagerLink, CustomerLink],
+    '/menu' : [HomeLink, CashierLink, ManagerLink, CustomerLink],
+    '/manager' : [HomeLink, MenuLink, CashierLink, CustomerLink],
+    '/cashier' : [HomeLink, MenuLink, ManagerLink, CustomerLink],
+    '/customer' : [MenuLink, HomeLink, CashierLink],
+    '/login' : null
+};
+const cashierLinksMap = {
+    default : [HomeLink, MenuLink, CashierLink, CustomerLink],
+    '/' : [MenuLink, CashierLink, CustomerLink],
+    '/menu' : [HomeLink, CashierLink, CustomerLink],
+    '/cashier' : [HomeLink, MenuLink, CustomerLink],
+    '/customer' : [MenuLink, HomeLink, CashierLink],
+    '/login' : null
+};
+const defaultLinksMap = {
+    default : [HomeLink, MenuLink, CustomerLink],
+    '/' : [MenuLink, CustomerLink],
+    '/menu' : [HomeLink, CustomerLink],
+    '/customer' : [MenuLink, HomeLink],
+    '/login' : null
+};
 function NavBar({onUpdate}) {
     const location = useLocation();
-    
+    const[{userObj}, {getData}] = usePermission();
+    const{isAuthenticated} = useAuth0();
+    const[linksMap, setLinksMap] = useState(defaultLinksMap);
     // really really jank way of fixing the Google Translate Element
     const [isCustomized, tryCustomizing] = useState({});
     useLayoutEffect(() => {
@@ -64,13 +92,35 @@ function NavBar({onUpdate}) {
                 `
             );
         } else {
-            setTimeout(() => tryCustomizing({}), 500)
+            setTimeout(() => tryCustomizing({}), 100)
         }
     }, [isCustomized])
 
     const gtref = useRef(null);
-
-    if (locationLinksMap[location.pathname] === null) {
+    // const {userObj, setuser} = useAuth();
+    useEffect(() => {
+        console.log(isAuthenticated);
+        if(isAuthenticated){
+            getData();
+            //console.log(userObj);
+           
+        }
+    
+    }, [isAuthenticated]);
+    useEffect(() => {
+        console.log(userObj);
+        if(userObj.isManager){
+            setLinksMap(managerLinksMap);
+        }
+        else if(userObj.isCashier){
+            setLinksMap(cashierLinksMap);
+        } 
+        else{
+            setLinksMap(defaultLinksMap);
+        }
+    }, [userObj]);
+    
+    if (linksMap[location.pathname] === null) {
         return <></>
     }
 
@@ -81,8 +131,8 @@ function NavBar({onUpdate}) {
             </Typography>
             <div id='navbar-buttons'>
                 {(location.pathname === '/customer' 
-                    ? [() => <CartButton onUpdate={onUpdate}/>].concat(locationLinksMap[location.pathname]) 
-                    : (locationLinksMap[location.pathname] ?? locationLinksMap.default)
+                    ? [() => <CartButton onUpdate={onUpdate}/>].concat(linksMap[location.pathname]) 
+                    : (linksMap[location.pathname] ?? linksMap.default)
                  )
                     .map((ButtonLink, index) => (
                         <React.Fragment key={index}>
@@ -94,6 +144,7 @@ function NavBar({onUpdate}) {
             <IconButton sx={{width: 50, height: 50, color: "white"}}>
                 <div id="google_translate_element" style={{bgcolor: "transparent",}} ref={gtref}></div>
             </IconButton>
+            <Login/>
         </Toolbar>
     )
 }
