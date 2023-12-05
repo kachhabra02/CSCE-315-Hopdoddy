@@ -95,7 +95,7 @@ function Admin() {
   }
 
   const handleEditSave = () => {
-    updateUser(currUser)
+    updateUser(currUser, openAlertFromResponse)
       .then(() => {
         handleEditClose();
         return getUsers();
@@ -119,7 +119,7 @@ function Admin() {
   }
 
   const handleDeleteSave = () => {
-    deleteUser(currUser)
+    deleteUser(currUser, openAlertFromResponse)
       .then(() => {
         handleEditClose();
         return getUsers();
@@ -187,7 +187,7 @@ function Admin() {
             <Button
               onClick={() => handleCreateUser(data)}
               variant='outlined'
-              color='secondary'
+              color='inherit'
               startIcon={<AddIcon />}
               children={'Create'}
             />
@@ -196,7 +196,7 @@ function Admin() {
             <Button
               onClick={() => handleEditUser(data)}
               variant='outlined'
-              color='secondary'
+              color='inherit'
               startIcon={<EditIcon />}
               children={'Edit user'}
             />
@@ -364,12 +364,13 @@ async function getUsers() {
   }
 }
 
-async function updateUser(user) {
+async function updateUser(user, handleError) {
   try {
     return await API.put(`/users/${user.employee_id}`, user);
   }
   catch (error) {
     console.log(error);
+    handleError && handleError(error);
   }
 }
 
@@ -383,12 +384,13 @@ async function createUser(user, handleError) {
   }
 }
 
-async function deleteUser(user) {
+async function deleteUser(user, handleError) {
   try {
     return await API.delete(`/users/${user.employee_id}`);
   }
   catch (error) {
     console.log(error);
+    handleError && handleError(error);
   }
 }
 
