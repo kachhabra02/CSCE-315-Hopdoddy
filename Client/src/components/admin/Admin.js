@@ -9,6 +9,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import SaveIcon from '@mui/icons-material/Save';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import axios from 'axios';
 import ConfirmationOnClickElement from './ConfirmationOnClickElement';
@@ -49,6 +50,7 @@ function Admin() {
   const [rows, setRows] = useState(null);
   const [currUser, setCurrUser] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [hasEdited, setHasEdited] = useState(false);
   const [editMode, setEditMode] = useState();
 
   React.useEffect(() => {
@@ -74,13 +76,13 @@ function Admin() {
   const handleEditClose = () => {
     setCurrUser(null);
     setIsEditing(false);
+    setHasEdited(false);
   }
 
   const handleEditSave = () => {
     updateUser(currUser)
       .then(() => {
-        setCurrUser(null);
-        setIsEditing(false);
+        handleEditClose();
         return getUsers();
       })
       .then(rows => {
@@ -92,8 +94,7 @@ function Admin() {
   const handleCreateSave = () => {
     createUser(currUser)
       .then(() => {
-        setCurrUser(null);
-        setIsEditing(false);
+        handleEditClose();
         return getUsers();
       })
       .then(rows => {
@@ -102,20 +103,20 @@ function Admin() {
       });
   }
 
-  // const handleDeleteSave = () => {
-  //   deleteUser(currUser)
-  //     .then(() => {
-  //       setCurrUser(null);
-  //       setIsEditing(false);
-  //       return getUsers();
-  //     })
-  //     .then(rows => {
-  //       rows.push(createRow);
-  //       setRows(rows);
-  //     });
-  // }
+  const handleDeleteSave = () => {
+    deleteUser(currUser)
+      .then(() => {
+        handleEditClose();
+        return getUsers();
+      })
+      .then(rows => {
+        rows.push(createRow);
+        setRows(rows);
+      });
+  }
 
   const handleChange = (e) => {
+    setHasEdited(true);
     const { name, value, type, checked } = e.target;
     setCurrUser(prevState => ({
         ...prevState,
@@ -269,7 +270,7 @@ function Admin() {
                 </Stack>
               </CardContent>
               <CardActions>
-                <Box sx={{ textAlign: 'left', flexGrow: 1 }}>    
+                <Stack direction={'row'} spacing={1} sx={{ textAlign: 'left', flexGrow: 1 }}>    
                   <ConfirmationOnClickElement 
                     Element={Button}
                     variant='contained' 
@@ -279,12 +280,24 @@ function Admin() {
                     onClick={ editMode === createMode ? handleCreateSave : handleEditSave }
                     children={<SaveIcon />}
                   />
-                </Box>
+                  {editMode === updateMode && <ConfirmationOnClickElement 
+                    Element={Button}
+                    variant='contained' 
+                    title='Delete this user?'
+                    body='This cannot be undone.'
+                    color='error'
+                    confirmColor='error'
+                    onClick={ handleDeleteSave }
+                    children={<DeleteIcon />}
+                  />}
+                </Stack>
                 <ConfirmationOnClickElement
                   Element={Button} 
                   variant='outlined' 
                   title='Discard changes?'
-                  color='error' 
+                  color='inherit' 
+                  confirmColor='warning'
+                  ask={hasEdited}
                   onClick={handleEditClose}
                   children={<ExitToAppIcon />}
                 />
@@ -340,6 +353,15 @@ async function updateUser(user) {
 async function createUser(user) {
   try {
     await API.post(`/users`, user);
+  }
+  catch (error) {
+    console.log(error);
+  }
+}
+
+async function deleteUser(user) {
+  try {
+    await API.delete(`/users/${user.employee_id}`);
   }
   catch (error) {
     console.log(error);

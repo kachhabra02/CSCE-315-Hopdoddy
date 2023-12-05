@@ -2,11 +2,21 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import { Button, Card, CardActions, CardContent, Modal, Typography } from '@mui/material';
 
-const ConfirmationOnClickElement = ({ Element, title='Confirm Action', body, children, onClick, ...subProps }) => {
+const ConfirmationOnClickElement = ({ Element, ask=true, title='Confirm Action', body, confirmColor='primary', cancelColor='inherit', children, onClick, ...subProps }) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
-    setOpen(true);
+    if (ask) {
+      setOpen(true);
+    }
+    else {
+      if (onClick) {
+        onClick();
+      }
+      else {
+        console.log("no onClick for target element");
+      }
+    }
   };
 
   const handleCancel = () => {
@@ -58,14 +68,14 @@ const ConfirmationOnClickElement = ({ Element, title='Confirm Action', body, chi
               <Box sx={{ textAlign: 'left', flexGrow: 1, paddingRight: 1 }}>    
                 <Button 
                   variant='contained' 
-                  color='primary' 
+                  color={confirmColor} 
                   onClick={handleConfirm}
                   children={'PROCEED'}
                 />
               </Box>
               <Button 
                 variant='contained' 
-                color='inherit' 
+                color={cancelColor}
                 onClick={handleCancel}
                 children={'CANCEL'}
               />
