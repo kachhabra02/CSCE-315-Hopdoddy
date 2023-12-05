@@ -8,9 +8,10 @@ import MUIDataTable from 'mui-datatables';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import StartIcon from '@mui/icons-material/Start';
+import SaveIcon from '@mui/icons-material/Save';
 
 import axios from 'axios';
+import ConfirmationOnClickElement from './ConfirmationOnClickElement';
 
 const API = axios.create({
   baseURL: `${process.env.REACT_APP_API_URL}/api`,
@@ -206,15 +207,20 @@ function Admin() {
               </CardContent>
               <CardActions>
                 <Box sx={{ textAlign: 'left', flexGrow: 1 }}>    
-                  <Button 
+                  <ConfirmationOnClickElement 
+                    Element={Button}
                     variant='contained' 
+                    title='Save Changes?'
+                    body='This will push changes to the backend.'
                     color='success' 
                     onClick={handleEditSave}
-                    children={<EditIcon />}
+                    children={<SaveIcon />}
                   />
                 </Box>
-                <Button 
-                  variant='contained' 
+                <ConfirmationOnClickElement
+                  Element={Button} 
+                  variant='outlined' 
+                  title='Discard changes?'
                   color='error' 
                   onClick={handleEditClose}
                   children={<ExitToAppIcon />}
@@ -260,10 +266,8 @@ async function getUsers() {
 }
 
 async function updateUser(user) {
-  console.log(user);
   try {
     const res = await API.put(`/users/${user.employee_id}`, user);
-    console.log(res);
   }
   catch (error) {
     console.log(error);
