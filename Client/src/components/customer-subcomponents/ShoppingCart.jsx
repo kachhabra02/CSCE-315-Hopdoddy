@@ -15,7 +15,7 @@ import Avatar from '@mui/material/Avatar';
 
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import {MdClose, MdOutlineShoppingCart} from "react-icons/md";
+import {MdClose, MdClear} from "react-icons/md";
 import {BsFillTrash3Fill} from "react-icons/bs";
 
 import Snackbar from '@mui/material/Snackbar';
@@ -125,7 +125,7 @@ function ShoppingCart({open, onClose, onUpdate}) {
                         <ListItem 
                           secondaryAction={(
                             <IconButton edge="end" size="small" onClick={removeOrder(i)}>
-                                <BsFillTrash3Fill/>
+                                {item?.is_modification ? <MdClear/> : <BsFillTrash3Fill/>}
                             </IconButton>
                           )}
                         >
