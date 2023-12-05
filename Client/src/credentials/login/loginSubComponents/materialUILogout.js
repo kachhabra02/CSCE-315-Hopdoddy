@@ -5,7 +5,6 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Profile from './Profile';
 import LogoutButton from './LogoutButton';
-import Permission from '../SetPermissions';
 
 export default function PositionedMenu() {
 const {logout, isAuthenticated} = useAuth0();

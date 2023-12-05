@@ -1,14 +1,14 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React from "react";
 import "./loginStyling.css";
-import Permission from "../SetPermissions";
+import Permission from "../usePermissions";
 
 const LoginButton = () => {
     const {loginWithRedirect, isAuthenticated} = useAuth0();
 
     const login = () => {
         loginWithRedirect();
-        <Permission/>
+        // <Permission/>
     }
     return (
         !isAuthenticated && (

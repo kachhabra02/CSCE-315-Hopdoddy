@@ -5,13 +5,15 @@ import IconButton from '@mui/material/IconButton';
 import Login from '../../credentials/login/Login';
 import { useAuth } from '../../credentials/AuthProvider';
 import './NavBar.css';
+import { useAuth0 } from '@auth0/auth0-react';
 
-import React, { useLayoutEffect, useRef, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import {Link, useLocation} from 'react-router-dom'
 
 import CartButton from '../customer-subcomponents/CartButton';
 
 import $ from "jquery";
+import usePermission from '../../credentials/login/usePermissions';
 
 const makeButton = (path, label) => () => <Button color='inherit' component={Link} to={path}>{label}</Button>;
 
@@ -57,7 +59,8 @@ const defaultLinksMap = {
 };
 function NavBar({onUpdate}) {
     const location = useLocation();
-    
+    const[{userObj}, {getData}] = usePermission();
+    const{isAuthenticated} = useAuth0();
     // really really jank way of fixing the Google Translate Element
     const [isCustomized, tryCustomizing] = useState({});
     useLayoutEffect(() => {
@@ -93,17 +96,28 @@ function NavBar({onUpdate}) {
     }, [isCustomized])
 
     const gtref = useRef(null);
-    const {userObj, setuser} = useAuth();
-
-    if(userObj.isManager){
-        locationLinksMap = managerLinksMap;
-    }
-    else if(userObj.isCashier){
-        locationLinksMap = cashierLinksMap;
-    }   
-    else{
-        locationLinksMap = defaultLinksMap;
-    }
+    // const {userObj, setuser} = useAuth();
+    useEffect(() => {
+        console.log(isAuthenticated);
+        if(isAuthenticated){
+            getData();
+            //console.log(userObj);
+           
+        }
+    
+    }, [isAuthenticated]);
+    useEffect(() => {
+        console.log(userObj);
+        if(userObj.isManager){
+            locationLinksMap = managerLinksMap;
+        }
+        else if(userObj.isCashier){
+            locationLinksMap = cashierLinksMap;
+        } 
+        else{
+            locationLinksMap = defaultLinksMap;
+        }
+    }, [userObj]);
     
 
     if (locationLinksMap[location.pathname] === null) {

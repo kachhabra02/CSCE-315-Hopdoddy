@@ -5,7 +5,7 @@ import LogoutButton from "./loginSubComponents/LogoutButton";
 import Profile from "./loginSubComponents/Profile";
 import PositionedMenu from "./loginSubComponents/materialUILogout";
 import { useAuth0 } from "@auth0/auth0-react";
-import Permission from "./SetPermissions";
+import Permission from "./usePermissions";
 
 
 
@@ -20,7 +20,7 @@ function LoginMain(){
                 <>
                     <LoginButton />
                     <PositionedMenu/>
-                    <Permission />
+                    {/* <Permission /> */}
                 </>
             }
             
