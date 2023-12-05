@@ -39,7 +39,13 @@ function ShoppingCart({open, onClose, onUpdate}) {
 
     function removeOrder(index) {
         return () => {
-            const newCart = cart.toSpliced(index, 1);
+            // find first non-modification after index
+            const numMods = (cart[index]?.is_modification 
+                ? 0
+                : cart.findIndex((item, i) => i > index && !item?.is_modification) - index - 1
+            );
+            // console.log(numMods)
+            const newCart = cart.toSpliced(index, 1 + (numMods >= 0 ? numMods : (cart.length - index)));
             if (newCart.length === 0) {
                 localStorage.removeItem("cart");
                 setCart(null);
