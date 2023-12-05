@@ -10,7 +10,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
+import DialogActions from '@mui/material/DialogActions'
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 import MUIDataTable from "mui-datatables";
 
 import axios from 'axios';
@@ -23,6 +25,8 @@ const API = axios.create({
 
 function MenuManagment() {
   const [menu, setMenu] = useState(undefined);
+  const [categories, setCategories] = useState(["No Category"]);
+  const [subCategories, setSubCategories] = useState(["No Sub-Category"]);
   const [alerts, setAlerts] = useState([]);
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const [editMenuItem, setEditMenuItem] = useState(null);
@@ -48,6 +52,42 @@ function MenuManagment() {
        console.log(error);
        setMenu(['Error Retrieving Report! Please try again... (may need to use a smaller time window)']);
      });
+    
+    API.get(`/menu/categories`)
+      .then((res) => {
+        if (res.status < 300) {
+          console.log('Success');
+          console.log(res.data);
+          setCategories(res.data.map((item) => item.category).concat("No Category"));
+        }
+        else {
+          console.log(res.data);
+          setCategories(["No Category"]);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setCategories(["No Category"]);
+      });
+  }
+
+  function loadSubCategories(category) {
+    API.get(`/menu/sub-categories?category=${category}`)
+      .then((res) => {
+        if (res.status < 300) {
+          console.log('Success');
+          console.log(res.data);
+          setSubCategories(res.data.map((item) => item.sub_category).concat("No Sub-Category"));
+        }
+        else {
+          console.log(res.data);
+          setSubCategories(["No Sub-Category"]);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setSubCategories(["No Sub-Category"]);
+      });
   }
 
   function removeAlert(index) {
@@ -91,6 +131,18 @@ function MenuManagment() {
 
    const handleEditClick = (menuItem) => {
     setEditMenuItem(menuItem);
+    setItemInfo([
+        menuItem[0],
+        menuItem[1],
+        (!menuItem[2]) ? "No Category" : menuItem[2],
+        (!menuItem[3]) ? "No Category" : menuItem[3],
+        menuItem[4],
+        menuItem[5],
+        menuItem[6],
+        menuItem[7],
+        menuItem[8]
+    ]);
+    loadSubCategories(menuItem[2]);
     setOpenEditDialog(true);
   };
 
@@ -190,7 +242,7 @@ function MenuManagment() {
               <Button onClick={() => handleEditClick(menu[tableMeta.rowIndex])}>
                 <EditIcon/>
               </Button>
-            )
+            );
         }
       }
     }
@@ -246,14 +298,53 @@ function MenuManagment() {
       {editMenuItem && (
         <Dialog open={openEditDialog} onClose={handleEditCloseDialog}>
           <DialogTitle>{`Edit Menu Item "${editMenuItem[1]}"`}</DialogTitle>
+
           <DialogContent>
-            <p>Form Content Here</p>
+            {console.log(itemInfo)}
+            <Stack spacing={3}>
+              <TextField
+                required
+                id="edit-name-field"
+                label="Item Name"
+                defaultValue={itemInfo[1]}
+                onChange={(e) => { itemInfo[1] = e.target.value; setItemInfo([...itemInfo]); }}
+              />
+              <Autocomplete
+                id="edit-category-field"
+                freeSolo
+                includeInputInList={true}
+                isOptionEqualToValue={(option, value) => (option === value || (!value && option === "No Category")) }
+                options={categories}
+                value={itemInfo[2]}
+                onChange={(e, newValue) => {
+                    itemInfo[2] = (!newValue) ? "No Category" : newValue;
+                    itemInfo[3] = "No Sub-Category";
+                    if (categories.includes(newValue)) {
+                        loadSubCategories(itemInfo[2]);
+                    }
+                    else {
+                        setSubCategories(["No Sub-Category"])
+                    }
+                    setItemInfo([...itemInfo]);
+                }}
+                renderInput={(params) => <TextField {...params} label="Category" />}
+              />
+              <Autocomplete
+                id="edit-subcategory-field"
+                freeSolo
+                includeInputInList={true}
+                isOptionEqualToValue={(option, value) => (option === value || (!value && option === "No Sub-Category")) }
+                options={subCategories}
+                value={itemInfo[3]}
+                onChange={(e, newValue) => { itemInfo[3] = (!newValue) ? "No Sub-Category" : newValue; setItemInfo([...itemInfo]); }}
+                renderInput={(params) => <TextField {...params} label="Sub-Category" />}
+              />
+            </Stack>
           </DialogContent>
+
           <DialogActions>
-            <Button onClick={handleEditCancel}>
-              Cancel
-            </Button>
-            <Button onClick={handleEditSubmit}>Ok</Button>
+            <Button onClick={handleEditCancel}>Cancel</Button>
+            <Button onClick={handleEditSubmit}>Submit</Button>
           </DialogActions>
         </Dialog>
       )}
