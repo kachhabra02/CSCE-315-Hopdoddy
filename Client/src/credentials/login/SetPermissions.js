@@ -19,7 +19,8 @@ const Permission = () => {
     function getData(userId){
         API.get(`/users?email=${userId}`).then((res) => {
             if(res.status < 300){
-                setData(res.data)
+                console.log(res.data);
+                setData(res.data);
                 setUserExists(true);
             }
             
@@ -29,17 +30,17 @@ const Permission = () => {
     useEffect(() => {
         if(isAuthenticated){
         //get user from backend
-        console.log(user.email);
         getData(user.email);
         console.log(data);
         console.log(userExists);
-        if(userExists){
+        if(data != []){
             console.log("here we go");
             //get permissions from backend
             let isAdmin = data[0]?.is_admin;
             let isManager = data[0]?.is_manager;
             // let isAdmin = true;
             // let isManager = true;
+            console.log(isAdmin);
             if(isAdmin){
                 let obj = {
                     name: user.name,
@@ -68,7 +69,7 @@ const Permission = () => {
                 setUserObj(obj);
             }
         }
-    }})
+    }}, [])
     
 }
 export default Permission
