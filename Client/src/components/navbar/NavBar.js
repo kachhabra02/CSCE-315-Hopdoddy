@@ -61,6 +61,7 @@ function NavBar({onUpdate}) {
     const location = useLocation();
     const[{userObj}, {getData}] = usePermission();
     const{isAuthenticated} = useAuth0();
+    const[linksMap, setLinksMap] = useState(defaultLinksMap);
     // really really jank way of fixing the Google Translate Element
     const [isCustomized, tryCustomizing] = useState({});
     useLayoutEffect(() => {
@@ -91,7 +92,7 @@ function NavBar({onUpdate}) {
                 `
             );
         } else {
-            setTimeout(() => tryCustomizing({}), 500)
+            setTimeout(() => tryCustomizing({}), 100)
         }
     }, [isCustomized])
 
@@ -109,18 +110,17 @@ function NavBar({onUpdate}) {
     useEffect(() => {
         console.log(userObj);
         if(userObj.isManager){
-            locationLinksMap = managerLinksMap;
+            setLinksMap(managerLinksMap);
         }
         else if(userObj.isCashier){
-            locationLinksMap = cashierLinksMap;
+            setLinksMap(cashierLinksMap);
         } 
         else{
-            locationLinksMap = defaultLinksMap;
+            setLinksMap(defaultLinksMap);
         }
     }, [userObj]);
     
-
-    if (locationLinksMap[location.pathname] === null) {
+    if (linksMap[location.pathname] === null) {
         return <></>
     }
 
@@ -131,8 +131,8 @@ function NavBar({onUpdate}) {
             </Typography>
             <div id='navbar-buttons'>
                 {(location.pathname === '/customer' 
-                    ? [() => <CartButton onUpdate={onUpdate}/>].concat(locationLinksMap[location.pathname]) 
-                    : (locationLinksMap[location.pathname] ?? locationLinksMap.default)
+                    ? [() => <CartButton onUpdate={onUpdate}/>].concat(linksMap[location.pathname]) 
+                    : (linksMap[location.pathname] ?? linksMap.default)
                  )
                     .map((ButtonLink, index) => (
                         <React.Fragment key={index}>

@@ -13,17 +13,20 @@ const API = axios.create({
 const usePermission = () => { 
     const {user, isAuthenticated} = useAuth0();
     const {userObj, setUserObj} = useAuth();
-    const [data, setData] = useState([]);
-    const [userExists, setUserExists] = useState(false);
+    // const [data, setData] = useState([]);
+    // const [userExists, setUserExists] = useState(false);
     function getData(){
+        // let data;
+        // let userExists = false;
         API.get(`/users?email=${user.email}`).then((res) => {
             if(res.status < 300){
-                //console.log(res.data);
-                setData(res.data);
-                setUserExists(true);
+                console.log(res.data);
+                // setData(res.data);
+                // setUserExists(true);
+                return {data: res.data, userExists: (res.data?.length > 0)};
             }
             
-        }).then(() => {
+        }).then(({data,userExists}) => {
             if(userExists){
                 // console.log("here we go");
                 //get permissions from backend
@@ -55,7 +58,7 @@ const usePermission = () => {
                         name: user.name,
                         isAdmin: false,
                         isManager: false,
-                        isCashier: false
+                        isCashier: true
                     };
                     setUserObj(obj);
                 }
