@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 
-import { Box, Button, Card, CardActions, CardContent, Modal, Stack, TextField, Typography } from '@mui/material';
+import { Box, Button, Card, CardActions, CardContent, Checkbox, FormControlLabel, FormGroup, Modal, Stack, TextField, Typography } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import MUIDataTable from 'mui-datatables';
 
@@ -72,6 +72,13 @@ function Admin() {
 
   const columns = [
     {
+      name: 'ID',
+      options: {
+        filter: false,
+        sort: true
+      }
+    },
+    {
       name: 'First',
       options: {
         filter: false,
@@ -88,8 +95,8 @@ function Admin() {
     {
       name: 'Email',
       options: {
-        filter: true,
-        sort: true
+        filter: false,
+        sort: false
       }
     },
     {
@@ -103,7 +110,7 @@ function Admin() {
       name: 'Actions',
       options: {
         filter: false,
-        sort: true,
+        sort: false,
         customBodyRender: data => {
           return (
             <Button
@@ -173,6 +180,28 @@ function Admin() {
                     margin="normal"
                     fullWidth
                   />
+                  <FormGroup>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name="is_admin" 
+                          checked={currUser.is_admin} 
+                          onChange={handleChange} 
+                        />
+                      }
+                      label="Is Admin"
+                    />
+                    <FormControlLabel
+                      control={
+                        <Checkbox 
+                          name="is_manager" 
+                          checked={currUser.is_manager} 
+                          onChange={handleChange} 
+                        />
+                      }
+                      label="Is Manager"
+                    />
+                  </FormGroup>
                 </Stack>
               </CardContent>
               <CardActions>
@@ -204,6 +233,7 @@ async function getUsers() {
     const res = await API.get(`/users`);
     if (res.status < 300) {
       return (res.data.map((item) => [
+        item.employee_id,
         item.first_name,
         item.last_name,
         item.email,
