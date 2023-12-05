@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Profile from './Profile';
@@ -21,8 +22,8 @@ const {logout, isAuthenticated} = useAuth0();
     setAnchorEl(null);
   };
   return (
-    isAuthenticated && (<div>
-      <Button
+    isAuthenticated && (<>
+      <IconButton
         id="demo-positioned-button"
         aria-controls={open ? 'demo-positioned-menu' : undefined}
         aria-haspopup="true"
@@ -30,7 +31,7 @@ const {logout, isAuthenticated} = useAuth0();
         onClick={handleClick}
       >
         <Profile />
-      </Button>
+      </IconButton>
       <Menu
         id="demo-positioned-menu"
         aria-labelledby="demo-positioned-button"
@@ -50,6 +51,6 @@ const {logout, isAuthenticated} = useAuth0();
         <MenuItem onClick={handleClose}>My account</MenuItem> */}
         <MenuItem onClick={ handleCloseTwo}>Logout</MenuItem>
       </Menu>
-    </div>)
+    </>)
   );
 }
