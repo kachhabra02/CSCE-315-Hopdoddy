@@ -12,11 +12,22 @@ const queries = require('./queries');
 /***** /api/users *****/
 // Get information for all users
 router.get('/', async (req, res) => {
+    // Get necessary info from request
+    const email = req.query.email;
+
     // Send query
-    const queryObj = {
-        text: queries.getAllUsersQuery,
-        values: []
-    };
+    const queryObj = 
+        (!email)
+        ?
+            {
+                text: queries.getAllUsersQuery,
+                values: []
+            }
+        :
+            {
+                text: queries.getUserFromEmailQuery,
+                values: [email]
+            };
 
     const client = await pool.connect();
     const result = await client.query(queryObj, (error, results) => {
@@ -48,12 +59,12 @@ router.post('/', async (req, res) => {
         return;
     }
 
-    if (!req.body.is_manager) {
+    if (req.body?.is_manager === undefined) {
         res.status(400).send("Must provide manager status (is_manager)!");
         return;
     }
 
-    if (!req.body.is_admin) {
+    if (req.body?.is_admin === undefined) {
         res.status(400).send("Must provide admin status (is_admin)!");
         return;
     }
@@ -121,12 +132,12 @@ router.put('/:id', async (req, res) => {
         return;
     }
 
-    if (!req.body.is_manager) {
+    if (req.body?.is_manager === undefined) {
         res.status(400).send("Must provide manager status (is_manager)!");
         return;
     }
 
-    if (!req.body.is_admin) {
+    if (!req.body?.is_admin === undefined) {
         res.status(400).send("Must provide admin status (is_admin)!");
         return;
     }
