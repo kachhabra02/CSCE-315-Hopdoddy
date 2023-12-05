@@ -31,7 +31,7 @@ function MenuBoard() {
     const floatVal = parseFloat(item.price);
     const cost = floatVal.toFixed(2);
 
-    return <strong><p>${cost}</p></strong>;
+    return <p className="price">${cost}</p>;
   }
 
   if (!menu) {
@@ -55,33 +55,27 @@ function MenuBoard() {
         {Object.keys(menu).map(category => (
           <div key={category} className="category-section">
             <h2>{category}</h2>
-            {Object.keys(menu[category]).map(sub_category => (
-              <div key={sub_category} className="sub-category-section">
-                <h3>{sub_category}</h3>
+            {/* {Object.keys(menu[category]).map(sub_category => (
+              <div key={sub_category}> */}
+                {/* <h3>{sub_category}</h3> */}
                 <ul>
-                  {menu[category][sub_category].map((item, index) => (
+                  {menu[category].map((item, index) => (
                     <li key={index}>
                       <Card sx={
-                          { 
-                            width: 300, 
-                            boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)', 
-                            transition: '0.3s',
-                            '&:hover': {
-                              boxShadow: '0 8px 16px 0 rgba(0,0,0,0.2)',
-                            }
-                          }
+                          { width: 1 }
                         }>
-                        <CardMedia sx={{height: 300}}>
+                        <CardMedia sx={{height: 175}}>
                           <img 
+                            className="imageStyle"
                             // Name like Goodnight/Good Cause -> goodnight-good_cause.jpg
                             src={`/images/${item.item_name.replace(/\s+/g, '_').replace(/\//g, '-').toLowerCase()}.jpg`}
                             alt={item.item_name}
                             onError={imageNotFound}
-                            height={300}
+                            height={175}
                           />
                         </CardMedia>
-                        <CardContent>
-                            <Box textAlign="center">
+                        <CardContent className="card-content">
+                            {/* <Box textAlign="center"> */}
 
                               <p className="nameStyle">{item.item_name}</p>
 
@@ -89,14 +83,14 @@ function MenuBoard() {
 
                               {renderDescription(item)} {/* Renders description, checking to see whether it should be displayed or not*/}
 
-                            </Box>
+                            {/* </Box> */}
                         </CardContent>
                       </Card>  
                     </li>
                   ))}
                 </ul>
-              </div>
-            ))}
+              {/* </div> */}
+            {/* // ))} */}
           </div>
         ))}
       </div>
@@ -111,26 +105,25 @@ const getMenu = (callback) => {
         const items = res.data
         // console.log(res.data);
 
-        // Group by category and subcategory
+        // Group by only category
         const menu = {};
         items.forEach(item => {
           const { category, sub_category, display_item } = item;
+
           if (category && sub_category) {
+
             if (!menu[category]) {
-              menu[category] = {};
-            }
-            if (!menu[category][sub_category]) {
-              menu[category][sub_category] = [];
+              menu[category] = [];
             }
 
-            // display_item (t / f) , display_image (t / f) , display_description (t / f) , item_description (words)
-            
             // Check here if the item should be displayed prior to pushing it...
+            // display_item (t / f) , display_image (t / f) , display_description (t / f) , item_description (words)
             if (display_item === true) {
-              menu[category][sub_category].push(item);
+              menu[category].push(item);
             }
-
+            
           }
+
         });
 
         // console.log(menu);
