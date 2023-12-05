@@ -40,7 +40,7 @@ function MenuManagment() {
          console.log('Success');
          console.log(res.data);
          setMenu(res.data.map((item) => [item.item_id, item.item_name, item.category, item.sub_category,
-                                         item.price, item.is_modification.toString(), item.display_item.toString(),
+                                         parseFloat(item.price).toFixed(2), item.is_modification.toString(), item.display_item.toString(),
                                          item.display_image.toString(), item.item_description]));
        }
        else {
@@ -136,7 +136,7 @@ function MenuManagment() {
         menuItem[1],
         (!menuItem[2]) ? "No Category" : menuItem[2],
         (!menuItem[3]) ? "No Category" : menuItem[3],
-        menuItem[4],
+        parseFloat(menuItem[4]).toFixed(2),
         menuItem[5],
         menuItem[6],
         menuItem[7],
@@ -338,6 +338,15 @@ function MenuManagment() {
                 value={itemInfo[3]}
                 onChange={(e, newValue) => { itemInfo[3] = (!newValue) ? "No Sub-Category" : newValue; setItemInfo([...itemInfo]); }}
                 renderInput={(params) => <TextField {...params} label="Sub-Category" />}
+              />
+              <TextField
+                required
+                id="edit-price-field"
+                label={"Price"}
+                type="number"
+                inputProps={{ min: "0", step: "0.01" }}
+                value={parseFloat(itemInfo[4]).toFixed(2)}
+                onChange={(e) => { itemInfo[4] = parseFloat(e.target.value).toFixed(2); setItemInfo([...itemInfo]); }}
               />
             </Stack>
           </DialogContent>
