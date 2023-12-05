@@ -27,6 +27,7 @@ import History from './components/manager/datetime-pages/History.js';
 import Usage from './components/manager/datetime-pages/Usage.js';
 
 import { useState } from 'react';
+import Admin from './components/admin/Admin.js';
 
 const theme = createTheme({
   palette: {
@@ -88,6 +89,7 @@ function App() {
           </AppBar>
           <Routes>
             {route('/', Landing)}
+            {route('/admin', Admin)}
             {route('/menu', Menu)}
             {route('*', NotFound)}
             {route('/cashier', Cashier, CGuard)}
