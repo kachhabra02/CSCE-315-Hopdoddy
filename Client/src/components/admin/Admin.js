@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 
-import { Box, Button, Card, CardActions, CardContent, Checkbox, FormControlLabel, FormGroup, Modal, Stack, TextField, Typography } from '@mui/material';
+import { Alert, Box, Button, Card, CardActions, CardContent, Checkbox, FormControlLabel, FormGroup, Modal, Snackbar, Stack, TextField, Typography } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import MUIDataTable from 'mui-datatables';
 
@@ -51,6 +51,7 @@ function Admin() {
   const [currUser, setCurrUser] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [hasEdited, setHasEdited] = useState(false);
+  const [alertStatus, setAlertStatus] = useState({ open: false, durration: 5000 });
   const [editMode, setEditMode] = useState();
 
   React.useEffect(() => {
@@ -60,6 +61,20 @@ function Admin() {
         setRows(rows);
       });
   }, []);
+
+  const openAlertFromResponse = (error) => {
+    const message = error.message + ". " + error.response.data;
+    setAlertStatus({
+      open: true,
+      serverity: 'error',
+      message: message,
+      durration: 200 * message.length
+    });
+  }
+
+  const closeAlert = (event, reason) => {
+    setAlertStatus({ ...alertStatus, open: false, durration: 5000 });
+  }
 
   const handleEditUser = (user) => {
     setEditMode(updateMode);
@@ -92,7 +107,7 @@ function Admin() {
   }
 
   const handleCreateSave = () => {
-    createUser(currUser)
+    createUser(currUser, openAlertFromResponse)
       .then(() => {
         handleEditClose();
         return getUsers();
@@ -275,7 +290,7 @@ function Admin() {
                     Element={Button}
                     variant='contained' 
                     title={ editMode === createMode ? 'Create User?' : 'Save Changes?' }
-                    body='This will push changes to the backend.'
+                    body={ 'This will push changes to the backend.' + (hasEdited ? '' : ' (No Changes)') }
                     color='success' 
                     onClick={ editMode === createMode ? handleCreateSave : handleEditSave }
                     children={<SaveIcon />}
@@ -306,6 +321,14 @@ function Admin() {
           </Box>
         </Modal>
       )}
+      <Snackbar 
+        open={alertStatus.open} 
+        onClose={closeAlert}
+        autoHideDuration={alertStatus.durration}
+        anchorOrigin={{vertical: "bottom", horizontal: "center"}}
+      >
+        <Alert severity={alertStatus.serverity} sx={{width: "90vw"}} onClose={closeAlert}>{alertStatus.message}</Alert>
+      </Snackbar>
     </Box>
   );
 }
@@ -343,25 +366,26 @@ async function getUsers() {
 
 async function updateUser(user) {
   try {
-    await API.put(`/users/${user.employee_id}`, user);
+    return await API.put(`/users/${user.employee_id}`, user);
   }
   catch (error) {
     console.log(error);
   }
 }
 
-async function createUser(user) {
+async function createUser(user, handleError) {
   try {
-    await API.post(`/users`, user);
+    return await API.post(`/users`, user);
   }
   catch (error) {
     console.log(error);
+    handleError && handleError(error);
   }
 }
 
 async function deleteUser(user) {
   try {
-    await API.delete(`/users/${user.employee_id}`);
+    return await API.delete(`/users/${user.employee_id}`);
   }
   catch (error) {
     console.log(error);
