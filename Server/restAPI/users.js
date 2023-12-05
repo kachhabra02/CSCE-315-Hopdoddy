@@ -59,12 +59,12 @@ router.post('/', async (req, res) => {
         return;
     }
 
-    if (!req.body.is_manager) {
+    if (req.body?.is_manager === undefined) {
         res.status(400).send("Must provide manager status (is_manager)!");
         return;
     }
 
-    if (!req.body.is_admin) {
+    if (req.body?.is_admin === undefined) {
         res.status(400).send("Must provide admin status (is_admin)!");
         return;
     }
@@ -132,12 +132,12 @@ router.put('/:id', async (req, res) => {
         return;
     }
 
-    if (!req.body.is_manager) {
+    if (req.body?.is_manager === undefined) {
         res.status(400).send("Must provide manager status (is_manager)!");
         return;
     }
 
-    if (!req.body.is_admin) {
+    if (!req.body?.is_admin === undefined) {
         res.status(400).send("Must provide admin status (is_admin)!");
         return;
     }

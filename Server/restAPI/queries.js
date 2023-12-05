@@ -18,7 +18,7 @@ const getModificationsQuery = "SELECT Item_ID, Item_Name, Price, Item_Descriptio
                               "Is_Valid_Modification($3, Item_ID) ORDER BY Item_ID ASC";
 
 // View menu
-const viewMenuQuery = "SELECT Item_ID, Item_Name, Category, Sub_Category, Price, Is_Modification, Display_Item, Display_Image, " +
+const viewMenuQuery = "SELECT Item_ID, Item_Name, Category, Sub_Category, Price, Is_Modification, Display_Item, Display_Image, Feature_Item" +
                       "Item_Description FROM Menu WHERE Is_Available ORDER BY Item_ID ASC";
 
 // Delete menu item
@@ -46,6 +46,7 @@ function updateMenuItemQuery(hasName, hasPrice, hasMod) {
 
     query += `, Display_Item = $${paramNum++}`;
     query += `, Display_Image = $${paramNum++}`;
+    query += `, Feature_Item = $${paramNum++}`;
     query += `, Item_Description = $${paramNum++}`;
 
     query += ` WHERE Item_ID = $${paramNum}`;
@@ -54,8 +55,8 @@ function updateMenuItemQuery(hasName, hasPrice, hasMod) {
 
 // Add menu item
 function addMenuItemQueries(numIngredients) {
-    var query_p1 = "INSERT INTO Menu (Item_Name, Category, Sub_Category, Price, Is_Modification, Display_Item, Display_Image, "
-                   "Item_Description) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING Item_ID";
+    var query_p1 = "INSERT INTO Menu (Item_Name, Category, Sub_Category, Price, Is_Modification, Display_Item, Display_Image, Feature_Item"
+                   "Item_Description) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING Item_ID";
     
     var query_p2 = "INSERT INTO Ingredients_List (Item_ID, Inventory_ID, Quantity) VALUES ";
     for (let i = 0; i < numIngredients; i++) {
