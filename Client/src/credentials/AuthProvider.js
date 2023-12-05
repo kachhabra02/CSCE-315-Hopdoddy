@@ -4,9 +4,9 @@ const AuthContext = createContext();
 
 const defaultUser = {
   name: "Anonymous",
-  isAdmin: true,
-  isManager: true, // TODO: Update this object when login is possible.
-  isCashier: true
+  isAdmin: false,
+  isManager: false, // TODO: Update this object when login is possible.
+  isCashier: false
 };
 
 export const useAuth = () => {
