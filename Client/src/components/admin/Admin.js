@@ -26,20 +26,47 @@ const options = {
   resizableColumns: true
 };
 
+const createRow = [
+  '', 
+  '', 
+  '', 
+  '', 
+  '', 
+  {
+    is_new: true,
+    is_manager: false, 
+    is_admin: false, 
+    email: '',
+    first_name: '',
+    last_name: '',
+  }
+]
+
+const updateMode = 42;
+const createMode = 24;
 
 function Admin() {
   const [rows, setRows] = useState(null);
   const [currUser, setCurrUser] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [editMode, setEditMode] = useState();
 
   React.useEffect(() => {
     getUsers()
       .then(rows => {
+        rows.push(createRow);
         setRows(rows);
       });
   }, []);
 
   const handleEditUser = (user) => {
+    setEditMode(updateMode);
+    setCurrUser(user);
+    setIsEditing(true);
+  }
+
+  const handleCreateUser = (user) => {
+    setEditMode(createMode);
     setCurrUser(user);
     setIsEditing(true);
   }
@@ -57,9 +84,36 @@ function Admin() {
         return getUsers();
       })
       .then(rows => {
+        rows.push(createRow);
         setRows(rows);
       });
   }
+
+  const handleCreateSave = () => {
+    createUser(currUser)
+      .then(() => {
+        setCurrUser(null);
+        setIsEditing(false);
+        return getUsers();
+      })
+      .then(rows => {
+        rows.push(createRow);
+        setRows(rows);
+      });
+  }
+
+  // const handleDeleteSave = () => {
+  //   deleteUser(currUser)
+  //     .then(() => {
+  //       setCurrUser(null);
+  //       setIsEditing(false);
+  //       return getUsers();
+  //     })
+  //     .then(rows => {
+  //       rows.push(createRow);
+  //       setRows(rows);
+  //     });
+  // }
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -113,11 +167,20 @@ function Admin() {
         filter: false,
         sort: false,
         customBodyRender: data => {
+          if (data?.is_new) return (
+            <Button
+              onClick={() => handleCreateUser(data)}
+              variant='outlined'
+              color='secondary'
+              startIcon={<AddIcon />}
+              children={'Create'}
+            />
+          );
           return (
             <Button
               onClick={() => handleEditUser(data)}
               variant='outlined'
-              color='warning'
+              color='secondary'
               startIcon={<EditIcon />}
               children={'Edit user'}
             />
@@ -153,7 +216,7 @@ function Admin() {
             <Card sx={{ minWidth: 345 }}>
               <CardContent>
                 <Typography variant='h6' paddingBottom={3}>
-                  Edit User
+                  { editMode === createMode ? 'Create User' : 'Edit User' }
                 </Typography>
                 <Stack spacing={4}>
                   <TextField 
@@ -210,10 +273,10 @@ function Admin() {
                   <ConfirmationOnClickElement 
                     Element={Button}
                     variant='contained' 
-                    title='Save Changes?'
+                    title={ editMode === createMode ? 'Create User?' : 'Save Changes?' }
                     body='This will push changes to the backend.'
                     color='success' 
-                    onClick={handleEditSave}
+                    onClick={ editMode === createMode ? handleCreateSave : handleEditSave }
                     children={<SaveIcon />}
                   />
                 </Box>
@@ -267,7 +330,16 @@ async function getUsers() {
 
 async function updateUser(user) {
   try {
-    const res = await API.put(`/users/${user.employee_id}`, user);
+    await API.put(`/users/${user.employee_id}`, user);
+  }
+  catch (error) {
+    console.log(error);
+  }
+}
+
+async function createUser(user) {
+  try {
+    await API.post(`/users`, user);
   }
   catch (error) {
     console.log(error);
