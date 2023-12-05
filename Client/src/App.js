@@ -26,10 +26,12 @@ import WhatSellsTogether from './components/manager/datetime-pages/WhatSellsToge
 import History from './components/manager/datetime-pages/History.js';
 import Usage from './components/manager/datetime-pages/Usage.js';
 import { Auth0Provider } from "@auth0/auth0-react";
+import Admin from './components/admin/Admin.js';
 
 import { useState } from 'react';
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
+
 
 const theme = createTheme({
   palette: {
@@ -95,6 +97,7 @@ function App() {
           </AppBar>
           <Routes>
             {route('/', Landing)}
+            {route('/admin', Admin)}
             {route('/menu', Menu)}
             {route('*', NotFound)}
             {route('/cashier', Cashier, CGuard)}
