@@ -87,13 +87,13 @@ function NavBar({onUpdate}) {
 
     const gtref = useRef(null);
     useEffect(() => {
-        console.log(isAuthenticated);
+        console.log("isAuthenticated changed in auth0");
         if(isAuthenticated){
             getData();
         }
-    }, [isAuthenticated, getData]);
+    }, [isAuthenticated]);
+
     useEffect(() => {
-        console.log(userObj);
         if(userObj.isManager){
             setLinksMap(managerLinksMap);
         }

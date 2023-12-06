@@ -9,7 +9,7 @@ import Cashier from "./components/Cashier.js";
 import Customer from './components/Customer.js';
 
 import { AuthProvider } from "./credentials/AuthProvider.js";
-import { CashierGuard as CGuard, ManagerGuard as MGuard } from "./credentials/RouteGuards.js";
+import { CashierGuard as CGuard, ManagerGuard as MGuard, AdminGuard as AGuard } from "./credentials/RouteGuards.js";
 
 import AppBar from '@mui/material/AppBar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -97,7 +97,7 @@ function App() {
           </AppBar>
           <Routes>
             {route('/', Landing)}
-            {route('/admin', Admin)}
+            {route('/admin', Admin, AGuard)}
             {route('/menu', Menu)}
             {route('*', NotFound)}
             {route('/cashier', Cashier, CGuard)}
