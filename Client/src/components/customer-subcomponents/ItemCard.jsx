@@ -55,19 +55,9 @@ function ItemCard({item, onUpdate, width, modifier}) {
                           subtitle={priceFormat.format(parseFloat(item.price))}
                           sx={{position: "relative"}}
                           actionIcon={
-                              <IconButton 
-                              //   onClick={addToCart} 
-                              size="small" 
-                              sx={{left: -7.5, 
-                                    color: "white",
-                                    // bgcolor: 'rgb(255, 255, 255)',
-                                    "&:hover": {
-                                        bgcolor: "rgba(0, 0, 0, 0.54)",
-                                    }
-                                 }}
-                                 >
-                                <MdAddShoppingCart/>
-                            </IconButton>
+                            <div style={{paddingRight: 10}}>
+                                <MdAddShoppingCart fontSize="large" color="white"/>
+                            </div>
                           }
                         />
                         <Collapse in={open} collapsedSize={0} 

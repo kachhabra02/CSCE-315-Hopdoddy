@@ -37,6 +37,7 @@ function ModificationPanel({open, onClose, modifications, item, onUpdate}) {
         // console.log(newOrders)
         onUpdate({});
         localStorage.setItem("cart", JSON.stringify(newOrders));
+        onExit();
     }
 
     return (

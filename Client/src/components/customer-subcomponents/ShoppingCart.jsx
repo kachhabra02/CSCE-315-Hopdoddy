@@ -102,7 +102,7 @@ function ShoppingCart({open, onClose, onUpdate}) {
           open={open}
           onClose={onClose}
         >
-            <DialogTitle sx={{"min-width": 250}}>
+            <DialogTitle sx={{"min-width": 375}}>
                 {/* <MdOutlineShoppingCart/> */}
                 Shopping Cart
                 {/* <Divider orientation="vertical" variant="middle" flexItem/> */}
@@ -124,7 +124,7 @@ function ShoppingCart({open, onClose, onUpdate}) {
                     cart?.map((item, i) => (
                         <ListItem 
                           secondaryAction={(
-                            <IconButton edge="end" size="small" onClick={removeOrder(i)}>
+                            <IconButton edge="end" size="small" color="error" onClick={removeOrder(i)}>
                                 {item?.is_modification ? <MdClear/> : <BsFillTrash3Fill/>}
                             </IconButton>
                           )}
@@ -153,9 +153,9 @@ function ShoppingCart({open, onClose, onUpdate}) {
                 } </List>
             </DialogContent>
             <DialogActions>
-                {cart && `Total: ${priceFormat.format(parseFloat(total()))}`}
-                {cart && <Button variant="text" onClick={removeAll} color="error">Remove All</Button>}
-                <Button variant="text" onClick={placeTransaction}>Submit</Button>
+                {cart && <span style={{paddingRight: 4}}>{`Total: ${priceFormat.format(parseFloat(total()))}`}</span>}
+                {cart && <Button variant="contained" onClick={removeAll} color="error">Remove All</Button>}
+                <Button variant="contained" onClick={placeTransaction}>Submit</Button>
             </DialogActions>
         </Dialog>
         <Snackbar 
