@@ -1,25 +1,34 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthProvider';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const makeGuard = (authenticate) => function Guard({ children }) {
   
   const navigate = useNavigate();
-  const { user } = useAuth();
-  const hasPermission = authenticate(user);
+  const { userObj } = useAuth();
+  const hasPermission = authenticate(userObj);
+  const [tempAccess, setTempAccess] = useState(true); // Temporary access state
 
   useEffect(() => {
-    if (!hasPermission) {
-      navigate('/');  // TODO: More complicated action than a redirect will be needed here. Probably.
+    const timer = setTimeout(() => {
+      setTempAccess(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!hasPermission && !tempAccess) {
+      navigate('/');
     } 
   }, [hasPermission, navigate]);
 
-  if (!hasPermission) {
+  if (!hasPermission && !tempAccess) {
     return null;
   }
 
   return children;
 }
 
-export const CashierGuard = makeGuard((user) => user.isCashier || user.isManager);
-export const ManagerGuard = makeGuard((user) => user.isManager);
+export const CashierGuard = makeGuard((userObj) => userObj.isCashier || userObj.isManager || userObj.isAdmin);
+export const ManagerGuard = makeGuard((userObj) => userObj.isManager || userObj.isAdmin);
+export const   AdminGuard = makeGuard((userObj) => userObj.isAdmin);

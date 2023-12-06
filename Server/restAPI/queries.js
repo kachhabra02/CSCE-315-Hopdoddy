@@ -18,8 +18,8 @@ const getModificationsQuery = "SELECT Item_ID, Item_Name, Price, Item_Descriptio
                               "Is_Valid_Modification($3, Item_ID) ORDER BY Item_ID ASC";
 
 // View menu
-const viewMenuQuery = "SELECT Item_ID, Item_Name, Category, Sub_Category, Price, Is_Modification, Display_Item, Display_Image, " +
-                      "Display_Description, Item_Description FROM Menu WHERE Is_Available ORDER BY Item_ID ASC";
+const viewMenuQuery = "SELECT Item_ID, Item_Name, Category, Sub_Category, Price, Is_Modification, Display_Item, Display_Image, Feature_Item, " +
+                      "Item_Description FROM Menu WHERE Is_Available ORDER BY Item_ID ASC";
 
 // Delete menu item
 const deleteMenuItemQuery = "UPDATE Menu SET Is_Available = FALSE WHERE Item_ID = $1";
@@ -46,7 +46,7 @@ function updateMenuItemQuery(hasName, hasPrice, hasMod) {
 
     query += `, Display_Item = $${paramNum++}`;
     query += `, Display_Image = $${paramNum++}`;
-    query += `, Display_Description = $${paramNum++}`;
+    query += `, Feature_Item = $${paramNum++}`;
     query += `, Item_Description = $${paramNum++}`;
 
     query += ` WHERE Item_ID = $${paramNum}`;
@@ -55,8 +55,8 @@ function updateMenuItemQuery(hasName, hasPrice, hasMod) {
 
 // Add menu item
 function addMenuItemQueries(numIngredients) {
-    var query_p1 = "INSERT INTO Menu (Item_Name, Category, Sub_Category, Price, Is_Modification, Display_Item, Display_Image, "
-                   "Display_Description, Item_Description) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING Item_ID";
+    var query_p1 = "INSERT INTO Menu (Item_Name, Category, Sub_Category, Price, Is_Modification, Display_Item, Display_Image, Feature_Item, "
+                   "Item_Description) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING Item_ID";
     
     var query_p2 = "INSERT INTO Ingredients_List (Item_ID, Inventory_ID, Quantity) VALUES ";
     for (let i = 0; i < numIngredients; i++) {
@@ -123,7 +123,7 @@ const addInventoryItemQuery = "INSERT INTO Inventory (Inventory_Name, Price, Qua
 /****** TRANSACTIONS ******/
 // Place a transaction
 function placeTransactionQueries(numItemsOrdered) {
-    var query_p1 = "INSERT INTO Transactions (Employee_ID) VALUES (SELECT Employee_ID FROM Employees WHERE Email = $1) RETURNING Transaction_ID";
+    var query_p1 = "INSERT INTO Transactions (Employee_ID) VALUES ((SELECT Employee_ID FROM Employees WHERE Email = $1)) RETURNING Transaction_ID";
     
     var query_p2 = "INSERT INTO Order_List (Transaction_ID, Item_ID) VALUES ";
     for (let i = 0; i < numItemsOrdered; i++) {
@@ -217,13 +217,16 @@ const getProductUsageQuery = "SELECT Inventory_ID, Inventory_Name, COALESCE(Tota
 
 /****** USERS ******/
 // Get information for all users
-const getAllUsersQuery = "SELECT Employee_ID, First_Name, Last_Name, Email, Is_Manager, Is_Admin WHERE Is_Available";
+const getAllUsersQuery = "SELECT Employee_ID, First_Name, Last_Name, Email, Is_Manager, Is_Admin FROM Employees WHERE Is_Available";
+
+// Get specific user information from email
+const getUserFromEmailQuery = "SELECT Employee_ID, First_Name, Last_Name, Email, Is_Manager, Is_Admin FROM Employees WHERE Email = $1 AND Is_Available";
 
 // Add new user
 const addUserQuery = "INSERT INTO Employees (First_Name, Last_Name, Email, Is_Manager, Is_Admin) VALUES ($1, $2, $3, $4, $5)";
 
 // Get specific user information
-const getUserQuery = "SELECT First_Name, Last_Name, Email, Is_Manager, Is_Admin WHERE Employee_ID = $1 AND Is_Available";
+const getUserQuery = "SELECT First_Name, Last_Name, Email, Is_Manager, Is_Admin FROM Employees WHERE Employee_ID = $1 AND Is_Available";
 
 // Update user information
 const updateUserQuery = "UPDATE Employees SET First_Name = $1, Last_Name = $2, Email = $3, Is_Manager = $4, Is_Admin = $5 " +
@@ -255,6 +258,7 @@ module.exports = {
     getRestockReportQuery,
     getProductUsageQuery,
     getAllUsersQuery,
+    getUserFromEmailQuery,
     addUserQuery,
     getUserQuery,
     updateUserQuery,

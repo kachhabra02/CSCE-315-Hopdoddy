@@ -9,7 +9,7 @@ import Cashier from "./components/Cashier.js";
 import Customer from './components/Customer.js';
 
 import { AuthProvider } from "./credentials/AuthProvider.js";
-import { CashierGuard as CGuard, ManagerGuard as MGuard } from "./credentials/RouteGuards.js";
+import { CashierGuard as CGuard, ManagerGuard as MGuard, AdminGuard as AGuard } from "./credentials/RouteGuards.js";
 
 import AppBar from '@mui/material/AppBar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -25,8 +25,13 @@ import Excess from './components/manager/datetime-pages/Excess.js';
 import WhatSellsTogether from './components/manager/datetime-pages/WhatSellsTogether.js';
 import History from './components/manager/datetime-pages/History.js';
 import Usage from './components/manager/datetime-pages/Usage.js';
+import { Auth0Provider } from "@auth0/auth0-react";
+import Admin from './components/admin/Admin.js';
 
 import { useState } from 'react';
+const domain = process.env.REACT_APP_AUTH0_DOMAIN;
+const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
+
 
 const theme = createTheme({
   palette: {
@@ -81,6 +86,10 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <Auth0Provider 
+        domain = {domain}
+        clientId={clientId}
+        redirectUri={window.location.origin}>
       <AuthProvider>
         <BrowserRouter>
           <AppBar position = 'fixed'>
@@ -88,6 +97,7 @@ function App() {
           </AppBar>
           <Routes>
             {route('/', Landing)}
+            {route('/admin', Admin, AGuard)}
             {route('/menu', Menu)}
             {route('*', NotFound)}
             {route('/cashier', Cashier, CGuard)}
@@ -109,6 +119,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </AuthProvider>
+      </Auth0Provider>
     </ThemeProvider>
   );
 }

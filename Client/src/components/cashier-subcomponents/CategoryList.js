@@ -4,8 +4,8 @@ import ItemButton from "./ItemButton";
 import { DynamicButtonGrid } from './cashierContainers'
 
 function CategoryList({categories, clickHandler, selected}) {
-    var categoryButtons = categories.map((item) => (
-        <ItemButton
+    var categoryButtons = categories.map((item, index) => (
+        <ItemButton key={index}
           selected={selected === item.category}
           onClick={clickHandler(item.category)}
         >

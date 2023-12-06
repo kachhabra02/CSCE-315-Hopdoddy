@@ -43,7 +43,7 @@ function TransactionList({ orders, remover }) {
         {orders.map((item, index) => (
         <TableRow key={index}>
           <StyledTableCell component="th" scope="row">
-          {item.item_name}
+            {item.item_name}
           </StyledTableCell>
           <StyledTableCell align="right">{priceFormat.format(parseFloat(item.price))}</StyledTableCell>
           <StyledTableCell align="right">

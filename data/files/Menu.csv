@@ -1,61 +1,61 @@
-﻿Item_ID,Name,Category,Sub_Category,Price,Is_Modification,Is_Available,Display_Item,Display_Image,Display_Description,Item_Description
-1,The Classic,Burgers,Regular,8.5,FALSE,TRUE,TRUE,TRUE,FALSE,"Our classic house burger, topped with lettuce, tomato, onion & Doddy Mayo.  Elevate it with cheddar cheese, steakhouse bacon or other options."
-2,Tillamook Cheddar,,,1,TRUE,TRUE,FALSE,FALSE,FALSE,
-3,Daily's Bacon,,,1.5,TRUE,TRUE,FALSE,FALSE,FALSE,
+﻿Item_ID,Name,Category,Sub_Category,Price,Is_Modification,Is_Available,Display_Item,Display_Image,Feature_Item,Item_Description
+1,The Classic,Burgers,Regular,8.5,FALSE,TRUE,TRUE,TRUE,TRUE,"Our classic house burger, topped with lettuce, tomato, onion & Doddy Mayo.  Elevate it with cheddar cheese, steakhouse bacon or other options."
+2,Tillamook Cheddar,,,1,TRUE,TRUE,FALSE,FALSE,FALSE,No description
+3,Daily's Bacon,,,1.5,TRUE,TRUE,FALSE,FALSE,FALSE,No description
 4,Goodnight/Good Cause,Burgers,Regular,9.75,FALSE,TRUE,TRUE,TRUE,TRUE,"Cheddar cheese, caramelized onions, jalapeños, caffeinated BBQ sauce, Doddy Mayo, lettuce & tomato. A portion of the proceeds are donated to the Tuned In Program, learn more hopdoddy.com/giveback!"
 5,Magic Shroom,Burgers,Regular,9.95,FALSE,TRUE,TRUE,TRUE,FALSE,"Creamy goat cheese, field mushrooms, lettuce, tomato, onion, mayo & basil pesto sauce."
-6,El Diablo,Burgers,Regular,9.5,FALSE,TRUE,TRUE,TRUE,TRUE,"This burger brings the heat - pepper jack cheese, habaneros & serranos, caramelized onions, salsa roja, lettuce, tomato & chipotle aioli sauce."
+6,El Diablo,Burgers,Regular,9.5,FALSE,TRUE,TRUE,TRUE,FALSE,"This burger brings the heat - pepper jack cheese, habaneros & serranos, caramelized onions, salsa roja, lettuce, tomato & chipotle aioli sauce."
 7,Llano Poblano,Burgers,Regular,9.95,FALSE,TRUE,TRUE,TRUE,FALSE,"Pepper jack cheese, steakhouse bacon, seared poblanos, chipotle aioli, lettuce, tomato & onion."
 8,Double Bacon Jam,Burgers,Regular,10.5,FALSE,TRUE,TRUE,TRUE,FALSE,"Two 1/4 lb beef patties topped with both white & yellow American cheeses, house-made tomato bacon jam, mustard grilled onions & pickled mayo."
 9,Mother Nature,Burgers,Regenerative,13.5,FALSE,TRUE,TRUE,TRUE,FALSE,"Force of Nature Grass Fed Beef, Sunny Side Up Fried Egg,  Cheese Frico, Brother's Bond Bourbon onion jam, crispy onions & au poivre aioli"
 10,Buffalo Bill,Burgers,Regenerative,13.95,FALSE,TRUE,TRUE,TRUE,FALSE,"Force of Nature Grass Fed Bison, blue cheese, bacon, lettuce, tomato, onion, buffalo sauce & Doddy Mayo"
-11,Nashville Hot Chicken,Burgers,Regenerative,10.95,FALSE,TRUE,TRUE,TRUE,TRUE,"Crispy Fried Chicken dusted with Nashville hot spices and topped with cabbage slaw, avocado mayo, Alabama comeback sauce & pickles"
+11,Nashville Hot Chicken,Burgers,Regenerative,10.95,FALSE,TRUE,TRUE,TRUE,FALSE,"Crispy Fried Chicken dusted with Nashville hot spices and topped with cabbage slaw, avocado mayo, Alabama comeback sauce & pickles"
 12,Roosevelt,Burgers,Regenerative,13.95,FALSE,TRUE,TRUE,TRUE,FALSE,"Force of Nature Grass Fed Bison, cherry & fig honey jam, crispy onions, goat cheese, pink peppercorn & lemon dressed arugula"
 13,Regenerative Royale,Burgers,Regenerative,10.95,FALSE,TRUE,TRUE,TRUE,FALSE,"Two 1/4 lb Force of Nature 100% Grass Fed Beef Patties, American cheese, chipotle ketchup, horseradish honey mustard, mayo, onions & pickles"
 14,Primetime,Burgers,Speciality,14.95,FALSE,TRUE,TRUE,TRUE,FALSE,"Dean+Peeler & RC Ranch Wagyu Beef, Fondue cheese, caramelized onions, arugula, tomato, Truffle aioli & HD1 steak sauces."
-15,Doddy Melt,Burgers,Speciality,13.25,FALSE,TRUE,TRUE,TRUE,TRUE,"Double smashed beef patties, swiss & american cheese, griddled onions, mayo & comeback sauce on toasted rye bread."
+15,Doddy Melt,Burgers,Speciality,13.25,FALSE,TRUE,TRUE,TRUE,FALSE,"Double smashed beef patties, swiss & american cheese, griddled onions, mayo & comeback sauce on toasted rye bread."
 16,Ahi Tuna,Burgers,Speciality,13.95,FALSE,TRUE,TRUE,TRUE,FALSE,"Fresh ground sushi-grade tuna patty seared rare, nori chips, pickled ginger, teriyaki, cucumber wasabi, mayo, lettuce, tomato & onion."
 17,Continental Club,Burgers,Speciality,11.25,FALSE,TRUE,TRUE,TRUE,FALSE,"Sun-dried tomato & basil pesto turkey patty (non GMO American Heirloom Turkey), bacon, swiss cheese, tomato, onion, arugula & mayo on a whole wheat bun."
 18,Thunderbird,Burgers,Speciality,10.75,FALSE,TRUE,TRUE,TRUE,FALSE,"Fresh ground chicken patty, pepper jack cheese, bacon, seared poblanos, pico de gallo, avocado, lettuce & chipotle aioli sauce."
 19,El Bandito Veggie,Burgers,Speciality,11.5,FALSE,TRUE,TRUE,TRUE,FALSE,"Black bean & corn patty topped with goat cheese, avocado, arugula, tomato, onion, chipotle aioli & basil pesto sauces on a whole wheat bun."
-20,Make it Vegan,,,1,TRUE,TRUE,FALSE,FALSE,FALSE,
-21,Crispy Tenders,Burgers,Speciality,11.5,FALSE,TRUE,TRUE,TRUE,TRUE,"Hand-breaded crispy chicken tenders tossed with your choice of sauce.  Served with Alabama comeback sauce & HD ranch"
+20,Make it Vegan,,,1,TRUE,TRUE,FALSE,FALSE,FALSE,No description
+21,Crispy Tenders,Burgers,Speciality,11.5,FALSE,TRUE,TRUE,TRUE,FALSE,Hand-breaded crispy chicken tenders tossed with your choice of sauce.  Served with Alabama comeback sauce & HD ranch
 22,Kale Ceasar,Salads,Regular,6.95,FALSE,TRUE,TRUE,TRUE,FALSE,"Fresh greens tossed in creamy caesar dressing, topped with shaved parmesan & magic crouton dust"
-23,Chicken,,,4,TRUE,TRUE,FALSE,FALSE,FALSE,
-24,Parmesan Truffle,Sides,Fries,8.25,FALSE,TRUE,TRUE,TRUE,TRUE,"Hand-cut fries tossed with Truffle Oil, Parmesan & Chives. Served with Truffle Aioli. (Gluten Friendly)"
-25,Green Chile Queso,Sides,Fries,7.95,FALSE,TRUE,TRUE,TRUE,FALSE,"Hand-cut fries served with our famous Queso for dipping (Gluten Friendly)."
-26,Hot Honey & Sage,Sides,Fries,8.95,FALSE,TRUE,TRUE,TRUE,FALSE,"Sweet potato fries tossed with hot honey sauce & crispy sage (Gluten Friendly)."
+23,Chicken,,,4,TRUE,TRUE,FALSE,FALSE,FALSE,No description
+24,Parmesan Truffle,Sides,Fries,8.25,FALSE,TRUE,TRUE,TRUE,FALSE,"Hand-cut fries tossed with Truffle Oil, Parmesan & Chives. Served with Truffle Aioli. (Gluten Friendly)"
+25,Green Chile Queso,Sides,Fries,7.95,FALSE,TRUE,TRUE,TRUE,FALSE,Hand-cut fries served with our famous Queso for dipping (Gluten Friendly).
+26,Hot Honey & Sage,Sides,Fries,8.95,FALSE,TRUE,TRUE,TRUE,TRUE,Sweet potato fries tossed with hot honey sauce & crispy sage (Gluten Friendly).
 27,Buffalo,Sides,Fries,7.75,FALSE,TRUE,TRUE,TRUE,FALSE,"Hand-cut fries tossed with buffalo sauce, topped with blue cheese crumbles & served with side of HD ranch (Gluten Friendly)."
-28,BBQ Ranch,Sides,Fries,7.25,FALSE,TRUE,TRUE,TRUE,FALSE,"Hand-cut fries tossed with bbq seasoning & served with HD ranch (Gluten Friendly)."
+28,BBQ Ranch,Sides,Fries,7.25,FALSE,TRUE,TRUE,TRUE,FALSE,Hand-cut fries tossed with bbq seasoning & served with HD ranch (Gluten Friendly).
 29,Nacho,Sides,Fries,9.25,FALSE,TRUE,TRUE,TRUE,FALSE,"Hand-cut fries loaded with queso, pico de gallo, avocado & sour cream (Gluten Friendly)."
 30,Hand-cut Fries,Sides,Fries,6.95,FALSE,TRUE,TRUE,TRUE,FALSE,"Hand-cut daily in our restaurants, served with ketchup (Gluten Friendly)."
-31,small,,,3.75,TRUE,TRUE,FALSE,FALSE,FALSE,
-32,Sweet Potato,Sides,Fries,8.25,FALSE,TRUE,TRUE,TRUE,FALSE,"Sweet potato fries served with Chipotle Aioli (Gluten Friendly)."
-33,small,,,4.75,TRUE,TRUE,FALSE,FALSE,FALSE,
+31,small,,,3.75,TRUE,TRUE,FALSE,FALSE,FALSE,No description
+32,Sweet Potato,Sides,Fries,8.25,FALSE,TRUE,TRUE,TRUE,FALSE,Sweet potato fries served with Chipotle Aioli (Gluten Friendly).
+33,small,,,4.75,TRUE,TRUE,FALSE,FALSE,FALSE,No description
 34,Parmesan Truffle,Sides,Loaded Brussels,9.25,FALSE,TRUE,TRUE,TRUE,FALSE,"Crispy brussels tossed with Truffle Oil, Parmesan & Chives. Served with Truffle Aioli."
-35,Hot Honey & Sage,Sides,Loaded Brussels,9.95,FALSE,TRUE,TRUE,TRUE,TRUE,"Crispy brussels tossed with hot honey sauce & fried sage."
+35,Hot Honey & Sage,Sides,Loaded Brussels,9.95,FALSE,TRUE,TRUE,TRUE,FALSE,Crispy brussels tossed with hot honey sauce & fried sage.
 36,Thunderbird Bowl,Salads,Burger Bowls,11.75,FALSE,TRUE,TRUE,TRUE,FALSE,"Our house greens tossed with pepper jack cheese, steakhouse bacon, seared poblanos, pico de gallo, avocado, lettuce & chipotle aioli sauce. Topped with our fresh ground chicken patty. (Gluten Friendly)"
 37,El Diablo Bowl,Salads,Burger Bowls,10.5,FALSE,TRUE,TRUE,TRUE,FALSE,"Our house greens tossed with pepper jack cheese, roasted habaneros & serranos, caramelized onions, salsa roja, tomato & chipotle aioli sauce. Topped with our classic beef patty. This burger bowl brings the heat! (Gluten Friendly)"
 38,Shroom Bowl,Salads,Burger Bowls,10.95,FALSE,TRUE,TRUE,TRUE,FALSE,"Our house greens tossed with tomato, onion, creamy goat cheese, field mushrooms, mayo & basil pesto sauce.  Topped with our classic beef patty. (Gluten Friendly)"
-39,Ahi Tuna Bowl,Salads,Burger Bowls,14.95,FALSE,TRUE,TRUE,TRUE,TRUE,"Our house greens tossed with tomato, teriyaki, cucumber wasabi & mayo then topped with a fresh ground sushi-grade tuna patty seared rare, nori chips & pickled ginger."
+39,Ahi Tuna Bowl,Salads,Burger Bowls,14.95,FALSE,TRUE,TRUE,TRUE,FALSE,"Our house greens tossed with tomato, teriyaki, cucumber wasabi & mayo then topped with a fresh ground sushi-grade tuna patty seared rare, nori chips & pickled ginger."
 40,Candy Bar,Drinks,Shakes,6.75,FALSE,TRUE,TRUE,TRUE,FALSE,"Our signature custard blended with peanut butter mousse, dark chocolate, sea salt, Brothers Bond Bourbon caramel sauce, topped with whipped cream & peanuts."
-41,mini,,,3.85,TRUE,TRUE,FALSE,FALSE,FALSE,
-42,Oreo Cookies N' Cream (reg),Drinks,Shakes,6.75,FALSE,TRUE,TRUE,TRUE,FALSE,"Our signature custard blended with real OREO® Cookie pieces & topped with whipped cream."
-43,mini,,,3.85,TRUE,TRUE,FALSE,FALSE,FALSE,
+41,mini,,,3.85,TRUE,TRUE,FALSE,FALSE,FALSE,No description
+42,Oreo Cookies N' Cream (reg),Drinks,Shakes,6.75,FALSE,TRUE,TRUE,TRUE,FALSE,Our signature custard blended with real OREO® Cookie pieces & topped with whipped cream.
+43,mini,,,3.85,TRUE,TRUE,FALSE,FALSE,FALSE,No description
 44,Nutella Chocolate Pretzel (reg),Drinks,Shakes,6.75,FALSE,TRUE,TRUE,TRUE,FALSE,"Our signature custard blended with dark chocolate sauce, Nutella, pretzels & sea salt, topped with whipped cream."
-45,mini,,,3.85,TRUE,TRUE,FALSE,FALSE,FALSE,
-46,Salted Caramel (reg),Drinks,Shakes,6.75,FALSE,TRUE,TRUE,TRUE,TRUE,"Our signature custard blended with salted caramel sauce & topped with whipped cream."
-47,mini,,,3.85,TRUE,TRUE,FALSE,FALSE,FALSE,
-48,Classic Shakes (reg),Drinks,Shakes,6.25,FALSE,TRUE,TRUE,TRUE,FALSE,"Classic vanilla shake topped with whipped cream."
-49,mini,,,3,TRUE,TRUE,FALSE,FALSE,FALSE,
-50,The Larry (lil'),Drinks,Margaritas,4.25,FALSE,TRUE,TRUE,TRUE,FALSE,"House Frozen Margarita topped with Grand Marnier."
-51,big,,,10,TRUE,TRUE,FALSE,FALSE,FALSE,
+45,mini,,,3.85,TRUE,TRUE,FALSE,FALSE,FALSE,No description
+46,Salted Caramel (reg),Drinks,Shakes,6.75,FALSE,TRUE,TRUE,TRUE,FALSE,Our signature custard blended with salted caramel sauce & topped with whipped cream.
+47,mini,,,3.85,TRUE,TRUE,FALSE,FALSE,FALSE,No description
+48,Classic Shakes (reg),Drinks,Shakes,6.25,FALSE,TRUE,TRUE,TRUE,TRUE,Classic vanilla shake topped with whipped cream.
+49,mini,,,3,TRUE,TRUE,FALSE,FALSE,FALSE,No description
+50,The Larry (lil'),Drinks,Margaritas,4.25,FALSE,TRUE,TRUE,TRUE,FALSE,House Frozen Margarita topped with Grand Marnier.
+51,big,,,10,TRUE,TRUE,FALSE,FALSE,FALSE,No description
 52,Doble Fina,Drinks,Margaritas,10,FALSE,TRUE,TRUE,TRUE,FALSE,"Monte Alban Silver Tequila, triple sec, fresh lime juice & agave shaken over ice, served with salted rim."
-53,House Frozen,Drinks,Margaritas,8,FALSE,TRUE,TRUE,TRUE,TRUE,"Gold tequila & triple sec with fresh citrus juices served frozen with salted rim."
-54,Schooner,,,10,TRUE,TRUE,FALSE,FALSE,FALSE,
+53,House Frozen,Drinks,Margaritas,8,FALSE,TRUE,TRUE,TRUE,FALSE,Gold tequila & triple sec with fresh citrus juices served frozen with salted rim.
+54,Schooner,,,10,TRUE,TRUE,FALSE,FALSE,FALSE,No description
 55,Strawberry,Drinks,Margaritas,9.25,FALSE,TRUE,TRUE,TRUE,FALSE,"Altos Plata Tequila, Cointreau Orange Liqueur, strawberry, fresh lime juice & agave shaken over ice."
-56,Skinny Dip,Drinks,Margaritas,11.5,FALSE,TRUE,TRUE,TRUE,FALSE,"7oz mini beer dunked into a goblet of House Frozen Margarita served with salted rim."
-57,Texas Sling,Drinks,Boozy Drinks,10,FALSE,TRUE,TRUE,TRUE,TRUE,"Tito's Handmade Vodka, Cherry, Lime, Pineapple, Burnt Orange & Honey Spiced Liqueur."
+56,Skinny Dip,Drinks,Margaritas,11.5,FALSE,TRUE,TRUE,TRUE,FALSE,7oz mini beer dunked into a goblet of House Frozen Margarita served with salted rim.
+57,Texas Sling,Drinks,Boozy Drinks,10,FALSE,TRUE,TRUE,TRUE,FALSE,"Tito's Handmade Vodka, Cherry, Lime, Pineapple, Burnt Orange & Honey Spiced Liqueur."
 58,Paloma,Drinks,Boozy Drinks,9.25,FALSE,TRUE,TRUE,TRUE,FALSE,"Monte Alban Silver Tequila, Deep Eddy Ruby Red Grapefruit Vodka, agave, grapefruit & lime juices, served with salted rim."
 59,Old Fashioned,Drinks,Boozy Drinks,10,FALSE,TRUE,TRUE,TRUE,FALSE,"Brother's Bond Bourbon, angostura bitters, simple syrup, Demerara syrup, orange peel."
 60,Kickin' Mule,Drinks,Boozy Drinks,9,FALSE,TRUE,TRUE,TRUE,FALSE,"New Amsterdam Vodka, ginger & fresh lime juice."

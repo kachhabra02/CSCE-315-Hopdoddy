@@ -1,18 +1,22 @@
 import React from "react";
-// import Button from '@mui/material/Button';
-// import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Grid';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 import ItemButton from "./ItemButton";
+import IconOnClickElement from "./IconOnClickElement";
 
 import { DynamicButtonGrid } from './cashierContainers'
 
 function ItemList({items, clickHandler}) {
-    var itemButtons = items.map((item) => 
-        <Grid item>
-            <ItemButton onClick={clickHandler(item)}>
-                {item.item_name}
-            </ItemButton>
+    var itemButtons = items.map((item, index) => 
+        <Grid item key={index}>
+            <IconOnClickElement 
+                Element={ItemButton} 
+                onClick={clickHandler(item)} 
+                duration={2000}
+                icon={<AddCircleIcon color="success" sx={{fontSize: '2em'}} />}
+                children={item.item_name}
+            />
         </Grid>
     );
 

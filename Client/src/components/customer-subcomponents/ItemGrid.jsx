@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 
 import Grid from '@mui/material/Grid';
 
@@ -6,7 +6,7 @@ import ItemCard from "./ItemCard";
 
 function ItemGrid({items, onUpdate, sx, modifier}) {
     const [spacing, setSpacing] = useState(0);
-    // const [, setSize] = useState([0, 0]);
+    // const [size, setSize] = useState([0, 0]);
 
     useLayoutEffect(() => {
         function updateSize() {
