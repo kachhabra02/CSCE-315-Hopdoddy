@@ -66,4 +66,54 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly; /* Distribute space evenly */
-  }
+}
+
+#carousel {
+    margin: auto; /* Center the carousel */
+    max-width: 600px; /* Maximum width of the carousel */
+    padding: 20px; /* Padding around the carousel */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Optional: Add shadow for depth */
+}
+  
+.carousel .MuiPaper-root {
+    background-color: transparent; /* Removes the white background */
+}
+
+.item-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    height: 40vmin;
+}
+  
+.item-image {
+    width: 100%;
+    height: auto;
+    max-width: 300px;
+    max-height: 300px;
+    margin-bottom: 10px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+  
+.item-info {
+    width: 50%;
+    padding-left: 20px;
+}
+
+.item-name {
+    font-size: 1.5em;
+    color: #28a745;
+    margin-bottom: 0.5em;
+}
+
+.item-price {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    color: black;
+}
+
+.item-description {
+    font-size: 1em;
+}
