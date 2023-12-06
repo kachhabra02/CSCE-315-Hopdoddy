@@ -7,6 +7,8 @@ import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import EditIcon from '@mui/icons-material/Edit';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -19,6 +21,8 @@ import Checkbox from '@mui/material/Checkbox';
 import MUIDataTable from "mui-datatables";
 
 import axios from 'axios';
+
+import ConfirmationOnClickElement from '../admin/ConfirmationOnClickElement';
 
 const API = axios.create({
   baseURL: `${process.env.REACT_APP_API_URL}/api`,
@@ -302,15 +306,19 @@ function MenuManagment() {
       }
     },
     {
-      name: 'Edit Item',
+      name: 'Edit Menu Item',
       options: {
         filter: false,
         sort: false,
         customBodyRender: (value, tableMeta, updateValue) => {
             return (
-              <Button onClick={() => handleEditClick(menu[tableMeta.rowIndex])}>
-                <EditIcon/>
-              </Button>
+              <Button
+                onClick={() => handleEditClick(menu[tableMeta.rowIndex])}
+                variant='outlined'
+                color='inherit'
+                startIcon={<EditIcon/>}
+                children={'Edit'}
+              />
             );
         }
       }
@@ -515,8 +523,26 @@ function MenuManagment() {
           </DialogContent>
 
           <DialogActions>
-            <Button onClick={handleEditCancel}>Cancel</Button>
-            <Button onClick={handleEditSubmit}>Submit</Button>
+            <ConfirmationOnClickElement
+              Element={Button} 
+              variant='outlined' 
+              title='Discard Changes?'
+              body='Any changes you have made will be discarded.'
+              color='error'
+              confirmColor='warning'
+              ask={true}
+              onClick={handleEditCancel}
+              children={<CancelIcon/>}
+            />
+            <ConfirmationOnClickElement
+              Element={Button} 
+              variant='outlined' 
+              title='Save Changes?'
+              body='Any changes you made will be saved to the menu.'
+              color='success'
+              onClick={handleEditSubmit}
+              children={<CheckCircleIcon/>}
+            />
           </DialogActions>
         </Dialog>
       )}
