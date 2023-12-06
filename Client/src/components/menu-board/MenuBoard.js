@@ -1,4 +1,3 @@
-
 import './MenuBoard.css';
 
 import React, { useEffect, useState } from 'react';
@@ -8,12 +7,15 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import Carousel from 'react-material-ui-carousel';
 
 function MenuBoard() {
 
   const [menu, setMenu] = useState(undefined);
-
   useEffect(() => getMenu(setMenu), []);
+
+  const [featuredItems, setFeaturedItems] = useState(undefined);
+  useEffect(() => getFeaturedItems(setFeaturedItems), []);
 
   const renderDescription = (item) => {
     // Print out item_description, if it's empty then put "Description not available"
@@ -43,6 +45,15 @@ function MenuBoard() {
     );
   }
 
+  if (!featuredItems) {
+    return (
+      <div>
+        <h1>Carousel</h1>
+        <p>Loading</p>
+      </div>
+    )
+  }
+
   // Implementing this handler to create a default image for our menu board (inside public/images/)
   const imageNotFound = (e) => {
     e.target.onerror = null; // Prevents looping
@@ -51,13 +62,19 @@ function MenuBoard() {
 
   return (
     <div id="menu-board">
+      <h2>Featured Items</h2>
       <div>
+        <div id="carousel">
+          <Carousel>
+              {
+                featuredItems.map( item => <Item key={item.item_id} item={item} /> )
+              }
+          </Carousel>
+        </div>
+
         {Object.keys(menu).map(category => (
           <div key={category} className="category-section">
             <h2>{category}</h2>
-            {/* {Object.keys(menu[category]).map(sub_category => (
-              <div key={sub_category}> */}
-                {/* <h3>{sub_category}</h3> */}
                 <ul>
                   {menu[category].map((item, index) => (
                     <li key={index}>
@@ -75,7 +92,6 @@ function MenuBoard() {
                           />
                         </CardMedia>
                         <CardContent className="card-content">
-                            {/* <Box textAlign="center"> */}
 
                               <p className="nameStyle">{item.item_name}</p>
 
@@ -83,19 +99,100 @@ function MenuBoard() {
 
                               {renderDescription(item)} {/* Renders description, checking to see whether it should be displayed or not*/}
 
-                            {/* </Box> */}
                         </CardContent>
                       </Card>  
                     </li>
                   ))}
                 </ul>
-              {/* </div> */}
-            {/* // ))} */}
           </div>
         ))}
       </div>
     </div>
   )
+}
+
+// Styles the item/each individual carousel slide
+function Item(props) {
+  const { item } = props;
+
+  const imageNotFound = (e) => {
+    e.target.onerror = null; // Prevents looping
+    e.target.src = "/images/default.jpg";
+  };
+
+  const renderPrice = (item) => {
+    const floatVal = parseFloat(item.price);
+    const cost = floatVal.toFixed(2);
+
+    return <p className="item-price">${cost}</p>;
+  }
+
+    return (
+      <div className="item-container">
+      <CardMedia
+        component="img"
+        className="item-image"
+        // Assuming the image URL is correct
+        src={`/images/${item.item_name.replace(/\s+/g, '_').replace(/\//g, '-').toLowerCase()}.jpg`}
+        alt={item.item_name}
+        onError={imageNotFound}
+      />
+      <div className="item-info">
+        <h3 className="item-name">{item.item_name}</h3>
+        <p>{renderPrice(item)}</p>
+        <p className="item-description">{item.item_description || "Description not available"}</p>
+      </div>
+    </div>
+    );
+}
+
+// Utility function to shuffle an array
+function shuffleArray(array) {
+  let currentIndex = array.length,  randomIndex;
+
+  // While there remain elements to shuffle...
+  while (currentIndex !== 0) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
+
+// Callback function to get 3 featured items
+const getFeaturedItems = (callback) => {
+  axios.get(`${process.env.REACT_APP_API_URL}/api/menu/view`)
+    .then((res) => {
+      if (res.status < 300) {
+        const items = res.data
+
+        let featuredItems = items.filter(item => item.feature_item && item.display_item);
+
+        // If featuredItems is less than 3, add random items
+        while (featuredItems.length < 3) {
+          // Shuffle the array and find items that are not already in featuredItems
+          const additionalItems = shuffleArray(items)
+            .filter(item => 
+              !featuredItems.includes(item) && 
+              item.display_item && 
+              !item.feature_item
+          );
+
+          // Take as many items as needed to fill up to 3
+          featuredItems = featuredItems.concat(additionalItems.slice(0, 3 - featuredItems.length));
+
+        }
+
+        callback(featuredItems);
+      }
+    })
+    .catch( error => console.log(error) );
 }
 
 const getMenu = (callback) => {
@@ -120,10 +217,8 @@ const getMenu = (callback) => {
             // display_item (t / f) , display_image (t / f) , display_description (t / f) , item_description (words)
             if (display_item === true) {
               menu[category].push(item);
-            }
-            
+            } 
           }
-
         });
 
         // console.log(menu);
