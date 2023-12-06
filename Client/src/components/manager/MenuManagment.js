@@ -43,6 +43,7 @@ function MenuManagment() {
   const [openAddDialog, setOpenAddDialog] = useState(false);
   const [editMenuItem, setEditMenuItem] = useState(null);
   const [editPriceError, setEditPriceError] = useState(false);
+  // const [deleteItemList, setDeleteItemList] = useState(null);
   const [itemInfo, setItemInfo] = useState(null);
 
 
@@ -451,10 +452,10 @@ function MenuManagment() {
       options: {
         filter: false,
         sort: false,
-        customBodyRender: (value, tableMeta, updateValue) => {
+        customBodyRenderLite: (dataIndex, rowIndex) => {
             return (
               <Button
-                onClick={() => handleEditClick(menu[tableMeta.rowIndex])}
+                onClick={() => handleEditClick(menu[dataIndex])}
                 variant='outlined'
                 color='inherit'
                 startIcon={<EditIcon/>}
@@ -476,7 +477,19 @@ function MenuManagment() {
         const new_alerts = [...alerts];
 
         const item_info = rowsDeleted.data.map((item) => menu[item.dataIndex]);
-        await Promise.all(item_info.map(async (item) => deleteItem(item, new_alerts)));
+
+        var confirmation = window.confirm(`Are you sure you would like to delete the following menu items?\n\n${item_info.map((i) => (i[1])).join(', ')}`);
+        if (confirmation) {
+            await Promise.all(item_info.map(async (item) => deleteItem(item, new_alerts)));
+        }
+        else {
+            new_alerts.unshift(
+                {
+                  severity: 'info',
+                  text: `Canceled Deletion of ${item_info.length} Item(s)`
+                }
+            );
+        }  
 
         console.log([...new_alerts]);
         setAlerts(new_alerts);
@@ -524,6 +537,8 @@ function MenuManagment() {
           options={options}
         />
       }
+
+      {/*deleteItemList && (<Box></Box>)*/}
 
       {editMenuItem && (
         <Dialog open={openEditDialog} onClose={handleEditCloseDialog} maxWidth={"md"} fullWidth={true} sx={{ maxHeight: "85%" }}>
