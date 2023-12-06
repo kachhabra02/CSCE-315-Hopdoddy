@@ -20,7 +20,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import MUIDataTable from "mui-datatables";
-import { DataGrid, GridColDef, GridRowsProp } from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 
 import axios from 'axios';
 
@@ -37,6 +37,7 @@ function MenuManagment() {
   const [categories, setCategories] = useState(["No Category"]);
   const [subCategories, setSubCategories] = useState(["No Sub-Category"]);
   const [inventory, setInventory] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
   const [alerts, setAlerts] = useState([]);
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const [openAddDialog, setOpenAddDialog] = useState(false);
@@ -121,6 +122,25 @@ function MenuManagment() {
       });
   }
 
+  function loadIngredients(item_id) {
+    API.get(`/menu/item/${item_id}`)
+      .then((res) => {
+        if (res.status < 300) {
+          console.log('Success');
+          console.log(res.data);
+          setIngredients(res.data.map((item) => [item.ingredient_id, item.ingredient_name, item.ingredient_quantity, item.unit]));
+        }
+        else {
+          console.log(res.data);
+          setIngredients([]);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setIngredients([]);
+      });
+  }
+
   function removeAlert(index) {
     alerts.splice(index, 1);
     setAlerts([...alerts]);
@@ -160,7 +180,7 @@ function MenuManagment() {
   }
 
 
-   const handleEditClick = (menuItem) => {
+  const handleEditClick = (menuItem) => {
     setEditMenuItem(menuItem);
     setItemInfo([
         menuItem[0],
@@ -175,6 +195,7 @@ function MenuManagment() {
         menuItem[9]
     ]);
     loadSubCategories(menuItem[2]);
+    loadIngredients(menuItem[0]);
     setOpenEditDialog(true);
   };
 
@@ -187,6 +208,7 @@ function MenuManagment() {
     setEditMenuItem(null);
     setItemInfo(null);
     setSubCategories(["No Sub-Category"]);
+    setIngredients([]);
     setEditPriceError(false);
   };
 
@@ -266,9 +288,9 @@ function MenuManagment() {
         false,
         false,
         false,
-        []
+        "No Description"
     ]);
-    setOpenEditDialog(true);
+    setOpenAddDialog(true);
   };
 
   const handleAddCloseDialog = (event, reason) => {
@@ -651,6 +673,21 @@ function MenuManagment() {
               label="Item Description"
               defaultValue={itemInfo[9]}
               onChange={(e) => { itemInfo[9] = e.target.value; setItemInfo([...itemInfo]); }}
+            />
+            <h1 id="ingredients-view">{"Ingredients (View Only)"}</h1>
+            <DataGrid
+              rows={ingredients.map((item) => ({id: item[0],name: item[1], quantity: item[2], unit: item[3]}))}
+              columns={[
+                { field: 'name', headerName: 'Ingredient Name', width: 200 },
+                { field: 'quantity', headerName: 'Quantity', type: 'number', width: 150 },
+                { field: 'unit', headerName: 'Unit', width: 150 },
+              ]}
+              initialState={{
+                pagination: {
+                    paginationModel: { page: 0, pageSize: 5 },
+                },
+              }}
+              pageSizeOptions={[5, 10, 15, 25]}
             />
           </DialogContent>
 

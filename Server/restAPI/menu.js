@@ -55,6 +55,24 @@ router.post('/', async (req, res) => {
 
 
 /***** /api/menu/item/:id *****/
+// Get ingredients in item
+router.get('/item/:id', async (req, res) => {
+    // Get necessary info from request
+    const item_id = req.params.id;
+    
+    // Send query
+    const client = await pool.connect();
+    client.query(queries.getIngredientsQuery, [item_id], (error, results) => {
+        if(error) {
+            res.status(400).send("Error sending query: " + error.message);
+            return;
+        }
+        
+        res.status(200).send(results.rows);
+    });
+    client.release();
+});
+
 // Update menu item
 router.put('/item/:id', async (req, res) => {
     // Get necessary info from request
