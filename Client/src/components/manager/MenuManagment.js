@@ -13,6 +13,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions'
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 import MUIDataTable from "mui-datatables";
 
 import axios from 'axios';
@@ -30,6 +33,7 @@ function MenuManagment() {
   const [alerts, setAlerts] = useState([]);
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const [editMenuItem, setEditMenuItem] = useState(null);
+  const [editPriceError, setEditPriceError] = useState(false);
   const [itemInfo, setItemInfo] = useState(null);
 
 
@@ -351,10 +355,21 @@ function MenuManagment() {
                 required
                 id="edit-price-field"
                 label={"Price"}
-                type="number"
-                inputProps={{ min: "0", step: "0.01" }}
-                value={parseFloat(itemInfo[4]).toFixed(2)}
-                onChange={(e) => { itemInfo[4] = parseFloat(e.target.value).toFixed(2); setItemInfo([...itemInfo]); }}
+                inputProps={{ inputMode: 'numeric' }}
+                defaultValue={itemInfo[4]}
+                onChange={(e) => {
+                  if (!e.target.value.match(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/)) {
+                    e.preventDefault();
+                    setEditPriceError(true);
+                  }
+                  else {
+                    itemInfo[4] = parseFloat(e.target.value).toFixed(2);
+                    setItemInfo([...itemInfo]); 
+                    setEditPriceError(false);
+                  }
+                }}
+                error={editPriceError}
+                helperText={editPriceError ? "Must enter a valid dollar amount!" : " "}
               />
             </Stack>
           </DialogContent>
