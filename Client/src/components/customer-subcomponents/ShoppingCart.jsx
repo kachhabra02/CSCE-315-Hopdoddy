@@ -14,7 +14,7 @@ import Avatar from '@mui/material/Avatar';
 
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import {MdClose} from "react-icons/md";
+import {MdClose, MdClear} from "react-icons/md";
 import {BsFillTrash3Fill} from "react-icons/bs";
 
 import Snackbar from '@mui/material/Snackbar';
@@ -38,7 +38,13 @@ function ShoppingCart({open, onClose, onUpdate}) {
 
     function removeOrder(index) {
         return () => {
-            const newCart = cart.toSpliced(index, 1);
+            // find first non-modification after index
+            const numMods = (cart[index]?.is_modification 
+                ? 0
+                : cart.findIndex((item, i) => i > index && !item?.is_modification) - index - 1
+            );
+            // console.log(numMods)
+            const newCart = cart.toSpliced(index, 1 + (numMods >= 0 ? numMods : (cart.length - index)));
             if (newCart.length === 0) {
                 localStorage.removeItem("cart");
                 setCart(null);
@@ -95,7 +101,7 @@ function ShoppingCart({open, onClose, onUpdate}) {
           open={open}
           onClose={onClose}
         >
-            <DialogTitle sx={{"min-width": 250}}>
+            <DialogTitle sx={{"min-width": 375}}>
                 {/* <MdOutlineShoppingCart/> */}
                 Shopping Cart
                 {/* <Divider orientation="vertical" variant="middle" flexItem/> */}
@@ -116,23 +122,30 @@ function ShoppingCart({open, onClose, onUpdate}) {
                 <List> {
                     cart?.map((item, i) => (
                         <ListItem 
+                          key={i}
                           secondaryAction={(
-                            <IconButton edge="end" size="small" onClick={removeOrder(i)}>
-                                <BsFillTrash3Fill/>
+                            <IconButton edge="end" size="small" color="error" onClick={removeOrder(i)}>
+                                {item?.is_modification ? <MdClear/> : <BsFillTrash3Fill/>}
                             </IconButton>
                           )}
                         >
                             {/* TODO: add icon (Avatar) ?? */}
-                            <ListItemAvatar>
-                                <Avatar 
-                                  // Name like Goodnight/Good Cause -> goodnight-good_cause.jpg
-                                  src={`/images/${item.item_name.replace(/\s+/g, '_').replace(/\//g, '-').toLowerCase()}.jpg`}
-                                  alt={item.item_name}
-                                  // falls back on children if src cannot be found
-                                  children={<Avatar src="/images/default.jpg"/>}
-                                />
-                            </ListItemAvatar>
-                            <ListItemText primary={item.item_name} secondary={priceFormat.format(parseFloat(item.price))}/>
+                            {!item?.is_modification && (
+                                <ListItemAvatar>
+                                    <Avatar 
+                                    // Name like Goodnight/Good Cause -> goodnight-good_cause.jpg
+                                    src={`/images/${item.item_name.replace(/\s+/g, '_').replace(/\//g, '-').toLowerCase()}.jpg`}
+                                    alt={item.item_name}
+                                    // falls back on children if src cannot be found
+                                    children={<Avatar src="/images/default.jpg"/>}
+                                    />
+                                </ListItemAvatar>
+                            )}
+                            {item?.is_modification 
+                                ? <ListItemText secondary={`+ ${item.item_name} - ${priceFormat.format(parseFloat(item.price))}`} sx={{pl: 2}}/>
+                                : <ListItemText primary={item.item_name} secondary={priceFormat.format(parseFloat(item.price))}/>
+                            }
+                            
                         </ListItem>
                     )) || (
                         <ListItem>Cart is empty</ListItem>
@@ -140,9 +153,9 @@ function ShoppingCart({open, onClose, onUpdate}) {
                 } </List>
             </DialogContent>
             <DialogActions>
-                {cart && `Total: ${priceFormat.format(parseFloat(total()))}`}
-                {cart && <Button variant="text" onClick={removeAll} color="error">Remove All</Button>}
-                <Button variant="text" onClick={placeTransaction}>Submit</Button>
+                {cart && <span style={{paddingRight: 4}}>{`Total: ${priceFormat.format(parseFloat(total()))}`}</span>}
+                {cart && <Button variant="contained" onClick={removeAll} color="error">Remove All</Button>}
+                <Button variant="contained" onClick={placeTransaction}>Submit</Button>
             </DialogActions>
         </Dialog>
         <Snackbar 

@@ -1,7 +1,7 @@
 import React, {useLayoutEffect, useRef, useState} from "react";
 import Button from '@mui/material/Button';
 
-function ItemButton({width = 200, height = 100, selected = false, onClick, children}) {
+function ItemButton({width = 200, height = 100, fontSize = 30, selected = false, onClick, children}) {
     const ref = useRef(null);
     const [customStyle, setCustomStyle] = useState({
         minHeight: height,
@@ -9,7 +9,7 @@ function ItemButton({width = 200, height = 100, selected = false, onClick, child
         minWidth: width, 
         maxWidth: width,
         overflow: "clip",
-        fontSize: 30
+        'font-size': fontSize
     });
     
     useLayoutEffect(() => {
