@@ -20,13 +20,13 @@ router.post('/', async (req, res) => {
         
         // Get information for query
         const {item_name, category, sub_category, price, is_modification, display_item, display_image,
-               item_description, feature_Item, ingredients} = req.body;
+               item_description, feature_item, ingredients} = req.body;
 
         [menuQuery, ingrQuery] =  queries.addMenuItemQueries(ingredients.length);
 
         const result = await client.query({
             text: menuQuery,
-            values: [item_name, category, sub_category, price, is_modification, display_item, display_image, feature_Item, item_description]
+            values: [item_name, category, sub_category, price, is_modification, display_item, display_image, feature_item, item_description]
         });
         
         let menId = result.rows.at(0).item_id;
@@ -59,12 +59,12 @@ router.post('/', async (req, res) => {
 router.put('/item/:id', async (req, res) => {
     // Get necessary info from request
     const ID = req.params.id;
-    const {item_name, category, sub_category, price, is_modification, display_item, display_image, feature_Item, item_description} = req.body;
+    const {item_name, category, sub_category, price, is_modification, display_item, display_image, feature_item, item_description} = req.body;
 
     // Send query
     let updateQuery = {
         text: queries.updateMenuItemQuery((item_name !== null), (price !== null), (is_modification !== null)),
-        values: [item_name, category, sub_category, price, is_modification, display_item, display_image, feature_Item, item_description, ID]
+        values: [item_name, category, sub_category, price, is_modification, display_item, display_image, feature_item, item_description, ID]
     };
 
     const client = await pool.connect();

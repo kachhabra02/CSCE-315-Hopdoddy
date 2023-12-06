@@ -165,6 +165,49 @@ function MenuManagment() {
 
   const handleEditSubmit = () => {
     console.log("Submitted");
+    const new_alerts = [...alerts];
+    API.put(`/menu/item/${itemInfo[0]}`, {
+      item_name: itemInfo[1],
+      category: (!itemInfo[2] || itemInfo[2] === "No Sub-Category") ? null : itemInfo[2],
+      sub_category: (!itemInfo[3] || itemInfo[3] === "No Sub-Category") ? null : itemInfo[3],
+      price: itemInfo[4],
+      is_modification: itemInfo[5],
+      display_item: itemInfo[6],
+      display_image: itemInfo[7],
+      feature_item: itemInfo[8],
+      item_description: itemInfo[9],
+    })
+      .then((res) => {
+        if (res.status < 300) {
+          console.log(`Edited Item '${editMenuItem[1]}'`);
+          new_alerts.unshift(
+            {
+              severity: 'success',
+              text: `Successfully Edited Item '${editMenuItem[1]}'`
+            }
+          );
+        }
+        else {
+          console.log(`Failed to Edit Item '${editMenuItem[1]}'`);
+          new_alerts.unshift(
+            {
+              severity: 'error',
+              text: `Failed to Edit Item '${editMenuItem[1]}'`
+            }
+          );
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        new_alerts.unshift(
+          {
+            severity: 'error',
+            text: `Failed to Edit Item '${editMenuItem[1]}'`
+          }
+        );
+      });
+    setAlerts(new_alerts);
+
     handleEditCloseDialog();
   }
 
