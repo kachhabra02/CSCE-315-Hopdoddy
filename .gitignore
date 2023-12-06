@@ -45,3 +45,4 @@ Client/.env.production.local
 /Server/npm-debug.log*
 /Server/yarn-debug.log*
 /Server/yarn-error.log*
+/Client/docs
