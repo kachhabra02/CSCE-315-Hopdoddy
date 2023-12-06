@@ -3,5 +3,5 @@ Employee_ID,First_Name,Last_Name,Email,Is_Manager,Is_Admin,Is_Available
 2,Thomas,Holt,tmholt02@tamu.edu,FALSE,FALSE,TRUE
 3,Eliseo,Garza,eliseogarza@tamu.edu,FALSE,FALSE,TRUE
 4,Donato,Curvino,donato@tamu.edu,FALSE,FALSE,TRUE
-5,Josh,Scott,jjscott1532@tamu.edu,FALSE,FALSE,TRUE
+5,Josh,Scott,jjscott1532@tamu.edu,FALSE,TRUE,TRUE
 6,Customer,Kiosk,iamacustomer@kiosk.com,FALSE,FALSE,TRUE

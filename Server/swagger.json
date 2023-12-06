@@ -1,0 +1,213 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0",
+        "title": "Hop Into The New Hopdoddy!",
+        "description": "This documentation is for the server of <a href=\"https://project-3-905-02.vercel.app/\">our new app</a> that reinvents all things Hopdoddy.<br/>This app provides all things necessary to efficiently run the Hopdoddy Burger Bar in Century Square.<br/>Brought to you by Krish Chhabra, Thomas Holt, Eliseo Garza, Donato Curvino, and Josh Scott of Team 905_02. Happy Hoppin'!"
+    },
+    "schemes": ["https"],
+    "host": "project-3-905-02-server.vercel.app",
+    "basePath": "/api",
+    "tags": [
+        {
+            "name": "menu",
+            "description": "Operations for Menu Viewing/Management"
+        },
+        {
+            "name": "inventory",
+            "description": "Operations for Inventory Viewing/Management"
+        },
+        {
+            "name": "transactions",
+            "description": "Operations for Transactions Viewing/Management"
+        },
+        {
+            "name": "reports",
+            "description": "Operations for Special Report Generation"
+        },
+        {
+            "name": "users",
+            "description": "Operations for User Viewing/Management"
+        }
+    ],
+    "paths": {
+        "/menu": {
+            "post": {
+                "tags": ["menu"],
+                "summary": "",
+                "description": ""
+            }
+        },
+        "/menu/view": {
+            "get": {
+                "tags": ["menu"],
+                "summary": "",
+                "description": ""
+            }
+        },
+        "/menu/categories": {
+            "get": {
+                "tags": ["menu"],
+                "summary": "",
+                "description": ""
+            }
+        },
+        "/menu/sub-categories": {
+            "get": {
+                "tags": ["menu"],
+                "summary": "",
+                "description": ""
+            }
+        },
+        "/menu/items": {
+            "get": {
+                "tags": ["menu"],
+                "summary": "",
+                "description": ""
+            }
+        },
+        "/menu/modifications": {
+            "get": {
+                "tags": ["menu"],
+                "summary": "",
+                "description": ""
+            }
+        },
+        "/menu/item/{id}": {
+            "get": {
+                "tags": ["menu"],
+                "summary": "",
+                "description": ""
+            },
+            "delete": {
+                "tags": ["menu"],
+                "summary": "",
+                "description": ""
+            },
+            "put": {
+                "tags": ["menu"],
+                "summary": "",
+                "description": ""
+            }
+        },
+        "/inventory": {
+            "get": {
+                "tags": ["inventory"],
+                "summary": "",
+                "description": ""
+            },
+            "post": {
+                "tags": ["inventory"],
+                "summary": "",
+                "description": ""
+            }
+        },
+        "/inventory/{id}": {
+            "put": {
+                "tags": ["inventory"],
+                "summary": "",
+                "description": ""
+            },
+            "delete": {
+                "tags": ["inventory"],
+                "summary": "",
+                "description": ""
+            }
+        },
+        "/transactions": {
+            "get": {
+                "tags": ["transactions"],
+                "summary": "",
+                "description": ""
+            },
+            "post": {
+                "tags": ["transactions"],
+                "summary": "",
+                "description": ""
+            }
+        },
+        "/transactions/{id}": {
+            "put": {
+                "tags": ["transactions"],
+                "summary": "",
+                "description": ""
+            },
+            "delete": {
+                "tags": ["transactions"],
+                "summary": "",
+                "description": ""
+            }
+        },
+        "/transactions/deleteCanceled": {
+            "delete": {
+                "tags": ["transactions"],
+                "summary": "",
+                "description": ""
+            }
+        },
+        "/reports/popular-pairs": {
+            "get": {
+                "tags": ["reports"],
+                "summary": "",
+                "description": ""
+            }
+        },
+        "/reports/sales": {
+            "get": {
+                "tags": ["reports"],
+                "summary": "",
+                "description": ""
+            }
+        },
+        "/reports/excess": {
+            "get": {
+                "tags": ["reports"],
+                "summary": "",
+                "description": ""
+            }
+        },
+        "/reports/restock": {
+            "get": {
+                "tags": ["reports"],
+                "summary": "",
+                "description": ""
+            }
+        },
+        "/reports/product-usage": {
+            "get": {
+                "tags": ["reports"],
+                "summary": "",
+                "description": ""
+            }
+        },
+        "/users": {
+            "get": {
+                "tags": ["users"],
+                "summary": "",
+                "description": ""
+            },
+            "post": {
+                "tags": ["users"],
+                "summary": "",
+                "description": ""
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "tags": ["users"],
+                "summary": "",
+                "description": ""
+            },
+            "put": {
+                "tags": ["users"],
+                "summary": "",
+                "description": ""
+            },
+            "delete": {
+                "tags": ["users"],
+                "summary": "",
+                "description": ""
+            }
+        }
+    }
+}
