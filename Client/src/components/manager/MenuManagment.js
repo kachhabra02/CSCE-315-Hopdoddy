@@ -141,10 +141,10 @@ function MenuManagment() {
         (!menuItem[2]) ? "No Category" : menuItem[2],
         (!menuItem[3]) ? "No Category" : menuItem[3],
         parseFloat(menuItem[4]).toFixed(2),
-        menuItem[5],
-        menuItem[6],
-        menuItem[7],
-        menuItem[8],
+        (menuItem[5] === "true") ? true : false,
+        (menuItem[6] === "true") ? true : false,
+        (menuItem[7] === "true") ? true : false,
+        (menuItem[8] === "true") ? true : false,
         menuItem[9]
     ]);
     loadSubCategories(menuItem[2]);
@@ -158,6 +158,9 @@ function MenuManagment() {
     
     setOpenEditDialog(false);
     setEditMenuItem(null);
+    setItemInfo(null);
+    setSubCategories(["No Sub-Category"]);
+    setEditPriceError(false);
   };
 
   const handleEditSubmit = () => {
@@ -167,6 +170,15 @@ function MenuManagment() {
 
   const handleEditCancel = () => {
     console.log("Canceled");
+    const new_alerts = [...alerts];
+    new_alerts.unshift(
+      {
+        severity: 'info',
+        text: `Canceled Edit of Item '${itemInfo[1]}'`
+      }
+    );
+    setAlerts(new_alerts);
+
     handleEditCloseDialog();
   }
 
@@ -308,12 +320,12 @@ function MenuManagment() {
       }
 
       {editMenuItem && (
-        <Dialog open={openEditDialog} onClose={handleEditCloseDialog}>
+        <Dialog open={openEditDialog} onClose={handleEditCloseDialog} maxWidth={"md"} fullWidth={true} sx={{ maxHeight: "85%" }}>
           <DialogTitle>{`Edit Menu Item "${editMenuItem[1]}"`}</DialogTitle>
 
-          <DialogContent>
+          <DialogContent sx={{overflowY: 'scroll'}}>
             {console.log(itemInfo)}
-            <Stack spacing={3}>
+            <Stack spacing={3} sx={{ mt: 3 }}>
               <TextField
                 required
                 id="edit-name-field"
@@ -372,6 +384,89 @@ function MenuManagment() {
                 helperText={editPriceError ? "Must enter a valid dollar amount!" : " "}
               />
             </Stack>
+            <FormGroup sx={{ alignItems: "flex-start", mt: 1, mb: 3 }}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={itemInfo[5]}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        itemInfo[5] = true;
+                      }
+                      else {
+                        itemInfo[5] = false;
+                      }
+                      setItemInfo([...itemInfo]);
+                    }}
+                  />
+                }
+                label="Item is a Modification?"
+                labelPlacement="start"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={itemInfo[6]}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        itemInfo[6] = true;
+                      }
+                      else {
+                        itemInfo[6] = false;
+                      }
+                      setItemInfo([...itemInfo]);
+                    }}
+                  />
+                }
+                label="Item Displayed on Menu Board?"
+                labelPlacement="start"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={itemInfo[7]}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        itemInfo[7] = true;
+                      }
+                      else {
+                        itemInfo[7] = false;
+                      }
+                      setItemInfo([...itemInfo]);
+                    }}
+                  />
+                }
+                label="Item's Image Displayed on Menu Board?"
+                labelPlacement="start"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={itemInfo[8]}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        itemInfo[8] = true;
+                      }
+                      else {
+                        itemInfo[8] = false;
+                      }
+                      setItemInfo([...itemInfo]);
+                    }}
+                  />
+                }
+                label="Item Featured on Menu Board?"
+                labelPlacement="start"
+              />
+            </FormGroup>
+            <TextField
+              required
+              multiline
+              fullWidth={true}
+              id="edit-description-field"
+              label="Item Description"
+              defaultValue={itemInfo[9]}
+              onChange={(e) => { itemInfo[9] = e.target.value; setItemInfo([...itemInfo]); }}
+            />
           </DialogContent>
 
           <DialogActions>
