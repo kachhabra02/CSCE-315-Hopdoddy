@@ -15,15 +15,6 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [userObj, setUserObj] = useState({...defaultUser});
-
-  const login = (/*username, password*/) => {
-    console.log("Login validation and setter function here");
-  };
-
-  const logout = () => {
-    setUserObj({...defaultUser});
-    console.log("Logout function here");
-  };
   
   const value = { userObj, setUserObj};
   

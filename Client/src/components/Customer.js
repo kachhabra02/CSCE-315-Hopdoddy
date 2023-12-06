@@ -5,9 +5,6 @@ import useAPI from "./useAPI";
 import SideCategoryList from "./customer-subcomponents/SideCategoryList";
 import ItemGrid from "./customer-subcomponents/ItemGrid";
 
-import Fab from '@mui/material/Fab';
-import CartButton from "./customer-subcomponents/CartButton";
-
 function Customer({onUpdate}) {
     const [{categories, items}, {getItems}] = useAPI();
 

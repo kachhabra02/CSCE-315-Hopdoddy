@@ -3,7 +3,6 @@ import { Toolbar } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Login from '../../credentials/login/Login';
-import { useAuth } from '../../credentials/AuthProvider';
 import './NavBar.css';
 import { useAuth0 } from '@auth0/auth0-react';
 
@@ -23,16 +22,6 @@ const CashierLink = makeButton('/cashier', 'Cashier');
 const ManagerLink = makeButton('/manager', 'Manager');
 const CustomerLink = makeButton('/customer', 'Customer');
 
-
-let locationLinksMap = {
-    default : [HomeLink, MenuLink, CashierLink, ManagerLink, CustomerLink],
-    '/' : [MenuLink, CashierLink, ManagerLink, CustomerLink],
-    '/menu' : [HomeLink, CashierLink, ManagerLink, CustomerLink],
-    '/manager' : [HomeLink, MenuLink, CashierLink, CustomerLink],
-    '/cashier' : [HomeLink, MenuLink, ManagerLink, CustomerLink],
-    '/customer' : [MenuLink, HomeLink, CashierLink],
-    '/login' : null
-};
 const managerLinksMap = {
     default : [HomeLink, MenuLink, CashierLink, ManagerLink, CustomerLink],
     '/' : [MenuLink, CashierLink, ManagerLink, CustomerLink],
@@ -97,18 +86,14 @@ function NavBar({onUpdate}) {
     }, [isCustomized])
 
     const gtref = useRef(null);
-    // const {userObj, setuser} = useAuth();
     useEffect(() => {
-        console.log(isAuthenticated);
+        console.log("isAuthenticated changed in auth0");
         if(isAuthenticated){
             getData();
-            //console.log(userObj);
-           
         }
-    
     }, [isAuthenticated]);
+
     useEffect(() => {
-        console.log(userObj);
         if(userObj.isManager){
             setLinksMap(managerLinksMap);
         }
