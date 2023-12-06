@@ -14,13 +14,13 @@ import CartButton from '../customer-subcomponents/CartButton';
 import $ from "jquery";
 import usePermission from '../../credentials/login/usePermissions';
 
-const makeButton = (path, label) => () => <Button color='inherit' component={Link} to={path}>{label}</Button>;
+const makeButton = (path, label, color) => () => <Button color={color ?? 'inherit'} variant={color ? "contained" : "text"} component={Link} to={path}>{label}</Button>;
 
 const MenuLink = makeButton('/menu', 'Menu');
 const HomeLink = makeButton('/', 'Home');
 const CashierLink = makeButton('/cashier', 'Cashier');
 const ManagerLink = makeButton('/manager', 'Manager');
-const CustomerLink = makeButton('/customer', 'Customer');
+const CustomerLink = makeButton('/customer', 'Order Now', 'secondary');
 
 const managerLinksMap = {
     default : [HomeLink, MenuLink, CashierLink, ManagerLink, CustomerLink],
