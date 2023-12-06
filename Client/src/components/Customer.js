@@ -6,7 +6,7 @@ import SideCategoryList from "./customer-subcomponents/SideCategoryList";
 import ItemGrid from "./customer-subcomponents/ItemGrid";
 import ModificationPanel from "./customer-subcomponents/ModificationPanel";
 
-import "./customer-subcomponents/ItemCard.css";
+import "./customer-subcomponents/Customer.css";
 
 function Customer({onUpdate}) {
     const [{categories, items, modifications}, {getItems, getModifications}] = useAPI();
