@@ -224,7 +224,7 @@ function MenuManagment() {
       display_item: itemInfo[6],
       display_image: itemInfo[7],
       feature_item: itemInfo[8],
-      item_description: itemInfo[9],
+      item_description: (!itemInfo[9]) ? "No Description" : itemInfo[9],
     })
       .then((res) => {
         if (res.status < 300) {
@@ -290,6 +290,8 @@ function MenuManagment() {
         false,
         "No Description"
     ]);
+    setIngredients([]);
+    loadInventory();
     setOpenAddDialog(true);
   };
 
@@ -301,31 +303,28 @@ function MenuManagment() {
     setOpenAddDialog(false);
     setItemInfo(null);
     setSubCategories(["No Sub-Category"]);
+    setIngredients([]);
     setEditPriceError(false);
-    loadInventory();
   };
 
   const handleAddCancel = () => {
     console.log("Canceled");
-    /*
     const new_alerts = [...alerts];
     new_alerts.unshift(
       {
         severity: 'info',
-        text: `Canceled Edit of Item '${itemInfo[1]}'`
+        text: `Canceled Addition of Item '${itemInfo[1]}'`
       }
     );
     setAlerts(new_alerts);
-    */
 
     handleAddCloseDialog();
   }
 
   const handleAddSubmit = () => {
     console.log("Submitted");
-    /*
     const new_alerts = [...alerts];
-    API.put(`/menu/item/${itemInfo[0]}`, {
+    API.post(`/menu`, {
       item_name: itemInfo[1],
       category: (!itemInfo[2] || itemInfo[2] === "No Sub-Category") ? null : itemInfo[2],
       sub_category: (!itemInfo[3] || itemInfo[3] === "No Sub-Category") ? null : itemInfo[3],
@@ -334,26 +333,27 @@ function MenuManagment() {
       display_item: itemInfo[6],
       display_image: itemInfo[7],
       feature_item: itemInfo[8],
-      item_description: itemInfo[9],
+      item_description: (!itemInfo[9]) ? "No Description" : itemInfo[9],
+      ingredients: ingredients
     })
       .then((res) => {
         if (res.status < 300) {
-          console.log(`Edited Item '${editMenuItem[1]}'`);
+          console.log(`Added Item '${itemInfo[1]}'`);
           new_alerts.unshift(
             {
               severity: 'success',
-              text: `Successfully Edited Item '${editMenuItem[1]}'`
+              text: `Successfully Added Item '${itemInfo[1]}'`
             }
           );
 
           loadMenu();
         }
         else {
-          console.log(`Failed to Edit Item '${editMenuItem[1]}'`);
+          console.log(`Failed to Add Item '${itemInfo[1]}'`);
           new_alerts.unshift(
             {
               severity: 'error',
-              text: `Failed to Edit Item '${editMenuItem[1]}'`
+              text: `Failed to Add Item '${itemInfo[1]}'`
             }
           );
         }
@@ -363,12 +363,11 @@ function MenuManagment() {
         new_alerts.unshift(
           {
             severity: 'error',
-            text: `Failed to Edit Item '${editMenuItem[1]}'`
+            text: `Failed to Add Item '${itemInfo[1]}'`
           }
         );
       });
     setAlerts(new_alerts);
-    */
 
     handleAddCloseDialog();
   }
@@ -577,7 +576,7 @@ function MenuManagment() {
                 inputProps={{ inputMode: 'numeric' }}
                 defaultValue={itemInfo[4]}
                 onChange={(e) => {
-                  if (!e.target.value.match(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/)) {
+                  if (!e.target.value.match(/^[+]?([0-9]+(?:[.][0-9]*)?|\.[0-9]+)$/)) {
                     e.preventDefault();
                     setEditPriceError(true);
                   }
@@ -723,6 +722,7 @@ function MenuManagment() {
 
           <DialogContent sx={{overflowY: 'scroll'}}>
             {console.log(itemInfo)}
+            {console.log(ingredients)}
             <Stack spacing={3} sx={{ mt: 3 }}>
               <TextField
                 required
@@ -762,13 +762,12 @@ function MenuManagment() {
                 renderInput={(params) => <TextField {...params} label="Sub-Category" />}
               />
               <TextField
-                required
                 id="add-price-field"
                 label={"Price"}
                 inputProps={{ inputMode: 'numeric' }}
                 defaultValue={itemInfo[4]}
                 onChange={(e) => {
-                  if (!e.target.value.match(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/)) {
+                  if (!e.target.value.match(/^[+]?([0-9]+(?:[.][0-9]*)?|\.[0-9]+)$/)) {
                     e.preventDefault();
                     setEditPriceError(true);
                   }
@@ -866,6 +865,57 @@ function MenuManagment() {
               onChange={(e) => { itemInfo[9] = e.target.value; setItemInfo([...itemInfo]); }}
             />
             <h1 id="ingredients-header">Edit ingredients For {`"${itemInfo[1]}"`}</h1>
+            <p>Note: You will not be able to edit the ingredients of the item after it is created.</p>
+            <DataGrid
+              getRowId={(row) => row.id}
+              rows={inventory.map((item) => {
+                const ingredient = ingredients.find((elem) => (elem.inventoryID === item[0]));
+                if (ingredient === undefined) {
+                    return {id: item[0], name: item[1], quantity: 0.0, unit: item[2]};
+                }
+                return {id: item[0], name: item[1], quantity: ingredient.quantity, unit: item[2]}
+              })}
+              columns={[
+                { field: 'name', headerName: 'Ingredient Name', width: 200 },
+                { field: 'quantity', headerName: 'Quantity Included', width: 200, editable: true },
+                { field: 'unit', headerName: 'Unit', width: 150 },
+              ]}
+              processRowUpdate={(updatedRow, originalRow) => {
+                const new_ing = [...ingredients];
+                console.log(updatedRow);
+                var new_quant = parseFloat(updatedRow.quantity);
+                if (updatedRow.quantity.match(/^[-+]?([0-9]+(?:[.][0-9]*)?|\.[0-9]+)$/)) {
+                  const ind = new_ing.findIndex((elem) => (elem.inventoryID === updatedRow.id));
+                  if (ind !== -1) {
+                    if (new_quant === 0 || new_quant === 0.0) {
+                      new_ing.splice(ind, 1);
+                    }
+                    else {
+                      new_ing[ind].quantity = new_quant;
+                    }
+                  }
+                  else if (new_quant !== 0 || new_quant !== 0.0) {
+                    new_ing.unshift({
+                      inventoryID: updatedRow.id,
+                      quantity: new_quant
+                    });
+                  }
+                }
+                else {
+                  new_quant = originalRow.quantity;
+                }
+                setIngredients(new_ing);
+                updatedRow.quantity = new_quant;
+                return updatedRow;
+              }}
+              onProcessRowUpdateError={(error) => { console.log(error) }}
+              initialState={{
+                pagination: {
+                    paginationModel: { page: 0, pageSize: 5 },
+                },
+              }}
+              pageSizeOptions={[5, 10, 25, 50, 100]}
+            />
           </DialogContent>
 
           <DialogActions>
