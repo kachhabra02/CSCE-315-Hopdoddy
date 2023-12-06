@@ -169,43 +169,43 @@
         "/reports/restock": {
             "get": {
                 "tags": ["reports"],
-                "summary": "",
+                "summary": "Retrieve a report of inventory items that need to be restocked.",
                 "description": ""
             }
         },
         "/reports/product-usage": {
             "get": {
                 "tags": ["reports"],
-                "summary": "",
+                "summary": "Retrieve a report detailing the usage of all inventory items.",
                 "description": ""
             }
         },
         "/users": {
             "get": {
                 "tags": ["users"],
-                "summary": "",
+                "summary": "Retrive information on user(s).",
                 "description": ""
             },
             "post": {
                 "tags": ["users"],
-                "summary": "",
+                "summary": "Add given user to the database.",
                 "description": ""
             }
         },
         "/users/{id}": {
             "get": {
                 "tags": ["users"],
-                "summary": "",
+                "summary": "Retrive information on given user.",
                 "description": ""
             },
             "put": {
                 "tags": ["users"],
-                "summary": "",
+                "summary": "Update information of given user.",
                 "description": ""
             },
             "delete": {
                 "tags": ["users"],
-                "summary": "",
+                "summary": "Delete given user from the database.",
                 "description": ""
             }
         }
