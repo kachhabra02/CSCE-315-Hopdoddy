@@ -21,5 +21,6 @@ const makeGuard = (authenticate) => function Guard({ children }) {
   return children;
 }
 
-export const CashierGuard = makeGuard((userObj) => userObj.isCashier || userObj.isManager);
-export const ManagerGuard = makeGuard((userObj) => userObj.isManager);
+export const CashierGuard = makeGuard((userObj) => userObj.isCashier || userObj.isManager || userObj.isAdmin);
+export const ManagerGuard = makeGuard((userObj) => userObj.isManager || userObj.isAdmin);
+export const   AdminGuard = makeGuard((userObj) => userObj.isAdmin);

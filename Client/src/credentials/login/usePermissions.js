@@ -1,8 +1,6 @@
-import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useAuth } from "../AuthProvider";
 import axios from 'axios';
-import { useState, useEffect } from "react";
 
 const API = axios.create({
     baseURL: `${process.env.REACT_APP_API_URL}/api`,
@@ -11,7 +9,7 @@ const API = axios.create({
 
 
 const usePermission = () => { 
-    const {user, isAuthenticated} = useAuth0();
+    const {user} = useAuth0();
     const {userObj, setUserObj} = useAuth();
     // const [data, setData] = useState([]);
     // const [userExists, setUserExists] = useState(false);
