@@ -34,135 +34,135 @@
         "/menu": {
             "post": {
                 "tags": ["menu"],
-                "summary": "",
+                "summary": "Add given item to the menu.",
                 "description": ""
             }
         },
         "/menu/view": {
             "get": {
                 "tags": ["menu"],
-                "summary": "",
+                "summary": "Retrieve details of all items on the menu.",
                 "description": ""
             }
         },
         "/menu/categories": {
             "get": {
                 "tags": ["menu"],
-                "summary": "",
+                "summary": "Retrieve the unique categories on the menu.",
                 "description": ""
             }
         },
         "/menu/sub-categories": {
             "get": {
                 "tags": ["menu"],
-                "summary": "",
+                "summary": "Retrieve the unique sub-categories of the given category.",
                 "description": ""
             }
         },
         "/menu/items": {
             "get": {
                 "tags": ["menu"],
-                "summary": "",
+                "summary": "Retrieve details of menu items in the given category and sub-category.",
                 "description": ""
             }
         },
         "/menu/modifications": {
             "get": {
                 "tags": ["menu"],
-                "summary": "",
+                "summary": "Retrieve details of modifications available on the given menu item (NOT FULLY SUPPORTED).",
                 "description": ""
             }
         },
         "/menu/item/{id}": {
             "get": {
                 "tags": ["menu"],
-                "summary": "",
+                "summary": "Retrieve ingredients in the given menu item or modifications.",
                 "description": ""
             },
             "delete": {
                 "tags": ["menu"],
-                "summary": "",
+                "summary": "Delete the given item or modification from the menu.",
                 "description": ""
             },
             "put": {
                 "tags": ["menu"],
-                "summary": "",
+                "summary": "Update the given item or modification.",
                 "description": ""
             }
         },
         "/inventory": {
             "get": {
                 "tags": ["inventory"],
-                "summary": "",
+                "summary": "Retrieve details of all items in inventory.",
                 "description": ""
             },
             "post": {
                 "tags": ["inventory"],
-                "summary": "",
+                "summary": "Add given item to the inventory.",
                 "description": ""
             }
         },
         "/inventory/{id}": {
             "put": {
                 "tags": ["inventory"],
-                "summary": "",
+                "summary": "Update details of the given inventory item.",
                 "description": ""
             },
             "delete": {
                 "tags": ["inventory"],
-                "summary": "",
+                "summary": "Delete given item from the inventory.",
                 "description": ""
             }
         },
         "/transactions": {
             "get": {
                 "tags": ["transactions"],
-                "summary": "",
+                "summary": "Retrieve details of transaction history.",
                 "description": ""
             },
             "post": {
                 "tags": ["transactions"],
-                "summary": "",
+                "summary": "Places given transaction (add it to the transaction history).",
                 "description": ""
             }
         },
         "/transactions/{id}": {
             "put": {
                 "tags": ["transactions"],
-                "summary": "",
+                "summary": "Update status of the given transaction.",
                 "description": ""
             },
             "delete": {
                 "tags": ["transactions"],
-                "summary": "",
+                "summary": "Delete given transaction from the transaction history.",
                 "description": ""
             }
         },
         "/transactions/deleteCanceled": {
             "delete": {
                 "tags": ["transactions"],
-                "summary": "",
+                "summary": "Delete all canceled transactions from the transaction history.",
                 "description": ""
             }
         },
         "/reports/popular-pairs": {
             "get": {
                 "tags": ["reports"],
-                "summary": "",
+                "summary": "Retrieve a report of what items sell together most.",
                 "description": ""
             }
         },
         "/reports/sales": {
             "get": {
                 "tags": ["reports"],
-                "summary": "",
+                "summary": "Retrieve a report of the total sales of all menu items.",
                 "description": ""
             }
         },
         "/reports/excess": {
             "get": {
                 "tags": ["reports"],
-                "summary": "",
+                "summary": "Retrieve a report of inventory items that have an excess quantity in stock.",
                 "description": ""
             }
         },
