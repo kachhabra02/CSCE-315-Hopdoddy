@@ -18,6 +18,7 @@ CREATE TABLE Menu (
     Is_Available BOOLEAN DEFAULT TRUE,
     Display_Item BOOLEAN NOT NULL,
     Display_Image BOOLEAN NOT NULL,
+    Feature_Item BOOLEAN NOT NULL,
     Item_Description TEXT DEFAULT 'No description',
     PRIMARY KEY (Item_ID)
 );
