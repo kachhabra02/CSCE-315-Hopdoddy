@@ -6,7 +6,7 @@ import ItemCard from "./ItemCard";
 
 function ItemGrid({items, onUpdate, sx, modifier}) {
     const [spacing, setSpacing] = useState(0);
-    const [size, setSize] = useState([0, 0]);
+    const [size, setSize] = useState([window.innerWidth, window.innerHeight]);
 
     useLayoutEffect(() => {
         function updateSize() {
