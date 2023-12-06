@@ -186,8 +186,9 @@ const getFeaturedItems = (callback) => {
 
           // Take as many items as needed to fill up to 3
           featuredItems = featuredItems.concat(additionalItems.slice(0, 3 - featuredItems.length));
-
         }
+
+        featuredItems = featuredItems.slice(0, 3);
 
         callback(featuredItems);
       }
