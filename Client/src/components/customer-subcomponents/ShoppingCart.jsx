@@ -122,6 +122,7 @@ function ShoppingCart({open, onClose, onUpdate}) {
                 <List> {
                     cart?.map((item, i) => (
                         <ListItem 
+                          key={i}
                           secondaryAction={(
                             <IconButton edge="end" size="small" color="error" onClick={removeOrder(i)}>
                                 {item?.is_modification ? <MdClear/> : <BsFillTrash3Fill/>}

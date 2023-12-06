@@ -6,6 +6,8 @@ import SideCategoryList from "./customer-subcomponents/SideCategoryList";
 import ItemGrid from "./customer-subcomponents/ItemGrid";
 import ModificationPanel from "./customer-subcomponents/ModificationPanel";
 
+import "./customer-subcomponents/ItemCard.css";
+
 function Customer({onUpdate}) {
     const [{categories, items, modifications}, {getItems, getModifications}] = useAPI();
     const [selected, setSelected] = useState({category: null, subcategory: null});
@@ -37,7 +39,7 @@ function Customer({onUpdate}) {
                 // : <CategoryAccordions categories={categories} onUpdate={onUpdate} />
                 : <SideCategoryList categories={categories} onUpdate={onUpdate} itemGetter={getItems} subcategorySelector={setSelected}
                     sx={{"width": 250, 
-                         "max-height": "calc(100vh - 64px)",
+                         maxHeight: "calc(100vh - 64px)",
                          overflow: "auto",
                         //  float: "left",
                           position: "fixed"

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
@@ -18,8 +19,8 @@ function SideCategoryList({ categories, itemGetter, sx, subcategorySelector }) {
     return (
         <List sx={sx}> {
             categories.map((item, i) => (
-              <>
-                <ListItemButton onClick={() =>  {
+              <li key={i}>
+                <ListItemButton key={i} onClick={() =>  {
                     let temp = [...expanded];
                     temp[i] = !temp[i];
                     setExpanded(temp);
@@ -33,7 +34,7 @@ function SideCategoryList({ categories, itemGetter, sx, subcategorySelector }) {
                       setSelected={setSelected} itemGetter={itemGetter} subcategorySelector={subcategorySelector}
                     />
                 </Collapse>
-              </>
+              </li>
             ))
         } </List>
     );
@@ -54,6 +55,7 @@ function SideSubcategoryList({category, currSelected, index, setSelected, itemGe
             ? <CircularProgress/>
             : <List sx={{pl: 4}}> {subcategories.map((item, i) => (
                     <ListItemButton
+                      key={i}
                       selected={currSelected[0] === index && currSelected[1] === i}
                       onClick={() => {
                         setSelected([index, i]);

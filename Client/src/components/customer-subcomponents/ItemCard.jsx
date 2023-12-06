@@ -32,12 +32,11 @@ function ItemCard({item, onUpdate, width, modifier}) {
 
     return (
         <Tooltip title="Description" enterTouchDelay={0} onOpen={() => setOpen(true)} onClose={() => setOpen(false)}>
-            <style>{".MuiTooltip-tooltip {visibility: hidden;}"}</style>
             <ButtonBase 
               onClick={modifier(item)} 
-              sx={{"text-align" : "left", "max-height": width, width: width}}
+              sx={{textAlign : "left", maxHeight: width, width: width}}
             >
-                <ImageListItem sx={{"min-width": width}}>
+                <ImageListItem sx={{minWidth: width}}>
                     <img 
                         // Name like Goodnight/Good Cause -> goodnight-good_cause.jpg
                         src={`/images/${item.item_name.replace(/\s+/g, '_').replace(/\//g, '-').toLowerCase()}.jpg`}
@@ -64,10 +63,10 @@ function ItemCard({item, onUpdate, width, modifier}) {
                         //   sx={{position: "absolute", width: width, bottom: 0, left: width, "z-index": 5}}
                         >
                             <div style={{
-                                    "background-color": "white", padding: 10, 
-                                    "border-style": "none solid solid", 
-                                    "border-color": "rgba(0, 0, 0, 0.54)", 
-                                    "border-width": 2
+                                    backgroundColor: "white", padding: 10, 
+                                    borderStyle: "none solid solid", 
+                                    borderColor: "rgba(0, 0, 0, 0.54)", 
+                                    borderWidth: 2
                                 }}
                             >
                                 {item.item_description}

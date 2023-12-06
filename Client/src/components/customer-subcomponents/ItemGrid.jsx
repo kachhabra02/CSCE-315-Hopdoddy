@@ -23,9 +23,9 @@ function ItemGrid({items, onUpdate, sx, modifier}) {
     }, []);
 
     return (
-        <Grid container spacing={2} sx={{...sx, "padding-right": 16, "padding-bottom": 16, width: window.innerWidth - 266}} id="ItemGrid">{
-            items?.map(item => (
-                <Grid item >
+        <Grid container spacing={2} sx={{...sx, paddingRight: 16, paddingBottom: 16, width: window.innerWidth - 266}} id="ItemGrid">{
+            items?.map((item, i) => (
+                <Grid item key={i}>
                     <ItemCard item={item} onUpdate={onUpdate} width={400 + spacing} modifier={modifier(item.item_id )}/>
                 </Grid>
             ))
