@@ -21,6 +21,11 @@ const getModificationsQuery = "SELECT Item_ID, Item_Name, Price, Item_Descriptio
 const viewMenuQuery = "SELECT Item_ID, Item_Name, Category, Sub_Category, Price, Is_Modification, Display_Item, Display_Image, Feature_Item, " +
                       "Item_Description FROM Menu WHERE Is_Available ORDER BY Item_ID ASC";
 
+// Get Ingredients
+const getIngredientsQuery = "SELECT Inventory.Inventory_ID AS Ingredient_ID, Inventory_Name AS Ingredient_Name, Ingredient_Quantity, Unit " +
+                            "FROM (SELECT Inventory_ID, Quantity AS Ingredient_Quantity FROM Ingredients_List WHERE Item_ID = $1) " +
+                            "AS Ingredients LEFT JOIN Inventory ON Ingredients.Inventory_ID = Inventory.Inventory_ID";
+
 // Delete menu item
 const deleteMenuItemQuery = "UPDATE Menu SET Is_Available = FALSE WHERE Item_ID = $1";
 
@@ -55,7 +60,7 @@ function updateMenuItemQuery(hasName, hasPrice, hasMod) {
 
 // Add menu item
 function addMenuItemQueries(numIngredients) {
-    var query_p1 = "INSERT INTO Menu (Item_Name, Category, Sub_Category, Price, Is_Modification, Display_Item, Display_Image, Feature_Item, "
+    var query_p1 = "INSERT INTO Menu (Item_Name, Category, Sub_Category, Price, Is_Modification, Display_Item, Display_Image, Feature_Item, " +
                    "Item_Description) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING Item_ID";
     
     var query_p2 = "INSERT INTO Ingredients_List (Item_ID, Inventory_ID, Quantity) VALUES ";
@@ -243,6 +248,7 @@ module.exports = {
     getMenuItemsQuery,
     getModificationsQuery,
     viewMenuQuery,
+    getIngredientsQuery,
     deleteMenuItemQuery,
     updateMenuItemQuery,
     addMenuItemQueries,
