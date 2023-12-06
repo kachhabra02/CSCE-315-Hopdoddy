@@ -186,6 +186,8 @@ function MenuManagment() {
               text: `Successfully Edited Item '${editMenuItem[1]}'`
             }
           );
+
+          loadMenu();
         }
         else {
           console.log(`Failed to Edit Item '${editMenuItem[1]}'`);
