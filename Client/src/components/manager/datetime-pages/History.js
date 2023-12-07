@@ -1,8 +1,8 @@
 /**
- * @module History
  * This module provides the 'Order/Transaction History Report' component for the application.
  * It displays a detailed report of orders or transactions within a specified time range, 
  * allowing for viewing, filtering, and deleting records.
+ * @module History
  */
 
 import React from 'react';

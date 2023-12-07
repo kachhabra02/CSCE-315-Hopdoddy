@@ -1,7 +1,7 @@
 /**
- * @module Excess
  * This module provides the 'Excess Inventory Report' component for the application.
  * It displays a report of inventory items, showing details such as current quantity, actual usage, and target usage.
+ * @module Excess
  */
 
 import React from 'react';
