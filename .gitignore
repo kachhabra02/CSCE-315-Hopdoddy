@@ -22,6 +22,7 @@ Client/.env.production.local
 /Client/npm-debug.log*
 /Client/yarn-debug.log*
 /Client/yarn-error.log*
+/Client/docs
 
 ## Server ##
 # dependencies
@@ -45,4 +46,3 @@ Client/.env.production.local
 /Server/npm-debug.log*
 /Server/yarn-debug.log*
 /Server/yarn-error.log*
-/Client/docs
