@@ -126,7 +126,7 @@ function App() {
         redirectUri={window.location.origin}>
       <AuthProvider>
         <BrowserRouter>
-          <AppBar position = 'fixed'>
+          <AppBar position = 'fixed'> 
             <NavBar onUpdate={setCart}/>
           </AppBar>
           <Routes>
