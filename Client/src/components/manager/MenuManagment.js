@@ -1,3 +1,9 @@
+/**
+ * This module provides functionalities for managing and displaying menu items in a restaurant application.
+ * It includes functions for loading, editing, adding, and deleting menu items.
+ * @module MenuManagement
+ */
+
 import React from 'react';
 import { useState } from 'react';
 
@@ -32,6 +38,12 @@ const API = axios.create({
 });
 
 
+/**
+ * MenuManagement component is responsible for managing and displaying menu items.
+ * It provides functionalities such as loading menu items, editing, adding, and deleting items.
+ * 
+ * @returns {React.Component} A component for managing the restaurant's menu.
+ */
 function MenuManagment() {
   const [menu, setMenu] = useState(undefined);
   const [categories, setCategories] = useState(["No Category"]);
@@ -47,6 +59,9 @@ function MenuManagment() {
   const [itemInfo, setItemInfo] = useState(null);
 
 
+  /**
+   * Loads the full menu from the API.
+   */
   function loadMenu() {
     API.get(`/menu/view`)
      .then((res) => {
@@ -85,6 +100,11 @@ function MenuManagment() {
       });
   }
 
+  /**
+   * Loads subcategories for a given category.
+   * 
+   * @param {string} category - The category for which subcategories are to be loaded.
+   */
   function loadSubCategories(category) {
     API.get(`/menu/sub-categories?category=${category}`)
       .then((res) => {
@@ -104,6 +124,9 @@ function MenuManagment() {
       });
   }
 
+  /**
+   * Loads inventory items.
+   */
   function loadInventory() {
     API.get(`/inventory`)
       .then((res) => {
@@ -123,6 +146,11 @@ function MenuManagment() {
       });
   }
 
+  /**
+   * Loads ingredients for a specific menu item.
+   * 
+   * @param {number} item_id - The ID of the menu item for which ingredients are to be loaded.
+   */
   function loadIngredients(item_id) {
     API.get(`/menu/item/${item_id}`)
       .then((res) => {
