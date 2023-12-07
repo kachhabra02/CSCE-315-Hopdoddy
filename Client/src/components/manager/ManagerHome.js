@@ -60,14 +60,16 @@ function ManagerHome() {
           {makeButton('usage', 'Product Usage')}
           {makeButton('what-sells-together', 'What Sells Together')}
         </Stack>
-        <Button 
-          sx={{ minWidth: '20em' }} 
-          variant='contained' 
-          component={Link} 
-          to={`/admin`}
-          color='secondary'
-          children={"Admin - User Management"}
-        />
+        { userObj.isAdmin &&
+          <Button 
+            sx={{ minWidth: '20em' }} 
+            variant='contained' 
+            component={Link} 
+            to={`/admin`}
+            color='secondary'
+            children={"Admin - User Management"}
+          />
+        }
       </Stack>
     </Box>
   )
