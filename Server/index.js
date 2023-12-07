@@ -5,7 +5,7 @@ const app = express();
 // Swagger Docs Requirements
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {}));
 
 // Configure port to listen on
 require('dotenv').config();
