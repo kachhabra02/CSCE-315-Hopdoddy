@@ -3,7 +3,7 @@
     "info": {
         "version": "1.0",
         "title": "Hop Into The New Hopdoddy!",
-        "description": "This documentation is for the server of <a href=\"https://project-3-905-02.vercel.app/\">our new app</a> that reinvents all things Hopdoddy.<br/>This app provides all things necessary to efficiently run the Hopdoddy Burger Bar in Century Square.<br/>Brought to you by Krish Chhabra, Thomas Holt, Eliseo Garza, Donato Curvino, and Josh Scott of Team 905_02. Happy Hoppin'!"
+        "description": "This documentation is for the server of [our new app](https://project-3-905-02.vercel.app/) that reinvents all things Hopdoddy.\nThis app provides all things necessary to efficiently run the Hopdoddy Burger Bar in Century Square.\nBrought to you by Krish Chhabra, Thomas Holt, Eliseo Garza, Donato Curvino, and Josh Scott of Team 905_02. Happy Hoppin'!"
     },
     "schemes": ["https"],
     "host": "project-3-905-02-server.vercel.app",
