@@ -1,13 +1,31 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 
+/**
+ * API Interaction Module
+ *
+ * This module contains an Axios instance for making API requests and a custom hook for interacting with the API.
+ * The useAPI hook provides functions to fetch categories, subcategories, items, and modifications from the API.
+ * It is designed to be used across various components like Cashier and Customer to handle menu data retrieval.
+ *
+ * @module useAPI
+ */
+
+/**
+ * Axios instance for making API requests.
+ */
 const API = axios.create({
     baseURL: `${process.env.REACT_APP_API_URL}/api`,
     timeout: 10000 // 10 second timeout
 });
 
-// Custom hook that calls API functions
-// Can be used from both Cashier and Customer
+/**
+ * Custom hook for interacting with the API.
+ * This hook provides functions to fetch categories, subcategories, items, and modifications.
+ * It is designed to be used across various components like Cashier and Customer.
+ * 
+ * @returns {Array} An array containing two elements: state and API functions.
+ */
 const useAPI = () => {
     const [categories, setCategories] = useState();
     const [subcategories, setSubcategories] = useState([]);
@@ -33,6 +51,12 @@ const useAPI = () => {
             });
     }, []);
 
+    
+    /**
+     * Fetches subcategories for a given category.
+     * @param {string} categoryName - The name of the category.
+     * @returns {Function} A function to be invoked to perform the fetch operation.
+     */
     function getSubcategories(categoryName) {
         return () => {
             setCurrCategory(categoryName);
@@ -56,6 +80,12 @@ const useAPI = () => {
         };
     }
 
+    /**
+     * Fetches items for a given subcategory (and optional category).
+     * @param {string} subcategoryName - The name of the subcategory.
+     * @param {string} [categoryName=null] - The name of the category (optional).
+     * @returns {Function} A function to be invoked to perform the fetch operation.
+     */
     function getItems(subcategoryName, categoryName = null) {
         return () => {
             setCurrSubcategory(subcategoryName);
@@ -78,6 +108,13 @@ const useAPI = () => {
         };
     }
 
+    /**
+     * Fetches modifications for a given item ID, subcategory, and category.
+     * @param {number} id - The ID of the item.
+     * @param {string} subcategoryName - The name of the subcategory.
+     * @param {string} categoryName - The name of the category.
+     * @returns {Function} A function to be invoked to perform the fetch operation.
+     */
     function getModifications(id, subcategoryName, categoryName) {
         return () => {
             setModifiactions(null)

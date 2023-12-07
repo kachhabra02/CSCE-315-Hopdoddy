@@ -1,3 +1,12 @@
+/**
+ * TransactionList Module
+ *
+ * This module provides the TransactionList component, which displays a list of transactions.
+ * It renders a table with item names, prices, and delete buttons for each transaction.
+ *
+ * @module TransactionList
+ */
+
 import React from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Box, Button } from '@mui/material';
 import { BsFillTrash3Fill } from 'react-icons/bs';
@@ -17,6 +26,16 @@ const StyledIcon = styled(BsFillTrash3Fill)({
   fontSize: '1.5rem', // Larger icon size
 });
 
+/**
+ * TransactionList Component
+ *
+ * This component displays a list of transactions in a table format. Each row represents a transaction,
+ * showing the item name, price, and a delete button for each transaction.
+ *
+ * @param {Object[]} orders - An array of transaction objects, each containing an item name and price.
+ * @param {Function} remover - A callback function to remove a transaction when the delete button is clicked.
+ * @returns {JSX.Element} The JSX element representing the transaction list table.
+ */
 function TransactionList({ orders, remover }) {
   const priceFormat = new Intl.NumberFormat("en-US", {
     style: "currency",

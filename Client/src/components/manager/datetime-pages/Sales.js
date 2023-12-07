@@ -1,3 +1,9 @@
+/**
+ * This module provides the 'Sales Report' component for the application.
+ * It displays a sales report based on item transactions within a specified time range.
+ * @module Sales
+ */
+
 import React from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -65,6 +71,12 @@ const options = {
 };
 
 
+/**
+ * Displays a report of sales data.
+ * The time range for the report is obtained from URL parameters.
+ * 
+ * @returns {React.Component} A component displaying the 'Sales Report'.
+ */
 function Sales() {
   const { startTime, endTime } = useParams();
   const [data, setData] = useState(undefined);

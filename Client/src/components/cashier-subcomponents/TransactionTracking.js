@@ -1,3 +1,13 @@
+/**
+ * TransactionTracking Module
+ *
+ * This module contains components and functions related to transaction tracking and management.
+ * It includes a component for displaying transaction data with filtering options and actions.
+ * Additionally, it provides utility functions for interacting with transaction data.
+ *
+ * @module TransactionTracking
+ */
+
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 
@@ -35,6 +45,15 @@ const options = {
   resizableColumns: true
 };
 
+/**
+ * TransactionTracking Component
+ *
+ * This component displays a transaction tracking interface that allows users to view, filter, and
+ * manage transactions. It includes options to choose a time frame, view transactions in a table,
+ * and perform actions on individual transactions.
+ *
+ * @returns {JSX.Element} The JSX element representing the transaction tracking interface.
+ */
 function TransactionTracking() {
   const [data, setData] = useState(undefined);
   const [datetimeOpen, setDatetimeOpen] = React.useState(false);
@@ -242,6 +261,13 @@ async function deleteAllCanceled() {
   }
 }
 
+/**
+ * Fetches a list of orders within a specified time frame from the server.
+ *
+ * @param {Date} startTime - The start time of the time frame.
+ * @param {Date} endTime - The end time of the time frame.
+ * @param {function} callback - A callback function to handle the retrieved data.
+ */
 function getOrders(startTime, endTime, callback) {
   API.get(`/transactions?startTime=${startTime.toISOString()}&endTime=${endTime.toISOString()}`)
     .then((res) => {
@@ -272,6 +298,15 @@ function getOrders(startTime, endTime, callback) {
   );
 }
 
+/**
+ * Component for inputting and generating a time frame for transaction filtering.
+ * It allows users to select a start and end time for filtering transactions and provides buttons to generate the filter and close the modal.
+ * @param {object} props - The component's props.
+ * @param {string} props.title - The title of the card.
+ * @param {function} props.onGenerate - The callback function to generate the filter with selected time frame.
+ * @param {function} props.onClose - The callback function to close the modal.
+ * @returns {JSX.Element} The rendered React component.
+ */
 function PageInputCard({ title, onGenerate, onClose }) {  
   const [startTime, setStartTime] = useState((() => {
     const startOfToday = new Date();

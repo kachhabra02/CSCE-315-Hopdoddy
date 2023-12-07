@@ -11,6 +11,20 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 import useAPI from "../useAPI";
 
+/**
+ * This module provides a React component for displaying a list of categories and their subcategories.
+ * Users can expand and collapse categories to view subcategories.
+ * @module SideCategoryList
+ */
+
+/**
+ * @param {Object} props - Component props.
+ * @param {Array} props.categories - List of category objects with 'category' property.
+ * @param {Function} props.itemGetter - Function to retrieve items based on selected subcategory and category.
+ * @param {Object} props.sx - Additional styles for the component.
+ * @param {Function} props.subcategorySelector - Function to select a subcategory.
+ * @returns {React.Component} A list of expandable categories with subcategories.
+ */
 function SideCategoryList({ categories, itemGetter, sx, subcategorySelector }) {
     const [expanded, setExpanded] = useState([true]);
     const [selected, setSelected] = useState([0, -1]);
@@ -40,6 +54,19 @@ function SideCategoryList({ categories, itemGetter, sx, subcategorySelector }) {
     );
 }
 
+/**
+ * This function provides a React component for displaying a list of subcategories for a given category.
+ * Users can select a subcategory, triggering item retrieval and subcategory selection.
+ *
+ * @param {Object} props - Component props.
+ * @param {string} props.category - The current category.
+ * @param {Array} props.currSelected - The currently selected category and subcategory indices.
+ * @param {number} props.index - The index of the current category.
+ * @param {Function} props.setSelected - Function to set the selected category and subcategory.
+ * @param {Function} props.itemGetter - Function to retrieve items based on selected subcategory and category.
+ * @param {Function} props.subcategorySelector - Function to select a subcategory.
+ * @returns {React.Component} A list of subcategories for the specified category.
+ */
 function SideSubcategoryList({category, currSelected, index, setSelected, itemGetter, subcategorySelector}) {
     const [{subcategories}, {getSubcategories}] = useAPI();
     useEffect(getSubcategories(category), []);

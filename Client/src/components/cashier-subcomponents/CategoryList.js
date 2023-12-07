@@ -3,6 +3,20 @@ import ItemButton from "./ItemButton";
 
 import { DynamicButtonGrid } from './cashierContainers'
 
+/**
+ * Component for rendering a list of categories as buttons.
+ * @module CategoryList
+ */
+
+/**
+ * Component for rendering a list of categories as buttons.
+ *
+ * @param {Object[]} categories - An array of category objects.
+ * @param {string} categories[].category - The name of the category.
+ * @param {function} clickHandler - A callback function to handle category button clicks.
+ * @param {string} selected - The selected category name.
+ * @returns {React.Component} The CategoryList component.
+ */
 function CategoryList({categories, clickHandler, selected}) {
     var categoryButtons = categories.map((item, index) => (
         <ItemButton key={index}

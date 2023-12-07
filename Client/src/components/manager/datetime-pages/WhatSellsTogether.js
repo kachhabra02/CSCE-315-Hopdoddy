@@ -1,3 +1,9 @@
+/**
+ * This module provides the 'What Sells Together' report component for the application.
+ * It displays a report of item pairs that are frequently ordered together within a specified time range.
+ * @module WhatSellsTogether
+ */
+
 import React from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -65,6 +71,12 @@ const options = {
 };
 
 
+/**
+ * Displays a report of item pairs that are frequently ordered together.
+ * The time range for the report is obtained from the URL parameters.
+ * 
+ * @returns {React.Component} A component displaying the 'What Sells Together' report.
+ */
 function WhatSellsTogether() {
   const { startTime, endTime } = useParams();
   const [data, setData] = useState(undefined);

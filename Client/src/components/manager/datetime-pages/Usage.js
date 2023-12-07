@@ -1,3 +1,9 @@
+/**
+ * This module provides the 'Product/Inventory Usage Report' component for the application.
+ * It displays a report of inventory usage within a specified time range, showing total usage per item.
+ * @module Usage
+ */
+
 import React from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -57,7 +63,12 @@ const options = {
   resizableColumns: true
 };
 
-
+/**
+ * Displays a report of product or inventory usage.
+ * The time range for the report is obtained from URL parameters.
+ * 
+ * @returns {React.Component} A component displaying the 'Product/Inventory Usage' report.
+ */
 function Usage() {
   const { startTime, endTime } = useParams();
   const [data, setData] = useState(undefined);

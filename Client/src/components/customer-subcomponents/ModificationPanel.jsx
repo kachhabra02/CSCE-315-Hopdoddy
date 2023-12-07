@@ -7,12 +7,25 @@ import DialogActions from '@mui/material/DialogActions';
 import Button from "@mui/material/Button";
 import { MdShoppingCartCheckout } from "react-icons/md";
 
-// import List from '@mui/material/List';
-// import ListItem from '@mui/material/ListItem';
 import Grid from '@mui/material/Grid';
 
 import ItemButton from "../cashier-subcomponents/ItemButton";
 
+/**
+ * This module provides a React component for displaying modification options for an item.
+ * Users can select modifications, and the selected modifications can be sent to the cart.
+ * @module ModificationPanel
+ */
+
+/**
+ * @param {Object} props - Component props.
+ * @param {boolean} props.open - Whether the modification panel is open.
+ * @param {Function} props.onClose - Function to close the modification panel.
+ * @param {Array} props.modifications - An array of modification options.
+ * @param {Object} props.item - The item to which modifications apply.
+ * @param {Function} props.onUpdate - Function to call when an update is needed.
+ * @returns {React.Component} A modification panel with options to select modifications and add to the cart.
+ */
 function ModificationPanel({open, onClose, modifications, item, onUpdate}) {
     // console.log(modifications)
     const [modsSelected, setModsSelected] = useState([false]);
