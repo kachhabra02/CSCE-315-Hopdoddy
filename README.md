@@ -180,8 +180,8 @@ The retrospective must be completed before the next sprint backlog is determined
 - **When**: 12/6 at 9:45 pm
 - **Where**: Zachry
 - **Attendees**:
-  1. 
-  2. 
-  3. 
-  4. 
-  5. 
+  1. Krish Chhabra
+  2. Thomas Holt
+  3. Josh Scott
+  4. Donato Curvino
+  5. Eliseo Garza
