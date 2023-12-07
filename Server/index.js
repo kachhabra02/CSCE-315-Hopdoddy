@@ -34,7 +34,8 @@ app.get('/api', (req, res) => {
 // Swagger Docs Requirements
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {}));
+const CSS_URL = "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css"; // CDN CSS
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, { customCssUrl: CSS_URL }));
 
 // Begin listening on determined port
 app.listen(port, () => {
