@@ -35,6 +35,12 @@ const FullHeightGrid = styled(Grid)({
   height: '100%',
 });
 
+/**
+ * Main cashier component for handling orders, transactions, and user interactions.
+ * 
+ * Utilizes various sub-components like CategoryList, SubcategoryList, TransactionList, and ItemList for different functionalities.
+ * Also uses custom hooks and Material-UI components for UI and state management.
+ */
 function Cashier() {
   const [orders, setOrders] = useState([]);
   const [alertStatus, setAlertStatus] = useState({open: false, status: "error"});
@@ -173,6 +179,15 @@ function Cashier() {
   );
 }
 
+/**
+ * Custom tab panel component for managing different views in the cashier interface.
+ * 
+ * @param {Object} props - The props passed to the CustomTabPanel component.
+ * @param {number} props.value - The current tab value.
+ * @param {number} props.index - The index of the tab.
+ * @param {React.ReactNode} props.children - The children elements of the tab panel.
+ * @returns The rendered tab panel component.
+ */
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -199,6 +214,12 @@ CustomTabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
+/**
+ * Utility function for accessibility properties of tabs.
+ * 
+ * @param {number} index - Index of the tab for which the properties are generated.
+ * @returns {Object} Accessibility properties for the tab.
+ */
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
