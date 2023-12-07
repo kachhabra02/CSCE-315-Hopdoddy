@@ -8,12 +8,25 @@ import ModificationPanel from "./customer-subcomponents/ModificationPanel";
 
 import "./customer-subcomponents/Customer.css";
 
+/**
+ * The Customer component represents the customer interface in the application.
+ * It allows for displaying categories, items, and handling item modifications.
+ * 
+ * @param {function} onUpdate - A callback function that gets triggered on updates, such as item addition or modification.
+ */
 function Customer({onUpdate}) {
     const [{categories, items, modifications}, {getItems, getModifications}] = useAPI();
     const [selected, setSelected] = useState({category: null, subcategory: null});
     // const getModificationsByID = (id) => getModifications(id, selected?.subcategory, selected?.category);
     const [isModOpen, setIsModOpen] = useState(false);
     const [moddedItem, setModdedItem] = useState(null);
+    
+    /**
+     * Opens the modification panel for an item.
+     * 
+     * @param {number} id - The ID of the item to modify.
+     * @param {Object} item - The item object that is to be modified.
+     */
     const openModPanel = (id) => (item) => () => {
         console.log(selected?.category, selected?.subcategory, id)
         getModifications(id, selected?.subcategory, selected?.category)();

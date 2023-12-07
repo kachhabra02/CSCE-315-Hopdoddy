@@ -1,3 +1,10 @@
+/**
+ * This module provides the 'Order/Transaction History Report' component for the application.
+ * It displays a detailed report of orders or transactions within a specified time range, 
+ * allowing for viewing, filtering, and deleting records.
+ * @module History
+ */
+
 import React from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -70,6 +77,13 @@ const columns = [
 ];
 
 
+/**
+ * Displays a report of order or transaction history.
+ * The time range for the report is obtained from URL parameters.
+ * Includes functionality to delete individual or multiple orders.
+ * 
+ * @returns {React.Component} A component displaying the 'Order/Transaction History' report.
+ */
 function History() {
   const { startTime, endTime } = useParams();
   const [data, setData] = useState(undefined);

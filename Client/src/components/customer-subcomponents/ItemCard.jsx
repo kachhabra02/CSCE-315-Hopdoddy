@@ -1,3 +1,9 @@
+/**
+ * This module provides a React component for displaying an item card with details like item name, price, and description.
+ * Users can click to view item descriptions and add items to their cart.
+ * @module ItemCard
+ */
+
 import React, { useState } from "react";
 // import Card from '@mui/material/Card';
 // import CardContent from '@mui/material/CardContent';
@@ -5,7 +11,6 @@ import React, { useState } from "react";
 // import Button from "@mui/material/Button";
 import Tooltip from '@mui/material/Tooltip';
 import ButtonBase from "@mui/material/ButtonBase";
-import IconButton from "@mui/material/IconButton";
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import { MdAddShoppingCart } from "react-icons/md";
@@ -18,6 +23,15 @@ const priceFormat = new Intl.NumberFormat("en-US", {
     minimumFractionDigits: 2,
 });
 
+
+/**
+ * @param {Object} props - Component props.
+ * @param {Object} props.item - Item data, including item_name, price, and item_description.
+ * @param {Function} props.onUpdate - Function to call when an update is needed.
+ * @param {number} props.width - Width of the item card.
+ * @param {Function} props.modifier - Function to execute when the item card is clicked.
+ * @returns {React.Component} An item card with details and interaction.
+ */
 function ItemCard({item, onUpdate, width, modifier}) {
     const [open, setOpen] = useState(false);
 

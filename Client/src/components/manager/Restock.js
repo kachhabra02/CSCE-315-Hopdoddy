@@ -62,6 +62,12 @@ const options = {
 };
 
 
+/**
+ * Component for displaying an inventory restock report.
+ * Fetches inventory data from an API and displays it in a table format.
+ *
+ * @returns {React.Component} A component that displays the inventory restock report.
+ */
 function Restock() {
   const [data, setData] = useState(undefined);
 

@@ -14,6 +14,14 @@ import CartButton from '../customer-subcomponents/CartButton';
 import $ from "jquery";
 import usePermission from '../../credentials/login/usePermissions';
 
+/**
+ * Function to create a navigation button.
+ * 
+ * @param {string} path - The URL path the button should link to.
+ * @param {string} label - The label of the button.
+ * @param {string} [color] - Optional color for the button.
+ * @returns {Function} A function that returns a Button component.
+ */
 const makeButton = (path, label, color) => () => <Button color={color ?? 'inherit'} variant={color ? "contained" : "text"} component={Link} to={path}>{label}</Button>;
 
 const MenuLink = makeButton('/menu', 'Menu');
@@ -46,6 +54,14 @@ const defaultLinksMap = {
     '/customer' : [MenuLink, HomeLink],
     '/login' : null
 };
+
+/**
+ * Navigation bar component for the application. 
+ * Dynamically renders different sets of links based on user roles and current path.
+ * 
+ * @param {function} onUpdate - A callback function to be called on updates.
+ * @returns {React.Component} A navigation bar component with dynamic links.
+ */
 function NavBar({onUpdate}) {
     const location = useLocation();
     const[{userObj}, {getData}] = usePermission();

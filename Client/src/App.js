@@ -1,3 +1,13 @@
+/**
+ * Main Application Module
+ *
+ * This module serves as the entry point for the application and contains the main App component.
+ * It includes routing configuration, theme setup, and initialization of essential components and services.
+ * The App component handles routing and provides a consistent theme for the entire application.
+ *
+ * @module App
+ */
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import React, { useEffect } from 'react';
 
@@ -32,7 +42,11 @@ import { useState } from 'react';
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
 
-
+/**
+ * Creates a theme for Material-UI components.
+ * @constant
+ * @type {object}
+ */
 const theme = createTheme({
   palette: {
     mode: 'light',
@@ -48,11 +62,23 @@ const theme = createTheme({
   },
 });
 
+/**
+ * Custom route function to handle creation of route guards.
+ * @function
+ * @param {string} path - The path for the route.
+ * @param {React.Component} Element - The component to render for the route.
+ * @param {React.Component} [Guard=({children}) => <>{children}</>] - Optional guard component to protect the route.
+ * @returns {React.Component} - A Route component with optional guarding.
+ */
+
 const route = (path, Element, Guard=({children})=><>{children}</>) => (
   <Route path={path} element={<Guard> <Element /> </Guard>} />
 );
 
-// Loads the script
+/**
+ * Loads the Google Translate script dynamically.
+ * @function
+ */
 function loadGoogleTranslateScript() {
   // Check if script is already present
   const existingScript = document.getElementById('googleTranslateScript');
@@ -64,7 +90,10 @@ function loadGoogleTranslateScript() {
   }
 }
 
-// Initializes the google translate component
+/**
+ * Initializes the Google Translate component.
+ * @function
+ */
 function googleTranslateElementInit() {
   new window.google.translate.TranslateElement({
     pageLanguage: 'en',
@@ -73,6 +102,11 @@ function googleTranslateElementInit() {
   }, 'google_translate_element');
 }
 
+/**
+ * Main App component, serves as the root for all routing and state in the application.
+ * @function
+ * @returns {React.Component} The main app component containing all routes and theme providers.
+ */
 function App() {
   // Google Translate Implementation
   useEffect(() => {
@@ -92,7 +126,7 @@ function App() {
         redirectUri={window.location.origin}>
       <AuthProvider>
         <BrowserRouter>
-          <AppBar position = 'fixed'>
+          <AppBar position = 'fixed'> 
             <NavBar onUpdate={setCart}/>
           </AppBar>
           <Routes>

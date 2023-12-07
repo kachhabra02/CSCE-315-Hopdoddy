@@ -1,3 +1,13 @@
+/**
+ * Admin Component
+ * 
+ * This module defines the Admin component, which handles user administration, including user creation,
+ * editing, and deletion. It displays user data in a table and provides a modal for editing or creating users.
+ * Uses Material-UI components for the user interface.
+ * 
+ * @module Admin
+ */
+
 import React from 'react'
 import { useState } from 'react';
 
@@ -46,6 +56,15 @@ const createRow = [
 const updateMode = 42;
 const createMode = 24;
 
+/**
+ * Admin Component
+ * 
+ * This component handles user administration, allowing the creation, editing, and deletion of user accounts.
+ * It displays user data in a table and provides a modal for editing or creating users.
+ * Uses Material-UI components for UI elements.
+ * 
+ * @component
+ */
 function Admin() {
   const [rows, setRows] = useState(null);
   const [currUser, setCurrUser] = useState(null);

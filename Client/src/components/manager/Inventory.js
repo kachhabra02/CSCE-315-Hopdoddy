@@ -1,3 +1,9 @@
+/**
+ * This module provides the Inventory management component for the application.
+ * It includes functionalities for adding, editing, and deleting inventory items using a DataGrid.
+ * @module Inventory
+ */
+
 import React, { useEffect, useRef } from 'react';
 import { 
   Paper, 
@@ -21,6 +27,12 @@ import axios from 'axios';
 
 const initialRows = [];
 
+/**
+ * Creates an Add button for the toolbar to add new rows to the DataGrid.
+ * 
+ * @param {Object} props - Props containing rows, setRows, setRowModesModel, and scrollToBottom functions.
+ * @returns {React.Component} A custom toolbar component with an Add button.
+ */
 function EditToolbar(props) {
   const { rows, setRows, setRowModesModel, scrollToBottom } = props;
 
@@ -49,6 +61,12 @@ function EditToolbar(props) {
   );
 }
 
+/**
+ * Main Inventory management component.
+ * Handles the display and manipulation of inventory data in a DataGrid.
+ * 
+ * @returns {React.Component} The Inventory management component.
+ */
 function Inventory() {
   const [rows, setRows] = React.useState(initialRows);
   const [rowModesModel, setRowModesModel] = React.useState({});
@@ -282,6 +300,12 @@ function Inventory() {
   );
 }
 
+/**
+ * Transforms an array of objects to include an 'id' key based on 'inventory_id'.
+ * 
+ * @param {Array} objects - The array of objects to transform.
+ * @returns {Array} The transformed array with 'id' keys added.
+ */
 function addIDKeys (objects) {
   return objects.map(obj => {
     if (obj.hasOwnProperty('inventory_id')) {

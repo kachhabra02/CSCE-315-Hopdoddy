@@ -3,12 +3,17 @@ import './MenuBoard.css';
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Carousel from 'react-material-ui-carousel';
 
+/**
+ * Displays the menu board with featured items and menu categories.
+ * It fetches menu items and featured items from an API and renders them using cards and a carousel.
+ * 
+ * @returns {React.Component} A component displaying the menu board.
+ */
 function MenuBoard() {
 
   const [menu, setMenu] = useState(undefined);
@@ -111,7 +116,13 @@ function MenuBoard() {
   )
 }
 
-// Styles the item/each individual carousel slide
+/**
+ * Component to style individual items for the carousel.
+ * 
+ * @param {Object} props - Props for the Item component.
+ * @param {Object} props.item - The item to be displayed in the carousel.
+ * @returns {React.Component} A styled item component for the carousel.
+ */
 function Item(props) {
   const { item } = props;
 
@@ -146,7 +157,12 @@ function Item(props) {
     );
 }
 
-// Utility function to shuffle an array
+/**
+ * Utility function to shuffle an array.
+ * 
+ * @param {Array} array - The array to be shuffled.
+ * @returns {Array} The shuffled array.
+ */
 function shuffleArray(array) {
   let currentIndex = array.length,  randomIndex;
 
@@ -165,7 +181,11 @@ function shuffleArray(array) {
   return array;
 }
 
-// Callback function to get 3 featured items
+/**
+ * Fetches featured items for the carousel.
+ * 
+ * @param {function} callback - Callback function to set the state with fetched items.
+ */
 const getFeaturedItems = (callback) => {
   axios.get(`${process.env.REACT_APP_API_URL}/api/menu/view`)
     .then((res) => {
@@ -196,6 +216,11 @@ const getFeaturedItems = (callback) => {
     .catch( error => console.log(error) );
 }
 
+/**
+ * Fetches the full menu from the API.
+ * 
+ * @param {function} callback - Callback function to set the state with the fetched menu.
+ */
 const getMenu = (callback) => {
   axios.get(`${process.env.REACT_APP_API_URL}/api/menu/view`)
     .then((res) => {
