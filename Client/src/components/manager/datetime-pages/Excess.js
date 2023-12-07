@@ -1,3 +1,9 @@
+/**
+ * @module Excess
+ * This module provides the 'Excess Inventory Report' component for the application.
+ * It displays a report of inventory items, showing details such as current quantity, actual usage, and target usage.
+ */
+
 import React from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -72,6 +78,12 @@ const options = {
 };
 
 
+/**
+ * Displays a report of excess inventory.
+ * The report is based on the start time obtained from URL parameters and includes inventory details.
+ * 
+ * @returns {React.Component} A component displaying the 'Excess Inventory Report'.
+ */
 function Excess() {
   const { startTime } = useParams();
   const [data, setData] = useState(undefined);
@@ -80,8 +92,10 @@ function Excess() {
      .then((res) => {
        if (res.status < 300) {
          console.log('Success');
-         setData(res.data.map((item) => [item.inventory_id, item.inventory_name, item.current_quantity, item.unit,
-                                         item.actual_usage, item.target_usage]));
+         setData(res.data.map((item) => [
+          item.inventory_id, item.inventory_name, item.current_quantity, 
+          item.unit, item.actual_usage, item.target_usage
+        ]));
        }
        else {
          console.log(res.data);
