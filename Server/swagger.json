@@ -1,0 +1,213 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0",
+        "title": "Hop Into The New Hopdoddy!",
+        "description": "This documentation is for the server of <a href=\"https://project-3-905-02.vercel.app/\">our new app</a> that reinvents all things Hopdoddy.<br/>This app provides all things necessary to efficiently run the Hopdoddy Burger Bar in Century Square.<br/>Brought to you by Krish Chhabra, Thomas Holt, Eliseo Garza, Donato Curvino, and Josh Scott of Team 905_02. Happy Hoppin'!"
+    },
+    "schemes": ["https"],
+    "host": "project-3-905-02-server.vercel.app",
+    "basePath": "/api",
+    "tags": [
+        {
+            "name": "menu",
+            "description": "Operations for Menu Viewing/Management"
+        },
+        {
+            "name": "inventory",
+            "description": "Operations for Inventory Viewing/Management"
+        },
+        {
+            "name": "transactions",
+            "description": "Operations for Transactions Viewing/Management"
+        },
+        {
+            "name": "reports",
+            "description": "Operations for Special Report Generation"
+        },
+        {
+            "name": "users",
+            "description": "Operations for User Viewing/Management"
+        }
+    ],
+    "paths": {
+        "/menu": {
+            "post": {
+                "tags": ["menu"],
+                "summary": "Add given item to the menu.",
+                "description": ""
+            }
+        },
+        "/menu/view": {
+            "get": {
+                "tags": ["menu"],
+                "summary": "Retrieve details of all items on the menu.",
+                "description": ""
+            }
+        },
+        "/menu/categories": {
+            "get": {
+                "tags": ["menu"],
+                "summary": "Retrieve the unique categories on the menu.",
+                "description": ""
+            }
+        },
+        "/menu/sub-categories": {
+            "get": {
+                "tags": ["menu"],
+                "summary": "Retrieve the unique sub-categories of the given category.",
+                "description": ""
+            }
+        },
+        "/menu/items": {
+            "get": {
+                "tags": ["menu"],
+                "summary": "Retrieve details of menu items in the given category and sub-category.",
+                "description": ""
+            }
+        },
+        "/menu/modifications": {
+            "get": {
+                "tags": ["menu"],
+                "summary": "Retrieve details of modifications available on the given menu item (NOT FULLY SUPPORTED).",
+                "description": ""
+            }
+        },
+        "/menu/item/{id}": {
+            "get": {
+                "tags": ["menu"],
+                "summary": "Retrieve ingredients in the given menu item or modifications.",
+                "description": ""
+            },
+            "delete": {
+                "tags": ["menu"],
+                "summary": "Delete the given item or modification from the menu.",
+                "description": ""
+            },
+            "put": {
+                "tags": ["menu"],
+                "summary": "Update the given item or modification.",
+                "description": ""
+            }
+        },
+        "/inventory": {
+            "get": {
+                "tags": ["inventory"],
+                "summary": "Retrieve details of all items in inventory.",
+                "description": ""
+            },
+            "post": {
+                "tags": ["inventory"],
+                "summary": "Add given item to the inventory.",
+                "description": ""
+            }
+        },
+        "/inventory/{id}": {
+            "put": {
+                "tags": ["inventory"],
+                "summary": "Update details of the given inventory item.",
+                "description": ""
+            },
+            "delete": {
+                "tags": ["inventory"],
+                "summary": "Delete given item from the inventory.",
+                "description": ""
+            }
+        },
+        "/transactions": {
+            "get": {
+                "tags": ["transactions"],
+                "summary": "Retrieve details of transaction history.",
+                "description": ""
+            },
+            "post": {
+                "tags": ["transactions"],
+                "summary": "Places given transaction (add it to the transaction history).",
+                "description": ""
+            }
+        },
+        "/transactions/{id}": {
+            "put": {
+                "tags": ["transactions"],
+                "summary": "Update status of the given transaction.",
+                "description": ""
+            },
+            "delete": {
+                "tags": ["transactions"],
+                "summary": "Delete given transaction from the transaction history.",
+                "description": ""
+            }
+        },
+        "/transactions/deleteCanceled": {
+            "delete": {
+                "tags": ["transactions"],
+                "summary": "Delete all canceled transactions from the transaction history.",
+                "description": ""
+            }
+        },
+        "/reports/popular-pairs": {
+            "get": {
+                "tags": ["reports"],
+                "summary": "Retrieve a report of what items sell together most.",
+                "description": ""
+            }
+        },
+        "/reports/sales": {
+            "get": {
+                "tags": ["reports"],
+                "summary": "Retrieve a report of the total sales of all menu items.",
+                "description": ""
+            }
+        },
+        "/reports/excess": {
+            "get": {
+                "tags": ["reports"],
+                "summary": "Retrieve a report of inventory items that have an excess quantity in stock.",
+                "description": ""
+            }
+        },
+        "/reports/restock": {
+            "get": {
+                "tags": ["reports"],
+                "summary": "Retrieve a report of inventory items that need to be restocked.",
+                "description": ""
+            }
+        },
+        "/reports/product-usage": {
+            "get": {
+                "tags": ["reports"],
+                "summary": "Retrieve a report detailing the usage of all inventory items.",
+                "description": ""
+            }
+        },
+        "/users": {
+            "get": {
+                "tags": ["users"],
+                "summary": "Retrive information on user(s).",
+                "description": ""
+            },
+            "post": {
+                "tags": ["users"],
+                "summary": "Add given user to the database.",
+                "description": ""
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "tags": ["users"],
+                "summary": "Retrive information on given user.",
+                "description": ""
+            },
+            "put": {
+                "tags": ["users"],
+                "summary": "Update information of given user.",
+                "description": ""
+            },
+            "delete": {
+                "tags": ["users"],
+                "summary": "Delete given user from the database.",
+                "description": ""
+            }
+        }
+    }
+}

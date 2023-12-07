@@ -11,6 +11,9 @@ import MUIDataTable from "mui-datatables";
 
 import { registerDateTimePage } from './PageInput';
 
+import DeleteIcon from '@mui/icons-material/Delete';
+import ConfirmationOnClickElement from '../../admin/ConfirmationOnClickElement';
+
 import axios from 'axios';
 
 const API = axios.create({
@@ -180,8 +183,21 @@ function History() {
         const new_alerts = [...alerts];
 
         const item_info = rowsDeleted.data.map((item) => data[item.dataIndex]);
-        await Promise.all(item_info.map(async (item) => deleteItem(item, new_alerts)));
 
+        var confirmation = window.confirm(`Are you sure you would like to delete transactions from the following times?\n\n${item_info.map((i) => (i[1])).join(', ')}`);
+        if (confirmation) {
+            await Promise.all(item_info.map(async (item) => deleteItem(item, new_alerts)));
+        }
+        else {
+            new_alerts.unshift(
+                {
+                  severity: 'info',
+                  text: `Canceled Deletion of ${item_info.length} Transactions(s)`
+                }
+            );
+        }
+
+        
         console.log([...new_alerts]);
         setAlerts(new_alerts);
         loadHistory();
@@ -197,13 +213,7 @@ function History() {
       <br/><br/>
       {'Start Time: ' + (new Date(startTime)).toLocaleString(navigator.language)}<br/>
       {'End Time: ' + (new Date(endTime)).toLocaleString(navigator.language)}
-      <br/><br/>
-      
-      <Button sx={{ minWidth: '20em' }} variant='contained' onClick={() => deleteCanceled()}>
-        {'Delete All Canceled Orders'}
-      </Button>
-      
-      <br/><br/>
+      <br/><br/><br/>
       
       <Stack spacing={1}>
         {
@@ -215,6 +225,22 @@ function History() {
         }
       </Stack>
       
+      <br/>
+
+      {data === undefined ? (<Box></Box>) :
+        <ConfirmationOnClickElement
+          Element={Button} 
+          title='Delete Canceled Transactions?'
+          body='The deleted transactions will be removed from the transaction history and will not be recoverable.'
+          variant='outlined'
+          color='error'
+          confirmColor='warning'
+          onClick={() => deleteCanceled()}
+          startIcon={<DeleteIcon color="error" />}
+          children={'Delete All Canceled Orders'}
+        />
+      }
+
       <br/>
 
       {data === undefined ? <CircularProgress /> :
