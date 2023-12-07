@@ -18,7 +18,7 @@ import ShoppingCart from "./ShoppingCart";
  * Clicking the button opens the ShoppingCart component.
  * 
  * @param {Object} props - Component props.
- * @param {Function} props.onUpdate - Function to call when the cart needs to be updated.
+ * @param {Function} props.onUpdate - Function to call when the cart needs to be updated - is drilled from App which forces a rerender of the NavBar and ShoppingCart.
  * @returns {React.Component} The cart button component.
  */
 function CartButton({onUpdate}) {

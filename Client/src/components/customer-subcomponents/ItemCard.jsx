@@ -27,9 +27,9 @@ const priceFormat = new Intl.NumberFormat("en-US", {
 /**
  * @param {Object} props - Component props.
  * @param {Object} props.item - Item data, including item_name, price, and item_description.
- * @param {Function} props.onUpdate - Function to call when an update is needed.
+ * @param {Function} props.onUpdate - Function to call when an update is needed - is drilled from App which forces a rerender of the NavBar and ShoppingCart.
  * @param {number} props.width - Width of the item card.
- * @param {Function} props.modifier - Function to execute when the item card is clicked.
+ * @param {Function} props.modifier - Function to execute when the item card is clicked - opens the modifications popup with the correct data.
  * @returns {React.Component} An item card with details and interaction.
  */
 function ItemCard({item, onUpdate, width, modifier}) {

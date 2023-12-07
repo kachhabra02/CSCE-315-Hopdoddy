@@ -12,7 +12,7 @@ import "./customer-subcomponents/Customer.css";
  * The Customer component represents the customer interface in the application.
  * It allows for displaying categories, items, and handling item modifications.
  * 
- * @param {function} onUpdate - A callback function that gets triggered on updates, such as item addition or modification.
+ * @param {function} onUpdate - A callback function that gets triggered on updates - is drilled from App which forces a rerender of the NavBar and ShoppingCart.
  */
 function Customer({onUpdate}) {
     const [{categories, items, modifications}, {getItems, getModifications}] = useAPI();
@@ -27,9 +27,9 @@ function Customer({onUpdate}) {
      * @param {number} id - The ID of the item to modify.
      * @param {Object} item - The item object that is to be modified.
      */
-    const openModPanel = (id) => (item) => () => {
-        console.log(selected?.category, selected?.subcategory, id)
-        getModifications(id, selected?.subcategory, selected?.category)();
+    const openModPanel = (item) => () => {
+        // console.log(selected?.category, selected?.subcategory, id)
+        getModifications(item.item_id, selected?.subcategory, selected?.category)();
         setModdedItem(item);
         setIsModOpen(true);
     }
