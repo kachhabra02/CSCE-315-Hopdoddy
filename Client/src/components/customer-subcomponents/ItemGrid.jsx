@@ -4,6 +4,20 @@ import Grid from '@mui/material/Grid';
 
 import ItemCard from "./ItemCard";
 
+/**
+ * This module provides a React component for displaying a grid of item cards. 
+ * It adjusts the spacing between cards based on the container width and window size.
+ * @module ItemGrid
+ */
+
+/**
+ * @param {Object} props - Component props.
+ * @param {Array} props.items - An array of item data to be displayed as cards.
+ * @param {Function} props.onUpdate - Function to call when an update is needed.
+ * @param {Object} props.sx - Additional styles to apply to the grid container.
+ * @param {Function} props.modifier - Function to execute when an item card is clicked.
+ * @returns {React.Component} A grid of item cards with dynamic spacing.
+ */
 function ItemGrid({items, onUpdate, sx, modifier}) {
     const [spacing, setSpacing] = useState(0);
     const [size, setSize] = useState([window.innerWidth, window.innerHeight]);

@@ -26,6 +26,19 @@ const priceFormat = new Intl.NumberFormat("en-US", {
     minimumFractionDigits: 2,
 });
 
+/**
+ * This module provides a React component for displaying a shopping cart with items.
+ * Users can view and manage items in the cart, remove items, and submit their transaction.
+ * @module ShoppingCart
+ */
+
+/**
+ * @param {Object} props - Component props.
+ * @param {boolean} props.open - Whether the shopping cart is open.
+ * @param {Function} props.onClose - Function to close the shopping cart.
+ * @param {Function} props.onUpdate - Function to call when an update is needed.
+ * @returns {React.Component} A shopping cart with options to manage items and submit a transaction.
+ */
 function ShoppingCart({open, onClose, onUpdate}) {
     const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")));
     const [alertStatus, setAlertStatus] = useState({open: false, status: "error"});

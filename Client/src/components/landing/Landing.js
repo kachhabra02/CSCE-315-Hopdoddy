@@ -1,3 +1,9 @@
+/**
+ * This module provides the Landing page component for the Hopdoddy application. It includes functionality
+ * for displaying weather data, location information, and navigation to the order page.
+ * @module Landing
+ */
+
 import { Box } from '@mui/material';
 import { Card, CardHeader, CardContent, Typography, Button} from '@mui/material';
 import './Landing.css';
@@ -7,6 +13,11 @@ import React, { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom';
 
 
+/**
+ * Fetches weather data and sets the result in the state.
+ * 
+ * @param {Function} setWeatherResult - The setState function to update weather data.
+ */
 function getWeather(setWeatherResult) {
   const baseURL = "https://api.openweathermap.org/data/2.5/";
   const zipcode = 77840;
@@ -21,6 +32,12 @@ function getWeather(setWeatherResult) {
   .catch(error => console.error('Error fetching weather data:', error));
 }
 
+/**
+ * Renders a weather information card.
+ * 
+ * @param {Object} weatherData - The weather data to display.
+ * @returns {React.Component} A card component showing weather information.
+ */
 function WeatherCard(weatherData) {
   // Destructuring condition to pass on later
   const condition = weatherData.weather.length > 0 ? weatherData.weather[0].main : "Not available";
@@ -38,7 +55,12 @@ function WeatherCard(weatherData) {
   );
 }
 
-// Used to create a card displaying Hopdoddy's address
+/**
+ * Renders an address card for a specific location.
+ * 
+ * @param {Object} props - Props containing padding information.
+ * @returns {React.Component} A card component showing the location address.
+ */
 function AddressCard({ padding }) {
   const street = "144 Century Ct Suite 103";
   const cityStateZip = "College Station, TX 77840";
@@ -54,6 +76,11 @@ function AddressCard({ padding }) {
   );
 }
 
+/**
+ * Landing component displaying Hopdoddy's location, weather information, and a link to order now.
+ * 
+ * @returns {React.Component} The Landing page component.
+ */
 function Landing() {
   const [weatherResult, setWeatherResult] = useState({});
 
