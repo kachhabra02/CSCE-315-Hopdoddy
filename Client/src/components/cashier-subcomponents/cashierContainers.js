@@ -16,6 +16,18 @@ export const WrapContainer = styled('div')({
 
 const spacing = 1;
 
+/**
+ * Module containing the DynamicButtonGrid component.
+ * @module DynamicButtonGrid
+ */
+
+/**
+ * A horizontally scrollable or wrapable grid for rendering elements or buttons.
+ * @param {Object} props - The component props.
+ * @param {ReactNode} props.children - The elements or buttons to be displayed in the grid.
+ * @param {boolean} props.shouldScroll - Determines if the grid should be horizontally scrollable.
+ * @returns {JSX.Element} The rendered component.
+ */
 export function DynamicButtonGrid({ children, shouldScroll }) {
   return (
     <Box>

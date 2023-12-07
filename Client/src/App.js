@@ -1,3 +1,13 @@
+/**
+ * Main Application Module
+ *
+ * This module serves as the entry point for the application and contains the main App component.
+ * It includes routing configuration, theme setup, and initialization of essential components and services.
+ * The App component handles routing and provides a consistent theme for the entire application.
+ *
+ * @module App
+ */
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import React, { useEffect } from 'react';
 

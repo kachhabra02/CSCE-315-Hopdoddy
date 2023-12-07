@@ -2,6 +2,16 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 
 /**
+ * API Interaction Module
+ *
+ * This module contains an Axios instance for making API requests and a custom hook for interacting with the API.
+ * The useAPI hook provides functions to fetch categories, subcategories, items, and modifications from the API.
+ * It is designed to be used across various components like Cashier and Customer to handle menu data retrieval.
+ *
+ * @module useAPI
+ */
+
+/**
  * Axios instance for making API requests.
  */
 const API = axios.create({
