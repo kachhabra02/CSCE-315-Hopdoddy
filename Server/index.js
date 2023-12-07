@@ -17,7 +17,8 @@ const users = require('./restAPI/users');
 // Add other middleware to be used
 const cors = require('cors');
 app.use(cors());
-app.use(express.json()); // parses JSON payloads/body
+const bodyParser = require("body-parser");
+app.use(bodyParser.json());
 
 // Add routes to the app
 app.use("/api/transactions", transactions);
@@ -32,10 +33,10 @@ app.get('/api', (req, res) => {
 });
 
 // Swagger Docs Requirements
+
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
-const CSS_URL = "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css"; // CDN CSS
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, { customCssUrl: CSS_URL }));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Begin listening on determined port
 app.listen(port, () => {
