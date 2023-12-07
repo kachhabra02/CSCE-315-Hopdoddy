@@ -34,7 +34,7 @@ app.get('/api', (req, res) => {
 // Swagger Docs Requirements
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
-app.use('/api-docs', express.static('node_modules/swagger-ui-dist/', {index: false}), swaggerUi.serve, swaggerUi.setup(swaggerDocument, {}));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {}));
 
 // Begin listening on determined port
 app.listen(port, () => {
