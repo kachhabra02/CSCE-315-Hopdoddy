@@ -2,11 +2,6 @@
 const express = require('express');
 const app = express();
 
-// Swagger Docs Requirements
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger.json');
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
 // Configure port to listen on
 require('dotenv').config();
 const address = (process.env.ADDRESS || "http://localhost");
@@ -18,6 +13,12 @@ const menu = require('./restAPI/menu');
 const inventory = require('./restAPI/inventory');
 const reports = require('./restAPI/reports');
 const users = require('./restAPI/users');
+
+// Swagger Docs Requirements
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+const CSS_URL = "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css"; // CDN CSS
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, { customCssUrl: CSS_URL }));
 
 // Add other middleware to be used
 const cors = require('cors');
@@ -35,6 +36,7 @@ app.use("/api/users", users);
 app.get('/api', (req, res) => {
   res.send('Hello, World!');
 });
+
 
 // Begin listening on determined port
 app.listen(port, () => {
