@@ -13,15 +13,17 @@ import ItemCard from "./ItemCard";
  * This module provides components for rendering a nested accordion structure in a React application. 
  * It includes CategoryAccordions, SubcategoryAccordions, and ItemAccordions components, 
  * which display hierarchical data in an expandable format.
+ * @deprecated Use SideCategoryList instead
  * @module CategoryAccordions
  */
 
 /**
  * Renders accordions for each category. Each accordion contains subcategory accordions.
  * 
+ * @deprecated Use SideCategoryList instead.
  * @param {Object} props - Component props.
  * @param {Array} props.categories - Array of category objects.
- * @param {Function} props.onUpdate - Function to call when an update is needed.
+ * @param {Function} props.onUpdate - Function to call when an update is needed - is drilled from App which forces a rerender of the NavBar and ShoppingCart.
  * @returns {React.Component} A list of category accordions.
  */
 function CategoryAccordions({categories, onUpdate}) {
@@ -40,6 +42,7 @@ function CategoryAccordions({categories, onUpdate}) {
 /**
  * Renders accordions for each subcategory under a category. Each accordion contains item accordions.
  * 
+ * @deprecated Use SideCategoryList instead.
  * @param {Object} props - Component props.
  * @param {string} props.category - The parent category name.
  * @param {Function} props.onUpdate - Function to call when an update is needed.
@@ -69,6 +72,7 @@ function SubcategoryAccordions({category, onUpdate, defaultExpanded}) {
 /**
  * Renders an accordion for a subcategory containing items.
  * 
+ * @deprecated Use SideCategoryList instead.
  * @param {Object} props - Component props.
  * @param {string} props.category - The parent category name.
  * @param {string} props.subcategory - The subcategory name.

@@ -35,8 +35,8 @@ const priceFormat = new Intl.NumberFormat("en-US", {
 /**
  * @param {Object} props - Component props.
  * @param {boolean} props.open - Whether the shopping cart is open.
- * @param {Function} props.onClose - Function to close the shopping cart.
- * @param {Function} props.onUpdate - Function to call when an update is needed.
+ * @param {Function} props.onClose - Function to call when the popup requests to be closed.
+ * @param {Function} props.onUpdate - Function to call when an update is needed - is drilled from App which forces a rerender of the NavBar and ShoppingCart.
  * @returns {React.Component} A shopping cart with options to manage items and submit a transaction.
  */
 function ShoppingCart({open, onClose, onUpdate}) {

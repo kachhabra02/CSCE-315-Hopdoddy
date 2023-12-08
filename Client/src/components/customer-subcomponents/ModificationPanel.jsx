@@ -20,10 +20,10 @@ import ItemButton from "../cashier-subcomponents/ItemButton";
 /**
  * @param {Object} props - Component props.
  * @param {boolean} props.open - Whether the modification panel is open.
- * @param {Function} props.onClose - Function to close the modification panel.
+ * @param {Function} props.onClose - Function to call when the popup requests to be closed.
  * @param {Array} props.modifications - An array of modification options.
  * @param {Object} props.item - The item to which modifications apply.
- * @param {Function} props.onUpdate - Function to call when an update is needed.
+ * @param {Function} props.onUpdate - Function to call when an update is needed - is drilled from App which forces a rerender of the NavBar and ShoppingCart.
  * @returns {React.Component} A modification panel with options to select modifications and add to the cart.
  */
 function ModificationPanel({open, onClose, modifications, item, onUpdate}) {
