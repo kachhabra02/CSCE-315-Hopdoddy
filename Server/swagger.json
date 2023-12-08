@@ -8,6 +8,12 @@
     "schemes": ["https"],
     "host": "project-3-905-02-server.vercel.app",
     "basePath": "/api",
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
     "tags": [
         {
             "name": "menu",
@@ -35,14 +41,33 @@
             "post": {
                 "tags": ["menu"],
                 "summary": "Add given item to the menu.",
-                "description": ""
+                "description": "",
+                "requestBody": [
+                    
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Addition of Menu Item"
+                    },
+                    "default": {
+                        "description": "Error sending query"
+                    }
+                }
             }
         },
         "/menu/view": {
             "get": {
                 "tags": ["menu"],
                 "summary": "Retrieve details of all items on the menu.",
-                "description": ""
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "Successful Addition of Menu Item"
+                    },
+                    "default": {
+                        "description": "Error sending query"
+                    }
+                }
             }
         },
         "/menu/categories": {
