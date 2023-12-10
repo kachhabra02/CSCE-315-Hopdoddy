@@ -134,7 +134,7 @@ function App() {
             {route('/admin', Admin, AGuard)}
             {route('/menu', Menu)}
             {route('*', NotFound)}
-            {route('/cashier', Cashier)}
+            {route('/cashier', Cashier, CGuard)}
             <Route path="/customer" element={<Customer onUpdate={setCart}/>} />
             {/* Weird redering if I use route() for Customer */}
             {/* suggest turning route() into RoutedElement({path, guard, children}) */}
