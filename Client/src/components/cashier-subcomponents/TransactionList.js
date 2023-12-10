@@ -61,9 +61,17 @@ function TransactionList({ orders, remover }) {
       <TableBody>
         {orders.map((item, index) => (
         <TableRow key={index}>
-          <StyledTableCell component="th" scope="row">
-            {item.item_name}
-          </StyledTableCell>
+          {item?.is_modification
+            ? (
+              <StyledTableCell component="th" scope="row" sx={{pl: 4, fontSize: "1rem",}}>
+                {`+ ${item.item_name}`}
+              </StyledTableCell>
+            ) : (
+              <StyledTableCell component="th" scope="row">
+                {item.item_name}
+              </StyledTableCell>
+            )
+          }
           <StyledTableCell align="right">{priceFormat.format(parseFloat(item.price))}</StyledTableCell>
           <StyledTableCell align="right">
           <StyledButton color="error" onClick={remover(index)}>

@@ -19,6 +19,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import TransactionTracking from "./cashier-subcomponents/TransactionTracking.js";
 
+import ModificationPanel from "./customer-subcomponents/ModificationPanel.jsx";
+
 // const API = axios.create({
 //   baseURL: `${process.env.REACT_APP_API_URL}/api`,
 //   timeout: 10000 // 10 second timeout
@@ -45,9 +47,17 @@ function Cashier() {
   const [orders, setOrders] = useState([]);
   const [alertStatus, setAlertStatus] = useState({open: false, status: "error"});
 
-  const [{categories, subcategories, items, currCategory, currSubcategory}, {getItems, getSubcategories}] = useAPI();
+  const [{categories, subcategories, items, currCategory, currSubcategory, modifications}, {getItems, getSubcategories, getModifications}] = useAPI();
   
   const [value, setValue] = useState(0);
+
+  const [isModOpen, setIsModOpen] = useState(false);
+  const [moddedItem, setModdedItem] = useState(null);
+  const openModPanel = (item) => () => {
+    getModifications(item.item_id, currSubcategory, currCategory)();
+    setModdedItem(item);
+    setIsModOpen(true);
+  }
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -58,7 +68,22 @@ function Cashier() {
   }
 
   function removeOrder(index) {
-    return () => setOrders(orders.toSpliced(index, 1));
+    return () => {
+      // find first non-modification after index
+      const numMods = (orders[index]?.is_modification 
+        ? 0
+        : orders.findIndex((item, i) => i > index && !item?.is_modification) - index - 1
+      );
+      // console.log(numMods)
+      const newCart = orders.toSpliced(index, 1 + (numMods >= 0 ? numMods : (orders.length - index)));
+      if (newCart.length === 0) {
+        localStorage.removeItem("cart");
+        setOrders([]);
+      } else {
+        localStorage.setItem("cart", JSON.stringify(newCart));
+        setOrders(newCart);
+      }
+    };
   }
 
   function placeTransaction() {
@@ -153,7 +178,7 @@ function Cashier() {
               }
               {(items === null) 
                 ? <Box sx={{borderTop: 1}}><CircularProgress/></Box>
-                : <Box sx={{borderTop: 1}}><ItemList items={items} clickHandler={addOrder}/></Box>
+                : <Box sx={{borderTop: 1}}><ItemList items={items} clickHandler={openModPanel}/></Box>
               }
             </Grid>
           </FullHeightGrid>
@@ -175,6 +200,7 @@ function Cashier() {
       <CustomTabPanel value={value} index={1}>
         <TransactionTracking />
       </CustomTabPanel>
+      <ModificationPanel item={moddedItem} open={isModOpen} onClose={() => setIsModOpen(false)} modifications={modifications} cart={orders} setCart={setOrders}/>
     </>
   );
 }
