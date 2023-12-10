@@ -23,7 +23,8 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, { customC
 // Add other middleware to be used
 const cors = require('cors');
 app.use(cors());
-app.use(express.json()); // parses JSON payloads/body
+const bodyParser = require("body-parser");
+app.use(bodyParser.json());
 
 // Add routes to the app
 app.use("/api/transactions", transactions);
