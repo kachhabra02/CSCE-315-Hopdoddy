@@ -19,6 +19,8 @@ const API = axios.create({
     timeout: 10000 // 10 second timeout
 });
 
+const getUnique = (item, i, arr) => arr.findIndex(({item_name}) => item_name === item.item_name) === i;
+
 /**
  * Custom hook for interacting with the API.
  * This hook provides functions to fetch categories, subcategories, items, and modifications.
@@ -26,6 +28,8 @@ const API = axios.create({
  * 
  * @returns {Array} An array containing two elements: state and API functions.
  */
+// Custom hook that calls API functions
+// Can be used from both Cashier and Customer
 const useAPI = () => {
     const [categories, setCategories] = useState();
     const [subcategories, setSubcategories] = useState([]);
@@ -116,15 +120,21 @@ const useAPI = () => {
      * @returns {Function} A function to be invoked to perform the fetch operation.
      */
     function getModifications(id, subcategoryName, categoryName) {
+        const specify = (
+            categoryName === "Burgers"
+                ? ({item_name}) => ["Tillamook Cheddar", "Daily's Bacon", "Make it Vegan", "Chicken"].some(e => e === item_name)
+                : ({item_name}) => ["big", "small", "mini"].concat(subcategoryName === "Margaritas" ? ["Schooner"] : []).some(e => e === item_name)
+        );
+
         return () => {
             setModifiactions(null)
             API.get(`/menu/modifications?category=${categoryName}&subcategory=${subcategoryName}&id=${id}`)
                 .then((res) => {
                     if (res.status < 300) {
-                        console.log(res.data)
-                        setModifiactions(res.data);
+                        // console.log(res.data.filter(getUnique))
+                        setModifiactions(res.data.filter(getUnique).filter(specify));
                     } else {
-                        console.log(res.data);
+                        // console.log(res.data);
                         setModifiactions([{item_name: "Error retrieving items"}]);
                     }
                 })
