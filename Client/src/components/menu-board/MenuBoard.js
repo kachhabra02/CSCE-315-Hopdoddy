@@ -194,8 +194,8 @@ const getFeaturedItems = (callback) => {
 
         let featuredItems = items.filter(item => item.feature_item && item.display_item);
 
-        // If featuredItems is less than 3, add random items
-        while (featuredItems.length < 3) {
+        // If featuredItems is less than 5, add random items
+        while (featuredItems.length < 5) {
           // Shuffle the array and find items that are not already in featuredItems
           const additionalItems = shuffleArray(items)
             .filter(item => 
@@ -205,10 +205,10 @@ const getFeaturedItems = (callback) => {
           );
 
           // Take as many items as needed to fill up to 3
-          featuredItems = featuredItems.concat(additionalItems.slice(0, 3 - featuredItems.length));
+          featuredItems = featuredItems.concat(additionalItems.slice(0, 5 - featuredItems.length));
         }
 
-        featuredItems = featuredItems.slice(0, 3);
+        featuredItems = featuredItems.slice(0, 5);
 
         callback(featuredItems);
       }

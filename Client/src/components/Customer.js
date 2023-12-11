@@ -38,7 +38,7 @@ function Customer({onUpdate}) {
     // const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")));
     // console.log(document.getElementById("testdiv")?.getBoundingClientRect().width)
     // console.log(document.getElementById("grid")?.getBoundingClientRect().width)
-    console.log(selected)
+    // console.log(selected)
 
     return (
         <div 

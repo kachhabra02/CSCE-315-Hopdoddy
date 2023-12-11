@@ -26,7 +26,7 @@ import ItemButton from "../cashier-subcomponents/ItemButton";
  * @param {Function} props.onUpdate - Function to call when an update is needed - is drilled from App which forces a rerender of the NavBar and ShoppingCart.
  * @returns {React.Component} A modification panel with options to select modifications and add to the cart.
  */
-function ModificationPanel({open, onClose, modifications, item, onUpdate}) {
+function ModificationPanel({open, onClose, modifications, item, onUpdate, cart, setCart}) {
     // console.log(modifications)
     const [modsSelected, setModsSelected] = useState([false]);
     const selectButton = (i) => () => {
@@ -40,7 +40,7 @@ function ModificationPanel({open, onClose, modifications, item, onUpdate}) {
     }
     
     function sendToCart() {
-        const orders = JSON.parse(localStorage.getItem("cart"));
+        const orders = cart || JSON.parse(localStorage.getItem("cart"));
         // const orders = localStorage.getItem("cart");
         // console.log(orders);
         const newOrders = (orders?.concat([item]) ?? [item]).concat(
@@ -48,8 +48,8 @@ function ModificationPanel({open, onClose, modifications, item, onUpdate}) {
             .filter(item => item)
         );
         // console.log(newOrders)
-        onUpdate({});
-        localStorage.setItem("cart", JSON.stringify(newOrders));
+        onUpdate && onUpdate({});
+        setCart ? setCart(newOrders) : localStorage.setItem("cart", JSON.stringify(newOrders));
         onExit();
     }
 
@@ -61,7 +61,7 @@ function ModificationPanel({open, onClose, modifications, item, onUpdate}) {
             <DialogContent dividers>
                 <Grid container spacing={2} sx={{width: 464}}> { 
                     modifications?.map((item, i) => (
-                        <Grid item>
+                        <Grid item key={i}>
                             <ItemButton width={100} height={50} fontSize={15} selected={modsSelected[i]} onClick={selectButton(i)}>
                                 {item.item_name}
                             </ItemButton>
