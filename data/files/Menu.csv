@@ -22,21 +22,21 @@
 21,Crispy Tenders,Burgers,Speciality,11.5,FALSE,TRUE,TRUE,TRUE,FALSE,Hand-breaded crispy chicken tenders tossed with your choice of sauce.  Served with Alabama comeback sauce & HD ranch
 22,Kale Ceasar,Salads,Regular,6.95,FALSE,TRUE,TRUE,TRUE,FALSE,"Fresh greens tossed in creamy caesar dressing, topped with shaved parmesan & magic crouton dust"
 23,Chicken,,,4,TRUE,TRUE,FALSE,FALSE,FALSE,No description
-24,Parmesan Truffle,Sides,Fries,8.25,FALSE,TRUE,TRUE,TRUE,FALSE,"Hand-cut fries tossed with Truffle Oil, Parmesan & Chives. Served with Truffle Aioli. (Gluten Friendly)"
-25,Green Chile Queso,Sides,Fries,7.95,FALSE,TRUE,TRUE,TRUE,FALSE,Hand-cut fries served with our famous Queso for dipping (Gluten Friendly).
-26,Hot Honey & Sage,Sides,Fries,8.95,FALSE,TRUE,TRUE,TRUE,TRUE,Sweet potato fries tossed with hot honey sauce & crispy sage (Gluten Friendly).
-27,Buffalo,Sides,Fries,7.75,FALSE,TRUE,TRUE,TRUE,FALSE,"Hand-cut fries tossed with buffalo sauce, topped with blue cheese crumbles & served with side of HD ranch (Gluten Friendly)."
-28,BBQ Ranch,Sides,Fries,7.25,FALSE,TRUE,TRUE,TRUE,FALSE,Hand-cut fries tossed with bbq seasoning & served with HD ranch (Gluten Friendly).
-29,Nacho,Sides,Fries,9.25,FALSE,TRUE,TRUE,TRUE,FALSE,"Hand-cut fries loaded with queso, pico de gallo, avocado & sour cream (Gluten Friendly)."
+24,Parmesan Truffle Fries,Sides,Fries,8.25,FALSE,TRUE,TRUE,TRUE,FALSE,"Hand-cut fries tossed with Truffle Oil, Parmesan & Chives. Served with Truffle Aioli. (Gluten Friendly)"
+25,Green Chile Queso Fries,Sides,Fries,7.95,FALSE,TRUE,TRUE,TRUE,FALSE,Hand-cut fries served with our famous Queso for dipping (Gluten Friendly).
+26,Hot Honey & Sage Fries,Sides,Fries,8.95,FALSE,TRUE,TRUE,TRUE,TRUE,Sweet potato fries tossed with hot honey sauce & crispy sage (Gluten Friendly).
+27,Buffalo Fries,Sides,Fries,7.75,FALSE,TRUE,TRUE,TRUE,FALSE,"Hand-cut fries tossed with buffalo sauce, topped with blue cheese crumbles & served with side of HD ranch (Gluten Friendly)."
+28,BBQ Ranch Fries,Sides,Fries,7.25,FALSE,TRUE,TRUE,TRUE,FALSE,Hand-cut fries tossed with bbq seasoning & served with HD ranch (Gluten Friendly).
+29,Nacho Fries,Sides,Fries,9.25,FALSE,TRUE,TRUE,TRUE,FALSE,"Hand-cut fries loaded with queso, pico de gallo, avocado & sour cream (Gluten Friendly)."
 30,Hand-cut Fries,Sides,Fries,6.95,FALSE,TRUE,TRUE,TRUE,FALSE,"Hand-cut daily in our restaurants, served with ketchup (Gluten Friendly)."
 31,small,,,3.75,TRUE,TRUE,FALSE,FALSE,FALSE,No description
-32,Sweet Potato,Sides,Fries,8.25,FALSE,TRUE,TRUE,TRUE,FALSE,Sweet potato fries served with Chipotle Aioli (Gluten Friendly).
+32,Sweet Potato Fries,Sides,Fries,8.25,FALSE,TRUE,TRUE,TRUE,FALSE,Sweet potato fries served with Chipotle Aioli (Gluten Friendly).
 33,small,,,4.75,TRUE,TRUE,FALSE,FALSE,FALSE,No description
-34,Parmesan Truffle,Sides,Loaded Brussels,9.25,FALSE,TRUE,TRUE,TRUE,FALSE,"Crispy brussels tossed with Truffle Oil, Parmesan & Chives. Served with Truffle Aioli."
-35,Hot Honey & Sage,Sides,Loaded Brussels,9.95,FALSE,TRUE,TRUE,TRUE,FALSE,Crispy brussels tossed with hot honey sauce & fried sage.
+34,Parmesan Truffle Brussels,Sides,Loaded Brussels,9.25,FALSE,TRUE,TRUE,TRUE,FALSE,"Crispy brussels tossed with Truffle Oil, Parmesan & Chives. Served with Truffle Aioli."
+35,Hot Honey & Sage Brussels,Sides,Loaded Brussels,9.95,FALSE,TRUE,TRUE,TRUE,FALSE,Crispy brussels tossed with hot honey sauce & fried sage.
 36,Thunderbird Bowl,Salads,Burger Bowls,11.75,FALSE,TRUE,TRUE,TRUE,FALSE,"Our house greens tossed with pepper jack cheese, steakhouse bacon, seared poblanos, pico de gallo, avocado, lettuce & chipotle aioli sauce. Topped with our fresh ground chicken patty. (Gluten Friendly)"
 37,El Diablo Bowl,Salads,Burger Bowls,10.5,FALSE,TRUE,TRUE,TRUE,FALSE,"Our house greens tossed with pepper jack cheese, roasted habaneros & serranos, caramelized onions, salsa roja, tomato & chipotle aioli sauce. Topped with our classic beef patty. This burger bowl brings the heat! (Gluten Friendly)"
-38,Shroom Bowl,Salads,Burger Bowls,10.95,FALSE,TRUE,TRUE,TRUE,FALSE,"Our house greens tossed with tomato, onion, creamy goat cheese, field mushrooms, mayo & basil pesto sauce.  Topped with our classic beef patty. (Gluten Friendly)"
+38,Magic Shroom Bowl,Salads,Burger Bowls,10.95,FALSE,TRUE,TRUE,TRUE,FALSE,"Our house greens tossed with tomato, onion, creamy goat cheese, field mushrooms, mayo & basil pesto sauce.  Topped with our classic beef patty. (Gluten Friendly)"
 39,Ahi Tuna Bowl,Salads,Burger Bowls,14.95,FALSE,TRUE,TRUE,TRUE,FALSE,"Our house greens tossed with tomato, teriyaki, cucumber wasabi & mayo then topped with a fresh ground sushi-grade tuna patty seared rare, nori chips & pickled ginger."
 40,Candy Bar,Drinks,Shakes,6.75,FALSE,TRUE,TRUE,TRUE,FALSE,"Our signature custard blended with peanut butter mousse, dark chocolate, sea salt, Brothers Bond Bourbon caramel sauce, topped with whipped cream & peanuts."
 41,mini,,,3.85,TRUE,TRUE,FALSE,FALSE,FALSE,No description
