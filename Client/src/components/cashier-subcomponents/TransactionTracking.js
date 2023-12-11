@@ -123,7 +123,7 @@ function TransactionTracking() {
     {
       name: 'Status',
       options: {
-        filter: false,
+        filter: true,
         sort: true,
         customBodyRender: status => {
           return <Chip

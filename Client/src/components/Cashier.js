@@ -18,6 +18,7 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import TransactionTracking from "./cashier-subcomponents/TransactionTracking.js";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import ModificationPanel from "./customer-subcomponents/ModificationPanel.jsx";
 
@@ -59,6 +60,8 @@ function Cashier() {
     setIsModOpen(true);
   }
 
+  const {user} = useAuth0();
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -89,7 +92,7 @@ function Cashier() {
   function placeTransaction() {
     axios.post(`${process.env.REACT_APP_API_URL}/api/transactions`, {
       // TODO: change email to an actual email obtained from logging in
-      email: "tmholt02@tamu.edu",
+      email: (user.email) ? user.email : "tmholt02@tamu.edu",
       menuIDs: orders.map((item) => item.item_id)
     })
       .then((res) => {
